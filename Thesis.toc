@@ -15,7 +15,7 @@
 \contentsline {section}{\numberline {3.1}C\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention}{16}{section.3.1}
 \contentsline {section}{\numberline {3.2}Attention To\IeC {\`a}n c\IeC {\d u}c}{20}{section.3.2}
 \contentsline {section}{\numberline {3.3}Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }}{21}{section.3.3}
-\contentsline {section}{\numberline {3.4}Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p Input feeding}{24}{section.3.4}
+\contentsline {section}{\numberline {3.4}Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p Input feeding}{25}{section.3.4}
 \contentsline {section}{\numberline {3.5}K\IeC {\~\i } thu\IeC {\d \acircumflex }t thay th\IeC {\'\ecircumflex } t\IeC {\`\uhorn } hi\IeC {\'\ecircumflex }m}{26}{section.3.5}
 \contentsline {chapter}{\numberline {4}C\IeC {\'a}c K\IeC {\'\ecircumflex }t Qu\IeC {\h a} Th\IeC {\d \uhorn }c Nghi\IeC {\d \ecircumflex }m}{30}{chapter.4}
 \contentsline {section}{\numberline {4.1}C\IeC {\'a}c thi\IeC {\'\ecircumflex }t l\IeC {\d \acircumflex }p th\IeC {\d \uhorn }c nghi\IeC {\d \ecircumflex }m}{30}{section.4.1}
