@@ -57,16 +57,6 @@ Trong công thức trên, $W_{hy}$, $b_y$ là những tham số gắn với đ�
 Để ý rằng các ma trận trọng số $W_{xh}$, $W_{hh}$, $W_{hy}$ và các vector bias $b_h$, $b_y$ là các tham số học của mô hình và chúng là duy nhất. Có nghĩa là khi những tham số này được học, bất kỳ một đầu vào nào cũng đều sử dụng chung một bộ tham số. Điều này chính là \textit{sự chia sẻ tham số} (parameters sharing) trong mạng nơ-ron hồi quy. Chia sẻ tham số khiến cho mô hình học dễ dàng hơn, nó giúp cho RNN có thể xử lý chuỗi đầu vào với độ dài bất kỳ mà không làm tăng độ phức tạp của mô hình. Quan trọng hơn, nó giúp ích cho việc tổng quát hóa. Đây chính là điểm đặc biệt của RNN so với mạng nơ-ron truyền thẳng.
 
 Hình \ref{fig_rnn_loop} thể hiện định nghĩa hồi quy của RNN, và nó đúng cho chuỗi có độ dài bất kỳ. Với một số lượng hữu hạn các bước thời gian, mô hình RNN có thể được dàn trải ra (unrolled). Dạng dàn trải của RNN được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với một tầng cho mỗi bước thời gian và các tham số học được chia sẻ giữa các bước thời gian đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là \textit{Lan truyền ngược qua thời gian} (Backpropagation through time) \cite{werbos1990}. Tất cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này.
-%bằng cách áp dụng định nghĩa $\tau$ lần. Ví dụ với thời điểm $\tau = 3$, chúng ta có:
-
-%\begin{equation} \label{basicRnnEquationUnrolled1}
-%	\begin{split}
-%  		A {}  & = f \left(h_2, x_t \right) \\
-%        	  & = f \left(f \left(h_1, x_t \right), x_t \right) \\
-%        	  & = f \left(f \left(f \left(h_0, x_t \right), x_t \right), x_t %\right)
-%	\end{split}
-%\end{equation}
-
 
 \subsection{Huấn luyện mạng nơ-ron hồi quy}
 
@@ -78,46 +68,19 @@ Hochreiter và Schmidhuber [1997] đã giới thiệu mô hình LSTM chủ yếu
 
 \section{Mô hình ngôn ngữ}
 
-%Ta hãy xem xét một ví dụ về não người trong quá trình tạo ra các hành động. Khi chạm tay vào vật nóng, não sẽ tạo ra một tín hiệu để ra lệnh cho cơ thể chúng ta rút tay lại. Không những thế, cảm giác nóng sẽ chuyển hóa thành một suy nghĩ. Suy nghĩ này lại được truyền qua não và dựa trên thông tin của giác quan, ta tiếp tục thực hiện một hành động khác. Ví dụ nhúng tay vào nước khi biết có nước gần đó. Có thể hình dung một cách đơn giản rằng não người hoạt động như một hàm \textit{hồi quy}, nó nhận vào thông tin của giác quan và một suy nghĩ nội tại để tạo ra một hành động và suy nghĩ mới. Suy nghĩ mới này bao gồm cả những suy nghĩ trước đó. Cách hoạt động của não người trong ví dụ trên cũng chính là cách mà RNN làm việc. Trong đó, tại mỗi thời điểm, thông tin về giác quan được xem như đầu vào của RNN và đầu ra là một hành động. "Suy nghĩ" hoạt động như một loại bộ nhớ giúp RNN lưu giữ thông tin về bối cảnh, là những gì mà nó đã xử lý trong quá khứ. Việc sở hữu một loại "bộ nhớ" khiến RNN trở thành mô hình phù hợp cho dữ liệu chuỗi.
-%Trong thực tế, mạng nơ-ron hồi quy được áp dụng thành công trong các bài toán mô hình hóa ngôn ngữ \cite{mikolovLM}.
+Như chúng tôi đã đề cập trong chương 1, mô hình ngôn ngữ là một bộ phận quan trọng trong dịch máy thống kê nhằm bảo đảm tạo ra một bản dịch trơn tru. Một cách cụ thể, nhiệm vụ của mô hình ngôn ngữ là gán cho một câu một xác suất thể hiện độ khả dĩ của câu đó. Bên cạnh gán cho câu một xác suất, mô hình ngôn ngữ cũng gán một xác suất thể hiện khả năng một từ (hoặc một chuỗi từ) xuất hiện theo sau một chuỗi từ cho trước.
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=0.3\textwidth]{rnn_loop}
-%	\caption[Mô hình RNN đơn giản]{Mô hình RNN đơn giản}
-%	\label{fig_rnn_loop}
-%\end{figure}
-
-%Hình \ref{fig_rnn_loop} mô tả cấu trúc cơ bản của RNN. Trong đó $x_t$ và $y_t$ lần lượt là đầu vào và đầu ra của RNN tại thời điểm (time step) $t$. $A$ được gọi là một \textit{tế bào RNN (RNN cell)} , thường là một mạng nơ-ron truyền thẳng. Tại mỗi thời điểm $t$, tế bào RNN sẽ tính toán dựa trên đầu vào $x_t$ và một vector $h$ được gọi là \textit{trạng thái ẩn (hidden state)}, là kết quả của quá trình tính toán tại thời điểm ngay trước đó. Sau khi tính toán, tế bào này tạo ra một trạng thái ẩn mới và trạng thái ẩn này tiếp tục được đưa vào mạng cho những tính toán ở thời điểm sau đó. Quá trình này được thể bằng một vòng lặp trong bản thân tế bào RNN. Lưu ý rằng đường nét đứt bao quanh $x_t$, $y_t$ cho biết đầu vào và đầu ra của tế bào RNN là không bắt buộc.
-
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=\textwidth]{rnn_unfolded}
-%	\caption[Mô hình RNN được giàn trải]{Mô hình RNN được giàn trải}
-%	\label{fig_rnn_unfolded}
-%\end{figure}
-
-%TODO explain RNN unfolded
-%Bên cạnh cách thể hiện kiểu vòng lặp như trên hình \ref{fig_rnn_loop}, RNN còn được thể hiện dưới dạng \textit{dàn trải ra (unfolded)} như trên hình \ref{fig_rnn_unfolded}.
+Xét một chuỗi các từ bất kỳ $w_{1:n}$, 
 
 
-%Một RNN có thể được xem là tổ hợp của các mạng nơ-ron truyền thẳng giống nhau, mỗi mạng dành cho một \textit{thời điểm (time step)}. Ta có thể gọi một mạng nơ-ron truyền thẳng đó là một "tế bào RNN" (RNN cell). Các tế bào này liên kết với nhau dựa trên đầu ra nội tại của chúng gọi là \textit{trạng thái ẩn}, trạng thái ẩn của tế bào đứng trước sẽ được đưa vào tế bào đứng sau và tiếp tục như vậy. Ngoài ra mỗi tế bào có thể nhận đầu vào bên ngoài và tạo ra một đầu ra bên ngoài. Hình \ref{fig_single_rnn_cell} mô tả một tế bào RNN đơn giản và hình \ref{fig_3_rnn_cells} mô tả cách ba tế bào RNN liên kết với nhau. Cách liên kết này được gọi là phiên bản \textit{dàn trải ra (unfolded)} của RNN. Ngoài ra một RNN còn có thể được biểu diễn dưới dạng một tế bào RNN với một liên kết kiểu vòng lặp vào chính bản thân nó (hình \ref{fig_rnn_folded}).
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=\textwidth]{composedrnncells}
-%	\caption[Ba tế bào RNN liên kết với nhau]{Ba tế bào RNN liên kết với nhau}
-%	\label{fig_3_rnn_cells}
-%\end{figure}
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=\textwidth]{rnn_folded}
-%	\caption[Mạng nơ-ron hồi quy dạng vòng lặp]{Mạng nơ-ron hồi quy dạng vòng lặp}
-%	\label{fig_rnn_folded}
-%\end{figure}
 
-%Ở dạng dàn trải, một RNN nhận đầu vào là một chuỗi các vector $x_1, x_2,.., x_n$. Tại thời điểm $t (1 \le t \le n)$ vector $x_t$ thuộc chuỗi đầu vào sẽ được đưa vào mạng nơ-ron hồi quy. RNN xử lý vector đó và cập nhật trạng thái ẩn nội tại của nó được đại diện bởi vector $h_t$. Có thể hình dung $h_t$ như là một bộ nhớ lưu giữ thông tin về các vector mà nó đã xử lý cho đến thời điểm $t$. Ở dạng cơ bản nhất, công thức cập nhật trạng thái ẩn của RNN có dạng:
+
+
+
+
+
 
 
 
