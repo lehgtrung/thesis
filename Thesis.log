@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.6.1)  6 JUN 2018 14:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.6.1)  7 JUN 2018 16:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1680,7 +1680,7 @@ unrolled.png>] [15]
 (./Chapter3/chapter3.tex
 Ch\uhorn \ohorn ng 3.
 LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <13> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 13.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
 [16
 
 
@@ -1690,30 +1690,30 @@ File: Chapter3/Chapter3Figs/Attention-2.png Graphic file (type png)
 
 <use Chapter3/Chapter3Figs/Attention-2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Attention-2.png used on input li
-ne 22.
+ne 26.
 (pdftex.def)             Requested size: 352.81552pt x 202.51195pt.
- [17 <./Chapter3/Chapter3Figs/Attention-2.png>] [18] [19]
+ [17] [18 <./Chapter3/Chapter3Figs/Attention-2.png>] [19]
 <Chapter3/Chapter3Figs/Global-Attention_2.png, id=358, 671.50874pt x 495.8525pt
 >
 File: Chapter3/Chapter3Figs/Global-Attention_2.png Graphic file (type png)
  <use Chapter3/Chapter3Figs/Global-Attention_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Global-Attention_2.png used on i
-nput line 78.
+nput line 82.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [20 <./Chapter3/Chapter3Figs/Global-Attention_2.png>] [21]
-<Chapter3/Chapter3Figs/Local-Attention_2.png, id=375, 671.50874pt x 495.8525pt>
+ [20] [21 <./Chapter3/Chapter3Figs/Global-Attention_2.png>] [22]
+<Chapter3/Chapter3Figs/Local-Attention_2.png, id=379, 671.50874pt x 495.8525pt>
 File: Chapter3/Chapter3Figs/Local-Attention_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Local-Attention_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Local-Attention_2.png used on in
-put line 109.
+put line 113.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [22] [23 <./Chapter3/Chapter3Figs/Local-Attention_2.png>] [24] [25]
+ [23 <./Chapter3/Chapter3Figs/Local-Attention_2.png>] [24] [25]
 <Chapter3/Chapter3Figs/Input-feeding_2.png, id=403, 671.50874pt x 385.44pt>
 File: Chapter3/Chapter3Figs/Input-feeding_2.png Graphic file (type png)
 
 <use Chapter3/Chapter3Figs/Input-feeding_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Input-feeding_2.png used on inpu
-t line 145.
+t line 149.
 (pdftex.def)             Requested size: 352.81552pt x 202.51195pt.
  [26 <./Chapter3/Chapter3Figs/Input-feeding_2.png>] [27]
 <Chapter3/Chapter3Figs/unk-rpl-example.png, id=415, 282.05376pt x 181.67876pt>
@@ -1721,7 +1721,7 @@ File: Chapter3/Chapter3Figs/unk-rpl-example.png Graphic file (type png)
 
 <use Chapter3/Chapter3Figs/unk-rpl-example.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/unk-rpl-example.png used on inpu
-t line 168.
+t line 172.
 (pdftex.def)             Requested size: 220.50887pt x 142.03874pt.
  [28]) [29 <./Chapter3/Chapter3Figs/unk-rpl-example.png>]
 \openout2 = `Chapter4/chapter4.aux'.
@@ -2004,9 +2004,9 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 199.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 199.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 199.
 Package rerunfilecheck Info: File `Thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 38E4823612EC928E09417EBF8636A9B8;5532.
+(rerunfilecheck)             Checksum: D7C783B7EC945B8C282C9BDC805F8FA9;5544.
 Package rerunfilecheck Info: File `Thesis.brf' has not changed.
-(rerunfilecheck)             Checksum: F5D5C7C76A132B667819DDA1C24B982E;1368.
+(rerunfilecheck)             Checksum: 7260536EA0DEE63DAD6C35A20284D562;1368.
 
 
 LaTeX Warning: There were undefined references.
@@ -2016,7 +2016,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 199.
 Here is how much of TeX's memory you used:
  19170 strings out of 493029
  277352 string characters out of 6136235
- 423310 words of memory out of 5000000
+ 423314 words of memory out of 5000000
  22103 multiletter control sequences out of 15000+600000
  56770 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2048,7 +2048,7 @@ r/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/vntex/urwvn/utmr8v.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/urw/times/utmri8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/vnt
 ex/urwvn/utmri8v.pfb>
-Output written on Thesis.pdf (56 pages, 1338695 bytes).
+Output written on Thesis.pdf (56 pages, 1333389 bytes).
 PDF statistics:
  753 PDF objects out of 1000 (max. 8388607)
  597 compressed objects within 6 object streams

@@ -11,12 +11,12 @@
 \contentsline {subsection}{\numberline {2.1.1}Hu\IeC {\'\acircumflex }n luy\IeC {\d \ecircumflex }n m\IeC {\d a}ng n\IeC {\ohorn }-ron h\IeC {\`\ocircumflex }i quy}{14}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}Long short-term memory}{14}{subsection.2.1.2}
 \contentsline {section}{\numberline {2.2}M\IeC {\^o} h\IeC {\`\i }nh ng\IeC {\^o}n ng\IeC {\~\uhorn }}{15}{section.2.2}
-\contentsline {chapter}{\numberline {3}C\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention cho m\IeC {\^o} h\IeC {\`\i }nh D\IeC {\d i}ch m\IeC {\'a}y}{16}{chapter.3}
-\contentsline {section}{\numberline {3.1}C\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention}{16}{section.3.1}
+\contentsline {chapter}{\numberline {3}D\IeC {\d i}ch m\IeC {\'a}y b\IeC {\`\abreve }ng m\IeC {\^o} h\IeC {\`\i }nh h\IeC {\d o}c LSTM-Attention}{16}{chapter.3}
+\contentsline {section}{\numberline {3.1}C\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention}{17}{section.3.1}
 \contentsline {section}{\numberline {3.2}Attention To\IeC {\`a}n c\IeC {\d u}c}{20}{section.3.2}
-\contentsline {section}{\numberline {3.3}Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }}{21}{section.3.3}
+\contentsline {section}{\numberline {3.3}Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }}{22}{section.3.3}
 \contentsline {section}{\numberline {3.4}Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p Input feeding}{25}{section.3.4}
-\contentsline {section}{\numberline {3.5}K\IeC {\~\i } thu\IeC {\d \acircumflex }t thay th\IeC {\'\ecircumflex } t\IeC {\`\uhorn } hi\IeC {\'\ecircumflex }m}{26}{section.3.5}
+\contentsline {section}{\numberline {3.5}K\IeC {\~\i } thu\IeC {\d \acircumflex }t thay th\IeC {\'\ecircumflex } t\IeC {\`\uhorn } hi\IeC {\'\ecircumflex }m}{27}{section.3.5}
 \contentsline {chapter}{\numberline {4}C\IeC {\'a}c K\IeC {\'\ecircumflex }t Qu\IeC {\h a} Th\IeC {\d \uhorn }c Nghi\IeC {\d \ecircumflex }m}{30}{chapter.4}
 \contentsline {section}{\numberline {4.1}C\IeC {\'a}c thi\IeC {\'\ecircumflex }t l\IeC {\d \acircumflex }p th\IeC {\d \uhorn }c nghi\IeC {\d \ecircumflex }m}{30}{section.4.1}
 \contentsline {section}{\numberline {4.2}K\IeC {\'\ecircumflex }t qu\IeC {\h a} th\IeC {\d \uhorn }c nghi\IeC {\d \ecircumflex }m}{32}{section.4.2}

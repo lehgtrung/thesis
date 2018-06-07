@@ -1,4 +1,4 @@
-\chapter{Cơ chế Attention cho mô hình Dịch máy}
+\chapter{Dịch máy bằng mô hình học LSTM-Attention}
 \ifpdf
     \graphicspath{{Chapter3/Chapter3Figs/PNG/}{Chapter3/Chapter3Figs/PDF/}{Chapter3/Chapter3Figs/}}
 \else
@@ -6,10 +6,14 @@
 \fi
 \label{chap_3}
 \begin{quote}
-\textit{Chương này trình bày về cơ chế Attention. Ở đây, chúng tôi tập trung tìm hiểu về các phiên bản của cơ chế Attention và đánh giá chúng dựa trên cơ sở Toán học. Cụ thể, chúng tôi tìm hiểu về hai phiên bản Toàn cục (Global) và Cục bộ (Local):
+\textit{Chương này trình bày về việc tổ chức các LSTM theo kiến trúc Bộ mã hóa-Bộ giải mã cùng với sử dụng cơ chế Attention. Ở đây, chúng tôi tập trung tìm hiểu về LSTM trong kiến trúc Bộ mã hóa-Bộ giải mã và các phiên bản của cơ chế Attention, sau đó giải thích chúng dựa trên cơ sở Toán học. Cụ thể, về LSTM, chúng tôi sử dụng Bi-LSTM và Uni-LSTM, về Attention, chúng tôi tìm hiểu về hai phiên bản Toàn cục (Global) và Cục bộ (Local):
 \begin{itemize}
-	\item Toàn cục: chúng tôi nhận thấy sự hạn chế hiện có của kiến trúc Bộ mã hóa-Bộ mã hóa khi thực hiện dịch những câu dài. Do vậy, chúng tôi sử dụng cơ chế Attention phiên bản Toàn cục để giải quyết vấn đề này.
-	\item Cục bộ: chúng tôi quan sát thấy rằng Attention Toàn cục vẫn còn một chút vấn đề về ý tưởng và chi phí tính toán. Với sự quan sát đó, chúng tôi hiệu chỉnh Attention Toàn cục thành phiên bản Attention Cục bộ để giải quyết những hạn chế đó.
+	\item LSTM: chúng tôi tổ chức các Bi-LSTM và Uni-LSTM theo kiến trúc Bộ mã hóa-Bộ giải mã để tránh được hạn chế về số lượng từ ở ngôn ngữ nguồn và ngôn ngữ đích.
+	\item Attention: chúng tôi tìm hiểu được sự hạn chế hiện có của kiến trúc Bộ mã hóa-Bộ giải mã khi thực hiện dịch những câu dài. Do vậy, chúng tôi sử dụng cơ chế Attention để giải quyết hạn chế đó bằng cách sử dụng thêm các trạng thái ẩn của bộ mã hóa trong quá trình giải mã.
+	\begin{itemize}
+		\item Toàn cục: phiên bản này sử dụng tất cả trạng thái ẩn trong bộ mã hóa trong quá trình giải mã.
+		\item Cục bộ: phiên bản này chỉ sử dụng một số trạng thái ẩn trong bộ mã hóa trong quá trình giải mã.
+	\end{itemize}
 \end{itemize}}
 \end{quote}
 \section{Cơ chế Attention}
