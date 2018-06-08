@@ -21,11 +21,22 @@ Hạn chế của việc sử dụng một mô hình LSTM khi áp dụng vào tr
 
 Để giải quyết những hạn chế của đó, nhóm tác giả Sutskever, 2014 \cite{Seq2Seq2014} đã đề xuất một kiến trúc tên gọi là Chuỗi tới Chuỗi (Sequence to Sequence - Seq2Seq). Tuy nhiên, mọi người thường gọi kiến trúc này là kiến trúc Bộ mã hóa-Bộ giải mã (Encoder-Decoder). Trong khóa luận này, chúng tôi sử dụng kiến trúc này để giải quyết bài toán Dịch máy và gọi nó là Bộ mã hóa-Bộ giải mã. Ý tưởng của kiến trúc này rất đơn giản. Kiến trúc này tận dụng các đặc tính của các mô hình LSTM và tổ chức chúng một cách hợp lí sao cho phù hợp với bài toán Dịch máy. 
 
-Kiến trúc Bộ mã hóa-Bộ giải mã như tên gọi, gồm có 2 bộ phận chính là bộ mã hóa và bộ giải mã, nó có sử dụng 2 mô hình LSTM. Trong đó, mỗi mô hình LSTM được đảm nhiệm một vị trí Bộ mã hóa hoặc Bộ giải mã. Cụ thể:
+Kiến trúc Bộ mã hóa-Bộ giải mã như tên gọi, gồm có 2 bộ phận chính là bộ mã hóa và bộ giải mã. Mỗi một bộ phận sẽ là một mô hình học được lựa chọn sao cho phù hợp với bài toán và có thể hoạt động tốt với nhau. Đối với bài toán Dịch máy và trong phạm vi khóa luận này, mỗi bộ phận sẽ là một mạng nơ-ron hồi qui, cụ thể là LSTM. Chúng tôi sẽ trình bày cụ thể về cách hoạt động của 2 bộ phận này.
 \begin{itemize}
-	\item Bộ mã hóa: là một Bi-LSTM. Đầu vào là một câu ở ngôn ngữ nguồn $x = \{x_0, ..., x_{S-1}\}$. Đầu ra là một véc-tơ có kích thước cố định, ở đây là véc-tơ trạng thái ẩn cuối cùng của Bi-LSTM của bộ mã hóa $h_{S-1}$. Nhiệm vụ của bộ mã hóa là mã hóa câu đầu vào thành một véc-tơ mà véc-tơ này chứa toàn bộ thông tin cần thiết để thực hiện việc dịch.
-	\item Bộ giải mã: là một Uni-LSTM. 
+	\item Bộ giải mã: là một Uni-LSTM. Đầu vào là véc-tơ kích thước cố định (đầu ra của bộ mã hóa). Đầu ra là câu ở ngôn ngữ đích đã được dịch $\bm{y} = \{y_0, ..., y_{S-1}\}$. Bộ giải mã có nhiệm vụ là nhận các thông tin cần thiết của câu nguồn từ bộ mã hóa, sau đó thực hiện việc sử dụng những thông tin đó để tiến hành dịch sang ngôn ngữ đích.
 \end{itemize}
+\subsection{Bộ mã hóa}
+Bộ mã hóa là một Bi-LSTM (LSTM 2 chiều). Bi-LSTM này nhận đầu vào là một câu ở ngôn ngữ nguồn $\bm{x} = \{x_0, ..., x_{S-1}\}$. Đầu ra là một véc-tơ có kích thước cố định. Véc-tơ này chứa các thông tin cần thiết để tiến hành dịch sang câu ở ngôn ngữ đích. Nhiệm vụ của bộ mã hóa (Bi-LSTM) là thực hiện mã hóa toàn bộ câu nguồn thành véc-tơ có chứa các thông tin hữu ích. Véc-tơ kích thước cố định này rất quan trọng, nó là tiền đề để việc dịch sang câu đích đạt chất lượng tốt.
+
+Ở đây, chúng tôi sử dụng véc-tơ trạng thái ẩn $h_t$ làm véc-tơ có kích thước cố định. Lí do bởi vì trong Bi-LSTM, trạng thái ẩn của một từ thứ $t$ (thời điểm $t$) chứa những thông tin, mối quan hệ giữa từ này và những từ lân cận. Hơn nữa, nó còn chứa thông tin của toàn bộ những từ ở đầu câu cho tới từ thứ $t$. Vậy nên trạng thái ẩn của từ cuối cùng của câu sẽ chứa đựng thông tin của toàn bộ những từ trong câu. Và điều đó phù hợp với ý tưởng của véc-tơ có kích thước cố định của bộ mã hóa.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{Attention-2}
+	\caption[Minh họa cơ chế Attention.]{Minh họa cơ chế Attention. Một tầng Attention được đặt ở trước bước dự đoán đầu ra của bộ giải mã.}
+	\label{fig_Encoder}
+\end{figure}
+
 
 \section{Cơ chế Attention}
 Ở phần trước, chúng tôi đã trình bày về kiến trúc Bộ mã hóa-Bộ giải mã cùng với những điểm mạnh của nó trong việc giải quyết bài toán Dịch máy. Tuy nhiên, kiến trúc này vẫn còn tồn tại hạn chế về việc dịch những câu dài do những thông tin được mã hóa của câu nguồn bị mất dần theo các thời điểm về sau. Lí do mà vấn đề này tồn tại thực chất là bởi vì các mô hình LSTM được sử dụng trong Bộ mã hóa và Bộ giải mã. Bản thân mô hình LSTM chưa thật sự giải quyết hoàn toàn vấn đề "sự phụ thuộc dài hạn". Để có thể vẫn tận dụng được các mô hình LSTM mà vẫn nâng cao được chất lượng dịch, chúng tôi sử dụng cơ chế Attention.

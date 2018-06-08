@@ -13,8 +13,8 @@
 \backcite {massetal2012}{{12}{2.1}{section.2.1}}
 \backcite {elman1990}{{12}{2.1}{section.2.1}}
 \backcite {Seq2Seq2014}{{17}{3.1}{section.3.1}}
-\backcite {attentionhistory2010}{{18}{3.2}{section.3.2}}
-\backcite {attentionhistory2011}{{18}{3.2}{section.3.2}}
+\backcite {attentionhistory2010}{{19}{3.2}{section.3.2}}
+\backcite {attentionhistory2011}{{19}{3.2}{section.3.2}}
 \backcite {showattendandtellXu2015}{{24}{3.4}{section.3.4}}
 \backcite {showattendandtellXu2015}{{24}{3.4}{section.3.4}}
 \backcite {attentionThangLuong2015}{{25}{3.4}{equation.3.4.7}}
@@ -25,4 +25,4 @@
 \backcite {attentionThangLuong2015}{{32}{4.1}{section.4.1}}
 \backcite {pytorchworkshop}{{33}{4.1}{section.4.1}}
 \backcite {BLEUpaper}{{33}{4.1}{section.4.1}}
-\backcite {attentionThangLuong2015}{{34}{4.2}{table.caption.15}}
+\backcite {attentionThangLuong2015}{{34}{4.2}{table.caption.16}}
