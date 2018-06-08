@@ -36,45 +36,45 @@ Warning--I didn't find a database entry for "elman1990"
 Warning--empty journal in pytorchworkshop
 
 Done.
-You've used 9 entries,
+You've used 10 entries,
             4483 wiz_defined-function locations,
-            971 strings with 10627 characters,
-and the built_in function-call counts, 7944 in all, are:
-= -- 695
-> -- 296
-< -- 31
-+ -- 144
-- -- 83
-* -- 459
-:= -- 1278
-add.period$ -- 21
-call.type$ -- 9
-change.case$ -- 68
+            977 strings with 10789 characters,
+and the built_in function-call counts, 8588 in all, are:
+= -- 759
+> -- 316
+< -- 32
++ -- 153
+- -- 89
+* -- 496
+:= -- 1399
+add.period$ -- 23
+call.type$ -- 10
+change.case$ -- 74
 chr.to.int$ -- 72
-cite$ -- 10
-duplicate$ -- 484
-empty$ -- 551
-format.name$ -- 92
-if$ -- 1709
+cite$ -- 11
+duplicate$ -- 527
+empty$ -- 594
+format.name$ -- 99
+if$ -- 1843
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 98
-newline$ -- 66
-num.names$ -- 20
-pop$ -- 291
+int.to.str$ -- 10
+missing$ -- 106
+newline$ -- 71
+num.names$ -- 22
+pop$ -- 312
 preamble$ -- 1
-purify$ -- 57
+purify$ -- 62
 quote$ -- 2
-skip$ -- 545
+skip$ -- 591
 stack$ -- 0
-substring$ -- 221
-swap$ -- 352
-text.length$ -- 7
+substring$ -- 227
+swap$ -- 379
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 6
-type$ -- 99
+type$ -- 110
 warning$ -- 1
-while$ -- 31
-width$ -- 10
-write$ -- 126
+while$ -- 33
+width$ -- 12
+write$ -- 138
 (There was 1 error message)
