@@ -22,7 +22,7 @@ Xét một chuỗi đầu vào $x={x_1,x_2,...,x_n}$. Ta gọi $h_t$ là trạng
 \begin{equation} \label{basicRnnEquation}
 	h_t = f \left(h_{t-1}, x_t \right)
 \end{equation}
-trong đó hàm $f$ là một ánh xạ phi tuyến. Có thể hình dung $h_t$ như một đại diện cho những đầu vào mà nó đã xử lý từ thời điểm ban đầu cho đến thời điểm $t$. Nói một cách khác, RNN sử dụng trạng thái ẩn như một dạng bộ nhớ để lưu giữ thông tin từ một chuỗi.
+trong đó hàm $f$ là một ánh xạ phi tuyến. Có thể hình dung $h_t$ như một đại diện cho những đầu vào mà nó đã xử lý từ thời điểm ban đầu cho đến thời điểm $t$. Nói một cách khác, RNN sử dụng trạng thái ẩn như một dạng bộ nhớ để lưu giữ thông tin từ một chuỗi. Hình \ref{fig_rnn_loop} thể hiện định nghĩa hồi quy của RNN.
 
 \begin{figure}
 	\centering
@@ -32,20 +32,34 @@ trong đó hàm $f$ là một ánh xạ phi tuyến. Có thể hình dung $h_t$ 
 \end{figure}
 Thông thường, hàm $f$ là một hàm phi tuyến như hàm \textit{$\sigma$} hay hàm \textit{$\tanh$}. Xét một RNN với công thức cụ thể như sau:
 \begin{equation} \label{rnnWithTanh}
-	h_t = \tanh \left(W_{xh} x_t + W_{hh}h_{t-1} + b_h \right)
+	h_t = \phi \left(W_{xh} x_t + W_{hh}h_{t-1} + b_h \right)
 \end{equation}
+Trong đó:
+\begin{itemize}
+	\item[•] $\phi$ là một hàm kích hoạt (ví dụ: sigmoid, tanh hay ReLU).
+	\item[•] $h_{t} \in \mathbb{R}^n$ là trạng thái ẩn tại bước thời gian hiện tại.
+	\item[•] $x_t \in \mathbb{R}^m$ là đầu vào hiện tại.
+	\item[•] $h_{t-1} \in \mathbb{R}^n$ là trạng thái ẩn tại bước thời gian trước đó.
+	\item[•] $W_{xh} \in \mathbb{R}^{m \times n}, W_{hh} \in \mathbb{R}^{n \times n}$ và $b_h \in \mathbb{R}^n$ lần lượt là hai ma trận trọng số và vec-tơ "bias".
+\end{itemize}
 
-Ở đây $W_{xh}$ là ma trận trọng số kết nối giữa đầu vào và trạng thái ẩn, $W_{hh}$ là ma trận trọng số hồi quy kết nối trạng thái ẩn với chính nó trong các bước thời gian liền kề. Vec-tơ $b_h$ là vec-tơ "bias" của trạng thái ẩn. Tại thời điểm bắt đầu, trạng thái ẩn $h_0$ có thể được khởi tạo bằng 0 hoặc là một vector chứa tri thức có sẵn như trường hợp của bộ giải mã như chúng tôi đã đề cập trong chương 1.
+Ma trận $W_{xh}$ là làm nhiệm vụ kết nối giữa đầu vào và trạng thái ẩn, $W_{hh}$ kết nối trạng thái ẩn với chính nó trong các bước thời gian liền kề. Vec-tơ $b_h$ dùng để điều chỉnh giá trị của $h_t$. Tại thời điểm bắt đầu, trạng thái ẩn $h_0$ có thể được khởi tạo bằng 0 hoặc là một vector chứa tri thức có sẵn như trường hợp của bộ giải mã như chúng tôi đã đề cập trong chương 1.
 
 Tại mỗi bước thời gian $t$, tùy vào mục tiêu cụ thể của quá trình học mà RNN có thể có thêm một đầu ra $y_t$. Trong ngữ cảnh bài toán dịch máy nơ-ron, đầu ra của RNN trong quá trình giải mã chính là một từ trong ngôn ngữ đích hay nói chung là một đầu ra dạng rời rạc. Với mục tiêu đó, đầu ra dự đoán của RNN $\hat{y}_t$ sẽ có dạng là một phần phối xác suất trên tập các các lớp ở đầu ra. Phân phối này nhằm dự đoán vị trí xuất hiện của $\hat{y}_t$.
-\begin{equation} \label{rnnOuputSoftmax}
-	s_t = W_{hy}h_t + b_y
-\end{equation} 
+%\begin{equation} \label{rnnOuputSoftmax}
+%	s_t = W_{hy}h_t + b_y
+%\end{equation} 
 \begin{equation} \label{rnnOuputSoftmaxDistribution}
-	\hat{y_t} = softmax(s_t)
+	\hat{y}_t = \softmax(W_{hy}h_t + b_y)
 \end{equation}
+Trong đó:
+\begin{itemize}
+	\item[•] $\softmax$ là một hàm kích hoạt với $\softmax(v_j) = \frac{e^{v_j}}{\sum_{k=1}^{K}e^{v_k}}$, $j = 1,...,K$ với $K$ là độ dài của vec-tơ $v$.
+	\item[•] $h_{t} \in \mathbb{R}^n$ là trạng thái ẩn tại bước thời gian hiện tại.
+	\item[•] $W_{hy} \in \mathbb{R}^{L \times n}$ và $b_y \in \mathbb{R}^L$ lần lượt là hai ma trận trọng số và vec-tơ "bias". $L$ là số lượng lớp cần phân biệt ở đầu ra.
+\end{itemize}
 
-Trong công thức trên, $W_{hy}$, $b_y$ là những tham số gắn với đầu ra của mô hình. $W_{hy}$ là ma trận trọng số kết nối đầu ra, $b_y$ là vec-tơ "bias" ở đầu ra. $s_t$ là một vector có độ dài bằng với là số lượng lớp ở đầu ra. Vector này được chuẩn hóa thành một phân phối xác suất $\hat{y_t}$ bằng một hàm \textit{softmax}.
+Trong công thức trên, hàm $\softmax$ đóng vai trò là một hàm chuẩn hóa để $\hat{y}_t$ thể hiện một phân phối xác suất trên các lớp ở đầu ra. Ma trận $W_{hy}$ kết nối đầu ra với trạng thái ẩn, $b_y$ dùng để điều chỉnh giá trị của kết quả tính toán trước khi đưa qua hàm $\softmax$.
 
 \begin{figure}
 	\centering
@@ -54,23 +68,78 @@ Trong công thức trên, $W_{hy}$, $b_y$ là những tham số gắn với đ�
 	\label{fig_rnn_unrolled}
 \end{figure}
 
-Để ý rằng các ma trận trọng số $W_{xh}$, $W_{hh}$, $W_{hy}$ và các vector bias $b_h$, $b_y$ là các tham số học của mô hình và chúng là duy nhất. Có nghĩa là khi những tham số này được học, bất kỳ một đầu vào nào cũng đều sử dụng chung một bộ tham số. Điều này chính là \textit{sự chia sẻ tham số} (parameters sharing) trong mạng nơ-ron hồi quy. Chia sẻ tham số khiến cho mô hình học dễ dàng hơn, nó giúp cho RNN có thể xử lý chuỗi đầu vào với độ dài bất kỳ mà không làm tăng độ phức tạp của mô hình. Quan trọng hơn, nó giúp ích cho việc tổng quát hóa. Đây chính là điểm đặc biệt của RNN so với mạng nơ-ron truyền thẳng.
+Để ý rằng các ma trận trọng số $W_{xh}$, $W_{hh}$, $W_{hy}$ và các vector bias $b_h$, $b_y$ là các tham số học của mô hình và chúng là duy nhất. Có nghĩa là khi những tham số này được học, bất kỳ một đầu vào nào cũng đều sử dụng chung một bộ tham số. Điều này chính là sự chia sẻ tham số (parameters sharing) trong mạng nơ-ron hồi quy. Chia sẻ tham số khiến cho mô hình học dễ dàng hơn, nó giúp cho RNN có thể xử lý chuỗi đầu vào với độ dài bất kỳ mà không làm tăng độ phức tạp của mô hình. Quan trọng hơn, nó giúp ích cho việc tổng quát hóa. Đây chính là điểm đặc biệt của RNN so với mạng nơ-ron truyền thẳng.
 
-Hình \ref{fig_rnn_loop} thể hiện định nghĩa hồi quy của RNN, và nó đúng cho chuỗi có độ dài bất kỳ. Với một số lượng hữu hạn các bước thời gian, mô hình RNN có thể được dàn trải ra (unrolled). Dạng dàn trải của RNN được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với một tầng cho mỗi bước thời gian và các tham số học được chia sẻ giữa các bước thời gian đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là \textit{Lan truyền ngược qua thời gian} (Backpropagation through time) \cite{werbos1990}. Tất cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này.
+Với một số lượng hữu hạn các bước thời gian, mô hình RNN trên hình \ref{fig_rnn_loop} có thể được dàn trải ra (unrolled). Dạng dàn trải này được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với một tầng cho mỗi bước thời gian và các tham số học được chia sẻ giữa các bước thời gian đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là "Backpropagation through time" (BPTT) \cite{werbos1990}. Thực chất đây là chỉ thuật toán “Backpropagation” khi áp dụng cho RNN dưới dạng dàn trải để tính "gradient" cho các tham số ở từng bước thời gian. Hầu hết cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này vì tính đơn giản và hiệu quả của nó.
 
 \subsection{Huấn luyện mạng nơ-ron hồi quy}
+Xét một chuỗi đầu vào $x={x_1,x_2,...,x_n}$ với đầu ra tương ứng $y={y_1,y_2,...,y_n}$. Trong quá trình lan truyền tiến, tại mỗi bước thời gian $t$ ứng mẫu dữ liệu $(x_t, y_t)$, công thức tính toán đầu ra dự đoán có dạng:
+\begin{equation} \label{rnnForwardProp1}
+	h_t = \tanh \left(W_{xh} x_t + W_{hh}h_{t-1} + b_h \right) 
+\end{equation}
+\begin{equation} \label{rnnForwardProp2}
+	s_t = W_{hy} h_t + b_y 
+\end{equation}
+\begin{equation} \label{rnnForwardProp3}
+	y_t = softmax (s_t) 
+\end{equation}
+Ta xác định hàm độ lỗi độ lỗi giữa đầu ra dự đoán $\hat{y}_t$ và đầu ra thật sự $y_t$. Gọi $V$ là số lượng lớp của $y$, lúc này có thể thấy $\hat{y}_t$ là một vec-tơ phân phối xác suất có độ dài $V$. Để so sánh với $\hat{y}_t$, $y_t$ được chuẩn hóa thành một vec-tơ dạng "one hot" có nghĩa là một vec-tơ với độ dài $V$ có giá trị bằng 0 trừ vị trí ứng với lớp của $y_t$ có giá trị 1. Như vậy để so sánh hai phân phối xác suất $y$ và $\hat{y}$ ta sử dụng hàm độ lỗi \textit{negative log-likelihood} hay còn gọi là \textit{cross entropy}:
+\begin{equation} \label{errorOfAnExample}
+	E_t = -y_t\log(\hat{y}_t)
+\end{equation}
+trong đó $E_t$ là độ lỗi tại một bước thời gian $t$. Độ lỗi của toàn bộ quá trình học $E$ là tổng của độ lỗi tại của tất cả các bước thời gian.
+\begin{equation} \label{errorOfAll}
+	E = \sum_{t}E_t = - \sum_{t}y_t\log(\hat{y}_t) 
+\end{equation}
 
+% TODO: tai sao su dung mini batch
+Mục tiêu của quá trình học là cực tiểu hóa độ lỗi tổng hợp $E$. Thuật toán "backpropagation" với \textit{gradient descent} sẽ được áp dụng để huấn luyện RNN. Trên thực tế, người ta sẽ sử dụng một phiên bản của "gradient descent" là "mini-batch gradient descent" cho việc huấn luyện. Tập dữ liệu ban đầu sẽ được chia thành nhiều "mini-batch", mỗi "mini-batch" là một tập con với số lượng khoảng vài chục đến vài trăm mẫu thuộc tập dữ liệu ban đầu. Với mỗi lần duyệt (iteration), việc tính toán gradient để cập nhật các tham số học của mô hình được thực hiện lần lượt trên tất cả các mini-batch này.
 
+Ta tìm bộ tham số $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$ sao cho cực tiểu hóa hàm độ lỗi $E$. Theo thuật toán "gradient descent", bộ tham số được cập nhật theo công thức :
+\begin{equation} \label{gradientDescentWithTheta}
+	\theta \leftarrow \theta - \eta \nabla E(\theta) 
+\end{equation}
 
-\subsection{Long short-term memory}
+% TODO: Bo sung cho nay
+Ở đây, $\nabla E(\theta)$ là "gradient" của hàm độ lỗi ứng với các tham số của mô hình. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ nên thay đổi nhiều bao nhiêu khi "gradient" ứng với tham số thay đổi.
 
-Hochreiter và Schmidhuber [1997] đã giới thiệu mô hình LSTM chủ yếu ở để khắc phục vấn đề biến mất gradient. Mô hình này tương tự với mô hình 
+Với $s_t = W_{hy} h_t + b_y$ và sau đó $\hat{y}_t = softmax(s_t)$. Bằng cách tính đạo hàm của $E_t$ theo $s_t$ ta được:
+\begin{equation} \label{gradientWRTSt}
+	\frac{\partial{E_t}}{\partial{s_t}} = \hat{y}_t - y_t
+\end{equation}
+
+Bởi vì $W_{hy}$ được chia sẻ trên toàn bộ chuỗi, do đó đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hy}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hy}$. Theo công thức đạo hàm của hàm số hợp ta có:
+\begin{equation} \label{gradientWRTSt}
+	\frac{\partial{E}}{\partial{W_{hy}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}}
+\end{equation}
+
+Tương tự với đạo hàm của $E$ theo $b_y$, ta cũng có:
+\begin{equation} \label{gradientWRTSt}
+	\frac{\partial{E}}{\partial{b_{y}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{b_{y}}}
+\end{equation}
+
+\subsection{Khó khăn trong việc huấn luyện RNN}
+
+Mặc dù "gradient" của RNN dễ tính toán, nhưng RNN cơ bản là khó huấn luyện. Những vấn đề này bao gồm gradient bùng nổ (exploiting gradients) và gradient biến mất (vanishing gradients) được đề cập trong các nghiên cứu \cite{pascanu2011} \cite{hochreiter1997}. Nếu gradient bùng nổ, mô hình không thể học được. Nếu gradient biến mất, việc học những phụ thuộc dài hạn trở nên khó khăn.
+
+\section{Long short-term memory}
+
+Hochreiter và Schmidhuber [1997] đã giới thiệu mô hình LSTM chủ yếu ở để khắc phục vấn đề biến mất gradient. Mô hình này tương tự với mô hình RNN một lớp ẩn, nhưng mỗi "RNN cell" (được ký hiệu "A" trong hình \ref{fig_rnn_unrolled}) được thay thế bằng một "LSTM cell" (Hình \ref{fig_lstmCell}). Giống như "RNN cell", "LSTM cell" cũng chứa một kết nối hồi quy nhằm để kết nối thông tin từ các bước thời gian với nhau. Tuy nhiên, trong "LSTM cell" kết nối hồi quy này có trọng số cố định là một. Điều này nhằm bảo đảm "gradient" được luân chuyển qua các bước thời gian mà không bị bùng nổ hay biến mất.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{lstmCell}
+	\caption[Một "LSTM cell"]{Mô hình RNN đơn giản với kết nối vòng, \textbf{$h$} được xem như bộ nhớ được luân chuyển trong RNN. Chú ý rằng đường nét đứt ở đầu ra thể hiện rằng tại một thời điểm $t$, RNN có thể có hoặc không có một đầu ra.}
+	\label{fig_lstmCell}
+\end{figure}
 
 \section{Mô hình ngôn ngữ}
 
-Như chúng tôi đã đề cập trong chương 1, mô hình ngôn ngữ là một bộ phận quan trọng trong dịch máy thống kê nhằm bảo đảm tạo ra một bản dịch trơn tru. Một cách cụ thể, nhiệm vụ của mô hình ngôn ngữ là gán cho một câu một xác suất thể hiện độ khả dĩ của câu đó. Bên cạnh gán cho câu một xác suất, mô hình ngôn ngữ cũng gán một xác suất thể hiện khả năng một từ (hoặc một chuỗi từ) xuất hiện theo sau một chuỗi từ cho trước.
+Như chúng tôi đã đề cập trong chương 1, \textit{mô hình ngôn ngữ} (language model) là một bộ phận quan trọng trong cả dịch máy thống kê và dịch máy nơ-ron. Cụ thể hơn, mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ. Cho trước một chuỗi $w_1,w_2,...,w_m$ (ký hiệu $w_{1:n}$), mô hình ngôn ngữ gán cho nó một xác suất $P(w_{1:n})$ đại diện cho độ "trơn tru" của chuỗi đó. Sử dụng quy tắc dây chuyền (chain rule) trong xác suất, ta có:
+\begin{equation} \label{lmGeneral}
+	P(w_{1:n}) = P(w_1)P(w_2|w_1)P(w_3|w_{1:2})P(w_4|w_{1:3})...P(w_n|w_{1:n-1})
+\end{equation}
 
-Xét một chuỗi các từ bất kỳ $w_{1:n}$, 
 
 
 
