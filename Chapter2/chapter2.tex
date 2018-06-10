@@ -54,7 +54,7 @@ Tại mỗi bước thời gian $t$, tùy vào mục tiêu cụ thể của quá
 \end{equation}
 Trong đó:
 \begin{itemize}
-	\item[•] $\softmax$ là một hàm kích hoạt với $\softmax(v_j) = \frac{e^{v_j}}{\sum_{k=1}^{K}e^{v_k}}$, $j = 1,...,K$ với $K$ là độ dài của vec-tơ $v$.
+	\item[•] $\softmax$ là một hàm kích hoạt với $\softmax(v_j) = \frac{e^{v_j}}{\sum_{k=1}^{K}e^{v_k}}$, $j = 1,...,K$, $K$ là độ dài của vec-tơ $v$.
 	\item[•] $h_{t} \in \mathbb{R}^n$ là trạng thái ẩn tại bước thời gian hiện tại.
 	\item[•] $W_{hy} \in \mathbb{R}^{L \times n}$ và $b_y \in \mathbb{R}^L$ lần lượt là hai ma trận trọng số và vec-tơ "bias". $L$ là số lượng lớp cần phân biệt ở đầu ra.
 \end{itemize}
@@ -73,6 +73,7 @@ Trong công thức trên, hàm $\softmax$ đóng vai trò là một hàm chuẩn
 Với một số lượng hữu hạn các bước thời gian, mô hình RNN trên hình \ref{fig_rnn_loop} có thể được dàn trải ra (unrolled). Dạng dàn trải này được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với một tầng cho mỗi bước thời gian và các tham số học được chia sẻ giữa các bước thời gian đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là "Backpropagation through time" (BPTT) \cite{werbos1990}. Thực chất đây là chỉ thuật toán “Backpropagation” khi áp dụng cho RNN dưới dạng dàn trải để tính "gradient" cho các tham số ở từng bước thời gian. Hầu hết cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này vì tính đơn giản và hiệu quả của nó.
 
 \subsection{Huấn luyện mạng nơ-ron hồi quy}
+
 Xét một chuỗi đầu vào $x={x_1,x_2,...,x_n}$ với đầu ra tương ứng $y={y_1,y_2,...,y_n}$. Trong quá trình lan truyền tiến, tại mỗi bước thời gian $t$ ứng mẫu dữ liệu $(x_t, y_t)$, công thức tính toán đầu ra dự đoán có dạng:
 \begin{equation} \label{rnnForwardProp1}
 	h_t = \tanh \left(W_{xh} x_t + W_{hh}h_{t-1} + b_h \right) 
@@ -95,27 +96,113 @@ trong đó $E_t$ là độ lỗi tại một bước thời gian $t$. Độ lỗ
 % TODO: tai sao su dung mini batch
 Mục tiêu của quá trình học là cực tiểu hóa độ lỗi tổng hợp $E$. Thuật toán "backpropagation" với \textit{gradient descent} sẽ được áp dụng để huấn luyện RNN. Trên thực tế, người ta sẽ sử dụng một phiên bản của "gradient descent" là "mini-batch gradient descent" cho việc huấn luyện. Tập dữ liệu ban đầu sẽ được chia thành nhiều "mini-batch", mỗi "mini-batch" là một tập con với số lượng khoảng vài chục đến vài trăm mẫu thuộc tập dữ liệu ban đầu. Với mỗi lần duyệt (iteration), việc tính toán gradient để cập nhật các tham số học của mô hình được thực hiện lần lượt trên tất cả các mini-batch này.
 
-Ta tìm bộ tham số $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$ sao cho cực tiểu hóa hàm độ lỗi $E$. Theo thuật toán "gradient descent", bộ tham số được cập nhật theo công thức :
+Mục tiêu của việc học là tìm bộ tham số $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$ sao cho cực tiểu hóa hàm độ lỗi $E$. Theo thuật toán "gradient descent", bộ tham số được cập nhật theo công thức :
 \begin{equation} \label{gradientDescentWithTheta}
-	\theta \leftarrow \theta - \eta \nabla E(\theta) 
+	\theta \leftarrow \theta - \eta \frac{\partial{E} }{\partial{\theta}}
 \end{equation}
 
 % TODO: Bo sung cho nay
-Ở đây, $\nabla E(\theta)$ là "gradient" của hàm độ lỗi ứng với các tham số của mô hình. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ nên thay đổi nhiều bao nhiêu khi "gradient" ứng với tham số thay đổi.
+Ở đây, $\frac{\partial{E} }{\partial{\theta}}$ là "gradient" của hàm độ lỗi ứng với các tham số của mô hình. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ nên thay đổi nhiều bao nhiêu khi "gradient" ứng với tham số thay đổi.
 
-Với $s_t = W_{hy} h_t + b_y$ và sau đó $\hat{y}_t = softmax(s_t)$. Bằng cách tính đạo hàm của $E_t$ theo $s_t$ ta được:
-\begin{equation} \label{gradientWRTSt}
+Trong phần dưới đây, chúng tôi sẽ trình bày việc tính toán "gradient" của hàm độ lỗi theo các bộ số học $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$. Bộ tham số này có thể được chia làm hai nhóm, bao gồm: $\left(W_{hy}, b_y \right)$ và $\left(W_{hh}, W_{xh}, b_h \right)$.
+
+\subsubsection{Gradient theo $W_{hy}$ và $b_y$}
+Bởi vì $W_{hy}$ và $b_y$ chỉ hiện diện trong hàm $\hat{y}$. Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = softmax(s_t)$, sử dụng công thức nhân trong tính đạo hàm ta được:
+\begin{equation} \label{gradientWRTSt1}
+	\frac{\partial{E_t}}{\partial{W_{hy}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}}
+\end{equation}
+
+Từ công thức \ref{errorOfAnExample} ta có:
+\begin{equation} \label{gradientWRTSt2}
+	\frac{\partial{E_t}}{\partial{\hat{y}}} = -\frac{y_t}{\hat{y}_t}
+\end{equation}
+
+Hàm $\hat{y}$ là một hàm $\softmax$ nên nó có đạo hàm:
+\begin{equation} \label{gradientWRTSt3}
+	\frac{\partial \hat{y}_{t}}{\partial s_{t}}=\left\{
+		\begin{array}{lr}
+			-\hat{y}_{t_k}\hat{y}_{t_l}, & k\neq l \\
+			\hat{y}_{t_k}\left(1-\hat{y}_{t_k}\right), & k=l
+		\end{array}
+	\right..
+\end{equation}
+
+Kết hợp \ref{gradientWRTSt2} và \ref{gradientWRTSt3} ta có được:
+\begin{subequations} \label{gradientWRTSt4}
+\begin{align}
+-\frac{y_{t_l}}{\hat{y}_{t_l}}\hat{y}_{t_l}\left(1-\hat{y}_{t_l}\right)+\sum_{k\ne l}{}\left(-\frac{y_{t_k}}{\hat{y}_{t_k}}\right)\left(-\hat{y}_{t_k}\hat{y}_{t_l}\right) 
+&= -y_{t_l}+y_{t_l}\hat{y}_{t_l}+\sum_{k\ne l}{}y_{t_k}\hat{y}_{t_l} \\
+&= -y_{t_l} + \hat{y}_{t_l}\sum_{k}{}y_{t_k}.
+\end{align}
+\end{subequations}
+
+Lưu ý rằng $y_t$ là "one-hot" vec-tơ nên tổng trong công thức trên bằng 1, cho nên:
+
+\begin{equation} \label{gradientWRTSt5}
 	\frac{\partial{E_t}}{\partial{s_t}} = \hat{y}_t - y_t
 \end{equation}
 
-Bởi vì $W_{hy}$ được chia sẻ trên toàn bộ chuỗi, do đó đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hy}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hy}$. Theo công thức đạo hàm của hàm số hợp ta có:
-\begin{equation} \label{gradientWRTSt}
-	\frac{\partial{E}}{\partial{W_{hy}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}}
+Bởi vì $W_{hy}$ được chia sẻ trên toàn bộ chuỗi, do đó đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hy}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hy}$. Từ công thức \ref{gradientWRTSt5} ta có được:
+\begin{equation} \label{gradientWRTSt6}
+	\frac{\partial{E}}{\partial{W_{hy}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}} = \sum_{t} \left(\hat{y}_t - y_t \right) \otimes h_t
 \end{equation}
 
+trong đó $\otimes$ là "outer-product" của hai vec-tơ.
+
 Tương tự với đạo hàm của $E$ theo $b_y$, ta cũng có:
-\begin{equation} \label{gradientWRTSt}
-	\frac{\partial{E}}{\partial{b_{y}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{b_{y}}}
+\begin{equation} \label{gradientWRTSt7}
+	\frac{\partial{E}}{\partial{b_{y}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{b_{y}}} = \sum_{t} \hat{y}_t - y_t
+\end{equation}
+
+\subsubsection{Gradient theo $W_{hh}$, $W_{xh}$ và $b_h$}
+
+Tham số $W_{hh}$ tồn tại ở cả trạng thái ẩn $h_t$ và đầu ra dự đoán $\hat{y}_t$, để tính "gradient" theo $W_{hh}$. Chúng ta cũng để ý rằng $\hat{y}_t$ cũng dựa trên $W_{hh}$ trực tiếp và gián tiếp (thông qua $h_{t-1}$). Đặt $p_t = W_{hx}x_t + W_{hh}h_{t-1}$ và $h_t = \tanh(p_t)$:
+\begin{equation} \label{gradientWRTSt8}
+	\frac{\partial{E_t}}{\partial{W_{hh}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{h_t}} \frac{\partial{h_t}}{\partial{W_{hh}}}
+\end{equation}
+
+Trong công thức trên, ta đã biết $\frac{\partial{E_t}}{\partial{\hat{y}}}$ và $\frac{\partial{\hat{y}}}{\partial{s_t}}$ trong phần trước, công thức tính $\frac{\partial{s_t}}{\partial{h_t}}$ khá đơn giản:
+\begin{equation} \label{gradientWRTSt9}
+	\frac{\partial{s_t}}{\partial{h_t}} = W_{hy}
+\end{equation}
+
+Cuối cùng, để tính được $\frac{\partial{h_t}}{\partial{W_{hh}}}$ ta có quan sát rằng có một sự phụ thuộc giữa $h_t$ và $W_{hh}$ thông qua trạng thái ẩn trước đó $h_{t-1}$. Ta biết rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^N$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
+  \begin{equation} \label{gradientWRTSt10}
+	\frac{\partial{f}}{\partial{r}} = \frac{\partial{f}}{\partial{x}}\frac{\partial{x}}{\partial{r}} + \frac{\partial{f}}{\partial{y}}\frac{\partial{y}}{\partial{r}}
+\end{equation}
+
+Áp dụng công thức trên để tính $\frac{\partial{h_t}}{\partial{W_{hh}}}$ ta được:
+\begin{equation} \label{gradientWRTSt11}
+	\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{W_{hh}}}
+\end{equation}
+
+Tuy nhiên, ta có thể áp dụng công thức trên một lần nữa với $\frac{\partial{h_{t-1}}}{\partial{W_{hh}}}$:
+\begin{equation} \label{gradientWRTSt12}
+	\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}}
+\end{equation}
+
+Quá trình này tiếp tục cho đến khi chúng kết thúc ở $h_0$ là trạng thái ẩn khởi tạo. Có thể thấy 
+\begin{equation} \label{gradientWRTSt122}
+\frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}}
+\end{equation}
+và:
+\begin{equation} \label{gradientWRTSt123}
+\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{h_{t}}} \frac{\partial{h_t}}{\partial{W_{hh}}}
+\end{equation}
+
+Như vậy, có thể rút gọn \ref{gradientWRTSt12} thành một công thức duy nhất:
+\begin{equation} \label{gradientWRTSt13}
+	\frac{\partial{h_t}}{\partial{W_{hh}}} = \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
+\end{equation}
+
+Kết hợp các công thức từ \ref{gradientWRTSt8} suy ra:
+\begin{equation} \label{gradientWRTSt14}
+	\frac{\partial{E_t}}{\partial{W_{hh}}} = (\hat{y}_t - y_t) W_{hy} \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
+\end{equation}
+
+Đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hh}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hh}$
+\begin{equation} \label{gradientWRTSt15}
+	\frac{\partial{E}}{\partial{W_{hh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
 \end{equation}
 
 \subsection{Khó khăn trong việc huấn luyện RNN}
@@ -124,7 +211,7 @@ Mặc dù "gradient" của RNN dễ tính toán, nhưng RNN cơ bản là khó h
 
 \section{Long short-term memory}
 
-Hochreiter và Schmidhuber [1997] đã giới thiệu mô hình LSTM chủ yếu ở để khắc phục vấn đề biến mất gradient. Mô hình này tương tự với mô hình RNN một lớp ẩn, nhưng mỗi "RNN cell" (được ký hiệu "A" trong hình \ref{fig_rnn_unrolled}) được thay thế bằng một "LSTM cell" (Hình \ref{fig_lstmCell}). Giống như "RNN cell", "LSTM cell" cũng chứa một kết nối hồi quy nhằm để kết nối thông tin từ các bước thời gian với nhau. Tuy nhiên, trong "LSTM cell" kết nối hồi quy này có trọng số cố định là một. Điều này nhằm bảo đảm "gradient" được luân chuyển qua các bước thời gian mà không bị bùng nổ hay biến mất.
+Hochreiter và Schmidhuber [1997] đã giới thiệu mô hình LSTM chủ yếu ở để khắc phục vấn đề biến mất gradient. Mô hình này tương tự với mô hình RNN một lớp ẩn, nhưng mỗi "RNN cell" (được ký hiệu "A" trong hình \ref{fig_rnn_unrolled}) được thay thế bằng một "memory cell" (Hình \ref{fig_lstmCell}). Giống như "RNN cell", "memory cell" cũng chứa một kết nối hồi quy nhằm để kết nối thông tin từ các bước thời gian với nhau. Tuy nhiên, trong "LSTM cell" kết nối hồi quy này có trọng số cố định là một. Điều này nhằm bảo đảm "gradient" được luân chuyển qua các bước thời gian mà không bị bùng nổ hay biến mất.
 
 \begin{figure}
 	\centering
