@@ -1,22 +1,80 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: Thesis.aux
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Thesis.aux
 A level-1 auxiliary file: Chapter1/chapter1.aux
 A level-1 auxiliary file: Chapter2/chapter2.aux
-A level-1 auxiliary file: Chapter3/chapter3.aux
 A level-1 auxiliary file: Chapter4/chapter4.aux
 A level-1 auxiliary file: Conclusions/conclusions.aux
 A level-1 auxiliary file: Appendix/appendix.aux
 The style file: Classes/IEEEtranS.bst
-Illegal, another \bibstyle command---line 31 of file Thesis.aux
+Illegal, another \bibstyle command---line 32 of file Thesis.aux
  : \bibstyle
  :          {unsrt}
 I'm skipping whatever remains of this command
-Database file #1: References/my_bib.bib
+I found no \bibdata command---while reading file Thesis.aux
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--I didn't find a database entry for "hutchins"
+Warning--I didn't find a database entry for "kalchbrennerBlunsom"
+Warning--I didn't find a database entry for "sutskever"
+Warning--I didn't find a database entry for "cho"
+Warning--I didn't find a database entry for "difficultyRNN"
+Warning--I didn't find a database entry for "mainpaper"
+Warning--I didn't find a database entry for "elman1990"
+Warning--I didn't find a database entry for "mikolovLM"
+Warning--I didn't find a database entry for "MNIST"
+Warning--I didn't find a database entry for "bergstra+al:2010-scipy"
+Warning--I didn't find a database entry for "rifai2011HCAEs"
+Warning--I didn't find a database entry for "vincent2008extracting"
+Warning--I didn't find a database entry for "rifai2011contractive"
 -- IEEEtranS.bst version 1.12 (2007/01/11) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 ** Sorting version - not for normal IEEE work.
-Warning--empty journal in bengio2013representation
-Warning--empty booktitle in zeiler2013rectified
 
 Done.
-(There was 1 error message)
+You've used 0 entries,
+            4483 wiz_defined-function locations,
+            909 strings with 8258 characters,
+and the built_in function-call counts, 104 in all, are:
+= -- 0
+> -- 0
+< -- 0
++ -- 0
+- -- 0
+* -- 19
+:= -- 26
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 3
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 23
+num.names$ -- 0
+pop$ -- 0
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 1
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 6
+type$ -- 0
+warning$ -- 0
+while$ -- 0
+width$ -- 0
+write$ -- 22
+(There were 2 error messages)
