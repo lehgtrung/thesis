@@ -15,11 +15,11 @@
 \backcite {Seq2Seq2014}{{17}{3.1}{section.3.1}}
 \backcite {attentionhistory2010}{{20}{3.2}{section.3.2}}
 \backcite {attentionhistory2011}{{20}{3.2}{section.3.2}}
-\backcite {showattendandtellXu2015}{{24}{3.4}{section.3.4}}
-\backcite {showattendandtellXu2015}{{24}{3.4}{section.3.4}}
-\backcite {attentionThangLuong2015}{{25}{3.4}{equation.3.4.7}}
+\backcite {showattendandtellXu2015}{{25}{3.4}{section.3.4}}
+\backcite {showattendandtellXu2015}{{25}{3.4}{section.3.4}}
+\backcite {attentionThangLuong2015}{{26}{3.4}{equation.3.4.7}}
 \backcite {smtKoehn2003}{{28}{3.5}{section.3.5}}
-\backcite {attentionThangLuong2015}{{28}{3.5}{section.3.5}}
+\backcite {attentionThangLuong2015}{{29}{3.5}{section.3.5}}
 \backcite {JeanUnkRepl}{{31}{3.6}{section.3.6}}
 \backcite {StanfordNMT}{{33}{4.1}{section.4.1}}
 \backcite {attentionThangLuong2015}{{33}{4.1}{section.4.1}}

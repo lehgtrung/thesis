@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  10 JUN 2018 13:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  10 JUN 2018 23:25
 entering extended mode
 **./Thesis.tex
 (Thesis.tex
@@ -1680,43 +1680,45 @@ nput line 28.
 File: Chapter3/Chapter3Figs/Attention-2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Attention-2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Attention-2.png  used on input l
-ine 54.
+ine 56.
 (pdftex.def)             Requested size: 352.81552pt x 202.51195pt.
- [20 <./Chapter3/Chapter3Figs/Attention-2.png>] [21] [22]
+ [20]
+[21 <./Chapter3/Chapter3Figs/Attention-2.png>] [22]
 <Chapter3/Chapter3Figs/Global-Attention_2.png, id=393, 671.50874pt x 495.8525pt
 >
 File: Chapter3/Chapter3Figs/Global-Attention_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Global-Attention_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Global-Attention_2.png  used on 
-input line 110.
+input line 112.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [23 <./Chapter3/Chapter3Figs/Global-Attention_2.png>] [24]
-<Chapter3/Chapter3Figs/Local-Attention_2.png, id=410, 671.50874pt x 495.8525pt>
+ [23] [24 <./Chapter3/Chapter3Figs/Global-Attention_2.png>] [25]
+<Chapter3/Chapter3Figs/Local-Attention_2.png, id=415, 671.50874pt x 495.8525pt>
 
 File: Chapter3/Chapter3Figs/Local-Attention_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Local-Attention_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Local-Attention_2.png  used on i
-nput line 141.
+nput line 143.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [25] [26 <./Chapter3/Chapter3Figs/Local-Attention_2.png>] [27]
-<Chapter3/Chapter3Figs/Input-feeding_2.png, id=433, 671.50874pt x 385.44pt>
+ [26 <./Chapter3/Chapter3Figs/Local-Attention_2.png>] [27] [28]
+<Chapter3/Chapter3Figs/Input-feeding_2.png, id=438, 671.50874pt x 385.44pt>
 File: Chapter3/Chapter3Figs/Input-feeding_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Input-feeding_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Input-feeding_2.png  used on inp
-ut line 177.
+ut line 179.
 (pdftex.def)             Requested size: 352.81552pt x 202.51195pt.
- [28] [29 <./Chapter3/Chapter3Figs/Input-feeding_2.png>] [30]
+ [29 <./Chapter3/Chapter3Figs/Input-feeding_2.png>]
+[30]
 <Chapter3/Chapter3Figs/unk-rpl-example.png, id=450, 282.05376pt x 181.67876pt>
 File: Chapter3/Chapter3Figs/unk-rpl-example.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/unk-rpl-example.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/unk-rpl-example.png  used on inp
-ut line 200.
+ut line 202.
 (pdftex.def)             Requested size: 220.50887pt x 142.03874pt.
-)
-[31] [32 <./Chapter3/Chapter3Figs/unk-rpl-example.png>]
+ [31]) [32 <./Chapter3/Chapter3Figs/unk-rpl-example.png>]
 \openout2 = `Chapter4/chapter4.aux'.
 
- (Chapter4/chapter4.tex
+
+(Chapter4/chapter4.tex
 Ch\uhorn \ohorn ng 4.
 [33
 
@@ -1973,7 +1975,7 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 199.
 Package rerunfilecheck Info: File `Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 3547692CEC68D35EC4A9F195360AADB5;6212.
 Package rerunfilecheck Info: File `Thesis.brf' has not changed.
-(rerunfilecheck)             Checksum: 3622613D7FBF179F88BE1DD112766861;1444.
+(rerunfilecheck)             Checksum: 1B84A7D7B54B7228E3A8582B9C4CAE71;1444.
 
 
 LaTeX Warning: There were undefined references.
@@ -2014,7 +2016,7 @@ ntex/urwvn/utmbi8v.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8
 a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Progr
 am Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb><C:/Program Files/MiKTeX 
 2.9/fonts/type1/vntex/urwvn/utmri8v.pfb>
-Output written on Thesis.pdf (59 pages, 1492103 bytes).
+Output written on Thesis.pdf (59 pages, 1492524 bytes).
 PDF statistics:
  786 PDF objects out of 1000 (max. 8388607)
  129 named destinations out of 1000 (max. 500000)
