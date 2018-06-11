@@ -70,13 +70,13 @@ Trong công thức trên, hàm $\softmax$ đóng vai trò là một hàm chuẩn
 
 Để ý rằng các ma trận trọng số $W_{xh}$, $W_{hh}$, $W_{hy}$ và các vector bias $b_h$, $b_y$ là các tham số học của mô hình và chúng là duy nhất. Có nghĩa là khi những tham số này được học, bất kỳ một đầu vào nào cũng đều sử dụng chung một bộ tham số. Điều này chính là sự chia sẻ tham số (parameters sharing) trong mạng nơ-ron hồi quy. Chia sẻ tham số khiến cho mô hình học dễ dàng hơn, nó giúp cho RNN có thể xử lý chuỗi đầu vào với độ dài bất kỳ mà không làm tăng độ phức tạp của mô hình. Quan trọng hơn, nó giúp ích cho việc tổng quát hóa. Đây chính là điểm đặc biệt của RNN so với mạng nơ-ron truyền thẳng.
 
-Với một số lượng hữu hạn các bước thời gian, mô hình RNN trên hình \ref{fig_rnn_loop} có thể được dàn trải ra (unrolled). Dạng dàn trải này được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với một tầng cho mỗi bước thời gian và các tham số học được chia sẻ giữa các bước thời gian đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là "Backpropagation through time" (BPTT) \cite{werbos1990}. Thực chất đây là chỉ thuật toán “Backpropagation” khi áp dụng cho RNN dưới dạng dàn trải để tính "gradient" cho các tham số ở từng bước thời gian. Hầu hết cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này vì tính đơn giản và hiệu quả của nó.
+Với một số lượng hữu hạn các bước thời gian, mô hình RNN trên hình \ref{fig_rnn_loop} có thể được dàn trải ra (unrolled). Dạng dàn trải này được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với mỗi bước thời gian là một mạng nơ-ron một tầng ẩn và các tham số học được chia sẻ giữa các mạng nơ-ron đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là "Backpropagation through time" (BPTT) \cite{werbos1990}. Thực chất đây là chỉ thuật toán “Backpropagation” khi áp dụng cho RNN dưới dạng dàn trải để tính "gradient" cho các tham số ở từng bước thời gian. Hầu hết cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này vì tính đơn giản và hiệu quả của nó.
 
 \subsection{Huấn luyện mạng nơ-ron hồi quy}
 
 Xét một chuỗi đầu vào $x={x_1,x_2,...,x_n}$ với đầu ra tương ứng $y={y_1,y_2,...,y_n}$. Trong quá trình lan truyền tiến, tại mỗi bước thời gian $t$ ứng mẫu dữ liệu $(x_t, y_t)$, công thức tính toán đầu ra dự đoán có dạng:
 \begin{equation} \label{rnnForwardProp1}
-	h_t = \tanh \left(W_{xh} x_t + W_{hh}h_{t-1} + b_h \right) 
+	h_t = \phi \left(W_{xh} x_t + W_{hh}h_{t-1} + b_h \right) 
 \end{equation}
 \begin{equation} \label{rnnForwardProp2}
 	s_t = W_{hy} h_t + b_y 
@@ -205,7 +205,36 @@ Kết hợp các công thức từ \ref{gradientWRTSt8} suy ra:
 	\frac{\partial{E}}{\partial{W_{hh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
 \end{equation}
 
+Cũng giống như $W_{hh}$, trong công thức tính $h_t$, $W_{hh}$ cũng có liên hệ với $h_t$ một cách trực tiếp và với $h_{t-1}$ một cách gián tiếp. Ta có:
+\begin{equation} \label{gradientWRTSt16}
+	\frac{\partial{E_t}}{\partial{W_{xh}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{h_t}} \frac{\partial{h_t}}{\partial{W_{hx}}}
+\end{equation}
+
+Ta chỉ cần tính $\frac{\partial{h_t}}{\partial{W_{hx}}}$, theo cách tương tự như đã làm với $W_{hh}$ ,ta được:
+\begin{equation} \label{gradientWRTSt17}
+	\frac{\partial{h_t}}{\partial{W_{xh}}} = \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
+\end{equation}
+
+Như vậy cuối cùng ta được:
+\begin{equation} \label{gradientWRTSt18}
+	\frac{\partial{E_t}}{\partial{W_{hh}}} = (\hat{y}_t - y_t) W_{hy} \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
+\end{equation}
+
+Điểm khác biệt giữa $\frac{\partial{E_t}}{\partial{W_{hh}}}$ và $\frac{\partial{E_t}}{\partial{W_{xh}}}$ là ở cách tính đạo hàm $\frac{\partial{h_r}}{\partial{W_{hh}}}$ và $\frac{\partial{h_r}}{\partial{W_{xh}}}$
+
+Cuối cùng đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hh}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hh}$
+\begin{equation} \label{gradientWRTSt19}
+	\frac{\partial{E}}{\partial{W_{xh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
+\end{equation}
+
+Với những lập luận tương tự, ta cũng có đạo hàm hàm độ lỗi tổng hợp $E$ theo $b_h$:
+\begin{equation} \label{gradientWRTSt20}
+	\frac{\partial{E}}{\partial{b_h}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
+\end{equation}
+
 \subsection{Khó khăn trong việc huấn luyện RNN}
+
+Trong công thức \ref{gradientWRTSt20} 
 
 Mặc dù "gradient" của RNN dễ tính toán, nhưng RNN cơ bản là khó huấn luyện. Những vấn đề này bao gồm gradient bùng nổ (exploiting gradients) và gradient biến mất (vanishing gradients) được đề cập trong các nghiên cứu \cite{pascanu2011} \cite{hochreiter1997}. Nếu gradient bùng nổ, mô hình không thể học được. Nếu gradient biến mất, việc học những phụ thuộc dài hạn trở nên khó khăn.
 
