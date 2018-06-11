@@ -21,6 +21,17 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{cho}
+\BIBentryALTinterwordspacing
+K.~Cho, B.~van Merrienboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk,
+  and Y.~Bengio, ``Learning phrase representations using rnn encoder--decoder
+  for statistical machine translation,'' in \emph{Proceedings of the 2014
+  Conference on Empirical Methods in Natural Language Processing
+  (EMNLP)}.\hskip 1em plus 0.5em minus 0.4em\relax Doha, Qatar: Association for
+  Computational Linguistics, October 2014, pp. 1724--1734. [Online]. Available:
+  \url{http://www.aclweb.org/anthology/D14-1179}
+\BIBentrySTDinterwordspacing
+
 \bibitem{attentionhistory2011}
 \BIBentryALTinterwordspacing
 M.~Denil, L.~Bazzani, H.~Larochelle, and N.~de~Freitas, ``Learning where to
@@ -29,17 +40,37 @@ M.~Denil, L.~Bazzani, H.~Larochelle, and N.~de~Freitas, ``Learning where to
   \url{http://arxiv.org/abs/1109.3737}
 \BIBentrySTDinterwordspacing
 
+\bibitem{elman1990}
+\BIBentryALTinterwordspacing
+J.~L. Elman, ``Finding structure in time,'' \emph{Cognitive Science}, vol.~14,
+  no.~2, pp. 179 -- 211, 1990. [Online]. Available:
+  \url{http://www.sciencedirect.com/science/article/pii/036402139090002E}
+\BIBentrySTDinterwordspacing
+
 \bibitem{StanfordNMT}
 \BIBentryALTinterwordspacing
 T.~S. N. L.~P. Group. (2015) Neural machine translation. [Online]. Available:
   \url{https://nlp.stanford.edu/projects/nmt/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{hutchins}
+W.~J. Hutchins, ``Machine translation: A concise history,'' 2007.
+
 \bibitem{JeanUnkRepl}
 \BIBentryALTinterwordspacing
 S.~Jean, K.~Cho, R.~Memisevic, and Y.~Bengio, ``On using very large target
   vocabulary for neural machine translation,'' \emph{CoRR}, vol. abs/1412.2007,
   2014. [Online]. Available: \url{http://arxiv.org/abs/1412.2007}
+\BIBentrySTDinterwordspacing
+
+\bibitem{kalchbrennerBlunsom}
+\BIBentryALTinterwordspacing
+N.~Kalchbrenner and P.~Blunsom, ``Recurrent continuous translation models,'' in
+  \emph{Proceedings of the 2013 Conference on Empirical Methods in Natural
+  Language Processing}.\hskip 1em plus 0.5em minus 0.4em\relax Seattle,
+  Washington, USA: Association for Computational Linguistics, October 2013, pp.
+  1700--1709. [Online]. Available:
+  \url{http://www.aclweb.org/anthology/D13-1176}
 \BIBentrySTDinterwordspacing
 
 \bibitem{smtKoehn2003}
@@ -77,6 +108,13 @@ K.~Papineni, S.~Roukos, T.~Ward, and W.-J. Zhu, ``Bleu: A method for automatic
   1em plus 0.5em minus 0.4em\relax Stroudsburg, PA, USA: Association for
   Computational Linguistics, 2002, pp. 311--318. [Online]. Available:
   \url{https://doi.org/10.3115/1073083.1073135}
+\BIBentrySTDinterwordspacing
+
+\bibitem{difficultyRNN}
+\BIBentryALTinterwordspacing
+R.~Pascanu, T.~Mikolov, and Y.~Bengio, ``Understanding the exploding gradient
+  problem,'' \emph{CoRR}, vol. abs/1211.5063, 2012. [Online]. Available:
+  \url{http://arxiv.org/abs/1211.5063}
 \BIBentrySTDinterwordspacing
 
 \bibitem{pytorchworkshop}
