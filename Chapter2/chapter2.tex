@@ -82,7 +82,7 @@ Xét một chuỗi đầu vào $x={x_1,x_2,...,x_n}$ với đầu ra tương ứ
 	s_t = W_{hy} h_t + b_y 
 \end{equation}
 \begin{equation} \label{rnnForwardProp3}
-	y_t = softmax (s_t) 
+	\hat{y}_t = softmax (s_t) 
 \end{equation}
 Ta xác định hàm độ lỗi độ lỗi giữa đầu ra dự đoán $\hat{y}_t$ và đầu ra thật sự $y_t$. Gọi $V$ là số lượng lớp của $y$, lúc này có thể thấy $\hat{y}_t$ là một vec-tơ phân phối xác suất có độ dài $V$. Để so sánh với $\hat{y}_t$, $y_t$ được chuẩn hóa thành một vec-tơ dạng "one hot" có nghĩa là một vec-tơ với độ dài $V$ có giá trị bằng 0 trừ vị trí ứng với lớp của $y_t$ có giá trị 1. Như vậy để so sánh hai phân phối xác suất $y$ và $\hat{y}$ ta sử dụng hàm độ lỗi \textit{negative log-likelihood} hay còn gọi là \textit{cross entropy}:
 \begin{equation} \label{errorOfAnExample}
@@ -94,17 +94,15 @@ trong đó $E_t$ là độ lỗi tại một bước thời gian $t$. Độ lỗ
 \end{equation}
 
 % TODO: tai sao su dung mini batch
-Mục tiêu của quá trình học là cực tiểu hóa độ lỗi tổng hợp $E$. Thuật toán "backpropagation" với \textit{gradient descent} sẽ được áp dụng để huấn luyện RNN. Trên thực tế, người ta sẽ sử dụng một phiên bản của "gradient descent" là "mini-batch gradient descent" cho việc huấn luyện. Tập dữ liệu ban đầu sẽ được chia thành nhiều "mini-batch", mỗi "mini-batch" là một tập con với số lượng khoảng vài chục đến vài trăm mẫu thuộc tập dữ liệu ban đầu. Với mỗi lần duyệt (iteration), việc tính toán gradient để cập nhật các tham số học của mô hình được thực hiện lần lượt trên tất cả các mini-batch này.
+Mục tiêu của việc học là cực tiểu hóa độ lỗi tổng hợp $E$. Thuật toán "backpropagation" với \textit{gradient descent} sẽ được áp dụng để huấn luyện RNN. Trên thực tế, người ta sẽ sử dụng một phiên bản của "gradient descent" là "mini-batch gradient descent" cho việc huấn luyện. Tập dữ liệu ban đầu sẽ được chia thành nhiều "mini-batch", mỗi "mini-batch" là một tập con với số lượng khoảng vài chục đến vài trăm mẫu thuộc tập dữ liệu ban đầu. Với mỗi lần duyệt (iteration), việc tính toán gradient để cập nhật các tham số học của mô hình được thực hiện lần lượt trên tất cả các mini-batch này.
 
-Mục tiêu của việc học là tìm bộ tham số $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$ sao cho cực tiểu hóa hàm độ lỗi $E$. Theo thuật toán "gradient descent", bộ tham số được cập nhật theo công thức :
+Ta cần tìm bộ tham số $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$ sao cho cực tiểu hóa hàm độ lỗi $E$. Theo thuật toán "gradient descent", bộ tham số được cập nhật theo công thức:
 \begin{equation} \label{gradientDescentWithTheta}
 	\theta \leftarrow \theta - \eta \frac{\partial{E} }{\partial{\theta}}
 \end{equation}
 
 % TODO: Bo sung cho nay
-Ở đây, $\frac{\partial{E} }{\partial{\theta}}$ là "gradient" của hàm độ lỗi ứng với các tham số của mô hình. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ nên thay đổi nhiều bao nhiêu khi "gradient" ứng với tham số thay đổi.
-
-Trong phần dưới đây, chúng tôi sẽ trình bày việc tính toán "gradient" của hàm độ lỗi theo các bộ số học $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$. Bộ tham số này có thể được chia làm hai nhóm, bao gồm: $\left(W_{hy}, b_y \right)$ và $\left(W_{hh}, W_{xh}, b_h \right)$.
+Ở đây, $\frac{\partial{E} }{\partial{\theta}}$ là "gradient" của hàm độ lỗi ứng với các tham số của mô hình. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ nên thay đổi nhiều bao nhiêu khi "gradient" ứng với tham số thay đổi. Trong phần dưới đây, chúng tôi sẽ trình bày việc tính toán "gradient" của hàm độ lỗi theo bộ tham số học $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$.
 
 \subsubsection{Gradient theo $W_{hy}$ và $b_y$}
 Bởi vì $W_{hy}$ và $b_y$ chỉ hiện diện trong hàm $\hat{y}$. Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = softmax(s_t)$, sử dụng công thức nhân trong tính đạo hàm ta được:
@@ -234,13 +232,9 @@ Với những lập luận tương tự, ta cũng có đạo hàm hàm độ l�
 
 \subsection{Khó khăn trong việc huấn luyện RNN}
 
-Trong công thức \ref{gradientWRTSt20} 
-
 Mặc dù "gradient" của RNN dễ tính toán, nhưng RNN cơ bản là khó huấn luyện. Những vấn đề này bao gồm gradient bùng nổ (exploiting gradients) và gradient biến mất (vanishing gradients) được đề cập trong các nghiên cứu \cite{pascanu2011} \cite{hochreiter1997}. Nếu gradient bùng nổ, mô hình không thể học được. Nếu gradient biến mất, việc học những phụ thuộc dài hạn trở nên khó khăn.
 
 \section{Long short-term memory}
-
-Hochreiter và Schmidhuber [1997] đã giới thiệu mô hình LSTM chủ yếu ở để khắc phục vấn đề biến mất gradient. Mô hình này tương tự với mô hình RNN một lớp ẩn, nhưng mỗi "RNN cell" (được ký hiệu "A" trong hình \ref{fig_rnn_unrolled}) được thay thế bằng một "memory cell" (Hình \ref{fig_lstmCell}). Giống như "RNN cell", "memory cell" cũng chứa một kết nối hồi quy nhằm để kết nối thông tin từ các bước thời gian với nhau. Tuy nhiên, trong "LSTM cell" kết nối hồi quy này có trọng số cố định là một. Điều này nhằm bảo đảm "gradient" được luân chuyển qua các bước thời gian mà không bị bùng nổ hay biến mất.
 
 \begin{figure}
 	\centering
@@ -248,6 +242,20 @@ Hochreiter và Schmidhuber [1997] đã giới thiệu mô hình LSTM chủ yếu
 	\caption[Một "LSTM cell"]{Mô hình RNN đơn giản với kết nối vòng, \textbf{$h$} được xem như bộ nhớ được luân chuyển trong RNN. Chú ý rằng đường nét đứt ở đầu ra thể hiện rằng tại một thời điểm $t$, RNN có thể có hoặc không có một đầu ra.}
 	\label{fig_lstmCell}
 \end{figure}
+
+Hochreiter và Schmidhuber \cite{hochreiter1997} đã giới thiệu mô hình \textit{Long short-term memory} (LSTM) chủ yếu ở để khắc phục vấn đề biến mất gradient trong RNN. Nhớ lại rằng trong RNN, chính việc mô hình hóa phụ thuộc thời gian dựa vào ma trận trọng số $W_{hh}$ đã gây ra hiện tượng gradient biến mất. Ý tưởng của LSTM là thay vì tính toán $h_t$ từ $h_{t-1}$ với một phép nhân ma trận theo sau là hàm kích hoạt phi tuyến, LSTM trực tiếp tính toán một $\Delta h_t$ sau đó nó được cộng với $h_{t-1}$ để tạo ra $h_t$. Thoạt nhìn, sự khác biệt này có thể không đáng kể khi mà chúng ta đều đạt được $h_t$ trong cả hai cách. Và đúng là cách tính toán $\Delta h_t$ không làm mô hình trở nên mạnh mẽ hơn. Tuy nhiên, với cách làm này, gradient của $\Delta h_t$ sẽ không bị biến mất.
+
+Thuật ngữ \textit{"Long short-term memory"} xuất phát từ nhận xét sau. Mạng RNN đơn giản có \textit{"long term memory"} (bộ nhớ dài hạn) dưới dạng các ma trận trọng số. Những ma trận trọng số này thay đổi một cách chậm rãi trong quá trình học nhằm mã hóa kiến thức về dữ liệu. RNN cũng có \textit{"short-term memory"} (bộ nhớ ngắn hạn) dưới dạng các kích hoạt tạm thời, được truyền từ mỗi bước thời gian sang các bước thời gian sau đó. "Long short-term memory" tạm dịch là "bộ nhớ ngắn hạn dài" cho phép mở rộng bộ nhớ ngắn hạn bằng cách xây dựng một loại lưu trữ trung gian có tên là \textit{"memory cell"}. Một "memory cell" (hình \ref{fig_lstmCell}) là một sự thay thế cho "RNN cell" (được ký hiệu "A" trong hình \ref{fig_rnn_unrolled}). Giống như "RNN cell", "memory cell" nhận một đầu vào bên ngoài và phát sinh một đầu ra cũng như là truyền đi một "hidden state" sang "RNN cell" ở bước thời gian kế tiếp. Tuy nhiên, "memory cell" còn có thêm một "cell state" cũng được truyền đi như một "hidden state". Cấu tạo chi tiết của LSTM sẽ được trình bày trong phần dưới đây, cấu tạo này dựa trên phiên bản LSTM của \cite{Gers2000}.
+
+\begin{itemize}
+	\item[•] \textit{Input node}:
+	\item[•] \textit{Input gate}:
+	\item[•] \textit{Internal state}:
+	\item[•] \textit{Forget gate}:
+	\item[•] \textit{Output gate}:
+\end{itemize}
+
+
 
 \section{Mô hình ngôn ngữ}
 
