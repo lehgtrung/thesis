@@ -84,151 +84,225 @@ Xét một chuỗi đầu vào $x={x_1,x_2,...,x_n}$ với đầu ra tương ứ
 \begin{equation} \label{rnnForwardProp3}
 	\hat{y}_t = softmax (s_t) 
 \end{equation}
-Ta xác định hàm độ lỗi độ lỗi giữa đầu ra dự đoán $\hat{y}_t$ và đầu ra thật sự $y_t$. Gọi $V$ là số lượng lớp của $y$, lúc này có thể thấy $\hat{y}_t$ là một vec-tơ phân phối xác suất có độ dài $V$. Để so sánh với $\hat{y}_t$, $y_t$ được chuẩn hóa thành một vec-tơ dạng "one hot" có nghĩa là một vec-tơ với độ dài $V$ có giá trị bằng 0 trừ vị trí ứng với lớp của $y_t$ có giá trị 1. Như vậy để so sánh hai phân phối xác suất $y$ và $\hat{y}$ ta sử dụng hàm độ lỗi \textit{negative log-likelihood} hay còn gọi là \textit{cross entropy}:
+Ta cần định nghĩa hàm độ lỗi giữa đầu ra dự đoán $\hat{y}_t$ và đầu ra thật sự $y_t$. Với $L$ là số lượng lớp của $y$, lúc này có thể thấy $\hat{y}_t$ là một vec-tơ phân phối xác suất có độ dài $L$. Để so sánh với $\hat{y}_t$, $y_t$ được chuẩn hóa thành một vec-tơ dạng "one hot" có nghĩa là một vec-tơ với độ dài $V$ có giá trị bằng 0 trừ vị trí ứng với lớp của $y_t$ có giá trị 1. Như vậy để so sánh hai phân phối xác suất $y$ và $\hat{y}$ ta sử dụng hàm độ lỗi \textit{negative log-likelihood} hay còn gọi là \textit{cross entropy}, gọi $L_t$ là độ lỗi tại một bước thời gian $t$, ta có:
 \begin{equation} \label{errorOfAnExample}
-	E_t = -y_t\log(\hat{y}_t)
+	L_t = -y_t^{T} \log(\hat{y}_t)
 \end{equation}
-trong đó $E_t$ là độ lỗi tại một bước thời gian $t$. Độ lỗi của toàn bộ quá trình học $E$ là tổng của độ lỗi tại của tất cả các bước thời gian.
+
+Gọi $\theta$ là một tham số của mô hình, ta biết rằng $\theta$ được chia sẻ trong quá trình học, tức là ở mọi bước thời gian, chúng đều có giá trị bằng nhau:
+\begin{equation} \label{weightSharing1}
+	\theta_t = \theta_k
+\end{equation}
+Với $t$, $k$ là những bước thời gian ($t \ne k$). Tại thời điểm bắt đầu với $t=k=0$ mọi $\theta_i$ đều có giá trị bằng nhau nên trong quá trình học, ta cần:
+\begin{equation} \label{weightSharing2}
+	\frac{\partial L}{\partial \theta_t} = \frac{\partial L}{\partial \theta_k}
+\end{equation}
+Với $L$ là tổng của độ lỗi tại của tất cả các bước thời gian. Như vậy để $\theta_t = \theta_k, \forall t;k$, ta chỉ đơn giản xem độ lỗi tổng hợp $L$ trong quá trình học là tổng độ lỗi ở tất cả các bước thời gian. Với cách làm này, tham số luôn bằng nhau sau mỗi lần cập nhật.
 \begin{equation} \label{errorOfAll}
-	E = \sum_{t}E_t = - \sum_{t}y_t\log(\hat{y}_t) 
+	L = \sum_{t}L_t = - \sum_{t} y_t^{T} \log(\hat{y}_t) 
 \end{equation}
 
 % TODO: tai sao su dung mini batch
-Mục tiêu của việc học là cực tiểu hóa độ lỗi tổng hợp $E$. Thuật toán "backpropagation" với \textit{gradient descent} sẽ được áp dụng để huấn luyện RNN. Trên thực tế, người ta sẽ sử dụng một phiên bản của "gradient descent" là "mini-batch gradient descent" cho việc huấn luyện. Tập dữ liệu ban đầu sẽ được chia thành nhiều "mini-batch", mỗi "mini-batch" là một tập con với số lượng khoảng vài chục đến vài trăm mẫu thuộc tập dữ liệu ban đầu. Với mỗi lần duyệt (iteration), việc tính toán gradient để cập nhật các tham số học của mô hình được thực hiện lần lượt trên tất cả các mini-batch này.
+Mục tiêu của việc học là cực tiểu hóa độ lỗi tổng hợp $L$. Thuật toán "backpropagation" với \textit{gradient descent} sẽ được áp dụng để huấn luyện RNN. Trên thực tế, người ta sẽ sử dụng một phiên bản của "gradient descent" là "mini-batch gradient descent" cho việc huấn luyện. Tập dữ liệu ban đầu sẽ được chia thành nhiều "mini-batch", mỗi "mini-batch" là một tập con với số lượng khoảng vài chục đến vài trăm mẫu thuộc tập dữ liệu ban đầu. Với mỗi lần duyệt (iteration), việc tính toán gradient để cập nhật các tham số học của mô hình được thực hiện lần lượt trên tất cả các mini-batch này.
 
-Ta cần tìm bộ tham số $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$ sao cho cực tiểu hóa hàm độ lỗi $E$. Theo thuật toán "gradient descent", bộ tham số được cập nhật theo công thức:
+Ta cần tìm bộ tham số $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$ sao cho cực tiểu hóa hàm độ lỗi $L$. Theo thuật toán "gradient descent", bộ tham số được cập nhật theo công thức:
 \begin{equation} \label{gradientDescentWithTheta}
-	\theta \leftarrow \theta - \eta \frac{\partial{E} }{\partial{\theta}}
+	\theta \leftarrow \theta - \eta \nabla_{\theta} L
 \end{equation}
 
 % TODO: Bo sung cho nay
-Ở đây, $\frac{\partial{E} }{\partial{\theta}}$ là "gradient" của hàm độ lỗi ứng với các tham số của mô hình. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ nên thay đổi nhiều bao nhiêu khi "gradient" ứng với tham số thay đổi. Trong phần dưới đây, chúng tôi sẽ trình bày việc tính toán "gradient" của hàm độ lỗi theo bộ tham số học $\theta = \left(W_{hy},W_{hh},W_{xh},b_y,b_h \right)$.
+Ở đây, $\nabla_{\theta} L$ là "gradient" của hàm độ lỗi ứng với tham số $\theta$. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ nên thay đổi nhiều bao nhiêu khi "gradient" ứng với tham số thay đổi. Trong phần dưới đây, chúng tôi sẽ trình bày việc tính toán "gradient" của hàm độ lỗi theo bộ tham số học $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$.
 
-\subsubsection{Gradient theo $W_{hy}$ và $b_y$}
-Bởi vì $W_{hy}$ và $b_y$ chỉ hiện diện trong hàm $\hat{y}$. Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = softmax(s_t)$, sử dụng công thức nhân trong tính đạo hàm ta được:
-\begin{equation} \label{gradientWRTSt1}
-	\frac{\partial{E_t}}{\partial{W_{hy}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}}
+Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = softmax(s_t)$, sử dụng "chain rule" trong tính đạo hàm ta được:
+%\nabla_{\theta} L_t = \frac{\partial h_t}{\partial \theta} \frac{\partial s_t}{\partial h_t} \frac{\partial \hat{y}_t}{\partial s_t} \frac{\partial L_t}{\partial \hat{y}_t} = \frac{\partial h_t}{\partial \theta}  \frac{\partial s_t}{\partial h_t} \frac{\partial L_t}{\partial s_t}
+	
+\begin{equation} \label{gradientCalculating1}
+	\nabla_{\theta} L_t = \frac{\partial L_t}{\partial \hat{y}_t} \frac{\partial \hat{y}_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \frac{\partial h_t}{\partial \theta}  = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \frac{\partial h_t}{\partial \theta}
 \end{equation}
 
-Từ công thức \ref{errorOfAnExample} ta có:
-\begin{equation} \label{gradientWRTSt2}
-	\frac{\partial{E_t}}{\partial{\hat{y}}} = -\frac{y_t}{\hat{y}_t}
+Và ta có (công thức này được chứng minh trong phần mở rộng):
+\begin{equation} \label{gradientCalculating2}
+	\nabla_{s_t}L_t = \frac{\partial L_t}{\partial s_t} = \hat{y}_t - y
 \end{equation}
 
-Hàm $\hat{y}$ là một hàm $\softmax$ nên nó có đạo hàm:
-\begin{equation} \label{gradientWRTSt3}
-	\frac{\partial \hat{y}_{t}}{\partial s_{t}}=\left\{
-		\begin{array}{lr}
-			-\hat{y}_{t_k}\hat{y}_{t_l}, & k\neq l \\
-			\hat{y}_{t_k}\left(1-\hat{y}_{t_k}\right), & k=l
-		\end{array}
-	\right..
+Ta cũng dễ dàng tính được:
+\begin{equation} \label{gradientCalculating3}
+	\frac{\partial s_t}{\partial h_t} = W_{hy}^T
 \end{equation}
 
-Kết hợp \ref{gradientWRTSt2} và \ref{gradientWRTSt3} ta có được:
-\begin{subequations} \label{gradientWRTSt4}
-\begin{align}
--\frac{y_{t_l}}{\hat{y}_{t_l}}\hat{y}_{t_l}\left(1-\hat{y}_{t_l}\right)+\sum_{k\ne l}{}\left(-\frac{y_{t_k}}{\hat{y}_{t_k}}\right)\left(-\hat{y}_{t_k}\hat{y}_{t_l}\right) 
-&= -y_{t_l}+y_{t_l}\hat{y}_{t_l}+\sum_{k\ne l}{}y_{t_k}\hat{y}_{t_l} \\
-&= -y_{t_l} + \hat{y}_{t_l}\sum_{k}{}y_{t_k}.
-\end{align}
-\end{subequations}
+Đến đây, ta chỉ cần tìm $\frac{\partial h_t}{\partial \theta}$ với $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$. Ta có thể chia các tham số thành hai nhóm. Nhóm đầu tiên là các tham số liên quan đến quá trình tính toán đầu ra, bao gồm $\theta^{(1)} \in \{W_{hy}, b_y\}$. Những tham số này không tham gia vào hàm hồi quy $h_t$ cho nên "gradient" ứng với chúng được tính một cách dễ dàng:
 
-Lưu ý rằng $y_t$ là "one-hot" vec-tơ nên tổng trong công thức trên bằng 1, cho nên:
-
-\begin{equation} \label{gradientWRTSt5}
-	\frac{\partial{E_t}}{\partial{s_t}} = \hat{y}_t - y_t
+\begin{equation} \label{gradientCalculating4}
+	\nabla_{W_{hy}}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial W_{hy}}  =  (\hat{y}_t - y) h_t^T
+\end{equation}
+\begin{equation} \label{gradientCalculating5}
+	\nabla_{b_{y}}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial b_{y}}  =  \hat{y}_t - y
 \end{equation}
 
-Bởi vì $W_{hy}$ được chia sẻ trên toàn bộ chuỗi, do đó đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hy}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hy}$. Từ công thức \ref{gradientWRTSt5} ta có được:
+Nhóm thứ hai gồm những tham số tham gia vào quá trình hồi quy, bao gồm $\theta^{(2)} \in \{W_{hh},W_{xh},b_h \}$. Để tính được "gradient" ứng với $\theta^{(2)}$, ta cần tính được $\frac{\partial h_t}{\partial \theta^{(2)} }$
+
+Vì $h_t$ là một hàm hồi quy được xây dựng dựa trên $\theta^{(2)}$ và $h_{t-1}$ nên "gradient" cuả $h_t$ tương ứng với $\theta^{(2)}$ được tính dựa trên quy tắc "total derivative". Quy tắc này nói rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^M$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
 \begin{equation} \label{gradientWRTSt6}
-	\frac{\partial{E}}{\partial{W_{hy}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}} = \sum_{t} \left(\hat{y}_t - y_t \right) \otimes h_t
+	\frac{\partial{f}}{\partial{r}} = \frac{\partial f}{\partial x}\frac{\partial x }{\partial r} + \frac{\partial f }{\partial y }\frac{\partial y }{\partial r }
 \end{equation}
 
-trong đó $\otimes$ là "outer-product" của hai vec-tơ.
-
-Tương tự với đạo hàm của $E$ theo $b_y$, ta cũng có:
+Áp dụng vào trường hợp của $\frac{\partial h_t}{\partial \theta^{(2)} }$ ta được:
 \begin{equation} \label{gradientWRTSt7}
-	\frac{\partial{E}}{\partial{b_{y}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{b_{y}}} = \sum_{t} \hat{y}_t - y_t
+	\frac{\partial h_t}{ \partial \theta^{(2)}} = \frac{\partial h_t}{ \partial \theta^{(2)}} + \frac{\partial h_t }{\partial h_{t-1} } \frac{\partial h_{t-1}}{ \partial \theta^{(2)}}
 \end{equation}
 
-\subsubsection{Gradient theo $W_{hh}$, $W_{xh}$ và $b_h$}
-
-Tham số $W_{hh}$ tồn tại ở cả trạng thái ẩn $h_t$ và đầu ra dự đoán $\hat{y}_t$, để tính "gradient" theo $W_{hh}$. Chúng ta cũng để ý rằng $\hat{y}_t$ cũng dựa trên $W_{hh}$ trực tiếp và gián tiếp (thông qua $h_{t-1}$). Đặt $p_t = W_{hx}x_t + W_{hh}h_{t-1}$ và $h_t = \tanh(p_t)$:
+Tuy nhiên, ta có thể khai triển công thức trên một lần nữa với cách làm tương tự cho $\frac{\partial h_{t-1}}{\partial \theta^{(2)} }$:
 \begin{equation} \label{gradientWRTSt8}
-	\frac{\partial{E_t}}{\partial{W_{hh}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{h_t}} \frac{\partial{h_t}}{\partial{W_{hh}}}
+	\frac{\partial h_t}{\partial \theta^{(2)}} = \frac{\partial h_t}{\partial \theta^{(2)}} + \frac{\partial h_t }{\partial h_{t-1}} \frac{\partial h_{t-1}}{\partial \theta^{(2)}} + \frac{\partial h_t}{\partial h_{t-1}} \frac{\partial h_{t-1}}{\partial h_{t-2}} \frac{\partial h_{t-2}}{\partial \theta^{(2)}}
 \end{equation}
 
-Trong công thức trên, ta đã biết $\frac{\partial{E_t}}{\partial{\hat{y}}}$ và $\frac{\partial{\hat{y}}}{\partial{s_t}}$ trong phần trước, công thức tính $\frac{\partial{s_t}}{\partial{h_t}}$ khá đơn giản:
+Khai triển trên sẽ kéo dài cho đến khi gặp $\frac{\partial h_0}{\partial \theta^{(2)}}$. Và để ý rằng:
 \begin{equation} \label{gradientWRTSt9}
-	\frac{\partial{s_t}}{\partial{h_t}} = W_{hy}
+	\frac{\partial h_t}{\partial h_{t-1}} \frac{\partial h_{t-1}}{\partial h_{t-2}} \frac{\partial h_{t-2}}{\partial \theta^{(2)}} = \frac{\partial h_t}{\partial h_{t-2}}\frac{\partial h_{t-2}}{\partial \theta^{(2)}}
+\end{equation}
+\begin{equation} \label{gradientWRTSt10}
+	\frac{\partial h_{t}}{\partial \theta^{(2)}} = \frac{\partial h_{t}}{\partial h_t} \frac{\partial h_t}{\partial \theta^{(2)}}
 \end{equation}
 
-Cuối cùng, để tính được $\frac{\partial{h_t}}{\partial{W_{hh}}}$ ta có quan sát rằng có một sự phụ thuộc giữa $h_t$ và $W_{hh}$ thông qua trạng thái ẩn trước đó $h_{t-1}$. Ta biết rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^N$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
-  \begin{equation} \label{gradientWRTSt10}
-	\frac{\partial{f}}{\partial{r}} = \frac{\partial{f}}{\partial{x}}\frac{\partial{x}}{\partial{r}} + \frac{\partial{f}}{\partial{y}}\frac{\partial{y}}{\partial{r}}
-\end{equation}
-
-Áp dụng công thức trên để tính $\frac{\partial{h_t}}{\partial{W_{hh}}}$ ta được:
+Với cách khai triển như vậy, ta có công thức tổng quát cho $\frac{\partial h_t}{\partial \theta^{(2)}}$, đó là:
 \begin{equation} \label{gradientWRTSt11}
-	\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{W_{hh}}}
+	\frac{\partial h_t}{\partial \theta^{(2)}} = \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial \theta^{(2)}}
 \end{equation}
 
-Tuy nhiên, ta có thể áp dụng công thức trên một lần nữa với $\frac{\partial{h_{t-1}}}{\partial{W_{hh}}}$:
+Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gradient" ứng với từng tham số là:
 \begin{equation} \label{gradientWRTSt12}
-	\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}}
+	\nabla_{W_{hh}}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \frac{\partial h_t}{\partial W_{hh}}  =  (\hat{y}_t - y) W_{hy}^T \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{hh}}
 \end{equation}
-
-Quá trình này tiếp tục cho đến khi chúng kết thúc ở $h_0$ là trạng thái ẩn khởi tạo. Có thể thấy 
-\begin{equation} \label{gradientWRTSt122}
-\frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}}
-\end{equation}
-và:
-\begin{equation} \label{gradientWRTSt123}
-\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{h_{t}}} \frac{\partial{h_t}}{\partial{W_{hh}}}
-\end{equation}
-
-Như vậy, có thể rút gọn \ref{gradientWRTSt12} thành một công thức duy nhất:
 \begin{equation} \label{gradientWRTSt13}
-	\frac{\partial{h_t}}{\partial{W_{hh}}} = \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
+	\nabla_{W_{xh}}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \frac{\partial h_t}{\partial W_{xh}}  =  (\hat{y}_t - y) W_{hy}^T \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{xh}}
 \end{equation}
-
-Kết hợp các công thức từ \ref{gradientWRTSt8} suy ra:
 \begin{equation} \label{gradientWRTSt14}
-	\frac{\partial{E_t}}{\partial{W_{hh}}} = (\hat{y}_t - y_t) W_{hy} \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
+	\nabla_{b_h}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \frac{\partial h_t}{\partial b_h}  =  (\hat{y}_t - y) W_{hy}^T \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial b_h}
 \end{equation}
 
-Đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hh}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hh}$
-\begin{equation} \label{gradientWRTSt15}
-	\frac{\partial{E}}{\partial{W_{hh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
-\end{equation}
 
-Cũng giống như $W_{hh}$, trong công thức tính $h_t$, $W_{hh}$ cũng có liên hệ với $h_t$ một cách trực tiếp và với $h_{t-1}$ một cách gián tiếp. Ta có:
-\begin{equation} \label{gradientWRTSt16}
-	\frac{\partial{E_t}}{\partial{W_{xh}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{h_t}} \frac{\partial{h_t}}{\partial{W_{hx}}}
-\end{equation}
+%Bởi vì $W_{hy}$ và $b_y$ chỉ hiện diện trong hàm $\hat{y}$. Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = softmax(s_t)$, sử dụng công thức nhân trong tính đạo hàm ta được:
+%\begin{equation} \label{gradientWRTSt1}
+%	\frac{\partial{E_t}}{\partial{W_{hy}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}}
+%\end{equation}
 
-Ta chỉ cần tính $\frac{\partial{h_t}}{\partial{W_{hx}}}$, theo cách tương tự như đã làm với $W_{hh}$ ,ta được:
-\begin{equation} \label{gradientWRTSt17}
-	\frac{\partial{h_t}}{\partial{W_{xh}}} = \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
-\end{equation}
+%Từ công thức \ref{errorOfAnExample} ta có:
+%\begin{equation} \label{gradientWRTSt2}
+%	\frac{\partial{E_t}}{\partial{\hat{y}}} = -\frac{y_t}{\hat{y}_t}
+%\end{equation}
 
-Như vậy cuối cùng ta được:
-\begin{equation} \label{gradientWRTSt18}
-	\frac{\partial{E_t}}{\partial{W_{hh}}} = (\hat{y}_t - y_t) W_{hy} \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
-\end{equation}
+%Hàm $\hat{y}$ là một hàm $\softmax$ nên nó có đạo hàm:
+%\begin{equation} \label{gradientWRTSt3}
+%	\frac{\partial \hat{y}_{t}}{\partial s_{t}}=\left\{
+%		\begin{array}{lr}
+%			-\hat{y}_{t_k}\hat{y}_{t_l}, & k\neq l \\
+%			\hat{y}_{t_k}\left(1-\hat{y}_{t_k}\right), & k=l
+%		\end{array}
+%	\right..
+%\end{equation}
 
-Điểm khác biệt giữa $\frac{\partial{E_t}}{\partial{W_{hh}}}$ và $\frac{\partial{E_t}}{\partial{W_{xh}}}$ là ở cách tính đạo hàm $\frac{\partial{h_r}}{\partial{W_{hh}}}$ và $\frac{\partial{h_r}}{\partial{W_{xh}}}$
+%Kết hợp \ref{gradientWRTSt2} và \ref{gradientWRTSt3} ta có được:
+%\begin{subequations} \label{gradientWRTSt4}
+%\begin{align}
+%-\frac{y_{t_l}}{\hat{y}_{t_l}}\hat{y}_{t_l}\left(1-\hat{y}_{t_l}\right)+\sum_{k\ne l}{}\left(-\frac{y_{t_k}}{\hat{y}_{t_k}}\right)\left(-\hat{y}_{t_k}\hat{y}_{t_l}\right) 
+%&= -y_{t_l}+y_{t_l}\hat{y}_{t_l}+\sum_{k\ne l}{}y_{t_k}\hat{y}_{t_l} \\
+%&= -y_{t_l} + \hat{y}_{t_l}\sum_{k}{}y_{t_k}.
+%\end{align}
+%\end{subequations}
 
-Cuối cùng đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hh}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hh}$
-\begin{equation} \label{gradientWRTSt19}
-	\frac{\partial{E}}{\partial{W_{xh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
-\end{equation}
+%Lưu ý rằng $y_t$ là "one-hot" vec-tơ nên tổng trong công thức trên bằng 1, cho nên:
 
-Với những lập luận tương tự, ta cũng có đạo hàm hàm độ lỗi tổng hợp $E$ theo $b_h$:
-\begin{equation} \label{gradientWRTSt20}
-	\frac{\partial{E}}{\partial{b_h}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
-\end{equation}
+%\begin{equation} \label{gradientWRTSt5}
+%	\frac{\partial{E_t}}{\partial{s_t}} = \hat{y}_t - y_t
+%\end{equation}
+
+%Bởi vì $W_{hy}$ được chia sẻ trên toàn bộ chuỗi, do đó đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hy}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hy}$. Từ công thức \ref{gradientWRTSt5} ta có được:
+%\begin{equation} \label{gradientWRTSt6}
+%	\frac{\partial{E}}{\partial{W_{hy}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}} = \sum_{t} \left(\hat{y}_t - y_t \right) \otimes h_t
+%\end{equation}
+
+%trong đó $\otimes$ là "outer-product" của hai vec-tơ.
+
+%Tương tự với đạo hàm của $E$ theo $b_y$, ta cũng có:
+%\begin{equation} \label{gradientWRTSt7}
+%	\frac{\partial{E}}{\partial{b_{y}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{b_{y}}} = \sum_{t} \hat{y}_t - y_t
+%\end{equation}
+
+%Tham số $W_{hh}$ tồn tại ở cả trạng thái ẩn $h_t$ và đầu ra dự đoán $\hat{y}_t$, để tính "gradient" theo $W_{hh}$. Chúng ta cũng để ý rằng $\hat{y}_t$ cũng dựa trên $W_{hh}$ trực tiếp và gián tiếp (thông qua $h_{t-1}$). Đặt $p_t = W_{hx}x_t + W_{hh}h_{t-1}$ và $h_t = \tanh(p_t)$:
+%\begin{equation} \label{gradientWRTSt8}
+%	\frac{\partial{E_t}}{\partial{W_{hh}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{h_t}} \frac{\partial{h_t}}{\partial{W_{hh}}}
+%\end{equation}
+
+%Trong công thức trên, ta đã biết $\frac{\partial{E_t}}{\partial{\hat{y}}}$ và $\frac{\partial{\hat{y}}}{\partial{s_t}}$ trong phần trước, công thức tính $\frac{\partial{s_t}}{\partial{h_t}}$ khá đơn giản:
+%\begin{equation} \label{gradientWRTSt9}
+%	\frac{\partial{s_t}}{\partial{h_t}} = W_{hy}
+%\end{equation}
+
+%Cuối cùng, để tính được $\frac{\partial{h_t}}{\partial{W_{hh}}}$ ta có quan sát rằng có một sự phụ thuộc giữa $h_t$ và $W_{hh}$ thông qua trạng thái ẩn trước đó $h_{t-1}$. Ta biết rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^N$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
+%  \begin{equation} \label{gradientWRTSt10}
+%	\frac{\partial{f}}{\partial{r}} = \frac{\partial{f}}{\partial{x}}\frac{\partial{x}}{\partial{r}} + \frac{\partial{f}}{\partial{y}}\frac{\partial{y}}{\partial{r}}
+%\end{equation}
+
+%Áp dụng công thức trên để tính $\frac{\partial{h_t}}{\partial{W_{hh}}}$ ta được:
+%\begin{equation} \label{gradientWRTSt11}
+%	\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{W_{hh}}}
+%\end{equation}
+
+%Tuy nhiên, ta có thể áp dụng công thức trên một lần nữa với $\frac{\partial{h_{t-1}}}{\partial{W_{hh}}}$:
+%\begin{equation} \label{gradientWRTSt12}
+%	\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}}
+%\end{equation}
+
+%Quá trình này tiếp tục cho đến khi chúng kết thúc ở $h_0$ là trạng thái ẩn khởi tạo. Có thể thấy 
+%\begin{equation} \label{gradientWRTSt122}
+%\frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}}
+%\end{equation}
+%và:
+%\begin{equation} \label{gradientWRTSt123}
+%\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{h_{t}}} \frac{\partial{h_t}}{\partial{W_{hh}}}
+%\end{equation}
+
+%Như vậy, có thể rút gọn \ref{gradientWRTSt12} thành một công thức duy nhất:
+%\begin{equation} \label{gradientWRTSt13}
+%	\frac{\partial{h_t}}{\partial{W_{hh}}} = \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
+%\end{equation}
+
+%Kết hợp các công thức từ \ref{gradientWRTSt8} suy ra:
+%\begin{equation} \label{gradientWRTSt14}
+%	\frac{\partial{E_t}}{\partial{W_{hh}}} = (\hat{y}_t - y_t) W_{hy} \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
+%\end{equation}
+
+%Đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hh}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hh}$
+%\begin{equation} \label{gradientWRTSt15}
+%	\frac{\partial{E}}{\partial{W_{hh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
+%\end{equation}
+
+%Cũng giống như $W_{hh}$, trong công thức tính $h_t$, $W_{hh}$ cũng có liên hệ với $h_t$ một cách trực tiếp và với $h_{t-1}$ một cách gián tiếp. Ta có:
+%\begin{equation} \label{gradientWRTSt16}
+%	\frac{\partial{E_t}}{\partial{W_{xh}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{h_t}} \frac{\partial{h_t}}{\partial{W_{hx}}}
+%\end{equation}
+
+%Ta chỉ cần tính $\frac{\partial{h_t}}{\partial{W_{hx}}}$, theo cách tương tự như đã làm với $W_{hh}$ ,ta được:
+%\begin{equation} \label{gradientWRTSt17}
+%	\frac{\partial{h_t}}{\partial{W_{xh}}} = \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
+%\end{equation}
+
+%Như vậy cuối cùng ta được:
+%\begin{equation} \label{gradientWRTSt18}
+%	\frac{\partial{E_t}}{\partial{W_{hh}}} = (\hat{y}_t - y_t) W_{hy} \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
+%\end{equation}
+
+%Điểm khác biệt giữa $\frac{\partial{E_t}}{\partial{W_{hh}}}$ và $\frac{\partial{E_t}}{\partial{W_{xh}}}$ là ở cách tính đạo hàm $\frac{\partial{h_r}}{\partial{W_{hh}}}$ và $\frac{\partial{h_r}}{\partial{W_{xh}}}$
+
+%Cuối cùng đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hh}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hh}$
+%\begin{equation} \label{gradientWRTSt19}
+%	\frac{\partial{E}}{\partial{W_{xh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
+%\end{equation}
+
+%Với những lập luận tương tự, ta cũng có đạo hàm hàm độ lỗi tổng hợp $E$ theo $b_h$:
+%\begin{equation} \label{gradientWRTSt20}
+%	\frac{\partial{E}}{\partial{b_h}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
+%\end{equation}
 
 \subsection{Khó khăn trong việc huấn luyện RNN}
 
