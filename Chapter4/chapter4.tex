@@ -92,20 +92,37 @@ Nhìn chung, kết quả cho thấy kĩ thuật thay thế từ hiếm tốt hơ
 % \usepackage{multirow}
 \begin{table}[]
 	\centering
-	\begin{tabular}{|l|l|l|}
+	\begin{tabular}{|l|l|c|c|} 
 		\hline
-		\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Model}}} & \multicolumn{2}{l|}{\textbf{BLEU}} \\ \cline{2-3} 
-		\multicolumn{1}{|c|}{}                                & \textbf{Ours}   & \textbf{Paper}   \\ \hline
-		Baseline                                              & 15.04           & 14.0             \\ \hline
-		Baseline + global (general)                           & 20.25           & 17.3             \\ \hline
-		Baseline + global (dot)                               & 19.02           & 18.6             \\ \hline
-		Baseline + global (dot) + input feed                  & 20.23           &                  \\ \hline
-		Baseline + global (dot) + input feed + unk rpl        & 22.71           &                  \\ \hline
-		Baseline + local-p (genenral) + input feed            & 20.75           &                  \\ \hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Mô hình} }} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Perplexity} }} & \multicolumn{2}{c|}{\textbf{BLEU}}                                                   \\ 
+		\cline{3-4}
+		\multicolumn{1}{|c|}{}                                   & \multicolumn{1}{c|}{}                                      & \multicolumn{1}{l|}{Trước khi} & \multicolumn{1}{l|}{Sau khi dùng thay thế từ hiếm}  \\ 
+		\hline
+		Global (dot)                                             &                                                            & 19.02                          &                                                     \\ 
+		\hline
+		Global (dot) + input feed                                &                                                            & 19.78                          & 22.35 (+2.57)                                       \\ 
+		\hline
+		Global (general)                                         &                                                            & 19.99                          & 22.23 (2.24)                                        \\ 
+		\hline
+		Local-p + input feed                                     &                                                            & 20.37                          & 22.75 (+2.38)                                       \\
+		\hline
 	\end{tabular}
 	\caption{Kết quả của các mô hình trên tập dữ liệu WMT'14 English-German.}
 	\label{wmt14-results}
 \end{table}
-Từ bảng kết quả cho thấy việc sử dụng cơ chế Attention giúp cải thiện kết quả rất lớn. Mô hình Baseline có kết quả trên độ đo BLEU của chúng tôi là 15,04. Khi sử dụng cơ chế Attention, mô hình cho khoảng chênh lệch nhỏ nhất giữa mô hình Baseline và các mô hình Attention là mô hình Attention Toàn cục với hàm score là dot với BLEU bằng 19,02 (chênh lệch 3,98 BLEU). Khi sử dụng phương pháp Input feeding, kết quả tăng 1,21 BLEU thành 20.23 BLEU. Kết quả còn được cải thiện hơn nữa với việc sử dụng kĩ thuật thay thế từ hiếm (unk rpl), chúng tôi đạt được điểm BLEU là 22,71 (tăng 2.43 BLEU). Kết quả của chúng tôi có một chút chênh lệch so với bài báo của Luong et al. \cite{attentionThangLuong2015} do yếu tố ngẫu nhiên của việc huấn luyện mô hình.
+Từ bảng kết quả cho thấy việc sử dụng cơ chế Attention giúp cải thiện kết quả rất lớn. Mô hình Baseline có kết quả trên độ đo BLEU của chúng tôi là 15.04. Khi sử dụng cơ chế Attention, mô hình cho khoảng chênh lệch nhỏ nhất giữa mô hình Baseline và các mô hình Attention là mô hình Attention Toàn cục với hàm score là dot với BLEU bằng 19,02 (chênh lệch 3.98 BLEU). Khi sử dụng phương pháp Input feeding, kết quả tăng 1.21 BLEU thành 20.23 BLEU. Kết quả còn được cải thiện hơn nữa với việc sử dụng kĩ thuật thay thế từ hiếm (unk rpl), chúng tôi đạt được điểm BLEU là 22.71 (tăng 2.43 BLEU).
 
 Các kết quả trên cho thấy những cơ chế mà chúng tôi tìm hiểu và sử dụng trong khóa luận này thực sự hiệu quả. Các cơ chế này vừa rõ ràng về lý thuyết vừa có hiệu năng tốt trong thực tế. Đặc biệt với cơ chế thay thế từ hiếm dựa vào kết quả của cơ chế Attention đã tăng kết quả của mô hình lên rất đáng kể (tăng 2,43 BLEU). Điều này cũng cho thấy tiềm năng của cơ chế Attention trong việc giải quyết bài toán Dịch máy. Không chỉ bản thân của cơ chế này nâng cao chất lượng dịch mà còn là nền tảng để những cơ chế khác sử dụng và tiếp tục nâng cao chất lượng dịch.
+
+\subsection{Phân tích đường cong học}
+Phần này, chúng tôi tập trung vào so sánh các tất cả các mô hình đã thực hiện ở phương diện quá trình học bằng cách quan sát độ lỗi của mô hình bằng độ đo Perplexity trên cả tập huấn luyện và tập validation (newstest\_2013) trong quá hình huấn luyện mô hình. Điều này giúp chúng tôi biết được mô hình nào sẽ hôi tụ và tổng quát hóa tốt hơn.
+// TODO: thêm đồ thị
+Từ đồ thị thấy được rằng mô hình Global Attention với general product cho tốc độ hôi tụ nhanh nhất (perplexity trên tập huấn luyện giảm nhanh nhất qua các epoch), cùng với đó khả năng tổng quát hóa cũng đáng kể (perplexity trên tập validation có độ giảm tương đương). Mô hình Local Attention với general product cho khả năng tổng quát hóa tốt nhất (perplexity trên tập huấn luyện thấp hơn các mô hình khác nhưng kết quả điểm BLEU trên tập kiểm thử là tốt nhất). Trong các epoch đầu, hầu hết các mô hình có tốc độ giảm perplexity nhanh như nhau. Các mô hình Attention không sử dụng phương pháp Input feeding ở epoch đầu có perplexity cao hơn so với các mô hình sử dụng Input feeding, nhưng khi ở các epoch về sau thì tốc độ giảm perplexity giống nhau. Các mô hình Local Attention ở các epoch đầu đều có hành vi giống Global Attention, chỉ có khác nhau ở các epoch cuối cùng. Các mô hình Local Attention này ở các epoch cuối có tốc độ giảm perplexity chậm đi rõ rệt.
+
+\subsection{So sánh với kết quả của bài báo}
+Phần này chúng tôi thực hiện so sánh kết quả của chúng tôi với kết quả của bài báo \textit{Effective Approaches to Attention-based Neural Machine Translation} để đánh giá rằng mô hình của chúng tôi hoạt động có thực sự đúng không.
+// TODO: thêm bảng kết quả
+
+Từ bảng kết quả trên cho thấy mô hình của chúng tôi hoạt động tốt. Kết quả của chúng tôi có khác với bài báo rằng hầu hết mô hình của chúng tôi đều hơn kết quả của bài báo từ 1.0 đến gần 2.0 điểm BLEU. Đặc biệt riêng với mô hình Global Attention với general product, kết quả có sự chênh lệch vô cùng lớn.
+
+Lí do của sự khác biệt này là về sự khác nhau giữa 2 ngôn ngữ và framework - Matlab và PyTorch. Matlab là một ngôn ngữ lâu đời và tại thời điểm năm 2015 mà tác giả thực hiện bài báo này thì Matlab vẫn chưa có hỗ trợ Học sâu. Do vậy, hầu hết các bước tính toán quan trọng của mô hình đều là do tác giả tự cài đặt, bao gồm cả các bước thực hiện tính đạo hàm để lan truyền ngược.
