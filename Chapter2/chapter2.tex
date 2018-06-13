@@ -245,7 +245,7 @@ Hochreiter và Schmidhuber \cite{hochreiter1997} đã giới thiệu mô hình \
 	\label{fig_lstmCell}
 \end{figure}
 
-Hochreiter và Schmidhuber \cite{hochreiter1997} đã giới thiệu mô hình \textit{Long short-term memory} (LSTM) chủ yếu ở để khắc phục vấn đề biến mất gradient trong RNN. Nhớ lại rằng trong RNN, chính việc mô hình hóa phụ thuộc thời gian dựa vào ma trận trọng số $W_{hh}$ đã gây ra hiện tượng gradient biến mất. Ý tưởng của LSTM là thay vì tính toán $h_t$ từ $h_{t-1}$ với một phép nhân ma trận theo sau là hàm kích hoạt phi tuyến, LSTM trực tiếp tính toán một $\Delta h_t$ sau đó nó được cộng với $h_{t-1}$ để tạo ra $h_t$. Thoạt nhìn, sự khác biệt này có thể không đáng kể khi mà chúng ta đều đạt được $h_t$ trong cả hai cách. Tuy nhiên, với cách làm này, gradient của $\Delta h_t$ sẽ không bị biến mất.
+Hochreiter và Schmidhuber \cite{hochreiter1997} đã giới thiệu mô hình \textit{Long short-term memory} (LSTM) chủ yếu ở để khắc phục vấn đề biến mất gradient trong RNN. Nhớ lại rằng trong RNN, chính việc mô hình hóa phụ thuộc thời gian dựa vào ma trận trọng số $W_{hh}$ đã gây ra hiện tượng gradient biến mất. Giả sử gọi $S_t$ là trạng thái liên kết hồi quy (trong RNN, nó chính là trạng thái ẩn). Ý tưởng của LSTM là thay vì tính toán $S_t$ từ $S_{t-1}$ với một phép nhân ma trận theo sau là hàm kích hoạt phi tuyến, LSTM trực tiếp tính toán một $\Delta S_t$ sau đó nó được cộng với $S_{t-1}$ để tạo ra $S_t$. Thoạt nhìn, sự khác biệt này có thể không đáng kể khi mà chúng ta đều đạt được $S_t$ trong cả hai cách. Tuy nhiên, với cách làm này, các "gradient" của LSTM tính toán $\Delta h_t$ sẽ không bị biến mất.
 
 Thuật ngữ "Long short-term memory" xuất phát từ nhận định sau. Mạng RNN đơn giản có "long term memory" (bộ nhớ dài hạn) dưới dạng các ma trận trọng số. Những ma trận trọng số này thay đổi một cách chậm rãi trong quá trình học nhằm mã hóa kiến thức về dữ liệu. RNN cũng có "short-term memory" (bộ nhớ ngắn hạn) dưới dạng các kích hoạt tạm thời, được truyền từ mỗi bước thời gian sang các bước thời gian sau đó. "Long short-term memory" tạm dịch là "bộ nhớ ngắn hạn dài" cho phép mở rộng bộ nhớ ngắn hạn bằng cách thêm vào một loại lưu trữ trung gian gọi là trạng thái lưu giữ (cell state). Trạng thái lưu giữ này có khả năng lưu giữ các thông tin cần thiết một cách lâu dài dưới dạng một bộ nhớ ngắn hạn. Để làm được điều này, LSTM sử dụng một cơ chế gọi là "cổng", các "cổng" giúp được huấn luyện để chọn lọc thông tin nào là cần thiết để tác động lên trạng thái lưu trữ. Với cách làm này, trạng thái lưu trữ sẽ lưu được nhiều thông tin hơn, vì chỉ những thông tin quan trọng mới tồn tại trong nó.
 
@@ -272,7 +272,14 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\begin{equation} \label{cellStateWithForgetGateLSTM}
 		s_t = s_{t-1} \odot f_t + g_t \odot i_t
 	\end{equation}
-	\item[•] \textit{Cổng ra (output gate)}:
+	\item[•] \textit{Cổng ra (output gate)}: Giá trị đầu ra $v_t$ của "memory cell" tại mỗi bước thời gian chính là tích giá trị của trạng thái lưu trữ $s_t$ với giá trị của cổng ra $o_t$. Trong một số phiên bản của LSTM, trạng thái lưu trữ trước đó được cho qua một hàm kích hoạt như $\tanh$. Tại mỗi bước thời gian, giá trị của cổng ra $o_t$ được tính như sau:
+	\begin{equation} \label{outputGateLSTM}
+		o_t = \sigma \left(W_{ox}x_t + W_{oh}h_{t-1} + b_o \right)
+	\end{equation}
+	Đầu ra của "memory cell" cũng chính là trạng thái ẩn $h_t$ có giá trị:
+	\begin{equation} \label{outputNodeLSTM}
+		h_t = s_t \odot o_t 
+	\end{equation}
 \end{itemize}
 
 
