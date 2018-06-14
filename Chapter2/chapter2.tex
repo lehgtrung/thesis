@@ -7,7 +7,7 @@
 
 \begin{quote}
 
-\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, mô hình ngôn ngữ nơ-ron và mô hình dịch máy nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Một phiên bản cải tiến của RNN là \textit{Long short-term memory} cũng được chúng tôi trình bày, phiên bản này giúp cho việc huấn luyện RNN trở nên dễ dàng hơn. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm \textit{mô hình ngôn ngữ hồi quy} với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc bộ mã hóa - bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
+\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, Long short-term memory và mô hình ngôn ngữ nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Long short-term memory là phiên bản cải tiến của RNN để giải quyết vấn đề về phụ thuộc dài hạn. Long short-term memory cũng là phiên bản RNN được dùng để xây dựng nên bộ mã hóa - bộ giải trong khóa luận này. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm \textit{mô hình ngôn ngữ hồi quy} với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc bộ mã hóa - bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
 
 \end{quote}
 \section{Mạng nơ-ron hồi quy (Recurrent neural network)}
@@ -166,8 +166,9 @@ Khai triển trên sẽ kéo dài cho đến khi gặp $\frac{\partial h_0}{\par
 
 Với cách khai triển như vậy, ta có công thức tổng quát cho $\frac{\partial h_t}{\partial \theta^{(2)}}$, đó là:
 \begin{equation} \label{gradientWRTSt11}
-	\frac{\partial h_t}{\partial \theta^{(2)}} = \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial \theta^{(2)}}
+	\frac{\partial h_t}{\partial \theta^{(2)}} = \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial^{\dagger} h_r}{\partial \theta^{(2)}}
 \end{equation}
+trong đó $\frac{\partial^{\dagger} h_r}{\partial \theta^{(2)}}$ là đạo hàm "lập tức", có nghĩa là khi lấy đạo hàm $h_r$ theo $\theta^{(2)}$, $h_{r-1}$ được coi là hằng số.
 
 Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gradient" ứng với từng tham số là:
 \begin{equation} \label{gradientWRTSt12}
@@ -180,7 +181,46 @@ Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gra
 	\nabla_{b_h}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \frac{\partial h_t}{\partial b_h}  =  (\hat{y}_t - y) W_{hy}^T \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial b_h}
 \end{equation}
 
+Để tính $\frac{\partial h_t}{\partial h_r}$ ta áp dụng "chain rule" từ bước thời gian thứ $t$ đến $r$
+\begin{equation} \label{gradientWRTSt15}
+	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t - 1} \frac{\partial h_{i+1}}{\partial h_i}
+\end{equation}
+với $h_{i+1},h_i \in \mathbb{R}^n$ nên $\frac{\partial h_{i+1}}{\partial h_i}$ là một ma trận "Jacobian"
 
+\begin{equation} \label{gradientWRTSt16}
+	\frac{\partial h_{i+1}}{\partial h_i} = \left[ \frac{h_{i+1}}{h_{i,1}}, ..., \frac{h_{i+1}}{h_{i,n}} \right] 
+\end{equation}
+
+\begin{equation} \label{gradientWRTSt17}
+	= \begin{bmatrix}
+  	\frac{h_{i+1, 1}}{h_{i,1}} & \cdots & \frac{h_{i+1,1}}{h_{i,n}}\\
+   	\vdots & \ddots & \vdots\\
+   	\frac{h_{i+1, n}}{h_{i,1}} & \cdots & \frac{h_{i+1,n}}{h_{i,n}} 
+	\end{bmatrix} = \prod_{i=r}^{t - 1} W_{hh}^T \diag \left( 1 - (h_i)^2 \right)
+\end{equation}
+
+Như vậy, ta có "gradient" của các tham số qua tất cả các bước thời gian sẽ là:
+
+
+\begin{equation} \label{updateParams2}
+	\nabla_{b_{y}}L = \sum_{t} \hat{y}_t - y
+\end{equation}
+
+\begin{equation} \label{updateParams3}
+	\nabla_{b_h}L = \sum_{t} \sum_{r=0}^{t} (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial b_h}
+\end{equation}
+
+\begin{equation} \label{updateParams4}
+	\nabla_{W_{hy}}L = \sum_{t} (\hat{y}_t - y) h_t^T
+\end{equation}
+
+\begin{equation} \label{updateParams5}
+	\nabla_{W_{hh}}L = \sum_{t} \sum_{r=0}^{t}  (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{hh}}
+\end{equation}
+
+\begin{equation} \label{updateParams6}
+	\nabla_{W_{xh}}L_t = \sum_{t} \sum_{r=0}^{t} (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{xh}}
+\end{equation}
 
 %Bởi vì $W_{hy}$ và $b_y$ chỉ hiện diện trong hàm $\hat{y}$. Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = softmax(s_t)$, sử dụng công thức nhân trong tính đạo hàm ta được:
 %\begin{equation} \label{gradientWRTSt1}
@@ -305,9 +345,14 @@ Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gra
 %	\frac{\partial{E}}{\partial{b_h}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
 %\end{equation}
 
-\subsection{Khó khăn trong việc huấn luyện RNN}
+\subsection{Thách thức trong việc học các phụ thuộc dài hạn}
 
-Mặc dù "gradient" của RNN dễ tính toán, nhưng RNN cơ bản là khó huấn luyện. Những vấn đề này bao gồm gradient bùng nổ (exploiting gradients) và gradient biến mất (vanishing gradients) được đề cập trong các nghiên cứu \cite{pascanu2011} \cite{hochreiter1997}. Nếu gradient bùng nổ, mô hình không thể học được. Nếu gradient biến mất, việc học những phụ thuộc dài hạn trở nên khó khăn.
+Hãy tưởng tượng rằng dòng thời gian mà chúng ta đang tồn tại là một mạng nơ-ron hồi quy khổng lồ. Tại mỗi thời điểm, trạng thái của thế giới được thay đổi bởi một hàm số vô cùng phức tạp của tự nhiên. Bây giờ, hãy xem một sự thay đổi nhỏ của ngày hôm nay ảnh hưởng đến thế giới sau tương lai như thế nào. Thay đổi ấy có thể lớn như việc một con bướm đập cánh ở Brazil gây ra một cơn lốc xoáy ở Texas, nhưng nó cũng có thể là một sự kiện to lớn nhưng cuối cùng lại không quan trọng trong nhiều năm nữa. 100 năm sau, sẽ không ai nhắc đến đĩa mềm, thứ được xem là một phát minh lớn trong những năm 1960.
+
+Hai ví dụ trên cũng chính là những vấn đề cơ bản mà mạng nơ-ron hồi quy gặp phải. Sự phát minh ra đĩa mềm hay việc con bướm đập cánh đại diện cho những thay đổi ở những bước thời gian trong quá khứ. Sự thay đổi ấy có thể hoặc là ảnh hưởng to lớn đến đầu ra ở bước thời gian hiện tại hoặc không gây ra ảnh hưởng gì. Quay lại với ví dụ ở đầu chương, ta cần tìm từ tiếp theo trong chuỗi "Hổ là loài động vật ăn \_\_". Một mạng RNN được huấn luyện để xuất ra từ "thịt" hay "cỏ" hay bất kỳ một từ nào khác trong bước thời gian tiếp theo tùy vào tên của loài động vật ở đầu câu. Trong trường hợp ta thay đổi từ "Hổ" thành "Bò" ta mong rằng "thịt" cũng sẽ trở thành "cỏ" (vì nó không biết ở đầu câu là con vật gì). Nhưng nếu RNN của chúng ta hoàn toàn bỏ qua sự thay đổi này (như trong ví dụ về đĩa mềm), ta sẽ không thể có được "cỏ". Tương tự, nếu RNN quá nhạy cảm với sự thay đổi từ xa này, nó có thể cho ra một từ hoàn toàn khác như "sữa" vì "Bò" đã lấn át hết tất cả những từ còn lại trong câu.
+
+Làm sao để các phụ thuộc dài hạn này không mất đi sự ảnh hưởng cũng như gây ảnh hưởng quá lớn đến hiện tại là một thách thức lớn cho RNN. Về mặt toán học, "gradient" đại diện cho sự thay đổi trong quá khứ có thể bị biến mất (vanish) hoặc bùng nổ (explode). Những vấn đề này được phát hiện và trình bày trong những nghiên cứu \cite{hochreiter1997}, \cite{bengio1994}, \cite{pascanu2011}. Nếu gradient bùng nổ, mô hình không thể học sai hoặc không học được. Nếu gradient biến mất, việc học những phụ thuộc dài hạn trở nên khó khăn. Trong mục này, chúng tôi sẽ trình bày những vấn đề trên một cách chi tiết và mô tả những giải pháp để vượt qua các vấn đề đó.
+
 
 \section{Long short-term memory}
 
