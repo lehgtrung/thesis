@@ -382,7 +382,7 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\begin{equation} \label{cellStateLSTM}
 		s_t = s_{t-1} + g_t \odot i_t
 	\end{equation}
-	\item[•] \textit{Cổng quên (forget gate)}: Là trái tim của LSTM. Cổng quên là một đề xuất của \cite{gers2000} so với bài báo LSTM gốc. Thay vì kiểm soát lượng thông tin để đưa vào trạng thái lưu giữ như cổng vào, cổng quên cung cấp khả năng tẩy đi một lượng thông tin trong trạng thái lưu giữ. Cụ thể, cổng quên với giá trị thuộc khoảng $(0,1)$ sẽ được nhân với $s_{t-1}$ trong công thức \ref{cellStateLSTM}. Tại mỗi bước thời gian, giá trị của cổng quên $f_t$ được tính như sau:
+	\item[•] \textit{Cổng quên (forget gate)}: Cổng quên là một đề xuất của \cite{gers2000} so với bài báo LSTM gốc. Thay vì kiểm soát lượng thông tin để đưa vào trạng thái lưu giữ như cổng vào, cổng quên cung cấp khả năng tẩy đi một lượng thông tin trong trạng thái lưu giữ. Cụ thể, cổng quên với giá trị thuộc khoảng $(0,1)$ sẽ được nhân với $s_{t-1}$ trong công thức \ref{cellStateLSTM}. Tại mỗi bước thời gian, giá trị của cổng quên $f_t$ được tính như sau:
 	\begin{equation} \label{forgetGateLSTM}
 		f_t = \sigma \left(W_{fx}x_t + W_{fh}h_{t-1} + b_f \right)
 	\end{equation}
