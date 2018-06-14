@@ -35,5 +35,4 @@
 \contentsline {chapter}{\numberline {6}K\IeC {\'\ecircumflex }t Lu\IeC {\d \acircumflex }n v\IeC {\`a} H\IeC {\uhorn }\IeC {\'\ohorn }ng Ph\IeC {\'a}t Tri\IeC {\h \ecircumflex }n}{47}{chapter.6}
 \contentsline {section}{\numberline {6.1}K\IeC {\'\ecircumflex }t lu\IeC {\d \acircumflex }n}{47}{section.6.1}
 \contentsline {section}{\numberline {6.2}H\IeC {\uhorn }\IeC {\'\ohorn }ng ph\IeC {\'a}t tri\IeC {\h \ecircumflex }n}{48}{section.6.2}
-\contentsline {chapter}{Ph\IeC {\d u} L\IeC {\d u}c: C\IeC {\'a}c C\IeC {\^o}ng Tr\IeC {\`\i }nh \IeC {\DJ }\IeC {\~a} C\IeC {\^o}ng B\IeC {\'\ocircumflex }}{50}{chapter*.20}
-\contentsline {chapter}{T\IeC {\`A}I LI\IeC {\d \ECIRCUMFLEX }U THAM KH\IeC {\h A}O}{61}{chapter*.21}
+\contentsline {chapter}{T\IeC {\`A}I LI\IeC {\d \ECIRCUMFLEX }U THAM KH\IeC {\h A}O}{50}{chapter*.20}
