@@ -47,10 +47,23 @@ J.~L. Elman, ``Finding structure in time,'' \emph{Cognitive Science}, vol.~14,
   \url{http://www.sciencedirect.com/science/article/pii/036402139090002E}
 \BIBentrySTDinterwordspacing
 
+\bibitem{gers2000}
+F.~A. Gers, J.~Schmidhuber, and F.~Cummins, ``Learning to forget: continual
+  prediction with lstm,'' in \emph{1999 Ninth International Conference on
+  Artificial Neural Networks ICANN 99. (Conf. Publ. No. 470)}, vol.~2, 1999,
+  pp. 850--855 vol.2.
+
 \bibitem{StanfordNMT}
 \BIBentryALTinterwordspacing
 T.~S. N. L.~P. Group. (2015) Neural machine translation. [Online]. Available:
   \url{https://nlp.stanford.edu/projects/nmt/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{hochreiter1997}
+\BIBentryALTinterwordspacing
+S.~Hochreiter and J.~Schmidhuber, ``Long short-term memory,'' \emph{Neural
+  Comput.}, vol.~9, no.~8, pp. 1735--1780, Nov. 1997. [Online]. Available:
+  \url{http://dx.doi.org/10.1162/neco.1997.9.8.1735}
 \BIBentrySTDinterwordspacing
 
 \bibitem{hutchins}
@@ -83,22 +96,17 @@ P.~Koehn, F.~J. Och, and D.~Marcu, ``Statistical phrase-based translation,'' in
   48--54. [Online]. Available: \url{https://doi.org/10.3115/1073445.1073462}
 \BIBentrySTDinterwordspacing
 
-\bibitem{attentionhistory2010}
-\BIBentryALTinterwordspacing
-H.~Larochelle and G.~E. Hinton, ``Learning to combine foveal glimpses with a
-  third-order boltzmann machine,'' in \emph{Advances in Neural Information
-  Processing Systems 23}, J.~D. Lafferty, C.~K.~I. Williams, J.~Shawe-Taylor,
-  R.~S. Zemel, and A.~Culotta, Eds.\hskip 1em plus 0.5em minus 0.4em\relax
-  Curran Associates, Inc., 2010, pp. 1243--1251. [Online]. Available:
-  \url{http://papers.nips.cc/paper/4089-learning-to-combine-foveal-glimpses-with-a-third-order-boltzmann-machine.pdf}
-\BIBentrySTDinterwordspacing
-
 \bibitem{attentionThangLuong2015}
 \BIBentryALTinterwordspacing
 M.~Luong, H.~Pham, and C.~D. Manning, ``Effective approaches to attention-based
   neural machine translation,'' \emph{CoRR}, vol. abs/1508.04025, 2015.
   [Online]. Available: \url{http://arxiv.org/abs/1508.04025}
 \BIBentrySTDinterwordspacing
+
+\bibitem{massetal2012}
+A.~Maas, Q.~V. Le, T.~M. O’Neil, O.~Vinyals, P.~Nguyen, and A.~Y. Ng,
+  ``Recurrent neural networks for noise reduction in robust asr,'' in
+  \emph{INTERSPEECH}, 2012.
 
 \bibitem{BLEUpaper}
 \BIBentryALTinterwordspacing
@@ -110,7 +118,7 @@ K.~Papineni, S.~Roukos, T.~Ward, and W.-J. Zhu, ``Bleu: A method for automatic
   \url{https://doi.org/10.3115/1073083.1073135}
 \BIBentrySTDinterwordspacing
 
-\bibitem{difficultyRNN}
+\bibitem{pascanu2011}
 \BIBentryALTinterwordspacing
 R.~Pascanu, T.~Mikolov, and Y.~Bengio, ``Understanding the exploding gradient
   problem,'' \emph{CoRR}, vol. abs/1211.5063, 2012. [Online]. Available:
@@ -128,6 +136,10 @@ I.~Sutskever, O.~Vinyals, and Q.~V. Le, ``Sequence to sequence learning with
   neural networks,'' \emph{CoRR}, vol. abs/1409.3215, 2014. [Online].
   Available: \url{http://arxiv.org/abs/1409.3215}
 \BIBentrySTDinterwordspacing
+
+\bibitem{werbos1990}
+P.~J. Werbos, ``Backpropagation through time: what it does and how to do it,''
+  \emph{Proceedings of the IEEE}, vol.~78, no.~10, pp. 1550--1560, Oct 1990.
 
 \bibitem{showattendandtellXu2015}
 \BIBentryALTinterwordspacing
