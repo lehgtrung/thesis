@@ -114,8 +114,15 @@ Các kết quả trên cho thấy những cơ chế mà chúng tôi tìm hiểu 
 
 \subsection{Phân tích đường cong học}
 Phần này, chúng tôi tập trung vào so sánh các tất cả các mô hình đã thực hiện ở phương diện quá trình học bằng cách quan sát độ lỗi của mô hình bằng độ đo Perplexity trên cả tập huấn luyện và tập validation (newstest\_2013) trong quá hình huấn luyện mô hình. Điều này giúp chúng tôi biết được mô hình nào sẽ hôi tụ và tổng quát hóa tốt hơn.
-// TODO: thêm đồ thị
-Từ đồ thị thấy được rằng mô hình Global Attention với general product cho tốc độ hôi tụ nhanh nhất (perplexity trên tập huấn luyện giảm nhanh nhất qua các epoch), cùng với đó khả năng tổng quát hóa cũng đáng kể (perplexity trên tập validation có độ giảm tương đương). Mô hình Local Attention với general product cho khả năng tổng quát hóa tốt nhất (perplexity trên tập huấn luyện thấp hơn các mô hình khác nhưng kết quả điểm BLEU trên tập kiểm thử là tốt nhất). Trong các epoch đầu, hầu hết các mô hình có tốc độ giảm perplexity nhanh như nhau. Các mô hình Attention không sử dụng phương pháp Input feeding ở epoch đầu có perplexity cao hơn so với các mô hình sử dụng Input feeding, nhưng khi ở các epoch về sau thì tốc độ giảm perplexity giống nhau. Các mô hình Local Attention ở các epoch đầu đều có hành vi giống Global Attention, chỉ có khác nhau ở các epoch cuối cùng. Các mô hình Local Attention này ở các epoch cuối có tốc độ giảm perplexity chậm đi rõ rệt.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\textwidth]{train_valid_xent_ppl_scaled.png}
+	\caption[Đường cong học của các mô hình]{Đường cong học của các mô hình phân tích trên độ lỗi, điểm BLEU trên tập dữ liệu huấn luyện và validation.}
+	\label{fig_learning_curve}
+\end{figure}
+
+Từ đồ thị \ref{fig_learning_curve} thấy được rằng mô hình Global Attention với general product cho tốc độ hôi tụ nhanh nhất (perplexity trên tập huấn luyện giảm nhanh nhất qua các epoch), cùng với đó khả năng tổng quát hóa cũng đáng kể (perplexity trên tập validation có độ giảm tương đương). Mô hình Local Attention với general product cho khả năng tổng quát hóa tốt nhất (perplexity trên tập huấn luyện thấp hơn các mô hình khác nhưng kết quả điểm BLEU trên tập kiểm thử là tốt nhất). Trong các epoch đầu, hầu hết các mô hình có tốc độ giảm perplexity nhanh như nhau. Các mô hình Attention không sử dụng phương pháp Input feeding ở epoch đầu có perplexity cao hơn so với các mô hình sử dụng Input feeding, nhưng khi ở các epoch về sau thì tốc độ giảm perplexity giống nhau. Các mô hình Local Attention ở các epoch đầu đều có hành vi giống Global Attention, chỉ có khác nhau ở các epoch cuối cùng. Các mô hình Local Attention này ở các epoch cuối có tốc độ giảm perplexity chậm đi rõ rệt.
 
 \subsection{So sánh với kết quả của bài báo}
 Phần này chúng tôi thực hiện so sánh kết quả của chúng tôi với kết quả của bài báo \textit{Effective Approaches to Attention-based Neural Machine Translation} để đánh giá rằng mô hình của chúng tôi hoạt động có thực sự đúng không.
@@ -127,12 +134,5 @@ Lí do của sự khác biệt lớn này là về sự khác nhau giữa 2 ngô
 
 \subsection{Chất lượng gióng hàng của mô hình}
 Trong phần này chúng tôi trình bày về một trong những lợi ích quan trọng của các mô hình Attention là khả năng trực quan hóa những gì mô hình đã học được. Từ khi Học sâu ra đời, bên cạnh sự thành công rực rỡ trong việc giải quyết các bài toán phổ biến thì mạng Học sâu có hạn chế rất lớn về khả năng diễn dịch kết quả. Do khả năng tự học các đặc trưng, khi mạng Học sâu xuất ra các kết quả, mọi người hầu như không thể giải thích được lí do vì sao mô hình cho ra kết quả như vậy. Vì thế, mạng Học sâu không được sử dụng cho các lĩnh vực, ứng dụng mà cần sự rõ ràng khi đưa ra quyết định như trong lĩnh vực y tế, kinh tế, v.v... Hơn nữa còn gây cản trở việc nghiên cứu và phát triển các mô hình Học sâu do khó để kiểm nghiệm được rằng các ý tưởng, phương pháp sử dụng trên mạng Học sâu có hoạt động như mong muốn hay không. Do vậy, khả năng diễn dịch của cơ chế Attention vô cùng hữu ích cho những mạng Học sâu mà sử dụng cơ chế Attention.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=1.0\textwidth]{train_valid_xent_ppl.png}
-	\caption[Minh họa cơ chế Attention Cục bộ.]{Minh họa phương pháp Input feeding. Tại bước thời gian $t$, bộ giải mã nhận đầu vào gồm véc-tơ attention ở bước thời gian trước đó $t-1$ và từ hiện tại $x_t$.}
-	\label{fig_learning_curve}
-\end{figure}
 
 Giữa các từ ở câu nguồn và câu đích sẽ có trọng số gióng hàng (điểm attention) $\bm{a_t}$ tương ứng. Sử dụng những trọng số gióng hàng đó giúp mọi người có thể biết được rằng mô hình đã học được những gì và có hoạt động đúng như mong đợi hay không. Chúng tôi vẽ các ma trận trọng số giữa một số cặp câu mẫu đã được dịch bằng cơ chế Attention để cho thấy sự hiệu quả của cơ chế này.
