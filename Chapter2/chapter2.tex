@@ -183,7 +183,7 @@ Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gra
 
 Để tính $\frac{\partial h_t}{\partial h_r}$ ta áp dụng "chain rule" từ bước thời gian thứ $t$ đến $r$
 \begin{equation} \label{gradientWRTSt15}
-	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t - 1} \frac{\partial h_{i+1}}{\partial h_i}
+	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t} \frac{\partial h_{i+1}}{\partial h_i}
 \end{equation}
 với $h_{i+1},h_i \in \mathbb{R}^n$ nên $\frac{\partial h_{i+1}}{\partial h_i}$ là một ma trận "Jacobian"
 
@@ -196,11 +196,10 @@ với $h_{i+1},h_i \in \mathbb{R}^n$ nên $\frac{\partial h_{i+1}}{\partial h_i}
   	\frac{h_{i+1, 1}}{h_{i,1}} & \cdots & \frac{h_{i+1,1}}{h_{i,n}}\\
    	\vdots & \ddots & \vdots\\
    	\frac{h_{i+1, n}}{h_{i,1}} & \cdots & \frac{h_{i+1,n}}{h_{i,n}} 
-	\end{bmatrix} = \prod_{i=r}^{t - 1} W_{hh}^T \diag \left( 1 - (h_i)^2 \right)
+	\end{bmatrix} = \prod_{i=r}^{t} W_{hh}^T \diag \left( \phi'(h_i) \right)
 \end{equation}
 
 Như vậy, ta có "gradient" của các tham số qua tất cả các bước thời gian sẽ là:
-
 
 \begin{equation} \label{updateParams2}
 	\nabla_{b_{y}}L = \sum_{t} \hat{y}_t - y
@@ -222,129 +221,6 @@ Như vậy, ta có "gradient" của các tham số qua tất cả các bước t
 	\nabla_{W_{xh}}L_t = \sum_{t} \sum_{r=0}^{t} (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{xh}}
 \end{equation}
 
-%Bởi vì $W_{hy}$ và $b_y$ chỉ hiện diện trong hàm $\hat{y}$. Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = softmax(s_t)$, sử dụng công thức nhân trong tính đạo hàm ta được:
-%\begin{equation} \label{gradientWRTSt1}
-%	\frac{\partial{E_t}}{\partial{W_{hy}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}}
-%\end{equation}
-
-%Từ công thức \ref{errorOfAnExample} ta có:
-%\begin{equation} \label{gradientWRTSt2}
-%	\frac{\partial{E_t}}{\partial{\hat{y}}} = -\frac{y_t}{\hat{y}_t}
-%\end{equation}
-
-%Hàm $\hat{y}$ là một hàm $\softmax$ nên nó có đạo hàm:
-%\begin{equation} \label{gradientWRTSt3}
-%	\frac{\partial \hat{y}_{t}}{\partial s_{t}}=\left\{
-%		\begin{array}{lr}
-%			-\hat{y}_{t_k}\hat{y}_{t_l}, & k\neq l \\
-%			\hat{y}_{t_k}\left(1-\hat{y}_{t_k}\right), & k=l
-%		\end{array}
-%	\right..
-%\end{equation}
-
-%Kết hợp \ref{gradientWRTSt2} và \ref{gradientWRTSt3} ta có được:
-%\begin{subequations} \label{gradientWRTSt4}
-%\begin{align}
-%-\frac{y_{t_l}}{\hat{y}_{t_l}}\hat{y}_{t_l}\left(1-\hat{y}_{t_l}\right)+\sum_{k\ne l}{}\left(-\frac{y_{t_k}}{\hat{y}_{t_k}}\right)\left(-\hat{y}_{t_k}\hat{y}_{t_l}\right) 
-%&= -y_{t_l}+y_{t_l}\hat{y}_{t_l}+\sum_{k\ne l}{}y_{t_k}\hat{y}_{t_l} \\
-%&= -y_{t_l} + \hat{y}_{t_l}\sum_{k}{}y_{t_k}.
-%\end{align}
-%\end{subequations}
-
-%Lưu ý rằng $y_t$ là "one-hot" vec-tơ nên tổng trong công thức trên bằng 1, cho nên:
-
-%\begin{equation} \label{gradientWRTSt5}
-%	\frac{\partial{E_t}}{\partial{s_t}} = \hat{y}_t - y_t
-%\end{equation}
-
-%Bởi vì $W_{hy}$ được chia sẻ trên toàn bộ chuỗi, do đó đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hy}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hy}$. Từ công thức \ref{gradientWRTSt5} ta có được:
-%\begin{equation} \label{gradientWRTSt6}
-%	\frac{\partial{E}}{\partial{W_{hy}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{W_{hy}}} = \sum_{t} \left(\hat{y}_t - y_t \right) \otimes h_t
-%\end{equation}
-
-%trong đó $\otimes$ là "outer-product" của hai vec-tơ.
-
-%Tương tự với đạo hàm của $E$ theo $b_y$, ta cũng có:
-%\begin{equation} \label{gradientWRTSt7}
-%	\frac{\partial{E}}{\partial{b_{y}}} = \sum_{t} \frac{\partial{E_t}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{b_{y}}} = \sum_{t} \hat{y}_t - y_t
-%\end{equation}
-
-%Tham số $W_{hh}$ tồn tại ở cả trạng thái ẩn $h_t$ và đầu ra dự đoán $\hat{y}_t$, để tính "gradient" theo $W_{hh}$. Chúng ta cũng để ý rằng $\hat{y}_t$ cũng dựa trên $W_{hh}$ trực tiếp và gián tiếp (thông qua $h_{t-1}$). Đặt $p_t = W_{hx}x_t + W_{hh}h_{t-1}$ và $h_t = \tanh(p_t)$:
-%\begin{equation} \label{gradientWRTSt8}
-%	\frac{\partial{E_t}}{\partial{W_{hh}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{h_t}} \frac{\partial{h_t}}{\partial{W_{hh}}}
-%\end{equation}
-
-%Trong công thức trên, ta đã biết $\frac{\partial{E_t}}{\partial{\hat{y}}}$ và $\frac{\partial{\hat{y}}}{\partial{s_t}}$ trong phần trước, công thức tính $\frac{\partial{s_t}}{\partial{h_t}}$ khá đơn giản:
-%\begin{equation} \label{gradientWRTSt9}
-%	\frac{\partial{s_t}}{\partial{h_t}} = W_{hy}
-%\end{equation}
-
-%Cuối cùng, để tính được $\frac{\partial{h_t}}{\partial{W_{hh}}}$ ta có quan sát rằng có một sự phụ thuộc giữa $h_t$ và $W_{hh}$ thông qua trạng thái ẩn trước đó $h_{t-1}$. Ta biết rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^N$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
-%  \begin{equation} \label{gradientWRTSt10}
-%	\frac{\partial{f}}{\partial{r}} = \frac{\partial{f}}{\partial{x}}\frac{\partial{x}}{\partial{r}} + \frac{\partial{f}}{\partial{y}}\frac{\partial{y}}{\partial{r}}
-%\end{equation}
-
-%Áp dụng công thức trên để tính $\frac{\partial{h_t}}{\partial{W_{hh}}}$ ta được:
-%\begin{equation} \label{gradientWRTSt11}
-%	\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{W_{hh}}}
-%\end{equation}
-
-%Tuy nhiên, ta có thể áp dụng công thức trên một lần nữa với $\frac{\partial{h_{t-1}}}{\partial{W_{hh}}}$:
-%\begin{equation} \label{gradientWRTSt12}
-%	\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{W_{hh}}} + \frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}}
-%\end{equation}
-
-%Quá trình này tiếp tục cho đến khi chúng kết thúc ở $h_0$ là trạng thái ẩn khởi tạo. Có thể thấy 
-%\begin{equation} \label{gradientWRTSt122}
-%\frac{\partial{h_t}}{\partial{h_{t-1}}} \frac{\partial{h_{t-1}}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{h_{t-2}}} \frac{\partial{h_{t-2}}}{\partial{W_{hh}}}
-%\end{equation}
-%và:
-%\begin{equation} \label{gradientWRTSt123}
-%\frac{\partial{h_t}}{\partial{W_{hh}}} = \frac{\partial{h_t}}{\partial{h_{t}}} \frac{\partial{h_t}}{\partial{W_{hh}}}
-%\end{equation}
-
-%Như vậy, có thể rút gọn \ref{gradientWRTSt12} thành một công thức duy nhất:
-%\begin{equation} \label{gradientWRTSt13}
-%	\frac{\partial{h_t}}{\partial{W_{hh}}} = \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
-%\end{equation}
-
-%Kết hợp các công thức từ \ref{gradientWRTSt8} suy ra:
-%\begin{equation} \label{gradientWRTSt14}
-%	\frac{\partial{E_t}}{\partial{W_{hh}}} = (\hat{y}_t - y_t) W_{hy} \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
-%\end{equation}
-
-%Đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hh}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hh}$
-%\begin{equation} \label{gradientWRTSt15}
-%	\frac{\partial{E}}{\partial{W_{hh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{hh}}}
-%\end{equation}
-
-%Cũng giống như $W_{hh}$, trong công thức tính $h_t$, $W_{hh}$ cũng có liên hệ với $h_t$ một cách trực tiếp và với $h_{t-1}$ một cách gián tiếp. Ta có:
-%\begin{equation} \label{gradientWRTSt16}
-%	\frac{\partial{E_t}}{\partial{W_{xh}}} = \frac{\partial{E_t}}{\partial{\hat{y}}} \frac{\partial{\hat{y}}}{\partial{s_t}} \frac{\partial{s_t}}{\partial{h_t}} \frac{\partial{h_t}}{\partial{W_{hx}}}
-%\end{equation}
-
-%Ta chỉ cần tính $\frac{\partial{h_t}}{\partial{W_{hx}}}$, theo cách tương tự như đã làm với $W_{hh}$ ,ta được:
-%\begin{equation} \label{gradientWRTSt17}
-%	\frac{\partial{h_t}}{\partial{W_{xh}}} = \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
-%\end{equation}
-
-%Như vậy cuối cùng ta được:
-%\begin{equation} \label{gradientWRTSt18}
-%	\frac{\partial{E_t}}{\partial{W_{hh}}} = (\hat{y}_t - y_t) W_{hy} \sum_{r=0}^{t} \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
-%\end{equation}
-
-%Điểm khác biệt giữa $\frac{\partial{E_t}}{\partial{W_{hh}}}$ và $\frac{\partial{E_t}}{\partial{W_{xh}}}$ là ở cách tính đạo hàm $\frac{\partial{h_r}}{\partial{W_{hh}}}$ và $\frac{\partial{h_r}}{\partial{W_{xh}}}$
-
-%Cuối cùng đạo hàm hàm độ lỗi tổng hợp $E$ theo $W_{hh}$ sẽ là tổng đạo hàm của các $E_t$ theo $W_{hh}$
-%\begin{equation} \label{gradientWRTSt19}
-%	\frac{\partial{E}}{\partial{W_{xh}}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) W_{hy}\frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
-%\end{equation}
-
-%Với những lập luận tương tự, ta cũng có đạo hàm hàm độ lỗi tổng hợp $E$ theo $b_h$:
-%\begin{equation} \label{gradientWRTSt20}
-%	\frac{\partial{E}}{\partial{b_h}} = \sum_{t=0}^{T} \sum_{r=0}^{t} (\hat{y}_t - y_t) \frac{\partial{h_t}}{\partial{h_r}} \frac{\partial{h_r}}{\partial{W_{xh}}}
-%\end{equation}
-
 \subsection{Thách thức trong việc học các phụ thuộc dài hạn}
 
 Hãy tưởng tượng rằng dòng thời gian mà chúng ta đang tồn tại là một mạng nơ-ron hồi quy khổng lồ. Tại mỗi thời điểm, trạng thái của thế giới được thay đổi bởi một hàm số vô cùng phức tạp của tự nhiên. Bây giờ, hãy xem một sự thay đổi nhỏ của ngày hôm nay ảnh hưởng đến thế giới sau tương lai như thế nào. Thay đổi ấy có thể lớn như việc một con bướm đập cánh ở Brazil gây ra một cơn lốc xoáy ở Texas, nhưng nó cũng có thể là một sự kiện to lớn nhưng cuối cùng lại không quan trọng trong nhiều năm nữa. 100 năm sau, sẽ không ai nhắc đến đĩa mềm, thứ được xem là một phát minh lớn trong những năm 1960.
@@ -353,6 +229,41 @@ Hai ví dụ trên cũng chính là những vấn đề cơ bản mà mạng nơ
 
 Làm sao để các phụ thuộc dài hạn này không mất đi sự ảnh hưởng cũng như gây ảnh hưởng quá lớn đến hiện tại là một thách thức lớn cho RNN. Về mặt toán học, "gradient" đại diện cho sự thay đổi trong quá khứ có thể bị biến mất (vanish) hoặc bùng nổ (explode). Những vấn đề này được phát hiện và trình bày trong những nghiên cứu \cite{hochreiter1997}, \cite{bengio1994}, \cite{pascanu2011}. Nếu gradient bùng nổ, mô hình không thể học sai hoặc không học được. Nếu gradient biến mất, việc học những phụ thuộc dài hạn trở nên khó khăn. Trong mục này, chúng tôi sẽ trình bày những vấn đề trên một cách chi tiết và mô tả những giải pháp để vượt qua các vấn đề đó.
 
+Để hiểu được vấn đề này, chúng ta hãy nhìn vào ma trận $\partial h_t / \partial h_{r}$ trong công thức \ref{gradientWRTSt15}, ma trận này có dạng là tích của $t-r$ ma trận "Jacobian". Hãy hình dung rằng, khi ta lấy lũy thừa của một số thực với số mũ rất lớn thì kết quả của phép tính ấy, hoặc là vô cùng lớn hoặc xấp xỉ 0, tùy thuộc vào độ lớn của cơ số. Với ma trận ta cũng có kết quả tương tự.
+
+Nhắc lại, từ định nghĩa của RNN, ta có:
+\begin{equation} \label{gradientVanish1}
+	z_t = W_{hh}h_{t-1} + W_{xh}x_{t} + b_h
+\end{equation}
+\begin{equation} \label{gradientVanish2}
+	z_t = \phi(z_t)
+\end{equation}
+
+Đầu tiên, để cho đơn giản, ta hãy xem $\phi$ là hàm một hàm đồng nhất (identity function) với $\phi(x) = x$ như vậy theo công thức \ref{gradientWRTSt15}, ta có:
+\begin{equation} \label{gradientVanish3}
+	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t} W_{hh}^T = \left (W_{hh}^T \right)^{t-r}
+\end{equation}
+
+Với $W_{hh}$ là một ma trận vuông, nó có thể được phân tích thành dạng:
+\begin{equation} \label{gradientVanish4}
+	W_{hh} = \Sigma \diag \left(\lambda \right) \Sigma^{-1} 
+\end{equation}
+
+Với $\Sigma, \lambda$ lần lượt là ma trận vec-tơ riêng và vec-tơ trị riêng của ma trận $W_{hh}$. Ta biết rằng lũy thừa của $W_{hh}$ cũng chính là lũy thừa của vec-tơ trị riêng của nó $\lambda$. Khi số mũ của phép lũy thừa lớn, những vec-tơ riêng ứng với trị riêng $\lambda_i < 1$ sẽ giảm theo hàm mũ, những vec-tơ riêng ứng với trị riêng $\lambda_i > 1$ sẽ tăng theo hàm mũ. Nói cách khác, \textit{điều kiện đủ} để xảy ra "gradient" biến mất là trị riêng lớn nhất của ma trận kết nối hồi quy $\lambda_{max}$ có giá trị nhỏ hơn 1. Để xảy ra "gradient" bùng nổ, \textit{điều kiện cần} là $\lambda_{max} < 1$.
+
+Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất kỳ, với $\phi'$ bị chặn trên bởi $\gamma \in \mathbb{R}$ và do đó $||diag(\phi'(h_k))|| \leq \gamma$. Chúng tôi là chứng minh rằng với $\lambda_{max} < \frac{1}{\gamma}$, hiện tượng "gradient" biến mất sẽ xảy ra. Theo công thức \ref{gradientWRTSt17}:
+\begin{equation} \label{gradientVanish5}
+	\forall i, \norm{\frac{\partial h_{i+1}}{\partial h_{i}}} \leq \norm{ W^T_{hh} } \norm{ diag(\phi'(h_k)) } < \frac{1}{\gamma} \gamma < 1 
+\end{equation}
+
+Đặt $\beta \in \mathbb{R}$ sao cho $\forall i, \norm{\frac{\partial h_{i+1}}{\partial h_{i}}} \leq \beta < 1$, như vậy ta có thể thấy được rằng:
+\begin{equation} \label{gradientVanish3}
+	\lim_{k \to \infty} \frac{\partial h_{t+k}}{\partial h_k} = \prod_{i=k}^{t} W_{hh}^T \diag \left(\phi'(h_i) \right) \leq \beta^{k} = 0
+\end{equation}
+
+Bằng cách đảo ngược chứng minh này ta được \textit{điều kiện cần} để xảy ra "gradient" bùng nổ là trị riêng lớn nhất $\lambda_{max}$ lớn hơn $\frac{1}{\gamma}$. Với $\phi$ là hàm tanh ta có $\gamma = 1$ trong khi với $\phi$ là hàm sigmoid, ta có $\gamma = 1/4$.
+
+Nếu "gradient" bùng nổ, thuật toán "backpropagation" sẽ không hoạt động động bởi vì chúng ta sẽ có khả năng cao nhận được các giá trị $NaN$ trong "gradient" ứng với các trạng thái ẩn ở xa. Một giải pháp để đối phó với vấn đề này là đơn giản cắt gradient về một giá trị cực đại cho trước, được đề xuất trong \cite{mikolov2012} và trình bày lại trong \cite{pascanu2011}. Giải pháp này được áp dụng trong thực tế để ngăn chặn các giá trị $NaN$ và cho phép quá trình huấn luyện tiếp tục.
 
 \section{Long short-term memory}
 
