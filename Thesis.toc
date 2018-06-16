@@ -13,9 +13,9 @@
 \contentsline {section}{\numberline {3.1}LSTM v\IeC {\'\ohorn }i ki\IeC {\'\ecircumflex }n tr\IeC {\'u}c B\IeC {\d \ocircumflex } m\IeC {\~a} h\IeC {\'o}a-B\IeC {\d \ocircumflex } gi\IeC {\h a}i m\IeC {\~a}}{25}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}B\IeC {\d \ocircumflex } m\IeC {\~a} h\IeC {\'o}a}{26}{subsection.3.1.1}
 \contentsline {subsection}{\numberline {3.1.2}B\IeC {\d \ocircumflex } gi\IeC {\h a}i m\IeC {\~a}}{27}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}C\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention}{30}{section.3.2}
-\contentsline {section}{\numberline {3.3}Attention To\IeC {\`a}n c\IeC {\d u}c}{33}{section.3.3}
-\contentsline {section}{\numberline {3.4}Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }}{35}{section.3.4}
+\contentsline {section}{\numberline {3.2}C\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention}{31}{section.3.2}
+\contentsline {section}{\numberline {3.3}Attention To\IeC {\`a}n c\IeC {\d u}c}{34}{section.3.3}
+\contentsline {section}{\numberline {3.4}Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }}{36}{section.3.4}
 \contentsline {section}{\numberline {3.5}Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p Input feeding}{39}{section.3.5}
 \contentsline {section}{\numberline {3.6}K\IeC {\~\i } thu\IeC {\d \acircumflex }t thay th\IeC {\'\ecircumflex } t\IeC {\`\uhorn } hi\IeC {\'\ecircumflex }m}{41}{section.3.6}
 \contentsline {chapter}{\numberline {4}C\IeC {\'a}c K\IeC {\'\ecircumflex }t Qu\IeC {\h a} Th\IeC {\d \uhorn }c Nghi\IeC {\d \ecircumflex }m}{44}{chapter.4}
