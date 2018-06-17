@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  17 JUN 2018 23:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  18 JUN 2018 03:28
 entering extended mode
 **./Thesis.tex
 (Thesis.tex
@@ -1658,77 +1658,81 @@ Package pdftex.def Info: Chapter3/Chapter3Figs/Encoder-Decoder_2.png  used on i
 nput line 30.
 (pdftex.def)             Requested size: 441.01773pt x 134.37259pt.
  [26 <./Chapter3/Chapter3Figs/Encoder-Decoder_2.png>] [27]
-<Chapter3/Chapter3Figs/Teacher-forcing.png, id=498, 532.99126pt x 241.90375pt>
+<Chapter3/Chapter3Figs/Teacher-forcing.png, id=500, 532.99126pt x 241.90375pt>
 File: Chapter3/Chapter3Figs/Teacher-forcing.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Teacher-forcing.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Teacher-forcing.png  used on inp
-ut line 53.
+ut line 52.
 (pdftex.def)             Requested size: 308.71106pt x 140.11601pt.
  [28 <./Chapter3/Chapter3Figs/Teacher-forcing.png>] [29] [30]
-<Chapter3/Chapter3Figs/beam-search.png, id=515, 603.25375pt x 377.41pt>
+<Chapter3/Chapter3Figs/beam-search.png, id=516, 603.25375pt x 377.41pt>
 File: Chapter3/Chapter3Figs/beam-search.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/beam-search.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/beam-search.png  used on input l
-ine 89.
+ine 88.
 (pdftex.def)             Requested size: 396.91325pt x 248.31392pt.
  [31] [32 <./Chapter3/Chapter3Figs/beam-search.png>]
 
 LaTeX Warning: Citation `attentionhistory2010' on page 33 undefined on input li
-ne 101.
+ne 100.
 
-<Chapter3/Chapter3Figs/Attention-2.png, id=527, 671.50874pt x 385.44pt>
+<Chapter3/Chapter3Figs/Attention-2.png, id=529, 671.50874pt x 385.44pt>
 File: Chapter3/Chapter3Figs/Attention-2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Attention-2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Attention-2.png  used on input l
-ine 105.
+ine 104.
 (pdftex.def)             Requested size: 352.81552pt x 202.51195pt.
-[33 <./Chapter3/Chapter3Figs/Attention-2.png>] [34] [35]
-<Chapter3/Chapter3Figs/Global-Attention_2.png, id=547, 671.50874pt x 495.8525pt
+[33]
+
+Package mathptmx Warning: There are no bold math fonts on input line 119.
+
+[34 <./Chapter3/Chapter3Figs/Attention-2.png>] [35]
+<Chapter3/Chapter3Figs/Global-Attention_2.png, id=548, 671.50874pt x 495.8525pt
 >
 File: Chapter3/Chapter3Figs/Global-Attention_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Global-Attention_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Global-Attention_2.png  used on 
-input line 161.
+input line 160.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [36 <./Chapter3/Chapter3Figs/Global-Attention_2.png>] [37]
-<Chapter3/Chapter3Figs/Local-Attention_2.png, id=565, 671.50874pt x 495.8525pt>
+ [36] [37 <./Chapter3/Chapter3Figs/Global-Attention_2.png>] [38]
+<Chapter3/Chapter3Figs/Local-Attention_2.png, id=571, 671.50874pt x 495.8525pt>
 
 File: Chapter3/Chapter3Figs/Local-Attention_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Local-Attention_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Local-Attention_2.png  used on i
-nput line 192.
+nput line 191.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [38] [39 <./Chapter3/Chapter3Figs/Local-Attention_2.png>] [40] [41]
-<Chapter3/Chapter3Figs/Input-feeding_2.png, id=589, 671.50874pt x 385.44pt>
+ [39] [40 <./Chapter3/Chapter3Figs/Local-Attention_2.png>] [41]
+<Chapter3/Chapter3Figs/Input-feeding_2.png, id=590, 671.50874pt x 385.44pt>
 File: Chapter3/Chapter3Figs/Input-feeding_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Input-feeding_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Input-feeding_2.png  used on inp
-ut line 228.
+ut line 227.
 (pdftex.def)             Requested size: 352.81552pt x 202.51195pt.
- [42 <./Chapter3/Chapter3Figs/Input-feeding_2.png>]
-[43]
-<Chapter3/Chapter3Figs/unk-rpl-example.png, id=602, 282.05376pt x 181.67876pt>
+ [42] [43 <./Chapter3/Chapter3Figs/Input-feeding_2.png>]
+[44]
+<Chapter3/Chapter3Figs/unk-rpl-example.png, id=608, 282.05376pt x 181.67876pt>
 File: Chapter3/Chapter3Figs/unk-rpl-example.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/unk-rpl-example.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/unk-rpl-example.png  used on inp
-ut line 251.
+ut line 250.
 (pdftex.def)             Requested size: 220.50887pt x 142.03874pt.
- [44]) [45 <./Chapter3/Chapter3Figs/unk-rpl-example.png>]
+ [45 <./Chapter3/Chapter3Figs/unk-rpl-example.png>]) [46]
 \openout2 = `Chapter4/chapter4.aux'.
 
 
 (Chapter4/chapter4.tex
 Ch\uhorn \ohorn ng 4.
-[46
+[47
 
 
 
-] [47]
+] [48]
 Overfull \hbox (4.31218pt too wide) in paragraph at lines 63--76
  [][] 
  []
 
-[48] [49]
+[49] [50]
 
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 92.
@@ -1738,8 +1742,8 @@ Overfull \hbox (4.31218pt too wide) in paragraph at lines 94--109
  [][] 
  []
 
-[50]
-<Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png, id=643, 1184.425pt x 11
+[51]
+<Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png, id=649, 1184.425pt x 11
 67.36125pt>
 File: Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png Graphic file (type 
 png)
@@ -1747,32 +1751,32 @@ png)
 Package pdftex.def Info: Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png 
  used on input line 120.
 (pdftex.def)             Requested size: 441.01773pt x 434.66003pt.
- [51] [52 <./Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png>])
-[53]
+ [52] [53 <./Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png>])
+[54]
 \openout2 = `Chapter5/chapter5.aux'.
 
  (Chapter5/chapter5.tex
 Ch\uhorn \ohorn ng 5.
-[54
+[55
 
 
 
-] [55]) [56]
+] [56]) [57]
 \openout2 = `Appendix/appendix.aux'.
 
  (Appendix/appendix.tex) (Thesis.bbl (Thesis.brf)
 \tf@brf=\write8
 \openout8 = `Thesis.brf'.
 
- [57
+ [58
 
 
 
 
-] [58])
+] [59])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 204.
 
-[59]
+[60]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 204.
  (Thesis.aux (Chapter1/chapter1.aux) (Chapter2/chapter2.aux)
 (Chapter3/chapter3.aux) (Chapter4/chapter4.aux) (Chapter5/chapter5.aux)
@@ -1782,7 +1786,7 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 204.
 Package rerunfilecheck Info: File `Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 80AB31AF4E907F4B18CA0E04278C9A67;6861.
 Package rerunfilecheck Info: File `Thesis.brf' has not changed.
-(rerunfilecheck)             Checksum: 6D147C9BF155F2E657302081FC2E297F;1800.
+(rerunfilecheck)             Checksum: 185E4EFB18834F7C3C13BBC55A405A50;1800.
 
 
 LaTeX Warning: There were undefined references.
@@ -1790,9 +1794,9 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 204.
  ) 
 Here is how much of TeX's memory you used:
- 19502 strings out of 493305
- 284008 string characters out of 3138850
- 432463 words of memory out of 3000000
+ 19503 strings out of 493305
+ 284015 string characters out of 3138850
+ 433463 words of memory out of 3000000
  22376 multiletter control sequences out of 15000+200000
  55875 words of font info for 89 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1810,9 +1814,9 @@ s/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/vntex/urwvn/utmr8v.pfb><C
 :/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/vntex/urwvn/utmri8v.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/vntex/vnr/vntt12.pfb>
-Output written on Thesis.pdf (65 pages, 1272636 bytes).
+Output written on Thesis.pdf (66 pages, 1275659 bytes).
 PDF statistics:
- 811 PDF objects out of 1000 (max. 8388607)
- 188 named destinations out of 1000 (max. 500000)
+ 817 PDF objects out of 1000 (max. 8388607)
+ 189 named destinations out of 1000 (max. 500000)
  367 words of extra memory for PDF output out of 10000 (max. 10000000)
 
