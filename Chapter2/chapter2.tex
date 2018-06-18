@@ -183,20 +183,20 @@ Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gra
 
 Để tính $\frac{\partial h_t}{\partial h_r}$ ta áp dụng "chain rule" từ bước thời gian thứ $t$ đến $r$
 \begin{equation} \label{gradientWRTSt15}
-	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t} \frac{\partial h_{i+1}}{\partial h_i}
+	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t} \frac{\partial h_{i}}{\partial h_{i-1}}
 \end{equation}
-với $h_{i+1},h_i \in \mathbb{R}^n$ nên $\frac{\partial h_{i+1}}{\partial h_i}$ là một ma trận "Jacobian"
+với $h_{i+1},h_i \in \mathbb{R}^n$ nên $\frac{\partial h_{i}}{\partial h_{i-1}}$ là một ma trận "Jacobian"
 
 \begin{equation} \label{gradientWRTSt16}
-	\frac{\partial h_{i+1}}{\partial h_i} = \left[ \frac{h_{i+1}}{h_{i,1}}, ..., \frac{h_{i+1}}{h_{i,n}} \right] 
+	\frac{\partial h_{i}}{\partial h_{i-1}} = \left[ \frac{h_{i}}{h_{i-1,1}}, ..., \frac{h_{i}}{h_{i-1,n}} \right] 
 \end{equation}
 
 \begin{equation} \label{gradientWRTSt17}
 	= \begin{bmatrix}
-  	\frac{h_{i+1, 1}}{h_{i,1}} & \cdots & \frac{h_{i+1,1}}{h_{i,n}}\\
+  	\frac{h_{i, 1}}{h_{i-1,1}} & \cdots & \frac{h_{i,1}}{h_{i-1,n}}\\
    	\vdots & \ddots & \vdots\\
-   	\frac{h_{i+1, n}}{h_{i,1}} & \cdots & \frac{h_{i+1,n}}{h_{i,n}} 
-	\end{bmatrix} = \prod_{i=r}^{t} W_{hh}^T \diag \left( \phi'(h_i) \right)
+   	\frac{h_{i, n}}{h_{i-1,1}} & \cdots & \frac{h_{i,n}}{h_{i-1,n}} 
+	\end{bmatrix} = W_{hh}^T \diag \left( \phi'(h_i) \right)
 \end{equation}
 
 Như vậy, ta có "gradient" của các tham số qua tất cả các bước thời gian sẽ là:
@@ -223,23 +223,29 @@ Như vậy, ta có "gradient" của các tham số qua tất cả các bước t
 
 \subsection{Thách thức trong việc học các phụ thuộc dài hạn}
 
-Hãy tưởng tượng rằng dòng thời gian mà chúng ta đang tồn tại là một mạng nơ-ron hồi quy khổng lồ. Tại mỗi thời điểm, trạng thái của thế giới được thay đổi bởi một hàm số vô cùng phức tạp của tự nhiên. Bây giờ, hãy xem một sự thay đổi nhỏ của ngày hôm nay ảnh hưởng đến thế giới sau tương lai như thế nào. Thay đổi ấy có thể lớn như việc một con bướm đập cánh ở Brazil gây ra một cơn lốc xoáy ở Texas, nhưng nó cũng có thể là một sự kiện to lớn nhưng cuối cùng lại không quan trọng trong nhiều năm nữa. 100 năm sau, sẽ không ai nhắc đến đĩa mềm, thứ được xem là một phát minh lớn trong những năm 1960.
+%Hãy tưởng tượng rằng dòng thời gian mà chúng ta đang tồn tại là một mạng nơ-ron hồi quy khổng lồ. Tại mỗi thời điểm, trạng thái của thế giới được thay đổi bởi một hàm số vô cùng phức tạp của tự nhiên. Bây giờ, hãy xem một sự thay đổi nhỏ của ngày hôm nay ảnh hưởng đến thế giới sau tương lai như thế nào. Thay đổi ấy có thể lớn như việc một con bướm đập cánh ở Brazil gây ra một cơn lốc xoáy ở Texas, nhưng nó cũng có thể là một sự kiện to lớn nhưng cuối cùng lại không quan trọng trong nhiều năm nữa. 100 năm sau, sẽ không ai nhắc đến đĩa mềm, thứ được xem là một phát minh lớn trong những năm 1960.
 
-Hai ví dụ trên cũng chính là những vấn đề cơ bản mà mạng nơ-ron hồi quy gặp phải. Sự phát minh ra đĩa mềm hay việc con bướm đập cánh đại diện cho những thay đổi ở những bước thời gian trong quá khứ. Sự thay đổi ấy có thể hoặc là ảnh hưởng to lớn đến đầu ra ở bước thời gian hiện tại hoặc không gây ra ảnh hưởng gì. Quay lại với ví dụ ở đầu chương, ta cần tìm từ tiếp theo trong chuỗi "Hổ là loài động vật ăn \_\_". Một mạng RNN được huấn luyện để xuất ra từ "thịt" hay "cỏ" hay bất kỳ một từ nào khác trong bước thời gian tiếp theo tùy vào tên của loài động vật ở đầu câu. Trong trường hợp ta thay đổi từ "Hổ" thành "Bò" ta mong rằng "thịt" cũng sẽ trở thành "cỏ". Nhưng nếu RNN của chúng ta hoàn toàn bỏ qua sự thay đổi này (như trong ví dụ về đĩa mềm), ta sẽ không thể có được "cỏ" (vì nó không biết ở đầu câu là con vật gì). Tương tự, nếu RNN quá nhạy cảm với sự thay đổi từ xa này, nó có thể cho ra một từ hoàn toàn khác như "sữa" vì "Bò" đã lấn át hết tất cả những từ còn lại trong câu.
+%Hai ví dụ trên cũng chính là những vấn đề cơ bản mà mạng nơ-ron hồi quy gặp phải. Sự phát minh ra đĩa mềm hay việc con bướm đập cánh đại diện cho những thay đổi ở những bước thời gian trong quá khứ. Sự thay đổi ấy có thể hoặc là ảnh hưởng to lớn đến đầu ra ở bước thời gian hiện tại hoặc không gây ra ảnh hưởng gì. Quay lại với ví dụ ở đầu chương, ta cần tìm từ tiếp theo trong chuỗi "Hổ là loài động vật ăn \_\_". Một mạng RNN được huấn luyện để xuất ra từ "thịt" hay "cỏ" hay bất kỳ một từ nào khác trong bước thời gian tiếp theo tùy vào tên của loài động vật ở đầu câu. Trong trường hợp ta thay đổi từ "Hổ" thành "Bò" ta mong rằng "thịt" cũng sẽ trở thành "cỏ". Nhưng nếu RNN của chúng ta hoàn toàn bỏ qua sự thay đổi này (như trong ví dụ về đĩa mềm), ta sẽ không thể có được "cỏ" (vì nó không biết ở đầu câu là con vật gì). Tương tự, nếu RNN quá nhạy cảm với sự thay đổi từ xa này, nó có thể cho ra một từ hoàn toàn khác như "sữa" vì "Bò" đã lấn át hết tất cả những từ còn lại trong câu.
 
-Làm sao để các phụ thuộc dài hạn này không mất đi sự ảnh hưởng cũng như gây ảnh hưởng quá lớn đến hiện tại là một thách thức lớn cho RNN. Về mặt toán học, "gradient" đại diện cho sự thay đổi trong quá khứ có thể bị biến mất (vanish) hoặc bùng nổ (explode). Những vấn đề này được phát hiện và trình bày trong những nghiên cứu \cite{hochreiter1997}, \cite{bengio1994}, \cite{pascanu2011}. Nếu gradient bùng nổ, mô hình không thể học sai hoặc không học được. Nếu gradient biến mất, việc học những phụ thuộc dài hạn trở nên khó khăn. Trong mục này, chúng tôi sẽ trình bày những vấn đề trên một cách chi tiết và mô tả những giải pháp để vượt qua các vấn đề đó.
+Theo thuật toán BPTT, ta biết rằng gradient theo một tham số hồi quy ở mỗi bước thời gian $\nabla_{W_{hh}} L_t$ là tổng gradient của $L_t$ theo tham số đó ở tất cả trạng thái ẩn tại các bước thời gian trước đó $1,...,t$ (công thức \ref{updateParams5}). Chính bởi cơ chế tính toán gradient như vậy, trên lý thuyết RNN có khả năng học được những phụ thuộc dài hạn với độ dài bất kỳ. Tuy nhiên, trong thực tế, việc học các phụ thuộc dài hạn là một vấn đề lớn của RNN được gây ra bởi hai nguyên nhân: sự biến mất gradient (vanishing gradient) và sự bùng nổ gradient (exploding gradient). Nói một cách đơn giản, gradient của một hàm mục tiêu ứng với một tham số nói lên rằng hàm số kia sẽ thay đổi bao nhiêu khi tham số thay đổi. Sự biến mất gradient xảy ra khi gradient trở nên cực kỳ nhỏ; nó khiến cho hay sự thay đổi của tham số không ảnh hưởng đến sự thay đổi của hàm mục tiêu. Ngược lại sự bùng nổ gradient khiến gradient trở nên lớn một cách đột ngột; điều này khiến cho một sự thay đổi nhỏ trong tham số cũng ảnh hưởng mạnh đến hàm mục tiêu, hoặc đơn giản là gradient lớn đến mức không thể tính toán được. Sự biến mất và bùng nổ gradient được phát hiện và trình bày trong những nghiên cứu \cite{hochreiter1997}, \cite{bengio1994}, \cite{pascanu2011}. Trong mục này, chúng tôi sẽ trình bày lại nguyên nhân và mô tả một số giải pháp cho hai vấn đề này. Những chứng minh của chúng tôi dựa trên chứng minh trong nghiên cứu \cite{pascanu2011}.
 
-Để hiểu được vấn đề này, chúng ta hãy nhìn vào ma trận $\partial h_t / \partial h_{r}$ trong công thức \ref{gradientWRTSt15}, ma trận này có dạng là tích của $t-r$ ma trận "Jacobian". Hãy hình dung rằng, khi ta lấy lũy thừa của một số thực với số mũ rất lớn thì kết quả của phép tính ấy, hoặc là vô cùng lớn hoặc xấp xỉ 0, tùy thuộc vào độ lớn của cơ số. Với ma trận ta cũng có kết quả tương tự.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{BPTT}
+	\caption[Minh họa thuật toán "Back propagation through time"]{Tại mỗi bước thời gian $t$, đội lỗi không chỉ được lan truyền qua các tầng ở bước thời gian hiện tại mà còn phải lan truyền thông tin độ lỗi qua tất cả thời điểm trước đó. Chính sự lan truyền qua thời gian này gây ra hiện tượng bùng nổ hoặc biến mất gradient.}
+	\label{fig_lstmCell}
+\end{figure}
 
-Nhắc lại, từ định nghĩa của RNN, ta có:
-\begin{equation} \label{gradientVanish1}
-	z_t = W_{hh}h_{t-1} + W_{xh}x_{t} + b_h
+Nhắc lại rằng trong RNN, gradient của hàm lỗi tại bước thời gian $t$ theo tham số hồi quy $\theta  \in \{W_{hh}, W_{xh}, b_h \}$ là:
+\begin{equation} \label{beginGradientVanish0}
+	\nabla_{\theta}L = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \sum_{r=0}^{t}  \frac{\partial h_t}{\partial h_r}\frac{\partial h_r}{\partial \theta}
 \end{equation}
-\begin{equation} \label{gradientVanish2}
-	z_t = \phi(z_t)
+và 
+\begin{equation} \label{beginGradientVanish1}
+	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t} W_{hh}^T \diag \left( \phi'(h_i) \right)
 \end{equation}
 
-Đầu tiên, để cho đơn giản, ta hãy xem $\phi$ là hàm một hàm đồng nhất (identity function) với $\phi(x) = x$ như vậy theo công thức \ref{gradientWRTSt15}, ta có:
+Đầu tiên, để cho đơn giản, ta hãy xem $\phi$ là hàm một hàm đồng nhất (identity function) với $\phi(x) = x$ như vậy theo công thức trên, ta có:
 \begin{equation} \label{gradientVanish3}
 	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t} W_{hh}^T = \left (W_{hh}^T \right)^{t-r}
 \end{equation}
@@ -249,23 +255,46 @@ Với $W_{hh}$ là một ma trận vuông, nó có thể được phân tích th
 	W_{hh} = \Sigma \diag \left(\lambda \right) \Sigma^{-1} 
 \end{equation}
 
-Với $\Sigma, \lambda$ lần lượt là ma trận vec-tơ riêng và vec-tơ trị riêng của ma trận $W_{hh}$. Ta biết rằng lũy thừa của $W_{hh}$ cũng chính là lũy thừa của vec-tơ trị riêng của nó $\lambda$. Khi số mũ của phép lũy thừa lớn, những vec-tơ riêng ứng với trị riêng $\lambda_i < 1$ sẽ giảm theo hàm mũ, những vec-tơ riêng ứng với trị riêng $\lambda_i > 1$ sẽ tăng theo hàm mũ. Nói cách khác, \textit{điều kiện đủ} để xảy ra "gradient" biến mất là trị riêng lớn nhất của ma trận kết nối hồi quy $\lambda_{max}$ có giá trị nhỏ hơn 1. Để xảy ra "gradient" bùng nổ, \textit{điều kiện cần} là $\lambda_{max} < 1$.
+Với $\Sigma, \lambda$ lần lượt là ma trận vec-tơ riêng và vec-tơ trị riêng của ma trận $W_{hh}$. Ta biết rằng lũy thừa của $W_{hh}$ cũng chính là lũy thừa của vec-tơ trị riêng của nó $\lambda$. Khi số mũ của phép lũy thừa lớn, những vec-tơ riêng ứng với trị riêng $\lambda_i < 1$ sẽ giảm theo hàm mũ, những vec-tơ riêng ứng với trị riêng $\lambda_i > 1$ sẽ tăng theo hàm mũ. Nói cách khác, \textit{điều kiện đủ} để xảy ra "gradient" biến mất là trị riêng lớn nhất của ma trận kết nối hồi quy $\lambda_{max}$ có giá trị nhỏ hơn 1. Để xảy ra "gradient" bùng nổ, \textit{điều kiện cần} là $\lambda_{max} > 1$.
 
-Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất kỳ, với $\phi'$ bị chặn trên bởi $\gamma \in \mathbb{R}$ và do đó $||diag(\phi'(h_k))|| \leq \gamma$. Chúng tôi là chứng minh rằng với $\lambda_{max} < \frac{1}{\gamma}$, hiện tượng "gradient" biến mất sẽ xảy ra. Theo công thức \ref{gradientWRTSt17}:
+Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất kỳ, với $\phi'$ bị chặn trên bởi $\gamma \in \mathbb{R}$ và do đó $||diag(\phi'(h_k))|| \leq \gamma$. Với $\lambda_{max} < \frac{1}{\gamma}$, hiện tượng "gradient" biến mất sẽ xảy ra. Theo công thức \ref{gradientWRTSt17}:
 \begin{equation} \label{gradientVanish5}
 	\forall i, \norm{\frac{\partial h_{i+1}}{\partial h_{i}}} \leq \norm{ W^T_{hh} } \norm{ diag(\phi'(h_k)) } < \frac{1}{\gamma} \gamma < 1 
 \end{equation}
 
 Đặt $\beta \in \mathbb{R}$ sao cho $\forall i, \norm{\frac{\partial h_{i+1}}{\partial h_{i}}} \leq \beta < 1$, như vậy ta có thể thấy được rằng:
 \begin{equation} \label{gradientVanish3}
-	\lim_{k \to \infty} \frac{\partial h_{t+k}}{\partial h_k} = \prod_{i=k}^{t} W_{hh}^T \diag \left(\phi'(h_i) \right) \leq \beta^{k} = 0
+	\lim_{t - r \to \infty} \frac{\partial h_{t}}{\partial h_r} = \prod_{i=r}^{t} W_{hh}^T \diag \left(\phi'(h_i) \right) \leq \beta^{t - r} = 0
 \end{equation}
 
-Bằng cách đảo ngược chứng minh này ta được \textit{điều kiện cần} để xảy ra "gradient" bùng nổ là trị riêng lớn nhất $\lambda_{max}$ lớn hơn $\frac{1}{\gamma}$. Với $\phi$ là hàm tanh ta có $\gamma = 1$ trong khi với $\phi$ là hàm sigmoid, ta có $\gamma = 1/4$.
+Bằng cách đảo ngược chứng minh này ta được \textit{điều kiện cần} để xảy ra "gradient" bùng nổ là trị riêng lớn nhất $\lambda_{max}$ lớn hơn $\frac{1}{\gamma}$.
 
-Nếu "gradient" bùng nổ, thuật toán "backpropagation" sẽ không hoạt động động bởi vì chúng ta sẽ có khả năng cao nhận được các giá trị $NaN$ trong "gradient" ứng với các trạng thái ẩn ở xa. Một giải pháp để đối phó với vấn đề này là đơn giản cắt gradient về một giá trị cực đại cho trước, được đề xuất trong \cite{mikolov2012} và trình bày lại trong \cite{pascanu2011}. Giải pháp này được áp dụng trong thực tế để ngăn chặn các giá trị $NaN$ và cho phép quá trình huấn luyện tiếp tục.
+Chứng minh trên cho thấy rằng, khi $t-r$ lớn, tức là khoảng cách giữa từ đang xét và một từ trong quá khứ là lớn thì $\nabla_{\theta_r} L_t$ sẽ hoặc rất bé nếu $\lambda_{max} < \frac{1}{\gamma}$ hoặc có khả năng trở nên rất lớn nếu $\lambda_{max} > \frac{1}{\gamma}$. Trong thực tế, với $\phi$ là hàm \textbf{tanh} ta có $\gamma = 1$ trong khi với $\phi$ là hàm sigmoid, ta có $\gamma = 1/4$. Nếu ta khởi tạo tham số $\theta$ nhỏ hoặc dùng hàm kích hoạt có $\gamma$ nhỏ như hàm \textbf{sigmoid} thì sự biến mất gradient sẽ dễ rất dễ xảy ra; nó khiến cho mô hình chỉ học được những phụ thuộc cục bộ. Ngược lại, nếu $\theta$ được khởi tạo với giá trị lớn, gradient tại các bước thời gian ở xa sẽ bùng nổ và kết quả là mô hình không thể học được \cite{pascanu2011}.
 
-\section{Long short-term memory}
+Một kỹ thuật để đối phó với sự bùng nổ gradient được đề là chuẩn hóa gradient về một giá trị nếu nó vượt quá một ngưỡng nào đó. Kỹ thuật này gọi là "gradient clipping" được đề xuất bởi Thomas Mikolov và trình bày lại trong \cite{pascanu2012}. Cụ thể, ta đặt một ngưỡng là chặn trên cho gradient, bất cứ khi nào độ lớn của gradient lớn hơn ngưỡng này ta sẽ chuẩn hóa trở về một giá trị nhỏ hơn. Giải pháp này được áp dụng trong thực tế để ngăn chặn các giá trị \textbf{NaN} (Not a Number) trong gradient và cho phép quá trình huấn luyện tiếp tục. "Gradient clipping" được trình bày trong thuật toán \ref{alg_GDClipping}.
+
+\begin{algorithm}
+	\newalgname{Thuật toán}
+	\caption{Gradient clipping}
+	\label{alg_GDClipping}
+	\begin{algorithmic}[1]
+		\renewcommand{\algorithmicrequire}{\textbf{Đầu vào:}}
+		\renewcommand{\algorithmicensure}{\textbf{Đầu ra:}}
+		\algnewcommand\algorithmicoperation{\textbf{Thao tác:}}
+		\algnewcommand\Operation{\item[\algorithmicoperation]}
+		
+		\Require Gradient ứng với tham số $\theta$
+		\Ensure Gradient ứng với tham số $\theta$ được chuẩn hóa về một ngưỡng $threshold$
+		
+		\Operation
+		\State $\hat{g} \leftarrow \frac{\partial E}{\partial \theta}$
+		\If {$\norm{\hat{g}} \geq threshold$}
+			\State $\hat{g} \leftarrow \frac{threshold}{\norm{\hat{g}}} \hat{g}$
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Long short-term memory (LSTM)}
 
 \begin{figure}
 	\centering
@@ -274,7 +303,7 @@ Nếu "gradient" bùng nổ, thuật toán "backpropagation" sẽ không hoạt 
 	\label{fig_lstmCell}
 \end{figure}
 
-Hochreiter và Schmidhuber \cite{hochreiter1997} đã giới thiệu mô hình \textit{Long short-term memory} (LSTM) chủ yếu ở để khắc phục vấn đề biến mất gradient trong RNN. Nhớ lại rằng trong RNN, chính việc mô hình hóa phụ thuộc thời gian dựa vào ma trận trọng số $W_{hh}$ đã gây ra hiện tượng gradient biến mất. Giả sử gọi $S_t$ là trạng thái liên kết hồi quy (trong RNN, nó chính là trạng thái ẩn). Ý tưởng của LSTM là thay vì tính toán $S_t$ từ $S_{t-1}$ với một phép nhân ma trận theo sau là hàm kích hoạt phi tuyến, LSTM trực tiếp tính toán một $\Delta S_t$ sau đó nó được cộng với $S_{t-1}$ để tạo ra $S_t$. Thoạt nhìn, sự khác biệt này có thể không đáng kể khi mà chúng ta đều đạt được $S_t$ trong cả hai cách. Tuy nhiên, với cách làm này, các "gradient" của LSTM tính toán $\Delta h_t$ sẽ không bị biến mất.
+Hochreiter và Schmidhuber \cite{hochreiter1997} đã giới thiệu mô hình \textit{Long short-term memory} (LSTM) chủ yếu ở để khắc phục vấn đề biến mất gradient trong RNN. Nhớ lại rằng trong RNN, chính việc mô hình hóa phụ thuộc thời gian dựa vào ma trận trọng số $W_{hh}$ đã gây ra hiện tượng gradient biến mất. Giả sử gọi $S_t$ là trạng thái liên kết hồi quy (trong RNN, nó chính là trạng thái ẩn). Ý tưởng của LSTM là thay vì tính toán $S_t$ từ $S_{t-1}$ với một phép nhân ma trận theo sau là hàm kích hoạt phi tuyến, LSTM trực tiếp tính toán một $\Delta S_t$ sau đó nó được cộng với $S_{t-1}$ để tạo ra $S_t$. Thoạt nhìn, sự khác biệt này có thể không đáng kể khi mà chúng ta đều đạt được $S_t$ trong cả hai cách. Tuy nhiên, với cách làm này, các "gradient" của LSTM tính toán $\Delta S_t$ sẽ không bị biến mất.
 
 Thuật ngữ "Long short-term memory" xuất phát từ nhận định sau. Mạng RNN đơn giản có "long term memory" (bộ nhớ dài hạn) dưới dạng các ma trận trọng số. Những ma trận trọng số này thay đổi một cách chậm rãi trong quá trình học nhằm mã hóa kiến thức về dữ liệu. RNN cũng có "short-term memory" (bộ nhớ ngắn hạn) dưới dạng các kích hoạt tạm thời, được truyền từ mỗi bước thời gian sang các bước thời gian sau đó. "Long short-term memory" tạm dịch là "bộ nhớ ngắn hạn dài" cho phép mở rộng bộ nhớ ngắn hạn bằng cách thêm vào một loại lưu trữ trung gian gọi là trạng thái lưu giữ (cell state). Trạng thái lưu giữ này có khả năng lưu giữ các thông tin cần thiết một cách lâu dài dưới dạng một bộ nhớ ngắn hạn. Để làm được điều này, LSTM sử dụng một cơ chế gọi là "cổng", các "cổng" giúp được huấn luyện để chọn lọc thông tin nào là cần thiết để tác động lên trạng thái lưu trữ. Với cách làm này, trạng thái lưu trữ sẽ lưu được nhiều thông tin hơn, vì chỉ những thông tin quan trọng mới tồn tại trong nó.
 
@@ -301,23 +330,29 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\begin{equation} \label{cellStateWithForgetGateLSTM}
 		s_t = s_{t-1} \odot f_t + g_t \odot i_t
 	\end{equation}
-	\item[•] \textit{Cổng ra (output gate)}: Giá trị đầu ra $v_t$ của "memory cell" tại mỗi bước thời gian chính là tích giá trị của trạng thái lưu trữ $s_t$ với giá trị của cổng ra $o_t$. Trong một số phiên bản của LSTM, trạng thái lưu trữ trước đó được cho qua một hàm kích hoạt như $\tanh$. Tại mỗi bước thời gian, giá trị của cổng ra $o_t$ được tính như sau:
+	\item[•] \textit{Cổng ra (output gate)}: Giá trị đầu ra $v_t$ của "memory cell" tại mỗi bước thời gian chính là tích giá trị của trạng thái lưu trữ $s_t$ với giá trị của cổng ra $o_t$. Trong một số phiên bản của LSTM, hàm kích hoạt $\phi$ có thể là hàm \textbf{tanh} hoặc \textbf{sigmoid} hoặc không sử dụng hàm kích hoạt nào. Tại mỗi bước thời gian, giá trị của cổng ra $o_t$ được tính như sau:
 	\begin{equation} \label{outputGateLSTM}
 		o_t = \sigma \left(W_{ox}x_t + W_{oh}h_{t-1} + b_o \right)
 	\end{equation}
 	Đầu ra của "memory cell" cũng chính là trạng thái ẩn $h_t$ có giá trị:
 	\begin{equation} \label{outputNodeLSTM}
-		h_t = s_t \odot o_t 
+		h_t = \phi(s_t) \odot o_t 
 	\end{equation}
 \end{itemize}
 
+\subsection{Bidirectional LSTM}
 
 
 \section{Mô hình ngôn ngữ}
 
-Như chúng tôi đã đề cập trong chương 1, \textit{mô hình ngôn ngữ} (language model) là một bộ phận quan trọng trong cả dịch máy thống kê và dịch máy nơ-ron. Cụ thể hơn, mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ. Cho trước một chuỗi $w_1,w_2,...,w_m$ (ký hiệu $w_{1:n}$), mô hình ngôn ngữ gán cho nó một xác suất $P(w_{1:n})$ đại diện cho độ "trơn tru" của chuỗi đó. Sử dụng quy tắc dây chuyền (chain rule) trong xác suất, ta có:
-\begin{equation} \label{lmGeneral}
-	P(w_{1:n}) = P(w_1)P(w_2|w_1)P(w_3|w_{1:2})P(w_4|w_{1:3})...P(w_n|w_{1:n-1})
+Như chúng tôi đã đề cập trong chương 1, \textit{mô hình ngôn ngữ} (language model) là một bộ phận quan trọng trong cả dịch máy thống kê và dịch máy nơ-ron. Cụ thể hơn, mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ. Cho trước một chuỗi $w_1,w_2,...,w_n$ (ký hiệu $w_{1:n}$), mô hình ngôn ngữ gán cho nó một xác suất $P(w_{1:n})$ đại diện cho độ "trơn tru" của chuỗi đó. Ta có thể mô phỏng xác suất này bằng cách sử dụng quy tắc dây chuyền trong xác suất:
+\begin{equation} \label{lmGeneral1}
+	P(w_{1:n}) = P(w_1)P(w_2|w_1)P(w_3|w_{1:2})...P(w_n|w_{1:n-1}) = \prod_{t=1}^{n} P(w_t|w_{1:t-1})
+\end{equation}
+
+Trong bài toán dịch máy, mô hình ngôn ngữ được sử dụng để tìm từ tiếp theo trong một chuỗi các từ đã dịch được. Gọi $P(w_n|w_{1:n-1})$ là xác suất một từ $w_n$ xuất hiện theo sau một chuỗi $w_1,w_2,...,w_{n-1}$, xác suất này có thể được tính như sau:
+\begin{equation} \label{lmGeneral2}
+	P(w|w_{1:n}) = \frac{P(w_{1:n})}{P(w_{1:n-1})}
 \end{equation}
 
 
