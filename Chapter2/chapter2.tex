@@ -340,25 +340,63 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\end{equation}
 \end{itemize}
 
-\subsection{Bidirectional LSTM}
+\subsection{LSTM xếp chồng (Stacked LSTM)}
+
+\subsection{LSTM hai chiều (Bidirectional LSTM)}
 
 
 \section{Mô hình ngôn ngữ}
 
-Như chúng tôi đã đề cập trong chương 1, \textit{mô hình ngôn ngữ} (language model) là một bộ phận quan trọng trong cả dịch máy thống kê và dịch máy nơ-ron. Cụ thể hơn, mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ. Cho trước một chuỗi $w_1,w_2,...,w_n$ (ký hiệu $w_{1:n}$), mô hình ngôn ngữ gán cho nó một xác suất $P(w_{1:n})$ đại diện cho độ "trơn tru" của chuỗi đó. Ta có thể mô phỏng xác suất này bằng cách sử dụng quy tắc dây chuyền trong xác suất:
-\begin{equation} \label{lmGeneral1}
-	P(w_{1:n}) = P(w_1)P(w_2|w_1)P(w_3|w_{1:2})...P(w_n|w_{1:n-1}) = \prod_{t=1}^{n} P(w_t|w_{1:t-1})
+\subsection{Mô hình ngôn ngữ \textit{n}-gram}
+
+Như chúng tôi đã đề cập trong chương 1, \textit{mô hình ngôn ngữ} (language model) là một bộ phận quan trọng trong cả dịch máy thống kê và dịch máy nơ-ron. Nó giúp ta dự đoán được từ tiếp theo trong một chuỗi từ cho trước. Cụ thể hơn, mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ. Cho trước một chuỗi $w_1,w_2,...,w_n$ (ký hiệu $w_{1:n}$), mô hình ngôn ngữ gán cho nó một xác suất $p(w_{1:n})$ đại diện cho độ "trơn tru" của chuỗi đó. Theo công thức xác suất có điều kiện, ta có:
+\begin{equation} \label{traditionalLM}
+\begin{split}
+	p(w_{1:n}) &= p(w_1)p(w_2|w_1)p(w_3|w_{1:2})...p(w_n|w_{1:n-1}) \\
+				&= \prod_{t=1}^{n} p(w_t|w_{1:t-1})
+\end{split}
+\end{equation}
+ 
+Trong công thức trên, mỗi thành phần $p(w_i|w_{1:i})$ là xác suất có điều kiện của từ $w_i$ biết những từ trước đó $w_{1:i}$, những từ này còn được gọi là ngữ cảnh đối với từ đang xét. Ta thấy rằng để tính được xác suất $p(w_i|w_{1:i})$ ta phải xét đến tất cả những từ đứng trước nó. Điều này làm cho chi phí tính toán trở nên rất lớn. Để giảm chi phí tính toán, người ta sử dụng giả định \textit{markov} (markov-assumption); giả định này nói rằng các từ tiếp theo chỉ liên quan đến từ hiện tại và độc lập với các từ trước đó. Chính xác hơn, một giả định markov bậc $k$ nói rằng từ tiếp theo trong một chuỗi chỉ phụ thuộc vào $k$ từ cuối cùng trong chuỗi.
+\begin{equation} \label{markovAssumption}
+	p(w_{i+1}|w_{1:i}) \approx p(w_{i+1}|w_{i-k:i})
 \end{equation}
 
-Trong bài toán dịch máy, mô hình ngôn ngữ được sử dụng để tìm từ tiếp theo trong một chuỗi các từ đã dịch được. Gọi $P(w_n|w_{1:n-1})$ là xác suất một từ $w_n$ xuất hiện theo sau một chuỗi $w_1,w_2,...,w_{n-1}$, xác suất này có thể được tính như sau:
-\begin{equation} \label{lmGeneral2}
-	P(w|w_{1:n}) = \frac{P(w_{1:n})}{P(w_{1:n-1})}
+Công thức \ref{markovAssumption} theo giả định markov trở thành:
+\begin{equation} \label{traditionalLM}
+	p(w_{1:n}) = \prod_{t=1}^{n} \approx p(w_{i-k}|w_{i-k:i-1})
 \end{equation}
 
+Mặc dù giả định markov bậc $k$ rõ ràng là sai với $k$ bất kỳ (một câu có thể có phụ thuộc dài hạn với chiều dài bất kỳ như câu bắt đầu bằng từ \textit{what} và kết thúc bằng dấu \textit{?}), tuy nhiên nó vẫn tạo ra những mô hình ngôn ngữ mạnh mẽ với với các giá trị tương đối nhỏ của $k$ ($k=3$ hoặc $k=5$), và là phương pháp chủ yếu cho bài toán mô hình hóa ngôn ngữ trong hàng thập kỷ.
 
+Cách tiếp cận truyền thống cho bài toán mô hình hóa ngôn ngữ là sử dụng mô hình ngôn ngữ \textit{n}-gram. Sở dĩ nó có tên như vậy là vì nó sử dụng giả định markov bậc \textit{n} - 1 để ước lượng xác suất $p \left(w_{i+1}=m|w_{1:i} \right) \approx p \left(w_{i+1}=m|w_{i-(n-1):i} \right)$. Theo mô hình ngôn ngữ \textit{n}-gram, xác suất để từ $m$ theo sau chuỗi các từ $w_{1:i}$ là:
 
+\begin{equation} \label{ngramLM}
+	p \left(w_{i+1}=m|w_{i-(n-1):i} \right) = \frac{\# \left(w_{i-(n-1):i+1} \right)}{\# \left(w_{i-(n-1):i} \right)}
+\end{equation}
+trong đó $\#(w_{i:j})$ là số lần xuất hiện của chuỗi $w_{i:j}$ trong tập ngữ liệu. Các mô hình \textit{n}-gram thông thường sử dụng $n = 2$ và $n = 1$ được gọi lần lượt là mô hình \textit{trigram} và mô hình \textit{bigram}. Trong trường hợp mô hình không sử dụng ngữ cảnh để ước lược lượng xác
+suất của một từ ($n = 0$), thì mô hình này được gọi là mô hình \textit{unigram}.
 
+Bên cạnh sự hiệu quả, phương pháp này có một khuyết điểm lớn: nếu chuỗi $w_{i-(n-1):i+1}$ chưa từng xuất hiện trong tập ngữ liệu, tức $\# \left(w_{i-(n-1):i+1} \right) = 0$ thì xác suất ước lượng sẽ có giá trị bằng 0. Điều này dẫn đến xác suất của toàn bộ chuỗi cũng bằng 0 do phép nhân trong công thức tính của nó (công thức \ref{traditionalLM}). Việc xác suất bằng 0 xảy ra khá thường xuyên do sự giới hạn của tập ngữ liệu.
 
+Một cách để tránh việc xảy ra các sự kiện xác suất bằng không là sử dụng những kỹ thuật \textit{làm mịn} (smoothing techniques). Làm mịn bảo đảo tất cả mọi chuỗi đều có một xác suất xuất hiện (mặc dù nhỏ). Kỹ thuật làm mịn đơn giản nhất là làm mịn thêm $\alpha$ (add-$\alpha$ smoothing) \cite{goodman2001}; nó bảo đảm bất kỳ chuỗi nào cũng xuất hiện ít nhất $\alpha$ lần. Với làm mịn thêm $\alpha$ ta được:
+\begin{equation} \label{ngramLMWithSmoothing}
+	p_{add-k} \left(w_{i+1}=m|w_{i-k:i} \right) = \frac{\# \left(w_{i-(n-1):i+1} \right) + \alpha}{\# \left(w_{i-(n-1):i} \right) + \alpha \left|V \right| }
+\end{equation}
+trong đó $\left|V \right|$ là số lượng từ vựng trong tập ngữ liệu.
+
+Một kỹ thuật khác bên cạnh làm mịn là kỹ thuật \textit{truy hồi} (back-off): nếu chuỗi \textit{n}-gram chưa từng xuất hiện trong tập ngữ liệu thì chúng ta sẽ tính xác suất của chuỗi dựa trên (\textit{n - }1)-gram. Chúng ta tiếp tục truy hồi cho đến khi chúng ta gặp một chuỗi mà tần xuất của nó khác không. Ví dụ với trường hợp \textit{trigram}:
+\begin{equation} \label{ngramLMKatzBackoff1}
+\begin{split}
+	p_{bo} \left(w_{i+1}=m|w_{i-1}, w_{i-2} \right) = \lambda_1 p \left(w_{i+1}=m|w_{i-1}, w_{i-2} \right) \\ 
+	+ \lambda_2 p \left(w_{i+1}=m|w_{i-2} \right) \\ 
+	+ \lambda_3 p \left(w_{i+1}=m \right)
+\end{split}
+\end{equation}
+trong đó các $\lambda$ có tổng là $1$:
+\begin{equation} \label{ngramLMKatzBackoff2}
+\sum_{i} \lambda_i = 1
+\end{equation}
 
 
 
