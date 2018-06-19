@@ -8,34 +8,37 @@
 
 \section{Kết luận}
 
-Trong khóa luận này, chúng tôi nghiên cứu bài toán Dịch máy nơ-ron bằng mô hình Attention-LSTM. Mô hình Attention-LSTM học được cách dịch giữa 2 ngôn ngữ (trong khóa luận này là Anh-Đức) như các mô hình với kiến trúc Bộ mã hóa-Bộ giải mã với bộ mã hóa và bộ giải mã là các LSTM. Tuy nhiên cơ chế Attention đem lại nhiều lợi thế mà những mô hình không sử dụng Attention không có được:
+Trong khóa luận này, chúng tôi nghiên cứu bài toán Dịch máy nơ-ron bằng mô hình Attention-LSTM. Mô hình Attention-LSTM học được cách dịch giữa hai ngôn ngữ (trong khóa luận này là Anh-Đức) như các mô hình với kiến trúc Bộ mã hóa - Bộ giải mã với bộ mã hóa và bộ giải mã là các LSTM. Tuy nhiên cơ chế Attention đem lại nhiều lợi thế mà những mô hình không sử dụng Attention không có được:
 \begin{itemize}
-	\item Các mô hình sử dụng Attention tận dụng được các trạng thái ẩn trên bộ mã hóa để hạn chế vấn đề "sự phụ thuộc dài" của các mô hình RNNs. Trong quá trình dự đoán, bộ giải mã sử dụng các trạng thái ẩn của bộ mã hóa bằng cách đặt "sự chú ý" lên một số trạng thái ẩn cần thiết và sử dụng nó để suy ra ngữ cảnh hiện tại của câu, sau đó mô hình dự đoán từ tiếp theo dựa vào ngữ cảnh đó.
-	\item Cơ chế có cách dịch giống với ý tưởng về cách con người dịch nhìn sự vật, hiện tượng. Con người thường chỉ tập trung vào những phần quan trọng mà cung cấp những thông tin cần thiết, phù hợp với mục đích quan sát của sự vật, hiện tượng.
+	\item Các mô hình sử dụng Attention tận dụng được các trạng thái ẩn trên bộ mã hóa để hạn chế vấn đề "sự phụ thuộc dài" của các mô hình RNNs. Trong quá trình dự đoán, bộ giải mã sử dụng các trạng thái ẩn của bộ mã hóa bằng cách "nhìn" vào các trạng thái ẩn cần thiết và sử dụng nó để suy ra ngữ cảnh hiện tại của câu, sau đó mô hình dự đoán từ tiếp theo dựa vào ngữ cảnh đó.
+	\item Cơ chế có cách dịch giống với ý tưởng về cách con người dịch hay nhìn sự vật, hiện tượng. Mọi người thường chỉ nhìn rồi tập trung vào những phần quan trọng mà cung cấp những thông tin cần thiết, phù hợp với mục đích quan sát của sự vật, hiện tượng.
 	\item Có thể sử dụng kết quả của cơ chế Attention để phát triển thêm các phương pháp, kĩ thuật khác:
 	\begin{itemize}
-		\item Phương pháp Input feeding: giúp mô hình có thể biết được thông tin gióng hàng trong những thời điểm trước đó thông qua véc-tơ attention $\tilde{h}_t$. Từ đó giúp mô hình có thể hạn chế vấn đề "đươc dịch quá nhiều" hoặc "được dịch quá ít", tránh được những câu dịch không thực tế như những câu dịch lặp lại một từ nhiều lần.
-		\item Kĩ thuật thay thế từ hiếm: giúp mô hình giải quyết được vấn đề hạn chế về kích thước của bộ từ vựng. Do bộ từ vựng không thể chứa hết tất cả các từ có thể có trong quá trình dịch, vì vậy chất lượng dịch của mô hình bị giảm đáng kể nếu  gặp những từ hiếm đó. Đặc biệt là khi mô hình gặp những câu có chứa các số, tên riêng, tên các địa danh, v.v... 
+		\item Phương pháp Input feeding: giúp mô hình có thể biết được thông tin gióng hàng trong những thời điểm trước đó thông qua véc-tơ attention $\bm{\tilde{h}}_t$. Từ đó giúp mô hình có thể hạn chế vấn đề "đươc dịch quá nhiều" hoặc "được dịch quá ít", tránh được những câu dịch không thực tế như những câu dịch lặp lại một từ nhiều lần.
+		\item Kĩ thuật thay thế từ hiếm: giúp mô hình giải quyết được vấn đề hạn chế về kích thước của bộ từ vựng. Do bộ từ vựng không thể chứa hết tất cả các từ có thể có trong quá trình dịch, mô hình sẽ khó khăn nếu gặp những từ hiếm đó, vì vậy chất lượng dịch của mô hình bị giảm đáng kể. Đặc biệt là khi mô hình hay gặp những câu có chứa các từ hiếm như số, tên riêng, tên các địa danh, v.v... 
 	\end{itemize}
 \end{itemize}
 
-Các kết quả thực nghiệm trên bộ dữ liệu WMT'14 English-German cho thấy rằng:
+Các kết quả thực nghiệm trên bộ dữ liệu WMT' 14 English-German cho thấy rằng:
 \begin{itemize}
-	\item Cơ chế Attention cải thiện chất lượng dịch của mô hình rất cao so với những mô hình không sử dụng cơ chế Attention.
-	\item Những phương pháp, kĩ thuật sử dụng kết quả của cơ chế Attention để giải quyết những vấn đề còn tồn tại khi sử dụng mô hình dịch máy nơ-ron cũng cải thiện chất lượng dịch của mô hình lên đáng kể.
+	\item Cơ chế Attention cải thiện chất lượng dịch của mô hình rất cao so với mô hình không sử dụng cơ chế Attention.
+	\item Những phương pháp, kĩ thuật sử dụng kết quả của cơ chế Attention để giải quyết những vấn đề còn tồn tại khi sử dụng mô hình Dịch máy nơ-ron cũng cải thiện chất lượng dịch của mô hình lên đáng kể.
 \end{itemize}
 
 Cơ chế Attention đã mở ra một không gian rộng lớn để phát triển cho việc cải tiến mô hình các dịch máy nơ-ron.
 
-// TODO Chúng tôi đạt được trong khóa luận này:
+Trong khóa luận, chúng tôi đạt được:
 \begin{itemize}
-	\item 
+	\item Tìm hiểu và cài đặt được mô hình Dịch máy với các LSTM.
+	\item Tìm hiểu và cài đặt được các mô hình sử dụng cơ chế Attention và các phiên bản Toàn cục, Cục bộ của nó.
+	\item Tìm hiểu và cài đặt được phương pháp Input feeding và kĩ thuật thay thế từ hiếm nhằm nâng cao chất lượng dịch của mô hình dựa trên kết quả của cơ chế Attention.
+	\item Có được sự hiểu biết sâu hơn về những thuận lợi, khó khăn của bài toán Dịch máy và những ưu, khuyết điểm của các mô hình Dịch máy hiện nay.
 \end{itemize}
 
 \section{Hướng phát triển}
-Trong khóa luận này chúng tôi mới chỉ tìm hiểu một phần nhỏ của kiến trúc Bộ mã hóa-Bộ giải mã cũng như cơ chế Attention. Trong những năm gần đây, đã xuất hiện nhiều cách tận dụng kiến trúc Bộ mã hóa-Bộ giải mã hơn để giải quyết một số bài toán như Phát sinh câu mô tả cho ảnh, Trả lời câu hỏi tự động, Tóm tắt văn bản, Phát sinh văn bản từ giọng nói, Phát sinh giọng nói từ văn bản và nhiều ứng dụng khác nữa. Ở mỗi bài toán sẽ có cách sử dụng kiến trúc Bộ mã hóa-Bộ giải mã khác nhau như sử dụng các kiến trúc mạng nơ-ron khác nhau cho các bộ mã hóa, bộ giải mã cũng như trao đổi thông tin giữa 2 bộ phận với nhau. Ngoài ra, cơ chế Attention ngày càng phức tạp hơn để phù hợp hơn với những bài toán phức tạp. Định hướng phát triển của khóa luận:
+Trong khóa luận này chúng tôi mới chỉ tìm hiểu một phần nhỏ của kiến trúc Bộ mã hóa - Bộ giải mã cũng như cơ chế Attention. Trong những năm gần đây, đã xuất hiện nhiều cách tận dụng kiến trúc Bộ mã hóa - Bộ giải mã hơn để giải quyết một số bài toán như Phát sinh câu mô tả cho ảnh, Trả lời câu hỏi tự động, Tóm tắt văn bản, Phát sinh văn bản từ giọng nói, Phát sinh giọng nói từ văn bản và nhiều ứng dụng khác nữa. Ở mỗi bài toán sẽ có cách sử dụng kiến trúc Bộ mã hóa - Bộ giải mã khác nhau như sử dụng các kiến trúc mạng nơ-ron khác nhau cho các bộ mã hóa, bộ giải mã cũng như trao đổi thông tin giữa hai bộ phận với nhau. Ngoài ra, cơ chế Attention ngày càng phức tạp hơn để phù hợp hơn với những bài toán phức tạp. Định hướng phát triển của khóa luận:
 \begin{itemize}
-	\item Tìm hiểu thêm những mô hình khác ngoài LSTM để áp dụng vào kiến trúc Bộ mã hóa-Bộ giải mã tiêu biểu như Convolutional Neural Networks và những cải tiến nhỏ để thiện chất lượng mã hóa.
+	\item Tìm hiểu thêm những mô hình khác ngoài LSTM để áp dụng vào kiến trúc Bộ mã hóa - Bộ giải mã tiêu biểu như Convolutional Neural Networks và những cải tiến nhỏ để thiện chất lượng mã hóa.
 	\item Tìm hiểu thêm những cải tiến khác trên cơ chế Attention như cấu trúc phân tầng cho Attention, tìm hiểu thêm những hàm tính điểm khác nhằm giúp cho việc tính toán trọng số gióng hàng và véc-tơ ngữ cảnh chính xác và hữu ích hơn. 
 \end{itemize}
 

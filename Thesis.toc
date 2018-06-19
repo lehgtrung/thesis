@@ -29,5 +29,5 @@
 \contentsline {subsection}{\numberline {4.2.5}Ch\IeC {\'\acircumflex }t l\IeC {\uhorn }\IeC {\d \ohorn }ng gi\IeC {\'o}ng h\IeC {\`a}ng c\IeC {\h u}a m\IeC {\^o} h\IeC {\`\i }nh}{53}{subsection.4.2.5}
 \contentsline {chapter}{\numberline {5}K\IeC {\'\ecircumflex }t Lu\IeC {\d \acircumflex }n V\IeC {\`a} H\IeC {\uhorn }\IeC {\'\ohorn }ng Ph\IeC {\'a}t Tri\IeC {\h \ecircumflex }n}{54}{chapter.5}
 \contentsline {section}{\numberline {5.1}K\IeC {\'\ecircumflex }t lu\IeC {\d \acircumflex }n}{54}{section.5.1}
-\contentsline {section}{\numberline {5.2}H\IeC {\uhorn }\IeC {\'\ohorn }ng ph\IeC {\'a}t tri\IeC {\h \ecircumflex }n}{55}{section.5.2}
+\contentsline {section}{\numberline {5.2}H\IeC {\uhorn }\IeC {\'\ohorn }ng ph\IeC {\'a}t tri\IeC {\h \ecircumflex }n}{56}{section.5.2}
 \contentsline {chapter}{T\IeC {\`A}I LI\IeC {\d \ECIRCUMFLEX }U THAM KH\IeC {\h A}O}{57}{chapter*.23}
