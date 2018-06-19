@@ -96,6 +96,16 @@ P.~Koehn, F.~J. Och, and D.~Marcu, ``Statistical phrase-based translation,'' in
   48--54. [Online]. Available: \url{https://doi.org/10.3115/1073445.1073462}
 \BIBentrySTDinterwordspacing
 
+\bibitem{attentionhistory2010}
+\BIBentryALTinterwordspacing
+H.~Larochelle and G.~E. Hinton, ``Learning to combine foveal glimpses with a
+  third-order boltzmann machine,'' in \emph{Advances in Neural Information
+  Processing Systems 23}, J.~D. Lafferty, C.~K.~I. Williams, J.~Shawe-Taylor,
+  R.~S. Zemel, and A.~Culotta, Eds.\hskip 1em plus 0.5em minus 0.4em\relax
+  Curran Associates, Inc., 2010, pp. 1243--1251. [Online]. Available:
+  \url{http://papers.nips.cc/paper/4089-learning-to-combine-foveal-glimpses-with-a-third-order-boltzmann-machine.pdf}
+\BIBentrySTDinterwordspacing
+
 \bibitem{attentionThangLuong2015}
 \BIBentryALTinterwordspacing
 M.~Luong, H.~Pham, and C.~D. Manning, ``Effective approaches to attention-based
