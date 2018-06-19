@@ -40,6 +40,13 @@ M.~Denil, L.~Bazzani, H.~Larochelle, and N.~de~Freitas, ``Learning where to
   \url{http://arxiv.org/abs/1109.3737}
 \BIBentrySTDinterwordspacing
 
+\bibitem{VocabReference1ReadingTeacher}
+\BIBentryALTinterwordspacing
+J.~E.~K. Edward B.~Fry. (2006) The reading teacher's book of lists, 5th
+  edition. [Online]. Available:
+  \url{http://as.wiley.com/WileyCDA/WileyTitle/productCd-0787982571.html}
+\BIBentrySTDinterwordspacing
+
 \bibitem{elman1990}
 \BIBentryALTinterwordspacing
 J.~L. Elman, ``Finding structure in time,'' \emph{Cognitive Science}, vol.~14,
@@ -74,6 +81,12 @@ W.~J. Hutchins, ``Machine translation: A concise history,'' 2007.
 S.~Jean, K.~Cho, R.~Memisevic, and Y.~Bengio, ``On using very large target
   vocabulary for neural machine translation,'' \emph{CoRR}, vol. abs/1412.2007,
   2014. [Online]. Available: \url{http://arxiv.org/abs/1412.2007}
+\BIBentrySTDinterwordspacing
+
+\bibitem{VocabReference2LexicalFacts}
+\BIBentryALTinterwordspacing
+Johnson. (2013) Vocabulary size lexical facts. [Online]. Available:
+  \url{https://www.economist.com/johnson/2013/05/29/lexical-facts}
 \BIBentrySTDinterwordspacing
 
 \bibitem{kalchbrennerBlunsom}
