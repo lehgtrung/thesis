@@ -60,6 +60,13 @@ F.~A. Gers, J.~Schmidhuber, and F.~Cummins, ``Learning to forget: continual
   Artificial Neural Networks ICANN 99. (Conf. Publ. No. 470)}, vol.~2, 1999,
   pp. 850--855 vol.2.
 
+\bibitem{goodman2001}
+\BIBentryALTinterwordspacing
+J.~Goodman, ``A bit of progress in language modeling,'' \emph{CoRR}, vol.
+  cs.CL/0108005, 2001. [Online]. Available:
+  \url{http://arxiv.org/abs/cs.CL/0108005}
+\BIBentrySTDinterwordspacing
+
 \bibitem{StanfordNMT}
 \BIBentryALTinterwordspacing
 T.~S. N. L.~P. Group. (2015) Neural machine translation. [Online]. Available:

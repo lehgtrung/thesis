@@ -93,14 +93,15 @@ Với ví dụ chúng tôi đã trình bày ở trên thể hiện rằng beam s
 
 Trong bài toán Dịch máy, beam search thường chỉ được sử dụng trong quá trình suy diễn. Bởi vì trong quá trình huấn luyện, mô hình sử dụng phương pháp teacher forcing có hiệu quả lớn hơn về mặt chi phí tính toán, tốc độ hội tụ cũng như dễ cài đặt.
 \section{Mô hình học LSTM-Attention cho bài toán Dịch máy}
+\subsection{Cơ chế Attention}
 Ở phần trước, chúng tôi đã trình bày về kiến trúc Bộ mã hóa - Bộ giải mã cùng với những điểm mạnh của nó trong việc giải quyết bài toán Dịch máy. Tuy nhiên, kiến trúc này vẫn còn tồn tại hạn chế về việc dịch những câu dài do những thông tin được mã hóa của câu nguồn bị mất dần theo các bước thời gian về sau. Lí do mà vấn đề này tồn tại thực chất là bởi vì các mô hình LSTM được sử dụng trong bộ mã hóa và bộ giải mã. Bản thân mô hình LSTM chưa thật sự giải quyết hoàn toàn vấn đề "sự phụ thuộc dài hạn". Để có thể vẫn tận dụng được các mô hình LSTM mà vẫn nâng cao được chất lượng dịch, cơ chế Attention được sử dụng.
 
 Trước khi đi vào cách hoạt động của cơ chế Attention, chúng tôi điểm qua một chút về nguồn cảm hứng và lịch sử của cơ chế này. Cơ chế Attention được lấy cảm hứng trên cách đặt sự chú ý khi quan sát sự vật, hiện tượng của thị giác con người. Khi con người quan sát một sự vật, hiện tượng nào đó bằng mắt, con người chỉ có thể tập trung vào một vùng nhất định trên sự vật, hiện tượng được quan sát để ghi nhận thông tin. Sau đó, khi cần ghi nhận thêm thông tin khác, con người sẽ di chuyển vùng tập trung của mắt sang vị trí khác trên vật thể, hiện tượng. Những vùng lân cận xung quanh vùng tập trung sẽ bị "mờ" hơn so với vùng tập trung. Cơ chế Attention đã được ứng dụng trong lĩnh vực Thị giác máy tính từ khá lâu \cite{attentionhistory2010} \cite{attentionhistory2011}. Vào những năm gần đây, cơ chế Attention được sử dụng cho các kiến trúc mạng nơ-ron hồi quy trên bài toán Dịch máy và đã đạt được những kết quả ấn tượng.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{Attention-2}
-	\caption[Minh họa cơ chế Attention.]{Minh họa cơ chế Attention. Một tầng Attention được đặt ở trước bước dự đoán đầu ra của bộ giải mã. Bộ giải mã có thêm một số bước tính toán trước khi dự đoán từ tiếp theo ở câu đích.}
+	\includegraphics[width=0.8\textwidth]{Attention-3}
+	\caption[Minh họa cơ chế Attention.]{Minh họa cơ chế Attention. Một tầng Attention được đặt ở trước bước dự đoán đầu ra của bộ giải mã. Bộ giải mã có thêm một số bước tính toán trước khi dự đoán từ tiếp theo ở câu đích. Bộ giải mã tính trọng số gióng hàng $\bm{a}_t$ cho một số trạng thái ẩn ở bộ mã hóa được lựa chọn. Sau đó tính véc-tơ ngữ cảnh $\bm{c}_t$ và nối véc-tơ này với trạng thái ẩn hiện tại của bộ giải mã thành véc-tơ attention $\bm{\tilde{h}}_t$. Cuối cùng mô hình dự đoán từ tiếp theo dựa trên véc-tơ attention vừa tính được.}
 	\label{fig_Attention}
 \end{figure}
 Cơ chế Attention được sử dụng trong đề tài này là một cơ chế sử dụng thông tin trong các trạng thái ẩn của LSTM trong bộ mã hóa khi thực hiện quá trình giải mã. Cụ thể là:
@@ -142,7 +143,7 @@ Bước dự đoán đầu ra không thay đổi ngoài trạng thái ẩn $\bm{
 \begin{equation}
 p(y_t | y_{<t}, \bm{x}) = \text{softmax}(\bm{W_s\tilde{h}})
 \end{equation}
-Nói một cách đơn giản, mục tiêu của cơ chế Attention là xoay quanh việc tìm véc-tơ ngữ cảnh $\bm{c_t}$ một cách hiệu quả.
+Hình \ref{fig_Attention} minh họa cơ chế Attention. Trước khi bộ giải mã thực hiện dự đoán từ tiếp theo, mô hình tính toán thêm một số đại lượng $\bm{a}_t$, $\bm{c}_t$. Một cách tổng quát, mục tiêu cuối cùng của cơ chế Attention là xoay quanh việc tìm véc-tơ ngữ cảnh $\bm{c_t}$ một cách hiệu quả.
 Tiếp theo, chúng tôi trình bày chi tiết hơn về hai phiên bản Toàn cục và Cục bộ. Hai phiên bản này chỉ khác nhau về cách suy ra véc-tơ ngữ cảnh $\bm{c_t}$, còn các bước còn lại giống nhau.
 Quy trình tính toán của cơ chế Attention: $\bm{h_t} -> \bm{a_t} -> \bm{c_t} -> \bm{\tilde{h}_t}$
 \subsection{Attention Toàn cục}
@@ -210,8 +211,6 @@ Một điều cần lưu ý là nếu cửa sổ vượt ra ngoài câu nguồn 
  
 Véc-tơ trọng số gióng hàng $\bm{a}_t$ ở Attention Cục bộ có kích thước cố định $\in \mathbb{R}^{2D + 1}$ và thường ngắn hơn $\bm{a}_t$ ở Attention Toàn cục. Local-p và local-m giống nhau chỉ khác rằng local-p tính vị trí $p_t$ một cách linh hoạt dựa vào trạng thái ẩn hiện tại của bộ giải mã và sử dụng một phân phối chuẩn đã được đơn giản hóa để điều chỉnh các trọng số gióng hàng $\bm{a}_t$. Việc sử dụng thêm phân phối chuẩn để khuyến khích mô hình đặt tập trung lên vị trí $p_t$ và phân chia dần cho các vị trí lân cận. Nếu không có việc sử dụng phân phối chuẩn này, mô hình có thể sẽ tập trung hoàn toàn lên các từ lân cận xung quanh $p_t$ mà không phải là vị trí $p_t$. Điều này không phù hợp với ý tưởng ban đầu của việc phát sinh vị trí $p_t$ do vị trí này thể hiện ý nghĩa rằng bộ giải mã đang tập trung vào những từ gần vị trí $p_t$.
 Với cơ chế được trình bày cụ thể như trên, mô hình Attention Cục bộ hoạt động tự nhiên hơn, phù hợp với ý tưởng về cách con người đặt "nhìn" khi quan sát sự vật, hiện tượng. Bên cạnh đó, Attention Cục bộ giảm chi phí tính toán của mô hình khi chỉ thực hiện tính trên những từ được chú ý nằm trong phạm vi cửa sổ nhất định khi câu nguồn dài.
-
-\section{Các phương pháp, kĩ thuật cải thiện chất lượng dịch dựa trên cơ chế Attention}
 
 \subsection{Phương pháp Input feeding}
 Trong quá trình dịch, các mô hình được đề cập ở trên như Attention Toàn cục hay Cục bộ, đều vẫn còn một hạn chế về cách đặt "sự chú ý" (tập trung) hay gióng hàng lên các vị trí nguồn. Ở mỗi bước thời gian $t$ khi dự đoán một từ ở câu đích, việc đặt "sự chú ý" độc lập hoàn toàn với việc đặt "sự chú ý" của các bước thời gian trước đó. Việc quyết định gióng hàng như thế nào (giá trị của véc-tơ $a_t$) hoàn toàn phụ thuộc vào điểm số (giá trị của hàm score) giữa trạng thái ẩn $h_t$ hiện tại và các trạng thái ẩn $\bm{h}_s$ ở câu nguồn. Trong thực tế, khi dịch, một từ ở câu nguồn chỉ tương ứng với một vài từ ở câu đích. Do vậy, mô hình cần phải theo dõi xem là những từ nào ở câu nguồn đã được dịch trước đó thì hạn chế đặt "sự chú ý" lên lại những từ đó. Việc không có cơ chế kiểm soát những từ nào đã được dịch sẽ khiến cho mô hình sẽ rơi vào hai trường hợp "được dịch quá nhiều" (over-translated) hoặc "được dịch quá ít" (under-translated). Tức là có một số từ ở câu nguồn sẽ được đặt "sự chú ý" lên quá nhiều lần dẫn tới bỏ qua những từ quan trọng khác hoặc là một số từ quan trọng được đặt "sự chú ý" lên quá ít dẫn tới việc bỏ qua thông tin của từ đó trong quá trình dịch. Dù là trường hợp nào thì cũng gây giảm chất lượng dịch của mô hình và cho ra những câu dịch không thực tế.
