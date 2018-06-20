@@ -357,7 +357,7 @@ Trong công thức trên, mỗi thành phần $p(w_i|w_{1:i})$ là xác suất c
 	p(w_{i+1}|w_{1:i}) \approx p(w_{i+1}|w_{i-k:i})
 \end{equation}
 
-Công thức \ref{markovAssumption} theo giả định markov trở thành:
+Công thức \ref{traditionalLM} theo giả định markov trở thành:
 \begin{equation} \label{traditionalLM}
 	p(w_{1:n}) = \prod_{t=1}^{n} \approx p(w_{i-k}|w_{i-k:i-1})
 \end{equation}
@@ -376,7 +376,7 @@ Bên cạnh sự hiệu quả, phương pháp này có một khuyết điểm l�
 
 Một cách để tránh việc xảy ra các sự kiện xác suất bằng không là sử dụng những kỹ thuật \textit{làm mịn} (smoothing techniques). Làm mịn bảo đảo tất cả mọi chuỗi đều có một xác suất xuất hiện (mặc dù nhỏ). Kỹ thuật làm mịn đơn giản nhất là làm mịn thêm $\alpha$ (add-$\alpha$ smoothing) \cite{goodman2001}; nó bảo đảm bất kỳ chuỗi nào cũng xuất hiện ít nhất $\alpha$ lần. Với làm mịn thêm $\alpha$ ta được:
 \begin{equation} \label{ngramLMWithSmoothing}
-	p_{add-k} \left(w_{i+1}=m|w_{i-k:i} \right) = \frac{\# \left(w_{i-(n-1):i+1} \right) + \alpha}{\# \left(w_{i-(n-1):i} \right) + \alpha \left|V \right| }
+	p_{add-\alpha} \left(w_{i+1}=m|w_{i-k:i} \right) = \frac{\# \left(w_{i-(n-1):i+1} \right) + \alpha}{\# \left(w_{i-(n-1):i} \right) + \alpha \left|V \right| }
 \end{equation}
 trong đó $\left|V \right|$ là số lượng từ vựng trong tập ngữ liệu.
 

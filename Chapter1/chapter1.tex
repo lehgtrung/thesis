@@ -83,21 +83,21 @@ Mặc dù trên thực tế đã có nhiều hệ thống dịch máy được p
 \textit{Dịch máy nơ-ron} (Neural machine translation) là một hướng tiếp cận mới cho bài toán dịch máy trong những năm gần đây và được đề xuất đầu tiên bởi \cite{kalchbrennerBlunsom}, \cite{Seq2Seq2014}, \cite{cho}. Giống như dịch máy thống kê, dịch máy nơ-ron cũng là một phương pháp thuộc hướng tiếp cận dựa trên ngữ liệu, trong khi dịch máy thống kê bao gồm nhiều mô-đun nhỏ được điều chỉnh riêng biệt, dịch máy nơ-ron cố gắng dùng một mạng nơ-ron như là thành phần duy nhất của hệ thống, mọi thiết lập sẽ được thực hiện trên mạng này. 
 
 % TODO: Sutskever et al., 2014; Cho et al., 2014a
-Hầu hết những mô hình dịch máy nơ-ron đều dựa trên kiến trúc \textit{bộ mã hóa - bộ giải mã} (encoder - decoder) (\cite{Seq2Seq2014}, \cite{cho}). Bộ mã hóa thường là một mạng nơ-ron có tác dụng \textit{"nén"} tất cả thông tin của câu trong ngôn ngữ nguồn vào một véc-tơ có kích thước cố định. Bộ giải mã, cũng là một mạng nơ-ron, sẽ tạo bản dịch trong ngôn ngữ đích từ véc-tơ có kích thước cố định kia. Toàn bộ hệ thống bao gồm bộ mã hóa và bộ giải mã sẽ được huấn luyện \textit{"end-to-end"}, quá trình này được mô tả như hình \ref{fig_encoder_decoder}.
+Hầu hết những mô hình dịch máy nơ-ron đều dựa trên kiến trúc \textit{Bộ mã hóa - Bộ giải mã} (Encoder-Decoder) (\cite{Seq2Seq2014}, \cite{cho}). Bộ mã hóa thường là một mạng nơ-ron có tác dụng \textit{"nén"} tất cả thông tin của câu trong ngôn ngữ nguồn vào một véc-tơ có kích thước cố định. Bộ giải mã, cũng là một mạng nơ-ron, sẽ tạo bản dịch trong ngôn ngữ đích từ véc-tơ có kích thước cố định kia. Toàn bộ hệ thống bao gồm bộ mã hóa và bộ giải mã sẽ được huấn luyện \textit{"end-to-end"}, quá trình này được mô tả như hình \ref{fig_encoder_decoder}.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{intro2nmt}
-	\caption[Ví dụ về Kiến trúc \textit{bộ mã hóa - bộ giải mã} trong dịch máy nơ-ron]{Ví dụ về kiến trúc bộ mã hóa - bộ giải mã trong dịch máy nơ-ron}
+	\caption[Ví dụ về Kiến trúc \textit{Bộ mã hóa - Bộ giải mã} trong dịch máy nơ-ron]{Ví dụ về kiến trúc Bộ mã hóa - Bộ giải mã trong dịch máy nơ-ron}
 	\label{fig_encoder_decoder}
 \end{figure}
 
 % TODO: mention LSTM
-Trong thực tế cả bộ mã hóa và giải mã thường dựa trên một mô hình mạng nơ-ron tên là \textit{mạng nơ-ron hồi quy}; đây là một thiết kế mạng đặc trưng cho việc xử lý dữ liệu chuỗi. Mạng nơ-ron hồi quy cho phép chúng ta mô hình hóa những dữ liệu có độ dài không xác định, rất thích hợp cho bài toán dịch máy. Hình \ref{fig_encoder_decoder_details} mô tả chi tiết hơn về kiến trúc bộ mã hóa - bộ giải mã sử dụng mạng nơ-ron hồi quy. Đầu tiên mạng nơ ron hồi quy mà đóng vai trò bộ mã hóa sẽ duyệt qua từng từ trong câu nguồn, duyệt đến đâu sẽ cập nhật véc-tơ trạng thái ẩn (véc-tơ lưu thông tin cần thiết) của mạng đến đó, véc-tơ trạng thái ẩn cuối cùng được xem là chứa toàn bộ thông tin của câu nguồn được gọi là véc-tơ mã hóa của câu nguồn (véc-tơ này có kích thước cố định với các câu nguồn có chiều dài khác nhau). Véc-tơ mã hóa này sẽ được đưa vào một mạng nơ-ron hồi quy khác mà đóng vai trò là bộ giải mã. Tại một thời điểm, bộ giải mã sẽ phát sinh ra (hay giải mã ra) một từ trong câu đích dựa vào véc-tơ mã hóa câu nguồn và các từ đã sinh ra trước đó của câu đích.
+Trong thực tế cả bộ mã hóa và giải mã thường dựa trên một mô hình mạng nơ-ron tên là \textit{mạng nơ-ron hồi quy}; đây là một thiết kế mạng đặc trưng cho việc xử lý dữ liệu chuỗi. Mạng nơ-ron hồi quy cho phép chúng ta mô hình hóa những dữ liệu có độ dài không xác định, rất thích hợp cho bài toán dịch máy. Hình \ref{fig_encoder_decoder_details} mô tả chi tiết hơn về kiến trúc Bộ mã hóa - Bộ giải mã sử dụng mạng nơ-ron hồi quy. Đầu tiên mạng nơ ron hồi quy mà đóng vai trò bộ mã hóa sẽ duyệt qua từng từ trong câu nguồn, duyệt đến đâu sẽ cập nhật véc-tơ trạng thái ẩn (véc-tơ lưu thông tin cần thiết) của mạng đến đó, véc-tơ trạng thái ẩn cuối cùng được xem là chứa toàn bộ thông tin của câu nguồn được gọi là véc-tơ mã hóa của câu nguồn (véc-tơ này có kích thước cố định với các câu nguồn có chiều dài khác nhau). Véc-tơ mã hóa này sẽ được đưa vào một mạng nơ-ron hồi quy khác mà đóng vai trò là bộ giải mã. Tại một thời điểm, bộ giải mã sẽ phát sinh ra (hay giải mã ra) một từ trong câu đích dựa vào véc-tơ mã hóa câu nguồn và các từ đã sinh ra trước đó của câu đích.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{encoder-decoder}
-	\caption[Kiến trúc bộ mã hóa - bộ giải mã được xây dựng trên mạng nơ-ron hồi quy]{Kiến trúc bộ mã hóa - bộ giải mã được xây dựng trên mạng nơ-ron hồi quy}
+	\caption[Kiến trúc Bộ mã hóa - Bộ giải mã được xây dựng trên mạng nơ-ron hồi quy]{Kiến trúc Bộ mã hóa - Bộ giải mã được xây dựng trên mạng nơ-ron hồi quy}
 	\label{fig_encoder_decoder_details}
 \end{figure}
 
@@ -118,7 +118,7 @@ Với những ưu điểm đã được trình bày của phương pháp dịch 
 
 Các phần còn lại trong khóa luận được trình bày như sau:
 \begin{itemize}
-	\item[•] Chương 2 trình bày về những thành nền tảng của kiến trúc bộ mã hóa - giải mã.
+	\item[•] Chương 2 trình bày về những thành nền tảng của kiến trúc Bộ mã hóa - Bộ giải mã.
 	
 	\item[•] Chương 3 trình bày về cơ chế Attention, đây là phần chính của luận văn. Trong phần này gồm có hai phần nhỏ:
 		\begin{itemize}
