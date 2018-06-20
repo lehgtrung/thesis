@@ -7,7 +7,7 @@
 
 \begin{quote}
 
-\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, Long short-term memory và mô hình ngôn ngữ nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Long short-term memory là phiên bản cải tiến của RNN để giải quyết vấn đề về phụ thuộc dài hạn. Long short-term memory cũng là phiên bản RNN được dùng để xây dựng nên bộ mã hóa - bộ giải trong khóa luận này. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm \textit{mô hình ngôn ngữ hồi quy} với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc bộ mã hóa - bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
+\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, Long short-term memory và mô hình ngôn ngữ nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Long short-term memory là phiên bản cải tiến của RNN để giải quyết vấn đề về phụ thuộc dài hạn. Long short-term memory cũng là phiên bản RNN được dùng để xây dựng nên bộ mã hóa - bộ giải trong khóa luận này. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc bộ mã hóa - bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
 
 \end{quote}
 \section{Mạng nơ-ron hồi quy (Recurrent neural network)}
@@ -68,7 +68,7 @@ Trong công thức trên, hàm $\softmax$ đóng vai trò là một hàm chuẩn
 	\label{fig_rnn_unrolled}
 \end{figure}
 
-Để ý rằng các ma trận trọng số $W_{xh}$, $W_{hh}$, $W_{hy}$ và các véc-tơ bias $b_h$, $b_y$ là các tham số học của mô hình và chúng là duy nhất. Có nghĩa là khi những tham số này được học, bất kỳ một đầu vào nào cũng đều sử dụng chung một bộ tham số. Điều này chính là sự chia sẻ tham số (parameters sharing) trong mạng nơ-ron hồi quy. Chia sẻ tham số khiến cho mô hình học dễ dàng hơn, nó giúp cho RNN có thể xử lý chuỗi đầu vào với độ dài bất kỳ mà không làm tăng độ phức tạp của mô hình. Quan trọng hơn, nó giúp ích cho việc tổng quát hóa. Đây chính là điểm đặc biệt của RNN so với mạng nơ-ron truyền thẳng.
+Để ý rằng các ma trận trọng số $W_{xh}$, $W_{hh}$, $W_{hy}$ và các véc-tơ bias $b_h$, $b_y$ là các tham số học của mô hình và chúng là duy nhất. Có nghĩa là khi những tham số này được học, bất kỳ một đầu vào nào cũng đều sử dụng chung một bộ tham số. Điều này chính là sự chia sẻ tham số (parameters sharing) trong mạng nơ-ron hồi quy. Chia sẻ tham số khiến cho mô hình học dễ dàng hơn, nó giúp cho RNN có thể xử lý chuỗi đầu vào với độ dài bất kỳ mà không làm tăng độ phức tạp của mô hình. Quan trọng hơn, nó giúp ích cho việc tổng quát hóa. Đây chính là điểm đặc biệt của RNN so với mạng nơ-ron truyền thẳng (feedforward neural network).
 
 Với một số lượng hữu hạn các bước thời gian, mô hình RNN trên hình \ref{fig_rnn_loop} có thể được dàn trải ra (unrolled). Dạng dàn trải này được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với mỗi bước thời gian là một mạng nơ-ron một tầng ẩn và các tham số học được chia sẻ giữa các mạng nơ-ron đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là "Backpropagation through time" (BPTT) \cite{werbos1990}. Thực chất đây là chỉ thuật toán “Backpropagation” khi áp dụng cho RNN dưới dạng dàn trải để tính "gradient" cho các tham số ở từng bước thời gian. Hầu hết cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này vì tính đơn giản và hiệu quả của nó.
 
@@ -341,10 +341,9 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 \end{itemize}
 
 \section{Mô hình ngôn ngữ}
+%Như chúng tôi đã đề cập trong chương 1, \textit{mô hình ngôn ngữ} (language model) là một bộ phận quan trọng trong cả dịch máy thống kê và dịch máy nơ-ron. Nó giúp ta dự đoán được từ tiếp theo trong một chuỗi từ cho trước. 
 
-\subsection{Mô hình ngôn ngữ \textit{n}-gram}
-
-Như chúng tôi đã đề cập trong chương 1, \textit{mô hình ngôn ngữ} (language model) là một bộ phận quan trọng trong cả dịch máy thống kê và dịch máy nơ-ron. Nó giúp ta dự đoán được từ tiếp theo trong một chuỗi từ cho trước. Cụ thể hơn, mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ. Cho trước một chuỗi $w_1,w_2,...,w_n$ (ký hiệu $w_{1:n}$), mô hình ngôn ngữ gán cho nó một xác suất $p(w_{1:n})$ đại diện cho độ "trơn tru" của chuỗi đó. Theo công thức xác suất có điều kiện, ta có:
+Như đã nói trong chương 1, mô hình ngôn ngữ là thành phần không thể thiếu trong dịch máy để đảm bảo hệ thống dịch tạo ra những bản dịch lưu loát. Cụ thể hơn, mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ nhằm đánh giá độ "lưu loát" của chuỗi ấy so với những chuỗi khác. Cho trước một chuỗi $w_1,w_2,...,w_n$ (ký hiệu $w_{1:n}$), mô hình ngôn ngữ gán cho nó một xác suất $p(w_{1:n})$ đại diện cho độ "lưu loát" của chuỗi đó. Theo công thức xác suất có điều kiện, ta có:
 \begin{equation} \label{traditionalLM}
 \begin{split}
 	p(w_{1:n}) &= p(w_1)p(w_2|w_1)p(w_3|w_{1:2})...p(w_n|w_{1:n-1}) \\
@@ -364,6 +363,8 @@ Công thức \ref{traditionalLM} theo giả định markov trở thành:
 
 Mặc dù giả định markov bậc $k$ rõ ràng là sai với $k$ bất kỳ (một câu có thể có phụ thuộc dài hạn với chiều dài bất kỳ như câu bắt đầu bằng từ \textit{what} và kết thúc bằng dấu \textit{?}), tuy nhiên nó vẫn tạo ra những mô hình ngôn ngữ mạnh mẽ với với các giá trị tương đối nhỏ của $k$ ($k=3$ hoặc $k=5$), và là phương pháp chủ yếu cho bài toán mô hình hóa ngôn ngữ trong hàng thập kỷ.
 
+\subsection{Mô hình ngôn ngữ \textit{n}-gram}
+
 Cách tiếp cận truyền thống cho bài toán mô hình hóa ngôn ngữ là sử dụng mô hình ngôn ngữ \textit{n}-gram. Sở dĩ nó có tên như vậy là vì nó sử dụng giả định markov bậc \textit{n} - 1 để ước lượng xác suất $p \left(w_{i+1}=m|w_{1:i} \right) \approx p \left(w_{i+1}=m|w_{i-(n-1):i} \right)$. Theo mô hình ngôn ngữ \textit{n}-gram, xác suất để từ $m$ theo sau chuỗi các từ $w_{1:i}$ là:
 
 \begin{equation} \label{ngramLM}
@@ -372,29 +373,53 @@ Cách tiếp cận truyền thống cho bài toán mô hình hóa ngôn ngữ l�
 trong đó $\#(w_{i:j})$ là số lần xuất hiện của chuỗi $w_{i:j}$ trong tập ngữ liệu. Các mô hình \textit{n}-gram thông thường sử dụng $n = 2$ và $n = 1$ được gọi lần lượt là mô hình \textit{trigram} và mô hình \textit{bigram}. Trong trường hợp mô hình không sử dụng ngữ cảnh để ước lược lượng xác
 suất của một từ ($n = 0$), thì mô hình này được gọi là mô hình \textit{unigram}.
 
-Bên cạnh sự hiệu quả, phương pháp này có một khuyết điểm lớn: nếu chuỗi $w_{i-(n-1):i+1}$ chưa từng xuất hiện trong tập ngữ liệu, tức $\# \left(w_{i-(n-1):i+1} \right) = 0$ thì xác suất ước lượng sẽ có giá trị bằng 0. Điều này dẫn đến xác suất của toàn bộ chuỗi cũng bằng 0 do phép nhân trong công thức tính của nó (công thức \ref{traditionalLM}). Việc xác suất bằng 0 xảy ra khá thường xuyên do sự giới hạn của tập ngữ liệu.
+Mô hình ngôn ngữ \textit{n}-gram là một mô hình phi tham số (non-parametric model), nó có một ưu điểm là tốc độ tính toán rất nhanh (do các xác suất của các \textit{n}-gram đã được tính toán trước và lưu trữ lại) và dễ dàng mở rộng cho nhiều lĩnh vực (ta chỉ cần tập ngữ liệu thuộc lĩnh vực ấy). Mặc dù có một vài mô hình ngôn ngữ có kết quả tốt hơn so với mô hình \textit{n}-gram, tuy nhiên các mô hình đó thường kèm theo độ phức tạp tính toán lớn và kết quả cải thiện không đáng kể. Do đó, mô hình \textit{n}-gram vẫn được sử dụng phổ biến cho đến ngày nay.
 
-Một cách để tránh việc xảy ra các sự kiện xác suất bằng không là sử dụng những kỹ thuật \textit{làm mịn} (smoothing techniques). Làm mịn bảo đảo tất cả mọi chuỗi đều có một xác suất xuất hiện (mặc dù nhỏ). Kỹ thuật làm mịn đơn giản nhất là làm mịn thêm $\alpha$ (add-$\alpha$ smoothing) \cite{goodman2001}; nó bảo đảm bất kỳ chuỗi nào cũng xuất hiện ít nhất $\alpha$ lần. Với làm mịn thêm $\alpha$ ta được:
+Thuy nhiên, mô hình \textit{n}-gram vẫn còn nhiều hạn chế. Đầu tiên, mặc dù tốc độ tính toán của mô hình \textit{n}-gram là nhanh, nhưng kèm theo đó là sự đánh đổi về mặt lưu trữ. Nếu tập ngữ liệu là lớn thì chúng ta phải lưu những bảng xác suất khổng lồ, điều này gây ra khó khăn khi ta muốn sử dụng mô hình này trên các thiết bị có bộ nhớ nhỏ như thiết bị di động hay cảm biến. Thứ hai, điểm yếu của mô hình này đến từ việc sử dụng giả định markov; giả định này khiến cho mô hình \textit{n}-gram không thể nắm bắt được các thông tin ngữ cảnh dài hạn. Ví dụ cho trước ngữ cảnh \textit{"Columbus is the man who discovered \_\_"}, ta muốn từ tiếp theo sẽ là \textit{"America"}; một mô hình \textit{5}-gram không thể dự đoán được từ tiếp theo là \textit{"America"} vì độ dài ngữ cảnh tối đa của nó chỉ đạt đến từ \textit{"is"}.
+
+Thứ ba, ta thấy rằng trong mô hình \textit{n}-gram, nếu một chuỗi $w_{i:j} \subseteq w_{1:n}$ chưa từng xuất hiện trong tập ngữ liệu, tức $\# \left(w_{i:j} \right) = 0$ thì xác suất ước lượng $p(w_{j+1}|w_{i:j})$ sẽ có giá trị bằng 0. Điều này dẫn đến xác suất của toàn bộ chuỗi $w_{1:n}$ cũng bằng 0 do phép nhân trong công thức tính của nó (công thức \ref{traditionalLM}). Việc xác suất bằng 0 xảy ra khá thường xuyên do sự giới hạn của tập ngữ liệu. Một cách để tránh việc xảy ra các sự kiện xác suất bằng không là sử dụng những kỹ thuật \textit{làm mịn} (smoothing techniques). Làm mịn bảo đảm tất cả mọi chuỗi đều có một xác suất xuất hiện (mặc dù nhỏ). Kỹ thuật làm mịn đơn giản nhất là làm mịn thêm $\alpha$ (add-$\alpha$ smoothing) \cite{goodman2001}; nó bảo đảm bất kỳ chuỗi nào cũng xuất hiện ít nhất $\alpha$ lần. Với làm mịn thêm $\alpha$ ta được:
 \begin{equation} \label{ngramLMWithSmoothing}
 	p_{add-\alpha} \left(w_{i+1}=m|w_{i-k:i} \right) = \frac{\# \left(w_{i-(n-1):i+1} \right) + \alpha}{\# \left(w_{i-(n-1):i} \right) + \alpha \left|V \right| }
 \end{equation}
-trong đó $\left|V \right|$ là số lượng từ vựng trong tập ngữ liệu.
+trong đó $\left|V \right|$ là số lượng từ vựng trong tập ngữ liệu. Hiện nay phương pháp làm mịn Kneser-Key là phương pháp phổ biến và đạt được kết quả tốt nhất \cite{jurafsky2000}.
 
-Một kỹ thuật khác bên cạnh làm mịn là kỹ thuật \textit{truy hồi} (back-off): nếu chuỗi \textit{n}-gram chưa từng xuất hiện trong tập ngữ liệu thì chúng ta sẽ tính xác suất của chuỗi dựa trên (\textit{n - }1)-gram. Chúng ta tiếp tục truy hồi cho đến khi chúng ta gặp một chuỗi mà tần xuất của nó khác không. Ví dụ với trường hợp \textit{trigram}:
-\begin{equation} \label{ngramLMKatzBackoff1}
+Ngoài ra còn một vấn đề với mô hình \textit{n}-gram là \textbf{tính tổng quát hóa không cao} \cite{bengioLM2003}. Điều này có thể được giải thích bằng việc mô hình này coi các cụm từ là rời rạc khiến nó không có khả năng nắm bắt được tính tương tự về ngữ nghĩa giữa các từ \cite{bengioLM2003}. Xét hai câu sau: $s_1 =$ \textit{"She is a good cook"} và $s_2 =$ \textit{"She cooks very cook"}, ta thấy rằng hai câu này về mặt ngữ nghĩa là tương đương nhau nên ta muốn xác suất của chúng cũng xấp xỉ nhau $p(s_2) \approx p(s_1)$. Tuy vậy, do một lý do nào đó mà câu $s_2$ xuất hiện ít hơn rất nhiều so với câu $s_1$ nên $p(s_2) << p(s_1)$. Do đó, có thể thấy rằng việc không nắm bắt tính tương tự về ngữ nghĩa làm cho mô hình ngôn ngữ \textit{n}-gram có tính tổng quát hóa không cao.
+
+%Một kỹ thuật khác bên cạnh làm mịn là kỹ thuật \textit{truy hồi} (back-off): nếu chuỗi \textit{n}-gram chưa từng xuất hiện trong tập ngữ liệu thì chúng ta sẽ tính xác suất của chuỗi dựa trên (\textit{n - }1)-gram. Chúng ta tiếp tục truy hồi cho đến khi chúng ta gặp một chuỗi mà tần suất của nó khác không. Ví dụ với trường hợp \textit{trigram}:
+%\begin{equation} \label{ngramLMKatzBackoff1}
+%\begin{split}
+%	p_{bo} \left(w_{i+1}=m|w_{i-1}, w_{i-2} \right) = \lambda_1 p \left(w_{i+1}=m|w_{i-1}, w_{i-2} \right) \\ 
+%	+ \lambda_2 p \left(w_{i+1}=m|w_{i-2} \right) \\ 
+%	+ \lambda_3 p \left(w_{i+1}=m \right)
+%\end{split}
+%\end{equation}
+%trong đó các $\lambda$ có tổng là $1$:
+%\begin{equation} \label{ngramLMKatzBackoff2}
+%\sum_{i} \lambda_i = 1
+%\end{equation}
+
+
+
+\subsection{Đánh giá mô hình ngôn ngữ}
+
+Do mô hình ngôn ngữ là một mô hình học không giám sát, một cách thông thường để đánh giá một mô hình học không giám sát là áp dụng nó lên một bài toán học có giám sát rồi đánh giá thông qua kết quả của bài toán đó, ví dụ: đo lường sự cải thiện chất lượng dịch khi chuyển đổi từ mô hình ngôn ngữ A sang mô hình ngôn ngữ B trong một hệ thống dịch máy. Cách đánh giá này được gọi là đánh giá bên ngoài (extrinsic evaluation). Tuy nhiên, đánh giá bên ngoài rất tốn kém đối với những bài toán học có giám sát lớn và phức tạp. Vì vậy, một độ đo được thiết kế để đánh giá mô hình ngôn ngữ một cách nội tại (intrinsic evaluation) đó là "perplexity". Perplexity là một độ đo để đánh giá một mô hình xác suất tốt như thế nào khi dự đoán một mẫu chưa nhìn thấy (unseen sample). Cho trước một tập ngữ liệu $ W = w_1, w_2, ..., w_N$ ($N$ là một số rất lớn) và một mô hình ngôn ngữ \textit{LM}, perplexity của $W$ ứng với mô hình ngôn ngữ \textit{LM} là:
+\begin{equation} \label{perplexity}
 \begin{split}
-	p_{bo} \left(w_{i+1}=m|w_{i-1}, w_{i-2} \right) = \lambda_1 p \left(w_{i+1}=m|w_{i-1}, w_{i-2} \right) \\ 
-	+ \lambda_2 p \left(w_{i+1}=m|w_{i-2} \right) \\ 
-	+ \lambda_3 p \left(w_{i+1}=m \right)
+Perplexity(W) &= \sqrt[N]{\frac{1}{LM(p(w_{1:N}))}} \\
+			  &= \sqrt[N]{\prod_{i=1}^{N}  \frac{1}{LM(p(w_i|w_{1:i-1}))}} \\
+			  &= 2^{-\frac{1}{N} \sum_{i=1}^{N} \log_2 LM(p(w_i|w_{1:i-1}))}
 \end{split}
 \end{equation}
-trong đó các $\lambda$ có tổng là $1$:
-\begin{equation} \label{ngramLMKatzBackoff2}
-\sum_{i} \lambda_i = 1
-\end{equation}
 
+Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗi trong tập ngữ liệu (phản ánh đúng ngôn ngữ thật sự) sẽ dẫn đến một giá trị nhỏ của perplexity và ngược lại. Perplexity là một độ đo tốt và thuận tiện để đánh giá các mô hình ngôn ngữ với nhau. Tuy vậy, việc perplexity được cải thiện khi ta thay đổi mô hình ngôn ngữ không đảm bảo rằng đánh giá bên ngoài cũng được cải thiện. Tuy vậy, perplexity vẫn thường được sử dụng như là một cách kiểm tra nhanh một mô hình ngôn ngữ; bởi vì PPL của một mô hình ngôn ngữ có sự tương quan nhất định với hiệu suất của ứng dụng sử dụng mô hình ngôn ngữ này. Nhưng để có thể đánh giá một cách chính xác trước khi kết luận về hiệu suất của một mô hình ngôn ngữ, ta luôn luôn phải kiểm tra lại mô hình ngôn ngữ này bằng cách đánh giá ngoài dựa trên một ứng dụng cụ thể.
 
+\subsection{Mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy}
 
+Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Mô hình ngôn ngữ này giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số (parametric model), nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là "word embedding", điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ.
+
+Đầu tiên, để biểu diễn một từ trong mạng nơ-ron truyền thẳng, người ta sử dụng dạng véc-tơ "one-hot" của nó, véc-tơ này có số chiều là $|V|$ (kích thước của tập từ vựng), phần tử ứng với vị trí cần biểu diễn mang giá trị 1, các phần tử còn lại mang giá trị 0. Có thể thấy véc-tơ "one-hot" là một véc-tơ vô cùng thưa (vì số lượng từ vựng là rất lớn), để tính toán với véc-tơ thưa này cần rất nhiều tham số. Để giải quyết vấn đề véc-tơ thưa, người ta sử dụng một ma trận "nhúng" (embedding matrix). Ma trận nhúng có tác dụng làm giảm số chiều của véc-tơ thưa này về một véc-tơ nhúng (embedding vector) còn khoảng vài trăm chiều. Ngoài việc số chiều được giảm nhằm làm giảm tham số tính toán, những véc-tơ nhúng còn giúp nắm bắt được tính tương tự về ngữ nghĩa giữa các từ.
+
+Để hiểu được lý do tại sao việc sử dụng véc-tơ nhúng giúp nắm bắt được tương quan về ngữ nghĩa giữa các từ, ta hãy xem cách mà mô hình này hoạt động.
 
 
 
