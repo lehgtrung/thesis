@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  20 JUN 2018 18:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  20 JUN 2018 21:36
 entering extended mode
 **./Thesis.tex
 (Thesis.tex
@@ -1679,7 +1679,7 @@ nput line 28.
 File: Chapter3/Chapter3Figs/Teacher-forcing.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Teacher-forcing.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Teacher-forcing.png  used on inp
-ut line 60.
+ut line 62.
 (pdftex.def)             Requested size: 308.71106pt x 140.11601pt.
 
 [33 <./Chapter3/Chapter3Figs/Teacher-forcing.png>] [34]
@@ -1687,14 +1687,14 @@ ut line 60.
 File: Chapter3/Chapter3Figs/beam-search.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/beam-search.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/beam-search.png  used on input l
-ine 96.
+ine 98.
 (pdftex.def)             Requested size: 396.91325pt x 248.31392pt.
  [35] [36 <./Chapter3/Chapter3Figs/beam-search.png>] [37]
 <Chapter3/Chapter3Figs/Attention-3.png, id=594, 671.50874pt x 495.8525pt>
 File: Chapter3/Chapter3Figs/Attention-3.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Attention-3.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Attention-3.png  used on input l
-ine 113.
+ine 115.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
  [38 <./Chapter3/Chapter3Figs/Attention-3.png>] [39] [40]
 <Chapter3/Chapter3Figs/Global-Attention_2.png, id=616, 671.50874pt x 495.8525pt
@@ -1702,7 +1702,7 @@ ine 113.
 File: Chapter3/Chapter3Figs/Global-Attention_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Global-Attention_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Global-Attention_2.png  used on 
-input line 169.
+input line 171.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
  [41 <./Chapter3/Chapter3Figs/Global-Attention_2.png>] [42]
 <Chapter3/Chapter3Figs/Local-Attention_2.png, id=633, 671.50874pt x 495.8525pt>
@@ -1710,7 +1710,7 @@ input line 169.
 File: Chapter3/Chapter3Figs/Local-Attention_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Local-Attention_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Local-Attention_2.png  used on i
-nput line 200.
+nput line 202.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
  [43]
 [44 <./Chapter3/Chapter3Figs/Local-Attention_2.png>] [45] [46]
@@ -1718,14 +1718,14 @@ nput line 200.
 File: Chapter3/Chapter3Figs/Input-feeding_2.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Input-feeding_2.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/Input-feeding_2.png  used on inp
-ut line 237.
+ut line 239.
 (pdftex.def)             Requested size: 352.81552pt x 202.51195pt.
  [47 <./Chapter3/Chapter3Figs/Input-feeding_2.png>] [48]
 <Chapter3/Chapter3Figs/unk-rpl-example.png, id=674, 282.05376pt x 181.67876pt>
 File: Chapter3/Chapter3Figs/unk-rpl-example.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/unk-rpl-example.png>
 Package pdftex.def Info: Chapter3/Chapter3Figs/unk-rpl-example.png  used on inp
-ut line 260.
+ut line 262.
 (pdftex.def)             Requested size: 220.50887pt x 142.03874pt.
  [49]) [50 <./Chapter3/Chapter3Figs/unk-rpl-example.png>]
 \openout2 = `Chapter4/chapter4.aux'.
@@ -1817,7 +1817,7 @@ Here is how much of TeX's memory you used:
  22430 multiletter control sequences out of 15000+200000
  60422 words of font info for 91 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,18n,79p,2717b,523s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,18n,79p,2230b,523s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/vntex/t5.enc}{C:/Program Files/M
 iKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
@@ -1832,7 +1832,7 @@ C:/Program Files/MiKTeX 2.9/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/vntex/urwvn/utmri8v.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/vntex
 /vnr/vntt12.pfb>
-Output written on Thesis.pdf (70 pages, 1257377 bytes).
+Output written on Thesis.pdf (70 pages, 1257212 bytes).
 PDF statistics:
  907 PDF objects out of 1000 (max. 8388607)
  214 named destinations out of 1000 (max. 500000)

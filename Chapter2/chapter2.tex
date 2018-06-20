@@ -7,7 +7,7 @@
 
 \begin{quote}
 
-\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, Long short-term memory và mô hình ngôn ngữ nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Long short-term memory là phiên bản cải tiến của RNN để giải quyết vấn đề về phụ thuộc dài hạn. Long short-term memory cũng là phiên bản RNN được dùng để xây dựng nên Bộ mã hóa - Bộ giải trong khóa luận này. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm \textit{mô hình ngôn ngữ hồi quy} với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc Bộ mã hóa - Bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
+\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, Long short-term memory và mô hình ngôn ngữ nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Long short-term memory là phiên bản cải tiến của RNN để giải quyết vấn đề về phụ thuộc dài hạn. Long short-term memory cũng là phiên bản RNN được dùng để xây dựng nên bộ mã hóa - bộ giải trong khóa luận này. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm \textit{mô hình ngôn ngữ hồi quy} với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc bộ mã hóa - bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
 
 \end{quote}
 \section{Mạng nơ-ron hồi quy (Recurrent neural network)}
@@ -357,7 +357,7 @@ Trong công thức trên, mỗi thành phần $p(w_i|w_{1:i})$ là xác suất c
 	p(w_{i+1}|w_{1:i}) \approx p(w_{i+1}|w_{i-k:i})
 \end{equation}
 
-Công thức \ref{markovAssumption} theo giả định markov trở thành:
+Công thức \ref{traditionalLM} theo giả định markov trở thành:
 \begin{equation} \label{traditionalLM}
 	p(w_{1:n}) = \prod_{t=1}^{n} \approx p(w_{i-k}|w_{i-k:i-1})
 \end{equation}
@@ -376,7 +376,7 @@ Bên cạnh sự hiệu quả, phương pháp này có một khuyết điểm l�
 
 Một cách để tránh việc xảy ra các sự kiện xác suất bằng không là sử dụng những kỹ thuật \textit{làm mịn} (smoothing techniques). Làm mịn bảo đảo tất cả mọi chuỗi đều có một xác suất xuất hiện (mặc dù nhỏ). Kỹ thuật làm mịn đơn giản nhất là làm mịn thêm $\alpha$ (add-$\alpha$ smoothing) \cite{goodman2001}; nó bảo đảm bất kỳ chuỗi nào cũng xuất hiện ít nhất $\alpha$ lần. Với làm mịn thêm $\alpha$ ta được:
 \begin{equation} \label{ngramLMWithSmoothing}
-	p_{add-k} \left(w_{i+1}=m|w_{i-k:i} \right) = \frac{\# \left(w_{i-(n-1):i+1} \right) + \alpha}{\# \left(w_{i-(n-1):i} \right) + \alpha \left|V \right| }
+	p_{add-\alpha} \left(w_{i+1}=m|w_{i-k:i} \right) = \frac{\# \left(w_{i-(n-1):i+1} \right) + \alpha}{\# \left(w_{i-(n-1):i} \right) + \alpha \left|V \right| }
 \end{equation}
 trong đó $\left|V \right|$ là số lượng từ vựng trong tập ngữ liệu.
 
