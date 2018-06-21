@@ -188,38 +188,25 @@ Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gra
 với $h_{i+1},h_i \in \mathbb{R}^n$ nên $\frac{\partial h_{i}}{\partial h_{i-1}}$ là một ma trận "Jacobian"
 
 \begin{equation} \label{gradientWRTSt16}
-	\frac{\partial h_{i}}{\partial h_{i-1}} = \left[ \frac{h_{i}}{h_{i-1,1}}, ..., \frac{h_{i}}{h_{i-1,n}} \right] 
-\end{equation}
-
-\begin{equation} \label{gradientWRTSt17}
-	= \begin{bmatrix}
+\begin{split}
+	\frac{\partial h_{i}}{\partial h_{i-1}} &= \left[ \frac{h_{i}}{h_{i-1,1}}, ..., \frac{h_{i}}{h_{i-1,n}} \right] \\
+	&= \begin{bmatrix}
   	\frac{h_{i, 1}}{h_{i-1,1}} & \cdots & \frac{h_{i,1}}{h_{i-1,n}}\\
    	\vdots & \ddots & \vdots\\
-   	\frac{h_{i, n}}{h_{i-1,1}} & \cdots & \frac{h_{i,n}}{h_{i-1,n}} 
-	\end{bmatrix} = W_{hh}^T \diag \left( \phi'(h_i) \right)
+   	\end{bmatrix} \\
+   	&= W_{hh}^T \diag \left( \phi'(h_i) \right)
+\end{split} 
 \end{equation}
 
 Như vậy, ta có "gradient" của các tham số qua tất cả các bước thời gian sẽ là:
 
-\begin{equation} \label{updateParams2}
-	\nabla_{b_{y}}L = \sum_{t} \hat{y}_t - y
-\end{equation}
-
-\begin{equation} \label{updateParams3}
-	\nabla_{b_h}L = \sum_{t} \sum_{r=0}^{t} (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial b_h}
-\end{equation}
-
-\begin{equation} \label{updateParams4}
-	\nabla_{W_{hy}}L = \sum_{t} (\hat{y}_t - y) h_t^T
-\end{equation}
-
-\begin{equation} \label{updateParams5}
-	\nabla_{W_{hh}}L = \sum_{t} \sum_{r=0}^{t}  (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{hh}}
-\end{equation}
-
-\begin{equation} \label{updateParams6}
-	\nabla_{W_{xh}}L_t = \sum_{t} \sum_{r=0}^{t} (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{xh}}
-\end{equation}
+\begin{align}
+	\nabla_{b_{y}}L &= \sum_{t} \hat{y}_t - y \\ \label{updateParams2} 
+    \nabla_{b_h}L &= \sum_{t} \sum_{r=0}^{t} (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial b_h} \\ \label{updateParams3}
+    \nabla_{W_{hy}}L &= \sum_{t} (\hat{y}_t - y) h_t^T \\ \label{updateParams4}
+    \nabla_{W_{hh}}L &= \sum_{t} \sum_{r=0}^{t}  (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{hh}} \\ \label{updateParams5}
+    \nabla_{W_{xh}}L_t &= \sum_{t} \sum_{r=0}^{t} (\hat{y}_t - y) W_{hy}^T \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{xh}} \\ \label{updateParams6} \nonumber
+\end{align}
 
 \subsection{Thách thức trong việc học các phụ thuộc dài hạn}
 
@@ -233,7 +220,7 @@ Theo thuật toán BPTT, ta biết rằng gradient theo một tham số hồi qu
 	\centering
 	\includegraphics[width=0.8\textwidth]{BPTT}
 	\caption[Minh họa thuật toán "Back propagation through time"]{Tại mỗi bước thời gian $t$, đội lỗi không chỉ được lan truyền qua các tầng ở bước thời gian hiện tại mà còn phải lan truyền thông tin độ lỗi qua tất cả thời điểm trước đó. Chính sự lan truyền qua thời gian này gây ra hiện tượng bùng nổ hoặc biến mất gradient.}
-	\label{fig_lstmCell}
+	\label{fig_BTT}
 \end{figure}
 
 Nhắc lại rằng trong RNN, gradient của hàm lỗi tại bước thời gian $t$ theo tham số hồi quy $\theta  \in \{W_{hh}, W_{xh}, b_h \}$ là:
@@ -257,7 +244,7 @@ Với $W_{hh}$ là một ma trận vuông, nó có thể được phân tích th
 
 Với $\Sigma, \lambda$ lần lượt là ma trận véc-tơ riêng và véc-tơ trị riêng của ma trận $W_{hh}$. Ta biết rằng lũy thừa của $W_{hh}$ cũng chính là lũy thừa của véc-tơ trị riêng của nó $\lambda$. Khi số mũ của phép lũy thừa lớn, những véc-tơ riêng ứng với trị riêng $\lambda_i < 1$ sẽ giảm theo hàm mũ, những véc-tơ riêng ứng với trị riêng $\lambda_i > 1$ sẽ tăng theo hàm mũ. Nói cách khác, \textit{điều kiện đủ} để xảy ra "gradient" biến mất là trị riêng lớn nhất của ma trận kết nối hồi quy $\lambda_{max}$ có giá trị nhỏ hơn 1. Để xảy ra "gradient" bùng nổ, \textit{điều kiện cần} là $\lambda_{max} > 1$.
 
-Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất kỳ, với $\phi'$ bị chặn trên bởi $\gamma \in \mathbb{R}$ và do đó $||diag(\phi'(h_k))|| \leq \gamma$. Với $\lambda_{max} < \frac{1}{\gamma}$, hiện tượng "gradient" biến mất sẽ xảy ra. Theo công thức \ref{gradientWRTSt17}:
+Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất kỳ, với $\phi'$ bị chặn trên bởi $\gamma \in \mathbb{R}$ và do đó $||diag(\phi'(h_k))|| \leq \gamma$. Với $\lambda_{max} < \frac{1}{\gamma}$, hiện tượng "gradient" biến mất sẽ xảy ra. Theo công thức \ref{gradientWRTSt16}:
 \begin{equation} \label{gradientVanish5}
 	\forall i, \norm{\frac{\partial h_{i+1}}{\partial h_{i}}} \leq \norm{ W^T_{hh} } \norm{ diag(\phi'(h_k)) } < \frac{1}{\gamma} \gamma < 1 
 \end{equation}
@@ -298,8 +285,8 @@ Một kỹ thuật để đối phó với sự bùng nổ gradient được đ�
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.6\textwidth]{lstmCell}
-	\caption[Một "LSTM cell"]{Mô hình RNN đơn giản với kết nối vòng, \textbf{$h$} được xem như bộ nhớ được luân chuyển trong RNN. Chú ý rằng đường nét đứt ở đầu ra thể hiện rằng tại một thời điểm $t$, RNN có thể có hoặc không có một đầu ra.}
+	\includegraphics[width=0.7\textwidth]{LSTMcell}
+	\caption[Một LSTM cell]{Một LSTM cell với cổng quên, ô với ký hiệu $\sigma$ đại diện cho những nút; các ô với ký hiệu $\prod$ đại diện cho các cổng. Ô tròn ở trung tâm đại diện cho trạng thái lưu giữ.}
 	\label{fig_lstmCell}
 \end{figure}
 
@@ -415,7 +402,7 @@ Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗ
 
 \subsection{Mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy}
 
-Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Mô hình ngôn ngữ này giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số (parametric model), nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là "word embedding", điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ.
+Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Nó giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số (parametric model), nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là "word embedding", điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ.
 
 Đầu tiên, để biểu diễn một từ trong mạng nơ-ron truyền thẳng, người ta sử dụng dạng véc-tơ "one-hot" của nó, véc-tơ này có số chiều là $|V|$ (kích thước của tập từ vựng), phần tử ứng với vị trí cần biểu diễn mang giá trị 1, các phần tử còn lại mang giá trị 0. Có thể thấy véc-tơ "one-hot" là một véc-tơ vô cùng thưa (vì số lượng từ vựng là rất lớn), để tính toán với véc-tơ thưa này cần rất nhiều tham số. Để giải quyết vấn đề véc-tơ thưa, người ta sử dụng một ma trận "nhúng" (embedding matrix). Ma trận nhúng có tác dụng làm giảm số chiều của véc-tơ thưa này về một véc-tơ nhúng (embedding vector) còn khoảng vài trăm chiều. Ngoài việc số chiều được giảm nhằm làm giảm tham số tính toán, những véc-tơ nhúng còn giúp nắm bắt được tính tương tự về ngữ nghĩa giữa các từ.
 
