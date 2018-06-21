@@ -41,11 +41,11 @@ Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa 2 mô hình. V�
 	\centering
 	\begin{tabular}{|l|l|c|} 
 		\hline
-		\multicolumn{1}{|c|}{\textbf{Mô hình}} & \textbf{Perplexity} & \textbf{BLEU}  \\ 
+		\multicolumn{1}{|c|}{ \textbf{Mô hình} }         & \textbf{Perplexity}  & \textbf{BLEU}   \\ 
 		\hline
-		Cơ bản                                 &                     & 15.04          \\ 
+		Cơ bản                                           & 8.03                 & 15.04           \\ 
 		\hline
-		Cơ bản + global (dot)                  &                     & 19.02 (+3.98)  \\
+		Cơ bản + global (general) + input feed + unk rpl & \textbf{5.22 (-2.81)}         & \textbf{22.87 (+7.79)}   \\
 		\hline
 	\end{tabular}
 	\caption{So sánh giữa mô hình sử dụng cơ chế Attention và mô hình không sử dụng cơ chế Attention.}
@@ -60,23 +60,29 @@ Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa 2 mô hình. V�
 
 \begin{table}
 	\centering
-	\begin{tabular}{|l|l|c|c|} 
+	\begin{tabular}{|l|c|c|c|} 
 		\hline
-		\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Mô hình} }} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Perplexity} }} & \multicolumn{2}{c|}{\textbf{BLEU}}                                                   \\ 
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Mô hình} }} & \multirow{2}{*}{\textbf{Perplexity } } & \multicolumn{2}{c|}{\textbf{BLEU } }  \\ 
 		\cline{3-4}
-		\multicolumn{1}{|c|}{}                                   & \multicolumn{1}{c|}{}                                      & \multicolumn{1}{l|}{Trước khi} & \multicolumn{1}{l|}{Sau khi dùng thay thế từ hiếm}  \\ 
+		\multicolumn{1}{|c|}{}                                   &                                        & Trước unk rpl  & Sau unk rpl          \\ 
 		\hline
-		Global (dot)                                             &                                                            & 19.02                          &                                                     \\ 
+		Cơ bản                                                   & 8.03                                   & 15.08          &                      \\ 
 		\hline
-		Global (dot) + input feed                                &                                                            & 19.78                          & 22.35 (+2.57)                                              \\ 
+		Cơ bản + global (dot)                                    & 6.1                                    & 18.62          & 18.81                \\ 
 		\hline
-		Local-p + input feed                                     &                                                            & 20.37                          & 22.75 (+2.38)                                               \\
+		Cơ bản + global (general)                                & 4.98                                   & 19.99          & 22.33                \\ 
+		\hline
+		Cơ bản + global (dot) + input feed                       & 5.43                                   & 19.78          & 22.24                \\ 
+		\hline
+		Cơ bản + global (general) + input feed                   & 5.22                                   & \textbf{20.41} & \textbf{22.87}       \\ 
+		\hline
+		Cơ bản + local-p (general) + input feed                  & 5.43                                   & 20.37          & 22.75                \\
 		\hline
 	\end{tabular}
-	\caption{So sánh giữa các mô hình Attention.}
-	\label{tab_attn_vs_attn}
+	\caption{So sánh kết quả giữa các mô hình Attention với nhau.}
+	\label{tab_attn-vs-attn}
 \end{table}
-Kết quả của các mô hình Attention được thể hiện trong bảng \ref{tab_attn_vs_attn}. 
+Kết quả của các mô hình Attention được thể hiện trong bảng \ref{tab_attn-vs-attn}. 
 Từ bảng kết quả cho thấy mô hình Attention cục bộ với Gióng hàng dự đoán (Local-p) có chất lượng dịch tốt nhất với điểm BLEU là 20.37 (22.75 khi dùng thay thế từ hiếm). Mô hình Attention Toàn cục với hàm tính điểm dot cộng với phương pháp Input feeding (Global (dot) + input feed) có độ tăng điểm BLEU cao nhất khi dùng kĩ thuật thay thế từ hiếm. Kết quả này chứng minh được rằng mô hình Local-p có ý tưởng phù hợp cho cặp ngôn ngữ Anh - Đức và hoạt động hiệu quả như mong đợi trong thực tế. 
  
 Kết quả cho thấy rằng với 2 phương pháp Input feeding và thay thế từ hiếm mà chúng tôi đã trình bày ở phần trước đều góp phần tăng hiệu quả của mô hình lên rất đáng kể. Cụ thể, phương pháp Input feeding tăng BLEU lên trung bình khoảng 1.0. Kĩ thuật thay thế từ hiếm tăng trung bình hơn 2.25 BLEU. Các kết quả này chứng minh được rằng những ý tưởng, lý thuyết chúng tôi trình bày ở phần trước đều hoạt động tốt như mong đợi. Những phương pháp, kĩ thuật này vừa rõ ràng về mặt lý thuyết, vừa hiệu quả trong thực tế.

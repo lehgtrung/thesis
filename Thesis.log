@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  20 JUN 2018 21:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  21 JUN 2018 22:25
 entering extended mode
 **./Thesis.tex
 (Thesis.tex
@@ -1737,17 +1737,17 @@ Ch\uhorn \ohorn ng 4.
 
 
 ] [52]
-Overfull \hbox (4.31218pt too wide) in paragraph at lines 63--76
+Overfull \hbox (6.0411pt too wide) in paragraph at lines 63--82
  [][] 
  []
 
 [53] [54]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 92.
+               Default added (so using `tbp') on input line 98.
 
 
-Overfull \hbox (4.31218pt too wide) in paragraph at lines 94--109
+Overfull \hbox (4.31218pt too wide) in paragraph at lines 100--115
  [][] 
  []
 
@@ -1758,10 +1758,10 @@ File: Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png Graphic file (type
 png)
 <use Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png>
 Package pdftex.def Info: Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png 
- used on input line 120.
+ used on input line 126.
 (pdftex.def)             Requested size: 441.01773pt x 434.66003pt.
 
-Overfull \hbox (11.79816pt too wide) in paragraph at lines 133--154
+Overfull \hbox (11.79816pt too wide) in paragraph at lines 139--160
  [][] 
  []
 
@@ -1813,7 +1813,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
 Here is how much of TeX's memory you used:
  19583 strings out of 493305
  285425 string characters out of 3138850
- 433596 words of memory out of 3000000
+ 433619 words of memory out of 3000000
  22430 multiletter control sequences out of 15000+200000
  60422 words of font info for 91 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1832,7 +1832,7 @@ C:/Program Files/MiKTeX 2.9/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/vntex/urwvn/utmri8v.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/vntex
 /vnr/vntt12.pfb>
-Output written on Thesis.pdf (70 pages, 1257212 bytes).
+Output written on Thesis.pdf (70 pages, 1257565 bytes).
 PDF statistics:
  907 PDF objects out of 1000 (max. 8388607)
  214 named destinations out of 1000 (max. 500000)
