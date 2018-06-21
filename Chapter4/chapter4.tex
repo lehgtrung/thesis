@@ -33,9 +33,9 @@ Chúng tôi thực hiện đánh giá độ hiệu quả của cơ chế Attenti
 	\item Đảo ngược trật tự từ trong câu.
 	\item Dropout.
 \end{itemize}
-Chúng tôi gọi đó là mô hình cơ bản. Đối với mô hình sử dụng cơ chế Attention, chúng tôi thiết lập mô hình như mô hình căn bản cộng với sử dụng cơ chế Attention Toàn cục với hàm tính điểm là hàm \textit{dot}.
+Chúng tôi gọi đó là mô hình cơ bản. Đối với mô hình sử dụng cơ chế Attention, chúng tôi thiết lập mô hình như mô hình căn bản cộng với sử dụng cơ chế Attention Toàn cục với hàm tính điểm là hàm \textit{general} và có sử dụng phương pháp Input feeding, kĩ thuật thay thế từ hiếm.
 
-Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa 2 mô hình. Với cơ chế Attention, chất lượng dịch của mô hình được cải thiện rất lớn. Điểm BLEU tăng từ 15.04 đến 19.02 (+3.98). Đây là bước tiến lớn trong Dịch máy nơ-ron khi Dịch máy Thống kê đang dần chạm tới giới hạn. Kết quả này chứng minh được rằng cơ chế Attention rất hiệu quả trong việc giải quyết các hạn chế của kiến trúc Bộ mã hóa - Bộ giải mã với LSTM đã được trình bày ở ban đầu và cũng rất phù hợp với bài toán Dịch máy.
+Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa 2 mô hình. Với cơ chế Attention, chất lượng dịch của mô hình được cải thiện rất lớn. Điểm BLEU tăng từ 15.04 đến 22.87 (+7.83). Đây là cải thiện rất lớn trong Dịch máy nơ-ron khi Dịch máy Thống kê đang dần chạm tới giới hạn. Kết quả này chứng minh được rằng cơ chế Attention rất hiệu quả trong việc giải quyết các hạn chế của kiến trúc Bộ mã hóa - Bộ giải mã với LSTM đã được trình bày ở ban đầu và cũng rất phù hợp trong việc áp dụng vào cho bài toán Dịch máy.
 
 \begin{table}
 	\centering
@@ -45,7 +45,7 @@ Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa 2 mô hình. V�
 		\hline
 		Cơ bản                                           & 8.03                 & 15.04           \\ 
 		\hline
-		Cơ bản + global (general) + input feed + unk rpl & \textbf{5.22 (-2.81)}         & \textbf{22.87 (+7.79)}   \\
+		Cơ bản + global (general) + input feed + unk rpl & \textbf{5.22 (-2.81)}         & \textbf{22.87 (+7.83)}   \\
 		\hline
 	\end{tabular}
 	\caption{So sánh giữa mô hình sử dụng cơ chế Attention và mô hình không sử dụng cơ chế Attention.}
@@ -53,7 +53,7 @@ Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa 2 mô hình. V�
 \end{table}
 
 \subsection{Giữa các mô hình Attention với nhau}
-Để đánh giá độ hiệu quả của các mô hình Attention với nhau, chúng tôi thực hiện huấn luyện các mô hình Attention và đánh giá chúng trên độ đo Perplexity và BLEU. 
+Để đánh giá độ hiệu quả của các mô hình Attention với nhau, chúng tôi thực hiện huấn luyện các mô hình Attention và đánh giá chúng trên độ đo Perplexity và BLEU. Kết quả của các mô hình Attention được thể hiện trong bảng \ref{tab_attn-vs-attn}. 
 
 % \usepackage{multirow}
 
@@ -62,61 +62,36 @@ Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa 2 mô hình. V�
 	\centering
 	\begin{tabular}{|l|c|c|c|} 
 		\hline
-		\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Mô hình} }} & \multirow{2}{*}{\textbf{Perplexity } } & \multicolumn{2}{c|}{\textbf{BLEU } }  \\ 
+		\multicolumn{1}{|c|}{\multirow{2}{*}{ \textbf{Mô hình} }} & \multirow{2}{*}{\textbf{Perplexity } } & \multicolumn{2}{c|}{\textbf{BLEU } }      \\ 
 		\cline{3-4}
-		\multicolumn{1}{|c|}{}                                   &                                        & Trước unk rpl  & Sau unk rpl          \\ 
+		\multicolumn{1}{|c|}{}                                    &                                        & Trước unk rpl   & Sau unk rpl             \\ 
 		\hline
-		Cơ bản                                                   & 8.03                                   & 15.08          &                      \\ 
+		Cơ bản                                                    & 8.03                                   & 15.08           &                         \\ 
 		\hline
-		Cơ bản + global (dot)                                    & 6.1                                    & 18.62          & 18.81                \\ 
+		Cơ bản + global (dot)                                     & 6.1                                    & 18.62           & 18.81 (+0.19)           \\ 
 		\hline
-		Cơ bản + global (general)                                & 4.98                                   & 19.99          & 22.33                \\ 
+		Cơ bản + global (general)                                 & 4.98                                   & 19.99           & 22.33 (+2.24)           \\ 
 		\hline
-		Cơ bản + global (dot) + input feed                       & 5.43                                   & 19.78          & 22.24                \\ 
+		Cơ bản + global (dot) + input feed                        & 5.43                                   & 19.78           & 22.24 (+2.46)           \\ 
 		\hline
-		Cơ bản + global (general) + input feed                   & 5.22                                   & \textbf{20.41} & \textbf{22.87}       \\ 
+		Cơ bản + global (general) + input feed                    & 5.22                                   & \textbf{20.41}  & \textbf{22.87 (+2.46)}  \\ 
 		\hline
-		Cơ bản + local-p (general) + input feed                  & 5.43                                   & 20.37          & 22.75                \\
+		Cơ bản + local-p (general) + input feed                   & 5.43                                   & 20.37           & 22.75 (+2.38)           \\
 		\hline
 	\end{tabular}
 	\caption{So sánh kết quả giữa các mô hình Attention với nhau.}
 	\label{tab_attn-vs-attn}
 \end{table}
-Kết quả của các mô hình Attention được thể hiện trong bảng \ref{tab_attn-vs-attn}. 
-Từ bảng kết quả cho thấy mô hình Attention cục bộ với Gióng hàng dự đoán (Local-p) có chất lượng dịch tốt nhất với điểm BLEU là 20.37 (22.75 khi dùng thay thế từ hiếm). Mô hình Attention Toàn cục với hàm tính điểm dot cộng với phương pháp Input feeding (Global (dot) + input feed) có độ tăng điểm BLEU cao nhất khi dùng kĩ thuật thay thế từ hiếm. Kết quả này chứng minh được rằng mô hình Local-p có ý tưởng phù hợp cho cặp ngôn ngữ Anh - Đức và hoạt động hiệu quả như mong đợi trong thực tế. 
+
+Từ bảng kết quả cho thấy mô hình Attention Toàn cục với general product mà có sử dụng phương pháp Input feeding (global general + input feed)) có chất lượng dịch tốt nhất với điểm BLEU là 20.41 (22.87 khi dùng kĩ thuật thay thế từ hiếm). Mô hình Attention Toàn cục với hàm tính điểm \textit{dot, general} cộng với phương pháp Input feeding (global (dot) + input feed) có độ tăng điểm BLEU cao nhất khi dùng kĩ thuật thay thế từ hiếm. Kết quả này chứng minh được rằng mô hình global (general) có ý tưởng phù hợp cho cặp ngôn ngữ Anh - Đức và hoạt động hiệu quả như mong đợi trong thực tế.  Mô hình có độ đo Perplexity thấp nhất là mô hình global (general) với 4.98 perplexity. Mặc dù Perplexity hơn mô hình (global (general) + input feed) là 5.43, nhưng (global (general) + input feed) có điểm BLEU tốt nhất là 20.41, hơn 0.42 điểm. Tức là mô hình global (general) có khả năng tổng quát hóa chưa tốt.
  
-Kết quả cho thấy rằng với 2 phương pháp Input feeding và thay thế từ hiếm mà chúng tôi đã trình bày ở phần trước đều góp phần tăng hiệu quả của mô hình lên rất đáng kể. Cụ thể, phương pháp Input feeding tăng BLEU lên trung bình khoảng 1.0. Kĩ thuật thay thế từ hiếm tăng trung bình hơn 2.25 BLEU. Các kết quả này chứng minh được rằng những ý tưởng, lý thuyết chúng tôi trình bày ở phần trước đều hoạt động tốt như mong đợi. Những phương pháp, kĩ thuật này vừa rõ ràng về mặt lý thuyết, vừa hiệu quả trong thực tế.
+Kết quả cho thấy rằng với 2 phương pháp Input feeding và thay thế từ hiếm mà chúng tôi đã trình bày ở phần trước đều góp phần tăng hiệu quả của mô hình lên rất đáng kể. Cụ thể, phương pháp Input feeding giúp mô hình global (dot) tăng điểm BLEU từ 18.62 lên 19.78 (+1.16), giúp mô hình global (general) tăng từ 19.99 lên 20.41 (+0.42). Kĩ thuật thay thế từ hiếm tăng trung bình hơn 2.0 BLEU (trừ mô hình global (dot) chỉ tăng 0.19). Các kết quả này chứng minh được rằng những ý tưởng, lý thuyết chúng tôi trình bày ở phần trước đều hoạt động tốt như mong đợi. Những phương pháp, kĩ thuật này vừa rõ ràng về mặt lý thuyết, vừa hiệu quả trong thực tế.
 
 Về phương pháp Input feeding, có một chút hạn chế của phương pháp này về chi phí tính toán. Input feeding làm kích thước đầu vào ở các bước thời gian của uni-LSTM của bộ giải mã tăng lên theo kích thước của véc-tơ attention. Hơn nữa, về mặt cài đặt, chúng ta không tận dụng được LSTM mà đã được hỗ trợ cài đặt bởi NVIDIA. Do vậy, tốc độ huấn luyện và trong kiểm thử của mô hình khi có sử dụng cơ chế Input feeding sẽ giảm đi đáng kể, bên cạnh đó kích thước của mô hình cũng tăng lên theo.
 
-Về kĩ thuật thay thế từ hiếm, từ kết quả cho thấy kĩ thuật này rất mạnh mẽ. Các mô hình Attention được sử dụng cùng với kĩ thuật này đều được tăng điểm BLEU hơn 2. Mô hình này chỉ có hạn chế nhỏ là phải phụ thuộc vào kết quả của cơ chế Attention có tốt hay không. Còn lại kĩ thuật này rất hiệu quả và tiện lợi. Thay thế từ hiếm không ảnh hưởng tới quá trình huấn luyện, do vậy mô hình không phải tốn chi phí tính toán cho kĩ thuật này trong quá trình huấn luyện và tốc độ huấn luyện không bị ảnh hưởng. 
+Về kĩ thuật thay thế từ hiếm, từ kết quả cho thấy kĩ thuật này rất mạnh mẽ. Các mô hình Attention được sử dụng cùng với kĩ thuật này đều được tăng điểm BLEU hơn 2. Mô hình này chỉ có hạn chế là phải phụ thuộc vào kết quả của cơ chế Attention có tốt hay không. Kết quả cũng cho thấy rằng chất lượng mô hình Attention không tốt sẽ dẫn tới độ hiệu quả của kĩ thuật thay thế từ hiếm kém đi (mô hình global (dot)). Còn lại kĩ thuật này rất hiệu quả và tiện lợi. Thay thế từ hiếm không ảnh hưởng tới quá trình huấn luyện, do vậy mô hình không phải tốn chi phí tính toán cho kĩ thuật này trong quá trình huấn luyện và tốc độ huấn luyện không bị ảnh hưởng. 
 
 Nhìn chung, kết quả cho thấy kĩ thuật thay thế từ hiếm cải thiện kết quả tốt hơn phương pháp Input feeding, nhưng Input feeding giúp tạo ra một mô hình Attention đủ tốt để tạo điều kiện cho kĩ thuật thay thế từ hiếm phát huy sự hiệu quả của nó.
-
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-\begin{table}[]
-	\centering
-	\begin{tabular}{|l|l|c|c|} 
-		\hline
-		\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Mô hình} }} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Perplexity} }} & \multicolumn{2}{c|}{\textbf{BLEU}}                                                   \\ 
-		\cline{3-4}
-		\multicolumn{1}{|c|}{}                                   & \multicolumn{1}{c|}{}                                      & \multicolumn{1}{l|}{Trước khi} & \multicolumn{1}{l|}{Sau khi dùng thay thế từ hiếm}  \\ 
-		\hline
-		Global (dot)                                             &                                                            & 19.02                          &                                                     \\ 
-		\hline
-		Global (dot) + input feed                                &                                                            & 19.78                          & 22.35 (+2.57)                                       \\ 
-		\hline
-		Global (general)                                         &                                                            & 19.99                          & 22.23 (2.24)                                        \\ 
-		\hline
-		Local-p + input feed                                     &                                                            & 20.37                          & 22.75 (+2.38)                                       \\
-		\hline
-	\end{tabular}
-	\caption{Kết quả của các mô hình trên tập dữ liệu WMT'14 English-German.}
-	\label{wmt14-results}
-\end{table}
-
-Các kết quả trên cho thấy những cơ chế mà chúng tôi tìm hiểu và sử dụng trong khóa luận này thực sự hiệu quả. Các cơ chế này vừa rõ ràng về lý thuyết vừa có hiệu suất tốt trong thực tế. Đặc biệt với cơ chế thay thế từ hiếm dựa vào kết quả của cơ chế Attention đã tăng kết quả của mô hình lên rất đáng kể. Điều này cũng cho thấy tiềm năng của cơ chế Attention trong việc giải quyết bài toán Dịch máy. Không chỉ bản thân của cơ chế này nâng cao chất lượng dịch mà còn là nền tảng để những cơ chế khác sử dụng và tiếp tục nâng cao chất lượng dịch. Phương pháp này như mở ra thêm 1 hướng nghiên cứu cho bài toán Dịch máy nơ-ron.
 
 \subsection{Phân tích đường cong học}
 Phần này, chúng tôi tập trung vào so sánh các tất cả các mô hình đã thực hiện ở phương diện quá trình học bằng cách quan sát độ lỗi của mô hình bằng độ đo Perplexity trên cả tập huấn luyện và tập validation (newstest\_2013) trong quá hình huấn luyện mô hình. Điều này giúp chúng tôi biết được mô hình nào sẽ hôi tụ và tổng quát hóa tốt hơn.
