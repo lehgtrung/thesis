@@ -36,7 +36,18 @@ Công thức \ref{traditionalLM} theo giả định markov trở thành:
 
 Mặc dù giả định markov bậc $k$ rõ ràng là sai với $k$ bất kỳ (một câu có thể có phụ thuộc dài hạn với chiều dài bất kỳ như câu bắt đầu bằng từ \textit{what} và kết thúc bằng dấu \textit{?}), tuy nhiên nó vẫn tạo ra những mô hình ngôn ngữ mạnh mẽ với với các giá trị tương đối nhỏ của $k$ ($k=3$ hoặc $k=5$), và là phương pháp chủ yếu cho bài toán mô hình hóa ngôn ngữ trong hàng thập kỷ.
 
-\subsection{Mô hình ngôn ngữ \textit{n}-gram}
+Do mô hình ngôn ngữ là một mô hình học không giám sát, một cách thông thường để đánh giá một mô hình học không giám sát là áp dụng nó lên một bài toán học có giám sát rồi đánh giá thông qua kết quả của bài toán đó, ví dụ: đo lường sự cải thiện chất lượng dịch khi chuyển đổi từ mô hình ngôn ngữ A sang mô hình ngôn ngữ B trong một hệ thống dịch máy. Cách đánh giá này được gọi là đánh giá bên ngoài (extrinsic evaluation). Tuy nhiên, đánh giá bên ngoài rất tốn kém đối với những bài toán học có giám sát lớn và phức tạp. Vì vậy, một độ đo được thiết kế để đánh giá mô hình ngôn ngữ một cách nội tại (intrinsic evaluation) đó là "perplexity". Perplexity là một độ đo để đánh giá một mô hình xác suất tốt như thế nào khi dự đoán một mẫu chưa nhìn thấy (unseen sample). Cho trước một tập ngữ liệu $ W = w_1, w_2, ..., w_N$ ($N$ là một số rất lớn) và một mô hình ngôn ngữ \textit{LM}, perplexity của $W$ ứng với mô hình ngôn ngữ \textit{LM} là:
+\begin{equation} \label{perplexity}
+\begin{split}
+Perplexity(W) &= \sqrt[N]{\frac{1}{LM(p(w_{1:N}))}} \\
+			  &= \sqrt[N]{\prod_{i=1}^{N}  \frac{1}{LM(p(w_i|w_{1:i-1}))}} \\
+			  &= 2^{-\frac{1}{N} \sum_{i=1}^{N} \log_2 LM(p(w_i|w_{1:i-1}))}
+\end{split}
+\end{equation}
+
+Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗi trong tập ngữ liệu (phản ánh đúng ngôn ngữ thật sự) sẽ dẫn đến một giá trị nhỏ của perplexity và ngược lại. Perplexity là một độ đo tốt và thuận tiện để đánh giá các mô hình ngôn ngữ với nhau. Tuy vậy, việc perplexity được cải thiện khi ta thay đổi mô hình ngôn ngữ không đảm bảo rằng đánh giá bên ngoài cũng được cải thiện. Tuy vậy, perplexity vẫn thường được sử dụng như là một cách kiểm tra nhanh một mô hình ngôn ngữ; bởi vì PPL của một mô hình ngôn ngữ có sự tương quan nhất định với hiệu suất của ứng dụng sử dụng mô hình ngôn ngữ này. Nhưng để có thể đánh giá một cách chính xác trước khi kết luận về hiệu suất của một mô hình ngôn ngữ, ta luôn luôn phải kiểm tra lại mô hình ngôn ngữ này bằng cách đánh giá ngoài dựa trên một ứng dụng cụ thể.
+
+%\subsection{Mô hình ngôn ngữ \textit{n}-gram}
 
 Cách tiếp cận truyền thống cho bài toán mô hình hóa ngôn ngữ là sử dụng mô hình ngôn ngữ \textit{n}-gram. Sở dĩ nó có tên như vậy là vì nó sử dụng giả định markov bậc \textit{n} - 1 để ước lượng xác suất $p \left(w_{i+1}=m|w_1,..,w_i \right) \approx p \left(w_{i+1}=m|w_{i-(n-1)},...,w_i \right)$. Theo mô hình ngôn ngữ \textit{n}-gram, xác suất để từ $m$ theo sau chuỗi các từ $w_1,...,w_{i}$ là:
 
@@ -73,28 +84,48 @@ Ngoài ra còn một vấn đề với mô hình \textit{n}-gram là \textbf{tí
 
 
 
-\subsection{Đánh giá mô hình ngôn ngữ}
+%\subsection{Đánh giá mô hình ngôn ngữ}
 
-Do mô hình ngôn ngữ là một mô hình học không giám sát, một cách thông thường để đánh giá một mô hình học không giám sát là áp dụng nó lên một bài toán học có giám sát rồi đánh giá thông qua kết quả của bài toán đó, ví dụ: đo lường sự cải thiện chất lượng dịch khi chuyển đổi từ mô hình ngôn ngữ A sang mô hình ngôn ngữ B trong một hệ thống dịch máy. Cách đánh giá này được gọi là đánh giá bên ngoài (extrinsic evaluation). Tuy nhiên, đánh giá bên ngoài rất tốn kém đối với những bài toán học có giám sát lớn và phức tạp. Vì vậy, một độ đo được thiết kế để đánh giá mô hình ngôn ngữ một cách nội tại (intrinsic evaluation) đó là "perplexity". Perplexity là một độ đo để đánh giá một mô hình xác suất tốt như thế nào khi dự đoán một mẫu chưa nhìn thấy (unseen sample). Cho trước một tập ngữ liệu $ W = w_1, w_2, ..., w_N$ ($N$ là một số rất lớn) và một mô hình ngôn ngữ \textit{LM}, perplexity của $W$ ứng với mô hình ngôn ngữ \textit{LM} là:
-\begin{equation} \label{perplexity}
-\begin{split}
-Perplexity(W) &= \sqrt[N]{\frac{1}{LM(p(w_{1:N}))}} \\
-			  &= \sqrt[N]{\prod_{i=1}^{N}  \frac{1}{LM(p(w_i|w_{1:i-1}))}} \\
-			  &= 2^{-\frac{1}{N} \sum_{i=1}^{N} \log_2 LM(p(w_i|w_{1:i-1}))}
-\end{split}
-\end{equation}
+%Do mô hình ngôn ngữ là một mô hình học không giám sát, một cách thông thường để đánh giá một mô hình học không giám sát là áp dụng nó lên một bài toán học có giám sát rồi đánh giá thông qua kết quả của bài toán đó, ví dụ: đo lường sự cải thiện chất lượng dịch khi chuyển đổi từ mô hình ngôn ngữ A sang mô hình ngôn ngữ B trong một hệ thống dịch máy. Cách đánh giá này được gọi là đánh giá bên ngoài (extrinsic evaluation). Tuy nhiên, đánh giá bên ngoài rất tốn kém đối với những bài toán học có giám sát lớn và phức tạp. Vì vậy, một độ đo được thiết kế để đánh giá mô hình ngôn ngữ một cách nội tại (intrinsic evaluation) đó là "perplexity". Perplexity là một độ đo để đánh giá một mô hình xác suất tốt như thế nào khi dự đoán một mẫu chưa nhìn thấy (unseen sample). Cho trước một tập ngữ liệu $ W = w_1, w_2, ..., w_N$ ($N$ là một số rất lớn) và một mô hình ngôn ngữ \textit{LM}, perplexity của $W$ ứng với mô hình ngôn ngữ \textit{LM} là:
+%\begin{equation} \label{perplexity}
+%\begin{split}
+%Perplexity(W) &= \sqrt[N]{\frac{1}{LM(p(w_{1:N}))}} \\
+%			  &= \sqrt[N]{\prod_{i=1}^{N}  \frac{1}{LM(p(w_i|w_{1:i-1}))}} \\
+%			  &= 2^{-\frac{1}{N} \sum_{i=1}^{N} \log_2 LM(p(w_i|w_{1:i-1}))}
+%\end{split}
+%\end{equation}
 
-Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗi trong tập ngữ liệu (phản ánh đúng ngôn ngữ thật sự) sẽ dẫn đến một giá trị nhỏ của perplexity và ngược lại. Perplexity là một độ đo tốt và thuận tiện để đánh giá các mô hình ngôn ngữ với nhau. Tuy vậy, việc perplexity được cải thiện khi ta thay đổi mô hình ngôn ngữ không đảm bảo rằng đánh giá bên ngoài cũng được cải thiện. Tuy vậy, perplexity vẫn thường được sử dụng như là một cách kiểm tra nhanh một mô hình ngôn ngữ; bởi vì PPL của một mô hình ngôn ngữ có sự tương quan nhất định với hiệu suất của ứng dụng sử dụng mô hình ngôn ngữ này. Nhưng để có thể đánh giá một cách chính xác trước khi kết luận về hiệu suất của một mô hình ngôn ngữ, ta luôn luôn phải kiểm tra lại mô hình ngôn ngữ này bằng cách đánh giá ngoài dựa trên một ứng dụng cụ thể.
+%Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗi trong tập ngữ liệu (phản ánh đúng ngôn ngữ thật sự) sẽ dẫn đến một giá trị nhỏ của perplexity và ngược lại. Perplexity là một độ đo tốt và thuận tiện để đánh giá các mô hình ngôn ngữ với nhau. Tuy vậy, việc perplexity được cải thiện khi ta thay đổi mô hình ngôn ngữ không đảm bảo rằng đánh giá bên ngoài cũng được cải thiện. Tuy vậy, perplexity vẫn thường được sử dụng như là một cách kiểm tra nhanh một mô hình ngôn ngữ; bởi vì PPL của một mô hình ngôn ngữ có sự tương quan nhất định với hiệu suất của ứng dụng sử dụng mô hình ngôn ngữ này. Nhưng để có thể đánh giá một cách chính xác trước khi kết luận về hiệu suất của một mô hình ngôn ngữ, ta luôn luôn phải kiểm tra lại mô hình ngôn ngữ này bằng cách đánh giá ngoài dựa trên một ứng dụng cụ thể.
 
-\subsection{Mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy}
+%\subsection{Mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy}
 
+Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Nó giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số (parametric model), nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ - đặc biệt hơn những tham số này sẽ được chia sẻ cho toàn bộ mô hình, điều này giúp tăng tính tổng quát hóa \cite{bengioLM2003}; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là "word embedding", điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ.
 
+Tuy nhiên, mô hình này vẫn dựa trên giả định markov. Tại mỗi thời điểm, đầu vào của mạng là một nối dài của các véc-tơ "embedding" tại những thời điểm trước đó $i_t = \left[ x_{t-(n-1)},...,x_t \right]$ trong đó $x_i$ là véc-tơ "embedding" của từ $w_i$, $n$ là bậc của giả định markov. Đây là một khuyết điểm lớn của mô hình khi nó chỉ nắm bắt được thông tin trong một vùng $n - 1$ từ trước đó. Do những khuyết điểm này, một mô hình ngôn ngữ dựa trên \textit{mạng nơ-ron hồi quy} được đề xuất trong \cite{mikolovLM}. Mô hình này kế thừa những ưu điểm của mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng và có khả năng nắm bắt được thông tin trên một vùng có chiều dài bất kỳ. Mô hình này sẽ được nói đến trong phần kiến thức cơ bản về mạng nơ-ron hồi quy và được giải thích chi tiết trong chương 3 trong mục bộ giải mã. 
 
-%Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Nó giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số (parametric model), nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là "word embedding", điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ.
+%Đầu tiên, để biểu diễn một từ, người ta sử dụng dạng véc-tơ "one-hot" của nó, véc-tơ này có số chiều là $|V|$ (kích thước của tập từ vựng), phần tử ứng với vị trí cần biểu diễn mang giá trị 1, các phần tử còn lại mang giá trị 0. Có thể thấy véc-tơ "one-hot" là một véc-tơ thưa (vì số lượng từ vựng là rất lớn), việc tính toán với véc-tơ thưa này cần rất nhiều tham số. Để giải quyết vấn đề véc-tơ thưa, người ta sử dụng một ma trận "nhúng" (embedding matrix) $P$. Ma trận $P$ là ma trận của phép biến đổi tuyến tính ánh xạ từ $\mathbb{R}^{|V|}$ vào $\mathbb{R}^{D_e}$, trong đó $D_e$ là số chiều của véc-tơ nhúng mà ta xác định trước. $D_e$ trong thực tế có giá trị khoảng vài trăm tùy vào năng lực xử lý của máy tính. Như vậy véc-tơ "one-hot" ban đầu với số chiều rất lớn sẽ trở thành véc-tơ nhúng với số chiều nhỏ. Điều này nhằm nhằm làm giảm tham số tính toán. Không những thế, những véc-tơ nhúng còn giúp nắm bắt được tính tương tự về ngữ nghĩa giữa các từ. 
 
-%Đầu tiên, để biểu diễn một từ trong mạng nơ-ron truyền thẳng, người ta sử dụng dạng véc-tơ "one-hot" của nó, véc-tơ này có số chiều là $|V|$ (kích thước của tập từ vựng), phần tử ứng với vị trí cần biểu diễn mang giá trị 1, các phần tử còn lại mang giá trị 0. Có thể thấy véc-tơ "one-hot" là một véc-tơ thưa (vì số lượng từ vựng là rất lớn), việc tính toán với véc-tơ thưa này cần rất nhiều tham số. Để giải quyết vấn đề véc-tơ thưa, người ta sử dụng một ma trận "nhúng" (embedding matrix) $P$. Ma trận $P$ là ma trận của phép biến đổi tuyến tính ánh xạ từ $\mathbb{R}^{|V|}$ vào $\mathbb{R}^{D_e}$, trong đó $D_e$ là số chiều của véc-tơ nhúng mà ta xác định trước. $D_e$ trong thực tế có giá trị khoảng vài trăm tùy vào năng lực xử lý của máy tính. Như vậy véc-tơ "one-hot" ban đầu với số chiều rất lớn sẽ trở thành véc-tơ nhúng với số chiều nhỏ. Điều này nhằm nhằm làm giảm tham số tính toán. Không những thế, những véc-tơ nhúng còn giúp nắm bắt được tính tương tự về ngữ nghĩa giữa các từ.
+%Để hiểu được lý do tại sao các véc-tơ nhúng giúp nắm bắt tính tương tự về ngữ nghĩa, hãy xem cách mà mô hình này hoạt động. Giống với mô hình ngôn ngữ \textit{n}-gram, mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng vẫn sử dụng giả định markov: với dữ liệu huấn luyện là một chuỗi $w_1,w_2,...,w_T$ với $w_t \in \mathbb{R}^{|V|}$ là những véc-tơ "one-hot" ứng với mỗi từ trong tập từ vựng. Ở mỗi thời điểm $t$, để dự đoán từ tiếp theo trong chuỗi, mô hình sử dụng $n-1$ từ trước đó để làm ngữ cảnh $w_{t-(n-1)},...,w_t$. Những $w_i$ sẽ được biến đổi thành véc-tơ nhúng $x_i$ theo công thức:
+%\begin{equation} \label{distributedVector}
+%	x_i = Pw_i
+%\end{equation}
 
-%Để hiểu được lý do tại sao việc sử dụng véc-tơ nhúng giúp nắm bắt được tương quan về ngữ nghĩa giữa các từ, ta hãy xem cách mà mô hình này hoạt động.
+%Đầu vào của mô hình tại thời điểm $t$ sẽ là một véc-tơ nối dài của các véc-tơ nhúng tại những thời điểm trước đó:
+%\begin{equation} \label{distributedVector2}
+%	i_t = \left[ x_{t-(n-1)},...,x_t \right]
+%\end{equation}
+
+%Các véc-tơ đặc trưng được lan truyền qua tầng ẩn với hàm kích hoạt phi tuyến
+%\begin{equation} \label{distributedVector3}
+%	h_t = \phi \left(Wi_t + b \right)
+%\end{equation}
+
+%Tiếp đến, đầu ra của các tầng ẩn được đưa qua một bộ phân lớp $\softmax$
+%\begin{equation} \label{distributedVector4}
+%	\hat{y}_t = \softmax \left(Vh_t + c \right)
+%\end{equation}
+
+%Ở đây $\hat{y}_t$ là đầu ra dự đoán của mô hình tại tại thời điểm $t$. Đầu ra này có dạng một phân phối xác suất trên tập từ vựng $V$. $P,W,V$ là các ma trận trọng số, $b,c$ là các véc-tơ "bias". Các tham số này sẽ được học trong quá trình huấn luyện. 
 
 % Ví dụ về Columbus is the man who discovered America vs Columbus is the man who explored America cho tính tương tự về ngữ nghĩa. 
 
