@@ -66,7 +66,7 @@ Vì hạn chế đó, chúng tôi đã tìm hiểu và sử dụng phương phá
 
 Trong quá trình giải mã, bộ giải mã thực hiện dự đoán từ tiếp theo dựa trên những từ đã biết trước đó: $p(y_t | y_{<t}, \bm{x})$. Việc quyết định xem chọn từ nào sẽ là từ tiếp theo dựa trên những xác suất $p_t$ trên tất cả các từ có trong bộ từ vựng $V$ mà đã tính được là một chiến lược quan trọng trong quá trình giải mã. Với chiến lược đúng đắn, mô hình sẽ cải thiện được chất lượng của đầu ra mà không phải thay đổi bộ tham số của mô hình thông qua các cách như huấn luyện mô hình.
 
-Cách đơn giản nhất để quyết định xem nên chọn từ nào từ phân phối xác suất trên bộ từ vựng $P(\bm{y} | y_{<t}, \bm{x}\})$ là chọn ra từ nào có xác suất cao nhất:
+Cách đơn giản nhất để quyết định xem nên chọn từ nào từ phân phối xác suất trên bộ từ vựng $p(\bm{y} | y_{<t}, \bm{x}\})$ là chọn ra từ nào có xác suất cao nhất:
 \begin{equation}
 \hat{y} = \operatorname*{argmax}_{y_t \in V} (p(y_t | y_{<t}, \bm{x}))
 \end{equation}

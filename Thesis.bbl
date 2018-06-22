@@ -21,6 +21,14 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{bengioLM2003}
+\BIBentryALTinterwordspacing
+Y.~Bengio, R.~Ducharme, P.~Vincent, and C.~Janvin, ``A neural probabilistic
+  language model,'' \emph{J. Mach. Learn. Res.}, vol.~3, pp. 1137--1155, Mar.
+  2003. [Online]. Available:
+  \url{http://dl.acm.org/citation.cfm?id=944919.944966}
+\BIBentrySTDinterwordspacing
+
 \bibitem{cho}
 \BIBentryALTinterwordspacing
 K.~Cho, B.~van Merrienboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk,
@@ -95,6 +103,12 @@ S.~Jean, K.~Cho, R.~Memisevic, and Y.~Bengio, ``On using very large target
 Johnson. (2013) Vocabulary size lexical facts. [Online]. Available:
   \url{https://www.economist.com/johnson/2013/05/29/lexical-facts}
 \BIBentrySTDinterwordspacing
+
+\bibitem{jurafsky2000}
+D.~Jurafsky and J.~H. Martin, \emph{Speech and Language Processing: An
+  Introduction to Natural Language Processing, Computational Linguistics, and
+  Speech Recognition}, 1st~ed.\hskip 1em plus 0.5em minus 0.4em\relax Upper
+  Saddle River, NJ, USA: Prentice Hall PTR, 2000.
 
 \bibitem{kalchbrennerBlunsom}
 \BIBentryALTinterwordspacing
