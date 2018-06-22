@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  22 JUN 2018 00:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  22 JUN 2018 06:49
 entering extended mode
 **./Thesis.tex
 (Thesis.tex
@@ -1789,7 +1789,7 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
 Package rerunfilecheck Info: File `Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 9A2B64D61EFF79F7680E5A9C755E493A;7782.
 Package rerunfilecheck Info: File `Thesis.brf' has not changed.
-(rerunfilecheck)             Checksum: 025B5E17C962606352E6D33E54D80C8D;2275.
+(rerunfilecheck)             Checksum: 539097BC0DEB5565CF03989B6A2B7018;2343.
 
 
 LaTeX Warning: There were undefined references.
@@ -1821,9 +1821,9 @@ C:/Program Files/MiKTeX 2.9/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/vntex/urwvn/utmri8v.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/vntex
 /vnr/vntt12.pfb>
-Output written on Thesis.pdf (70 pages, 1256689 bytes).
+Output written on Thesis.pdf (70 pages, 1257037 bytes).
 PDF statistics:
- 905 PDF objects out of 1000 (max. 8388607)
+ 907 PDF objects out of 1000 (max. 8388607)
  213 named destinations out of 1000 (max. 500000)
  391 words of extra memory for PDF output out of 10000 (max. 10000000)
 
