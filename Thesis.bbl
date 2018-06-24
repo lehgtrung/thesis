@@ -29,6 +29,13 @@ Y.~Bengio, R.~Ducharme, P.~Vincent, and C.~Janvin, ``A neural probabilistic
   \url{http://dl.acm.org/citation.cfm?id=944919.944966}
 \BIBentrySTDinterwordspacing
 
+\bibitem{wordembeddingBengio2003}
+\BIBentryALTinterwordspacing
+------, ``A neural probabilistic language model,'' \emph{J. Mach. Learn. Res.},
+  vol.~3, pp. 1137--1155, Mar. 2003. [Online]. Available:
+  \url{http://dl.acm.org/citation.cfm?id=944919.944966}
+\BIBentrySTDinterwordspacing
+
 \bibitem{cho}
 \BIBentryALTinterwordspacing
 K.~Cho, B.~van Merrienboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk,
@@ -38,6 +45,16 @@ K.~Cho, B.~van Merrienboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk,
   (EMNLP)}.\hskip 1em plus 0.5em minus 0.4em\relax Doha, Qatar: Association for
   Computational Linguistics, October 2014, pp. 1724--1734. [Online]. Available:
   \url{http://www.aclweb.org/anthology/D14-1179}
+\BIBentrySTDinterwordspacing
+
+\bibitem{wordembeddingCollobert2008}
+\BIBentryALTinterwordspacing
+R.~Collobert and J.~Weston, ``A unified architecture for natural language
+  processing: Deep neural networks with multitask learning,'' in
+  \emph{Proceedings of the 25th International Conference on Machine Learning},
+  ser. ICML '08.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: ACM,
+  2008, pp. 160--167. [Online]. Available:
+  \url{http://doi.acm.org/10.1145/1390156.1390177}
 \BIBentrySTDinterwordspacing
 
 \bibitem{attentionhistory2011}
@@ -173,6 +190,15 @@ R.~Pascanu, T.~Mikolov, and Y.~Bengio, ``Understanding the exploding gradient
 A.~Paszke, S.~Gross, S.~Chintala, G.~Chanan, E.~Yang, Z.~DeVito, Z.~Lin,
   A.~Desmaison, L.~Antiga, and A.~Lerer, ``Automatic differentiation in
   pytorch,'' 2017.
+
+\bibitem{distributedrepHinton}
+\BIBentryALTinterwordspacing
+D.~E. Rumelhart, G.~E. Hinton, and R.~J. Williams, ``Neurocomputing:
+  Foundations of research,'' J.~A. Anderson and E.~Rosenfeld, Eds.\hskip 1em
+  plus 0.5em minus 0.4em\relax Cambridge, MA, USA: MIT Press, 1988, ch.
+  Learning Representations by Back-propagating Errors, pp. 696--699. [Online].
+  Available: \url{http://dl.acm.org/citation.cfm?id=65669.104451}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Seq2Seq2014}
 \BIBentryALTinterwordspacing
