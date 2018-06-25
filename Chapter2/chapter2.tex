@@ -7,16 +7,18 @@
 
 \begin{quote}
 
-\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, Long short-term memory và mô hình ngôn ngữ nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Long short-term memory là phiên bản cải tiến của RNN để giải quyết vấn đề về phụ thuộc dài hạn. Long short-term memory cũng là phiên bản RNN được dùng để xây dựng nên bộ mã hóa - bộ giải trong khóa luận này. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc bộ mã hóa - bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
+\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm: mô hình ngôn ngữ, mạng nơ-ron hồi quy và Long short-term memory. Mô hình ngôn ngữ cho phép chúng ta dự đoán từ tiếp theo trong một chuỗi từ cho trước; trong dịch máy, nó giúp tạo ra những bản dịch lưu loát. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. RNN được dùng làm bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Sau đó, dựa trên những kiến thức về RNN, chúng tôi nói về khái niệm mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy với chức năng tạo ra các từ trong bộ giải mã. Long short-term memory (LSTM) là phiên bản cải tiến của RNN nhằm giải quyết vấn đề về phụ thuộc dài hạn. LSTM cũng là phiên bản RNN được dùng để xây dựng nên Bộ mã hóa - Bộ giải mã trong khóa luận này. Những thành phần nói trên cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc Bộ mã hóa - Bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
+
+%\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, Long short-term memory và mô hình ngôn ngữ nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Long short-term memory là phiên bản cải tiến của RNN để giải quyết vấn đề về phụ thuộc dài hạn. Long short-term memory cũng là phiên bản RNN được dùng để xây dựng nên bộ mã hóa - bộ giải trong khóa luận này. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc bộ mã hóa - bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
 
 \end{quote}
 
 
 \section{Mô hình ngôn ngữ}
 
-Như đã nói trong chương 1, mô hình ngôn ngữ là thành phần không thể thiếu trong dịch máy; nó đảm bảo rằng hệ thống tạo ra những bản dịch lưu loát. Trong dịch máy nơ-ron, người ta thường sử dụng mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy (trong khóa luận này nó là một LSTM). Trước khi đi đến mô hình ngôn ngữ với mạng nơ-ron hồi quy, chúng tôi sẽ nhắc lại một vài mô hình ngôn ngữ đã được sử dụng trong quá khứ, cũng như những điểm mạnh, yếu của từng mô hình. Những đặc điểm ấy nói lên rằng vì sao mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy là hướng tiếp cận nổi bật và thích hợp cho bài toán dịch máy nơ-ron.
+Như đã nói trong chương 1, mô hình ngôn ngữ là thành phần không thể thiếu trong dịch máy; nó đảm bảo rằng hệ thống tạo ra những bản dịch "trơn tru" (fluent). Trong dịch máy nơ-ron, người ta thường sử dụng mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy (trong khóa luận này nó là một LSTM). Trước khi đi đến mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy, chúng tôi sẽ nhắc lại một vài mô hình ngôn ngữ đã được sử dụng trong quá khứ, cũng như những điểm mạnh, yếu của từng mô hình. Những đặc điểm ấy nói lên rằng vì sao mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy là hướng tiếp cận nổi bật và thích hợp cho bài toán dịch máy nơ-ron.
 
-Mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ nhằm đánh giá độ "lưu loát" của chuỗi ấy so với những chuỗi khác. Cho trước một chuỗi $w_1,w_2,...,w_n$, mô hình ngôn ngữ gán cho nó một xác suất $p(w_1,w_2,...,w_n)$ đại diện cho độ "lưu loát" của chuỗi đó. Theo công thức xác suất có điều kiện, ta có:
+Mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi các từ nhằm đánh giá độ trơn tru của chuỗi ấy so với những chuỗi khác. Cho trước một chuỗi $w_1,w_2,...,w_n$, mô hình ngôn ngữ gán cho nó một xác suất $p(w_1,w_2,...,w_n)$ đại diện cho độ trơn tru của chuỗi đó, ví dụ $p($"How tall are you ?"$) >$ $p($"How high are you ?"$)$ vì từ "high" trong thực tế không dùng để hỏi về chiều cao của con người. Theo công thức xác suất có điều kiện, ta có:
 \begin{equation} \label{traditionalLM}
 \begin{split}
 	p(w_{1:n}) &= p(w_1)p(w_2|w_1)p(w_3|w_1,w_2)...p(w_n|w_1,w_2,...,w_{n-1}) \\
@@ -24,7 +26,7 @@ Mô hình ngôn ngữ là một phân phối xác suất trên một chuỗi cá
 \end{split}
 \end{equation}
  
-Trong công thức trên, mỗi thành phần $p(w_i|w_1,w_2,...,w_{i})$ là xác suất có điều kiện của từ $w_i$ biết những từ trước đó $w_1,w_2,...,w_{i}$, những từ này còn được gọi là ngữ cảnh đối với từ đang xét. Ta thấy rằng để tính được xác suất $p(w_i|w_1,w_2,...,w_{i})$ ta phải xét đến tất cả những từ đứng trước nó. Điều này làm cho chi phí tính toán trở nên rất lớn. Để giảm chi phí tính toán, người ta sử dụng giả định \textit{markov} (markov-assumption); giả định này nói rằng các từ tiếp theo chỉ liên quan đến từ hiện tại và độc lập với các từ trước đó. Chính xác hơn, một giả định markov bậc $k$ nói rằng từ tiếp theo trong một chuỗi chỉ phụ thuộc vào $k$ từ cuối cùng trong chuỗi.
+Trong công thức trên, mỗi thành phần $p(w_i|w_1,w_2,...,w_{i-1})$ là xác suất có điều kiện của từ $w_i$ biết những từ trước đó $w_1,w_2,...,w_{i-1}$, những từ này còn được gọi là ngữ cảnh đối với từ đang xét. Ta thấy rằng để tính được xác suất $p(w_i|w_1,w_2,...,w_{i-1})$ ta phải xét đến tất cả những từ đứng trước nó. Điều này làm cho chi phí tính toán trở nên rất lớn. Để giảm chi phí tính toán, người ta sử dụng giả định \textit{markov} (markov-assumption); giả định này nói rằng các từ tiếp theo chỉ liên quan đến từ hiện tại và độc lập với các từ trước đó. Chính xác hơn, một giả định markov bậc $k$ nói rằng từ tiếp theo trong một chuỗi chỉ phụ thuộc vào $k$ từ cuối cùng trong chuỗi.
 \begin{equation} \label{markovAssumption}
 	p(w_{i+1}|w_1,w_2,...,w_{i}) \approx p(w_{i+1}|w_{i-k},..w_{i})
 \end{equation}
@@ -45,7 +47,9 @@ Perplexity(W) &= \sqrt[N]{\frac{1}{LM(p(w_{1:N}))}} \\
 \end{split}
 \end{equation}
 
-Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗi trong tập ngữ liệu (phản ánh đúng ngôn ngữ thật sự) sẽ dẫn đến một giá trị nhỏ của perplexity và ngược lại. Perplexity là một độ đo tốt và thuận tiện để đánh giá các mô hình ngôn ngữ với nhau. Tuy vậy, việc perplexity được cải thiện khi ta thay đổi mô hình ngôn ngữ không đảm bảo rằng đánh giá bên ngoài cũng được cải thiện. Tuy vậy, perplexity vẫn thường được sử dụng như là một cách kiểm tra nhanh một mô hình ngôn ngữ; bởi vì PPL của một mô hình ngôn ngữ có sự tương quan nhất định với hiệu suất của ứng dụng sử dụng mô hình ngôn ngữ này. Nhưng để có thể đánh giá một cách chính xác trước khi kết luận về hiệu suất của một mô hình ngôn ngữ, ta luôn luôn phải kiểm tra lại mô hình ngôn ngữ này bằng cách đánh giá ngoài dựa trên một ứng dụng cụ thể.
+Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗi trong tập ngữ liệu (phản ánh đúng ngôn ngữ thật sự) sẽ dẫn đến một giá trị nhỏ của perplexity và ngược lại. Perplexity là một độ đo tốt và thuận tiện để đánh giá các mô hình ngôn ngữ với nhau, nhưng việc perplexity được cải thiện khi ta thay đổi mô hình ngôn ngữ không đảm bảo rằng đánh giá bên ngoài cũng được cải thiện. Tuy vậy, perplexity vẫn thường được sử dụng như là một cách kiểm tra nhanh một mô hình ngôn ngữ. Nhưng để có thể đánh giá một cách chính xác trước khi kết luận về hiệu suất của một mô hình ngôn ngữ, ta luôn luôn phải kiểm tra lại mô hình ngôn ngữ này bằng cách đánh giá ngoài dựa trên một ứng dụng cụ thể.
+
+%; bởi vì PPL của một mô hình ngôn ngữ có sự tương quan nhất định với hiệu suất của ứng dụng sử dụng mô hình ngôn ngữ này.
 
 %\subsection{Mô hình ngôn ngữ \textit{n}-gram}
 
@@ -57,7 +61,7 @@ Cách tiếp cận truyền thống cho bài toán mô hình hóa ngôn ngữ l�
 trong đó $\#(w_{i:j})$ là số lần xuất hiện của chuỗi $w_i,...,w_j$ trong tập ngữ liệu. Các mô hình \textit{n}-gram thông thường sử dụng $n = 2$ và $n = 1$ được gọi lần lượt là mô hình \textit{trigram} và mô hình \textit{bigram}. Trong trường hợp mô hình không sử dụng ngữ cảnh để ước lược lượng xác
 suất của một từ ($n = 0$), thì mô hình này được gọi là mô hình \textit{unigram}.
 
-Mô hình ngôn ngữ \textit{n}-gram là một mô hình phi tham số (non-parametric model), nó có một ưu điểm là tốc độ tính toán rất nhanh (do các xác suất của các \textit{n}-gram đã được tính toán trước và lưu trữ lại) và dễ dàng mở rộng cho nhiều lĩnh vực (ta chỉ cần tập ngữ liệu thuộc lĩnh vực ấy). Mặc dù có một vài mô hình ngôn ngữ có kết quả tốt hơn so với mô hình \textit{n}-gram, tuy nhiên các mô hình đó thường kèm theo độ phức tạp tính toán lớn và kết quả cải thiện không đáng kể. Do đó, mô hình \textit{n}-gram vẫn được sử dụng phổ biến cho đến ngày nay.
+Mô hình ngôn ngữ \textit{n}-gram là một mô hình phi tham số, nó có một ưu điểm là tốc độ tính toán rất nhanh (do các xác suất của các \textit{n}-gram đã được tính toán trước và lưu trữ lại) và dễ dàng mở rộng cho nhiều lĩnh vực (ta chỉ cần tập ngữ liệu thuộc lĩnh vực ấy). Mặc dù có một vài mô hình ngôn ngữ có kết quả tốt hơn so với mô hình \textit{n}-gram, tuy nhiên các mô hình đó thường kèm theo độ phức tạp tính toán lớn và kết quả cải thiện không đáng kể. Do đó, mô hình \textit{n}-gram vẫn được sử dụng phổ biến cho đến ngày nay.
 
 Thuy nhiên, mô hình \textit{n}-gram vẫn còn nhiều hạn chế. Đầu tiên, mặc dù tốc độ tính toán của mô hình \textit{n}-gram là nhanh, nhưng kèm theo đó là sự đánh đổi về mặt lưu trữ. Nếu tập ngữ liệu là lớn thì chúng ta phải lưu những bảng xác suất khổng lồ, điều này gây ra khó khăn khi ta muốn sử dụng mô hình này trên các thiết bị có bộ nhớ nhỏ như thiết bị di động hay cảm biến. Thứ hai, điểm yếu của mô hình này đến từ việc sử dụng giả định markov; giả định này khiến cho mô hình \textit{n}-gram không thể nắm bắt được các thông tin ngữ cảnh dài hạn. Ví dụ cho trước ngữ cảnh \textit{"Columbus is the man who discovered \_\_"}, ta muốn từ tiếp theo sẽ là \textit{"America"}; một mô hình \textit{5}-gram không thể dự đoán được từ tiếp theo là \textit{"America"} vì độ dài ngữ cảnh tối đa của nó chỉ đạt đến từ \textit{"is"}.
 
@@ -99,9 +103,23 @@ Ngoài ra còn một vấn đề với mô hình \textit{n}-gram là \textbf{tí
 
 %\subsection{Mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy}
 
-Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Nó giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số (parametric model), nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ - đặc biệt hơn những tham số này sẽ được chia sẻ cho toàn bộ mô hình, điều này giúp tăng tính tổng quát hóa \cite{bengioLM2003}; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là "word embedding", điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{wordembedding}
+	\caption[Minh họa cách biểu diễn từ bằng "word embedding"]{Minh họa cách biểu diễn từ bằng "word embedding": một từ $w_i$ được biểu diễn dưới dạng véc-tơ "one-hot", $w_i$ sau đó được biến đổi thành $x_i$ dựa trên một phép biến đổi tuyển tính với ma trận $P$ của phép biến đổi. $|V|$ là số lượng từ vựng, $D_e$ là số chiều của "word embedding" được xác định trước.}
+	\label{fig_wordembedding}
+\end{figure}
 
-Tuy nhiên, mô hình này vẫn dựa trên giả định markov. Tại mỗi thời điểm, đầu vào của mạng là một nối dài của các véc-tơ "embedding" tại những thời điểm trước đó $i_t = \left[ x_{t-(n-1)},...,x_t \right]$ trong đó $x_i$ là véc-tơ "embedding" của từ $w_i$, $n$ là bậc của giả định markov. Đây là một khuyết điểm lớn của mô hình khi nó chỉ nắm bắt được thông tin trong một vùng $n - 1$ từ trước đó. Do những khuyết điểm này, một mô hình ngôn ngữ dựa trên \textit{mạng nơ-ron hồi quy} được đề xuất trong \cite{mikolovLM}. Mô hình này kế thừa những ưu điểm của mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng và có khả năng nắm bắt được thông tin trên một vùng có chiều dài bất kỳ. Mô hình này sẽ được nói đến trong phần kiến thức cơ bản về mạng nơ-ron hồi quy và được giải thích chi tiết trong chương 3 trong mục bộ giải mã. 
+Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Nó giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số, nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ - đặc biệt hơn những tham số này sẽ được chia sẻ cho toàn bộ mô hình, điều này giúp tăng tính tổng quát hóa \cite{bengioLM2003}; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là "word embedding", điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ. Hình \ref{fig_wordembedding} mô tả cách tạo ra các véc-tơ "embedding".
+
+Tuy nhiên, mô hình này vẫn dựa trên giả định markov. Tại mỗi thời điểm, đầu vào của mạng là một nối dài của các véc-tơ "embedding" tại những thời điểm trước đó $i_t = \left[ x_{t-(n-1)},...,x_t \right]$ trong đó $x_i$ là véc-tơ "embedding" của từ $w_i$, $n$ là bậc của giả định markov (hình \ref{fig_fnnlm} mô tả cách hoạt động của mô hình). Đây là một khuyết điểm lớn của mô hình khi nó chỉ nắm bắt được thông tin trong một vùng $n - 1$ từ trước đó. Do những khuyết điểm này, một mô hình ngôn ngữ dựa trên \textit{mạng nơ-ron hồi quy} được đề xuất trong \cite{mikolovLM}. Mô hình này kế thừa những ưu điểm của mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng và có khả năng nắm bắt được thông tin trên một vùng có chiều dài bất kỳ. Mô hình này sẽ được nói đến trong phần kiến thức cơ bản về mạng nơ-ron hồi quy và được giải thích chi tiết trong chương 3 trong mục bộ giải mã. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{fnnlm}
+	\caption[Minh họa mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng]{Minh họa mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng: mô hình nhận đầu vào là các véc-tơ ngữ cảnh $w_{t-(n-1)},...,w_t$ dưới dạng "one-hot", sau đó những véc-tơ này được biểu diễn lại dưới dạng các véc-tơ "embedding" $x_{t-(n-1)},...,x_t$. Những véc-tơ "embedding" được nối dài tạo thành véc-tơ đầu vào $i_t$, $i_t$ lần lượt được đưa qua tầng ẩn $\tanh$ và sau đó là $\softmax$. Tại đây mô hình dự đoán đầu ra: là một véc-tơ "one-hot" dựa trên véc-tơ đầu ra ở tầng $\softmax$.}
+	\label{fig_fnnlm}
+\end{figure}
 
 %Đầu tiên, để biểu diễn một từ, người ta sử dụng dạng véc-tơ "one-hot" của nó, véc-tơ này có số chiều là $|V|$ (kích thước của tập từ vựng), phần tử ứng với vị trí cần biểu diễn mang giá trị 1, các phần tử còn lại mang giá trị 0. Có thể thấy véc-tơ "one-hot" là một véc-tơ thưa (vì số lượng từ vựng là rất lớn), việc tính toán với véc-tơ thưa này cần rất nhiều tham số. Để giải quyết vấn đề véc-tơ thưa, người ta sử dụng một ma trận "nhúng" (embedding matrix) $P$. Ma trận $P$ là ma trận của phép biến đổi tuyến tính ánh xạ từ $\mathbb{R}^{|V|}$ vào $\mathbb{R}^{D_e}$, trong đó $D_e$ là số chiều của véc-tơ nhúng mà ta xác định trước. $D_e$ trong thực tế có giá trị khoảng vài trăm tùy vào năng lực xử lý của máy tính. Như vậy véc-tơ "one-hot" ban đầu với số chiều rất lớn sẽ trở thành véc-tơ nhúng với số chiều nhỏ. Điều này nhằm nhằm làm giảm tham số tính toán. Không những thế, những véc-tơ nhúng còn giúp nắm bắt được tính tương tự về ngữ nghĩa giữa các từ. 
 
@@ -157,10 +175,10 @@ Thông thường, hàm $f$ là một hàm phi tuyến như hàm \textbf{sigmoid}
 Trong đó:
 \begin{itemize}
 	\item[•] $\phi$ là một hàm kích hoạt (ví dụ: sigmoid, tanh hay ReLU).
-	\item[•] $h_{t} \in \mathbb{R}^n$ là trạng thái ẩn tại bước thời gian hiện tại.
-	\item[•] $x_t \in \mathbb{R}^m$ là đầu vào hiện tại.
-	\item[•] $h_{t-1} \in \mathbb{R}^n$ là trạng thái ẩn tại bước thời gian trước đó.
-	\item[•] $W_{xh} \in \mathbb{R}^{m \times n}, W_{hh} \in \mathbb{R}^{n \times n}$ và $b_h \in \mathbb{R}^n$ lần lượt là hai ma trận trọng số và véc-tơ "bias".
+	\item[•] $h_{t} \in \mathbb{R}^{D_h}$ là trạng thái ẩn tại bước thời gian hiện tại có chiều dài $D_h$.
+	\item[•] $x_t \in \mathbb{R}^{D_x}$ là véc-tơ đầu vào hiện tại có chiều dài $D_x$.
+	\item[•] $h_{t-1} \in \mathbb{R}^{D_h}$ là trạng thái ẩn tại bước thời gian trước đó.
+	\item[•] $W_{xh} \in \mathbb{R}^{D_x \times D_h}, W_{hh} \in \mathbb{R}^{D_h \times D_h}$ và $b_h \in \mathbb{R}^{D_h}$ lần lượt là hai ma trận trọng số và véc-tơ "bias".
 \end{itemize}
 
 Ma trận $W_{xh}$ là làm nhiệm vụ kết nối giữa đầu vào và trạng thái ẩn, $W_{hh}$ kết nối trạng thái ẩn với chính nó trong các bước thời gian liền kề. Véc-tơ $b_h$ dùng để điều chỉnh giá trị của $h_t$. Tại thời điểm bắt đầu, trạng thái ẩn $h_0$ có thể được khởi tạo bằng 0 hoặc là một véc-tơ chứa tri thức có sẵn như trường hợp của bộ giải mã như chúng tôi đã đề cập trong chương 1.
@@ -174,9 +192,9 @@ Tại mỗi bước thời gian $t$, tùy vào mục tiêu cụ thể của quá
 \end{equation}
 Trong đó:
 \begin{itemize}
-	\item[•] $\softmax$ là một hàm kích hoạt với $\softmax(v_j) = \frac{e^{v_j}}{\sum_{k=1}^{K}e^{v_k}}$, $j = 1,...,K$, $K$ là độ dài của véc-tơ $v$.
-	\item[•] $h_{t} \in \mathbb{R}^n$ là trạng thái ẩn tại bước thời gian hiện tại.
-	\item[•] $W_{hy} \in \mathbb{R}^{L \times n}$ và $b_y \in \mathbb{R}^L$ lần lượt là hai ma trận trọng số và véc-tơ "bias". $L$ là số lượng lớp cần phân biệt ở đầu ra.
+	\item[•] $\softmax$ là một hàm kích hoạt với $\softmax(v) = \frac{e^{v_j}}{\sum_{k=1}^{K}e^{v_k}}$, $j = 1,...,K$. $K$ là độ dài của véc-tơ $v$.
+	\item[•] $h_{t} \in \mathbb{R}^{D_h}$ là trạng thái ẩn tại bước thời gian hiện tại.
+	\item[•] $W_{hy} \in \mathbb{R}^{L \times D_h}$ và $b_y \in \mathbb{R}^L$ lần lượt là hai ma trận trọng số và véc-tơ "bias". $L$ là số lượng lớp cần phân biệt ở đầu ra.
 \end{itemize}
 
 Trong công thức trên, hàm $\softmax$ đóng vai trò là một hàm chuẩn hóa để $\hat{y}_t$ thể hiện một phân phối xác suất trên các lớp ở đầu ra. Ma trận $W_{hy}$ kết nối đầu ra với trạng thái ẩn, $b_y$ dùng để điều chỉnh giá trị của kết quả tính toán trước khi đưa qua hàm $\softmax$.
@@ -202,7 +220,7 @@ Xét một chuỗi đầu vào $x={x_1,x_2,...,x_n}$ với đầu ra tương ứ
 	s_t = W_{hy} h_t + b_y 
 \end{equation}
 \begin{equation} \label{rnnForwardProp3}
-	\hat{y}_t = softmax (s_t) 
+	\hat{y}_t = \softmax (s_t) 
 \end{equation}
 Ta cần định nghĩa hàm độ lỗi giữa đầu ra dự đoán $\hat{y}_t$ và đầu ra thật sự $y_t$. Với $L$ là số lượng lớp của $y$, lúc này có thể thấy $\hat{y}_t$ là một véc-tơ phân phối xác suất có độ dài $L$. Để so sánh với $\hat{y}_t$, $y_t$ được chuẩn hóa thành một véc-tơ dạng "one hot" có nghĩa là một véc-tơ với độ dài $V$ có giá trị bằng 0 trừ vị trí ứng với lớp của $y_t$ có giá trị 1. Như vậy để so sánh hai phân phối xác suất $y$ và $\hat{y}$ ta sử dụng hàm độ lỗi \textit{negative log-likelihood} hay còn gọi là \textit{cross entropy}, gọi $L_t$ là độ lỗi tại một bước thời gian $t$, ta có:
 \begin{equation} \label{errorOfAnExample}
@@ -233,7 +251,7 @@ Ta cần tìm bộ tham số $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \ri
 % TODO: Bo sung cho nay
 Ở đây, $\nabla_{\theta} L$ là "gradient" của hàm độ lỗi ứng với tham số $\theta$. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ nên thay đổi nhiều bao nhiêu khi "gradient" ứng với tham số thay đổi. Trong phần dưới đây, chúng tôi sẽ trình bày việc tính toán "gradient" của hàm độ lỗi theo bộ tham số học $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$.
 
-Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = softmax(s_t)$, sử dụng "chain rule" trong tính đạo hàm ta được:
+Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = \softmax(s_t)$, sử dụng "chain rule" trong tính đạo hàm ta được:
 %\nabla_{\theta} L_t = \frac{\partial h_t}{\partial \theta} \frac{\partial s_t}{\partial h_t} \frac{\partial \hat{y}_t}{\partial s_t} \frac{\partial L_t}{\partial \hat{y}_t} = \frac{\partial h_t}{\partial \theta}  \frac{\partial s_t}{\partial h_t} \frac{\partial L_t}{\partial s_t}
 	
 \begin{equation} \label{gradientCalculating1}
@@ -374,7 +392,7 @@ Bằng cách đảo ngược chứng minh này ta được \textit{điều kiệ
 
 Chứng minh trên cho thấy rằng, khi $t-r$ lớn, tức là khoảng cách giữa từ đang xét và một từ trong quá khứ là lớn thì $\nabla_{\theta_r} L_t$ sẽ hoặc rất bé nếu $\lambda_{max} < \frac{1}{\gamma}$ hoặc có khả năng trở nên rất lớn nếu $\lambda_{max} > \frac{1}{\gamma}$. Trong thực tế, với $\phi$ là hàm \textbf{tanh} ta có $\gamma = 1$ trong khi với $\phi$ là hàm sigmoid, ta có $\gamma = 1/4$. Nếu ta khởi tạo tham số $\theta$ nhỏ hoặc dùng hàm kích hoạt có $\gamma$ nhỏ như hàm \textbf{sigmoid} thì sự biến mất gradient sẽ dễ rất dễ xảy ra; nó khiến cho mô hình chỉ học được những phụ thuộc cục bộ. Ngược lại, nếu $\theta$ được khởi tạo với giá trị lớn, gradient tại các bước thời gian ở xa sẽ bùng nổ và kết quả là mô hình không thể học được \cite{pascanu2011}.
 
-Một kỹ thuật để đối phó với sự bùng nổ gradient được đề là chuẩn hóa gradient về một giá trị nếu nó vượt quá một ngưỡng nào đó. Kỹ thuật này gọi là "gradient clipping" được đề xuất bởi Thomas Mikolov và trình bày lại trong \cite{pascanu2012}. Cụ thể, ta đặt một ngưỡng là chặn trên cho gradient, bất cứ khi nào độ lớn của gradient lớn hơn ngưỡng này ta sẽ chuẩn hóa trở về một giá trị nhỏ hơn. Giải pháp này được áp dụng trong thực tế để ngăn chặn các giá trị \textbf{NaN} (Not a Number) trong gradient và cho phép quá trình huấn luyện tiếp tục. "Gradient clipping" được trình bày trong thuật toán \ref{alg_GDClipping}.
+Một kỹ thuật để đối phó với sự bùng nổ gradient được đề là chuẩn hóa gradient về một giá trị nếu nó vượt quá một ngưỡng nào đó. Kỹ thuật này gọi là "gradient norm clipping" \cite{pascanu2012}. Cụ thể, ta đặt một ngưỡng là chặn trên cho gradient, tại mỗi bước thời gian $t$ trong lúc "backpropagation", nếu độ lớn của gradient lớn hơn ngưỡng này ta sẽ chuẩn hóa trở về một giá trị nhỏ hơn. Giải pháp này được áp dụng trong thực tế để ngăn chặn các giá trị \textbf{NaN} (Not a Number) trong gradient và cho phép quá trình huấn luyện tiếp tục. "Gradient clipping" được trình bày trong thuật toán \ref{alg_GDClipping}.
 
 \begin{algorithm}
 	\newalgname{Thuật toán}
@@ -396,6 +414,8 @@ Một kỹ thuật để đối phó với sự bùng nổ gradient được đ�
 		\EndIf
 	\end{algorithmic}
 \end{algorithm}
+
+Mặt khác, vấn đề biến mất gradient là khó giải quyết hơn. Đã có nhiều cách tiếp cận được đề xuất để giải quyêt vấn đề này như "Hessian Free Optimization" \cite{martens2011}, "Echo State Network" \cite{jaeger2007}, Long short-term memory \cite{hochreiter1997} và một số phương pháp khác được liệt kê trong \cite{bengio2013}. Trong số những phương pháp đó, "Long short-term memory" (LSTM) là phương pháp thường được sử dụng nhất. LSTM là phiên bản nâng cấp của RNN với các chê chế để giải quyết hiệu quả vấn đề biến mất gradient, hơn thế nữa, với các cơ chế của mình, LSTM còn có thể giải quyết vấn đề bùng nổ gradient và giúp mạng nơ-ron hồi quy học tốt hơn. Nó cũng chính là phiên bản mạng nơ-ron hồi quy mà chúng tôi sử dụng trong khóa luận này. Trong phần tiếp theo, chúng tôi sẽ trình bày về LSTM và giải thích vì sao LSTM hiệu quả.
 
 \section{Long short-term memory (LSTM)}
 
@@ -443,7 +463,14 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\end{equation}
 \end{itemize}
 
+%\subsection{Huấn luyện mạng LSTM}
+%Quá trình huấn luyện mạng LSTM cũng giống như quá trình huấn luyện RNN vì những thành phần cấu tạo nên chúng hầu giống hệt nhau. Một điểm khác biệt là cơ chế hồi quy trong RNN sử dụng $h$ là thành phần hồi quy duy nhất. Trong LSTM, cả $h$ và $c$ đều được sử dụng làm thành phần hồi quy:
+%\begin{equation} \label{lstmrecurrence}
+%	\left(h_t, c_t \right) = f \left(x_t, h_{t-1}, c_{t-1} \right)
+%\end{equation}
 
+
+\subsection{Mạng nơ-ron hồi quy hai chiều}
 
 
 
