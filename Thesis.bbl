@@ -21,41 +21,38 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{bengio1994}
+Y.~Bengio, P.~Simard, and P.~Frasconi, ``Learning long-term dependencies with
+  gradient descent is difficult,'' \emph{IEEE Transactions on Neural Networks},
+  vol.~5, no.~2, pp. 157--166, Mar 1994.
+
+\bibitem{bengio2013}
+Y.~Bengio, N.~Boulanger{-}Lewandowski, and R.~Pascanu, ``Advances in optimizing
+  recurrent networks,'' \emph{CoRR}, vol. abs/1212.0901, 2012.
+
 \bibitem{bengioLM2003}
-\BIBentryALTinterwordspacing
 Y.~Bengio, R.~Ducharme, P.~Vincent, and C.~Janvin, ``A neural probabilistic
   language model,'' \emph{J. Mach. Learn. Res.}, vol.~3, pp. 1137--1155, Mar.
-  2003. [Online]. Available:
-  \url{http://dl.acm.org/citation.cfm?id=944919.944966}
-\BIBentrySTDinterwordspacing
+  2003.
 
 \bibitem{wordembeddingBengio2003}
-\BIBentryALTinterwordspacing
 ------, ``A neural probabilistic language model,'' \emph{J. Mach. Learn. Res.},
-  vol.~3, pp. 1137--1155, Mar. 2003. [Online]. Available:
-  \url{http://dl.acm.org/citation.cfm?id=944919.944966}
-\BIBentrySTDinterwordspacing
+  vol.~3, pp. 1137--1155, Mar. 2003.
 
 \bibitem{cho}
-\BIBentryALTinterwordspacing
 K.~Cho, B.~van Merrienboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk,
   and Y.~Bengio, ``Learning phrase representations using rnn encoder--decoder
   for statistical machine translation,'' in \emph{Proceedings of the 2014
   Conference on Empirical Methods in Natural Language Processing
   (EMNLP)}.\hskip 1em plus 0.5em minus 0.4em\relax Doha, Qatar: Association for
-  Computational Linguistics, October 2014, pp. 1724--1734. [Online]. Available:
-  \url{http://www.aclweb.org/anthology/D14-1179}
-\BIBentrySTDinterwordspacing
+  Computational Linguistics, October 2014, pp. 1724--1734.
 
 \bibitem{wordembeddingCollobert2008}
-\BIBentryALTinterwordspacing
 R.~Collobert and J.~Weston, ``A unified architecture for natural language
   processing: Deep neural networks with multitask learning,'' in
   \emph{Proceedings of the 25th International Conference on Machine Learning},
   ser. ICML '08.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: ACM,
-  2008, pp. 160--167. [Online]. Available:
-  \url{http://doi.acm.org/10.1145/1390156.1390177}
-\BIBentrySTDinterwordspacing
+  2008, pp. 160--167.
 
 \bibitem{attentionhistory2011}
 \BIBentryALTinterwordspacing
@@ -66,18 +63,12 @@ M.~Denil, L.~Bazzani, H.~Larochelle, and N.~de~Freitas, ``Learning where to
 \BIBentrySTDinterwordspacing
 
 \bibitem{VocabReference1ReadingTeacher}
-\BIBentryALTinterwordspacing
 J.~E.~K. Edward B.~Fry. (2006) The reading teacher's book of lists, 5th
-  edition. [Online]. Available:
-  \url{http://as.wiley.com/WileyCDA/WileyTitle/productCd-0787982571.html}
-\BIBentrySTDinterwordspacing
+  edition.
 
 \bibitem{elman1990}
-\BIBentryALTinterwordspacing
 J.~L. Elman, ``Finding structure in time,'' \emph{Cognitive Science}, vol.~14,
-  no.~2, pp. 179 -- 211, 1990. [Online]. Available:
-  \url{http://www.sciencedirect.com/science/article/pii/036402139090002E}
-\BIBentrySTDinterwordspacing
+  no.~2, pp. 179 -- 211, 1990.
 
 \bibitem{gers2000}
 F.~A. Gers, J.~Schmidhuber, and F.~Cummins, ``Learning to forget: continual
@@ -86,11 +77,8 @@ F.~A. Gers, J.~Schmidhuber, and F.~Cummins, ``Learning to forget: continual
   pp. 850--855 vol.2.
 
 \bibitem{goodman2001}
-\BIBentryALTinterwordspacing
 J.~Goodman, ``A bit of progress in language modeling,'' \emph{CoRR}, vol.
-  cs.CL/0108005, 2001. [Online]. Available:
-  \url{http://arxiv.org/abs/cs.CL/0108005}
-\BIBentrySTDinterwordspacing
+  cs.CL/0108005, 2001.
 
 \bibitem{StanfordNMT}
 \BIBentryALTinterwordspacing
@@ -99,14 +87,17 @@ T.~S. N. L.~P. Group. (2015) Neural machine translation. [Online]. Available:
 \BIBentrySTDinterwordspacing
 
 \bibitem{hochreiter1997}
-\BIBentryALTinterwordspacing
 S.~Hochreiter and J.~Schmidhuber, ``Long short-term memory,'' \emph{Neural
-  Comput.}, vol.~9, no.~8, pp. 1735--1780, Nov. 1997. [Online]. Available:
-  \url{http://dx.doi.org/10.1162/neco.1997.9.8.1735}
-\BIBentrySTDinterwordspacing
+  Comput.}, vol.~9, no.~8, pp. 1735--1780, Nov. 1997.
 
 \bibitem{hutchins}
 W.~J. Hutchins, ``Machine translation: A concise history,'' 2007.
+
+\bibitem{jaeger2007}
+H.~Jaeger, M.~Lukoševičius, D.~Popovici, and U.~Siewert, ``Optimization and
+  applications of echo state networks with leaky- integrator neurons,''
+  \emph{Neural Networks}, vol.~20, no.~3, pp. 335 -- 352, 2007, echo State
+  Networks and Liquid State Machines.
 
 \bibitem{JeanUnkRepl}
 \BIBentryALTinterwordspacing
@@ -116,10 +107,7 @@ S.~Jean, K.~Cho, R.~Memisevic, and Y.~Bengio, ``On using very large target
 \BIBentrySTDinterwordspacing
 
 \bibitem{VocabReference2LexicalFacts}
-\BIBentryALTinterwordspacing
-Johnson. (2013) Vocabulary size lexical facts. [Online]. Available:
-  \url{https://www.economist.com/johnson/2013/05/29/lexical-facts}
-\BIBentrySTDinterwordspacing
+Johnson. (2013) Vocabulary size lexical facts.
 
 \bibitem{jurafsky2000}
 D.~Jurafsky and J.~H. Martin, \emph{Speech and Language Processing: An
@@ -128,14 +116,11 @@ D.~Jurafsky and J.~H. Martin, \emph{Speech and Language Processing: An
   Saddle River, NJ, USA: Prentice Hall PTR, 2000.
 
 \bibitem{kalchbrennerBlunsom}
-\BIBentryALTinterwordspacing
 N.~Kalchbrenner and P.~Blunsom, ``Recurrent continuous translation models,'' in
   \emph{Proceedings of the 2013 Conference on Empirical Methods in Natural
   Language Processing}.\hskip 1em plus 0.5em minus 0.4em\relax Seattle,
   Washington, USA: Association for Computational Linguistics, October 2013, pp.
-  1700--1709. [Online]. Available:
-  \url{http://www.aclweb.org/anthology/D13-1176}
-\BIBentrySTDinterwordspacing
+  1700--1709.
 
 \bibitem{smtKoehn2003}
 \BIBentryALTinterwordspacing
@@ -169,6 +154,19 @@ A.~Maas, Q.~V. Le, T.~M. O’Neil, O.~Vinyals, P.~Nguyen, and A.~Y. Ng,
   ``Recurrent neural networks for noise reduction in robust asr,'' in
   \emph{INTERSPEECH}, 2012.
 
+\bibitem{martens2011}
+J.~Martens and I.~Sutskever, ``Learning recurrent neural networks with
+  hessian-free optimization,'' in \emph{Proceedings of the 28th International
+  Conference on International Conference on Machine Learning}, ser.
+  ICML'11.\hskip 1em plus 0.5em minus 0.4em\relax USA: Omnipress, 2011, pp.
+  1033--1040.
+
+\bibitem{mikolovLM}
+T.~Mikolov, M.~Karafiát, L.~Burget, J.~Cernocký, and S.~Khudanpur,
+  ``Recurrent neural network based language model.'' in \emph{INTERSPEECH},
+  T.~Kobayashi, K.~Hirose, and S.~Nakamura, Eds.\hskip 1em plus 0.5em minus
+  0.4em\relax ISCA, 2010, pp. 1045--1048.
+
 \bibitem{BLEUpaper}
 \BIBentryALTinterwordspacing
 K.~Papineni, S.~Roukos, T.~Ward, and W.-J. Zhu, ``Bleu: A method for automatic
@@ -180,11 +178,8 @@ K.~Papineni, S.~Roukos, T.~Ward, and W.-J. Zhu, ``Bleu: A method for automatic
 \BIBentrySTDinterwordspacing
 
 \bibitem{pascanu2011}
-\BIBentryALTinterwordspacing
-R.~Pascanu, T.~Mikolov, and Y.~Bengio, ``Understanding the exploding gradient
-  problem,'' \emph{CoRR}, vol. abs/1211.5063, 2012. [Online]. Available:
-  \url{http://arxiv.org/abs/1211.5063}
-\BIBentrySTDinterwordspacing
+R.~Pascanu, T.~Mikolov, and Y.~Bengio, ``On the difficulty of training
+  recurrent neural networks,'' \emph{CoRR}, vol. abs/1211.5063, 2012.
 
 \bibitem{pytorchworkshop}
 A.~Paszke, S.~Gross, S.~Chintala, G.~Chanan, E.~Yang, Z.~DeVito, Z.~Lin,
@@ -192,13 +187,10 @@ A.~Paszke, S.~Gross, S.~Chintala, G.~Chanan, E.~Yang, Z.~DeVito, Z.~Lin,
   pytorch,'' 2017.
 
 \bibitem{distributedrepHinton}
-\BIBentryALTinterwordspacing
 D.~E. Rumelhart, G.~E. Hinton, and R.~J. Williams, ``Neurocomputing:
   Foundations of research,'' J.~A. Anderson and E.~Rosenfeld, Eds.\hskip 1em
   plus 0.5em minus 0.4em\relax Cambridge, MA, USA: MIT Press, 1988, ch.
-  Learning Representations by Back-propagating Errors, pp. 696--699. [Online].
-  Available: \url{http://dl.acm.org/citation.cfm?id=65669.104451}
-\BIBentrySTDinterwordspacing
+  Learning Representations by Back-propagating Errors, pp. 696--699.
 
 \bibitem{Seq2Seq2014}
 \BIBentryALTinterwordspacing
