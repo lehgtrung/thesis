@@ -30,7 +30,7 @@ Kiến trúc Bộ mã hóa  -Bộ giải mã như tên gọi, gồm có hai bộ
 	\label{fig_Encoder-Decoder}
 \end{figure}
 
-Hình \ref{fig_Encoder-Decoder} minh họa kiến trúc Bộ mã hóa - Bộ giải mã được sử dụng trong khóa luận để giải quyết bài toán Dịch máy. Chúng tôi sẽ trình bày cụ thể về cách hoạt động của hai bộ phận này trong các phần tiếp theo.
+Hình \ref{fig_Encoder-Decoder} minh họa kiến trúc Bộ mã hóa - Bộ giải mã được sử dụng trong khóa luận để giải quyết bài toán Dịch máy. Chúng tôi sẽ trình bày cụ thể về cách hoạt động của hai bộ phận này trong các phần tiếp theo. Để thuận lợi hơn cho việc trình bày về mô hình học, đối với các véc-tơ và các ma trận, chúng tôi sẽ in đậm các kí hiệu đó.
 
 \subsection{Bộ mã hóa}
 Bộ mã hóa là một bi-LSTM (LSTM hai chiều). Bi-LSTM này nhận đầu vào là một câu ở ngôn ngữ nguồn $\bm{x} = \{x_1, ..., x_S\}$ với S là chiều dài, $x_1,...x_S$ là các từ trong câu. Đầu ra là một véc-tơ có kích thước cố định. Véc-tơ này chứa các thông tin cần thiết để tiến hành dịch sang câu ở ngôn ngữ đích. Nhiệm vụ của bộ mã hóa (bi-LSTM) là thực hiện mã hóa toàn bộ câu nguồn thành véc-tơ có chứa các thông tin hữu ích. Véc-tơ kích thước cố định này rất quan trọng, nó là tiền đề để việc dịch sang câu đích đạt chất lượng tốt.

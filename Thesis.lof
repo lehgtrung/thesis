@@ -9,18 +9,18 @@
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Minh h\IeC {\d o}a m\IeC {\^o} h\IeC {\`\i }nh ng\IeC {\^o}n ng\IeC {\~\uhorn } d\IeC {\d \uhorn }a tr\IeC {\^e}n m\IeC {\d a}ng n\IeC {\ohorn }-ron truy\IeC {\`\ecircumflex }n th\IeC {\h \abreve }ng}}{17}{figure.caption.8}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Minh h\IeC {\d o}a bi\IeC {\h \ecircumflex }u di\IeC {\~\ecircumflex }n ph\IeC {\^a}n t\IeC {\'a}n}}{20}{figure.caption.9}
 \contentsline {figure}{\numberline {2.4}{\ignorespaces M\IeC {\^o} h\IeC {\`\i }nh RNN v\IeC {\'\ohorn }i k\IeC {\'\ecircumflex }t n\IeC {\'\ocircumflex }i v\IeC {\`o}ng}}{23}{figure.caption.10}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces M\IeC {\^o} h\IeC {\`\i }nh RNN d\IeC {\d a}ng d\IeC {\`a}n tr\IeC {\h a}i}}{24}{figure.caption.11}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces M\IeC {\^o} h\IeC {\`\i }nh RNN d\IeC {\d a}ng d\IeC {\`a}n tr\IeC {\h a}i}}{25}{figure.caption.11}
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Minh h\IeC {\d o}a thu\IeC {\d \acircumflex }t to\IeC {\'a}n "Back propagation through time"}}{30}{figure.caption.12}
 \contentsline {figure}{\numberline {2.7}{\ignorespaces M\IeC {\d \ocircumflex }t LSTM cell}}{33}{figure.caption.13}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Minh h\IeC {\d o}a ki\IeC {\'\ecircumflex }n tr\IeC {\'u}c B\IeC {\d \ocircumflex } m\IeC {\~a} h\IeC {\'o}a - B\IeC {\d \ocircumflex } gi\IeC {\h a}i m\IeC {\~a} \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c s\IeC {\h \uhorn } d\IeC {\d u}ng trong kh\IeC {\'o}a lu\IeC {\d \acircumflex }n.}}{38}{figure.caption.14}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Minh h\IeC {\d o}a ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p teacher forcing.}}{41}{figure.caption.15}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Minh h\IeC {\d o}a thu\IeC {\d \acircumflex }t to\IeC {\'a}n beam search.}}{44}{figure.caption.16}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention.}}{46}{figure.caption.17}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention To\IeC {\`a}n c\IeC {\d u}c.}}{49}{figure.caption.18}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }.}}{52}{figure.caption.19}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }.}}{54}{figure.caption.20}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Minh h\IeC {\d o}a k\IeC {\~\i } thu\IeC {\d \acircumflex }t thay th\IeC {\'\ecircumflex } t\IeC {\`\uhorn } hi\IeC {\'\ecircumflex }m.}}{57}{figure.caption.21}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Minh h\IeC {\d o}a ki\IeC {\'\ecircumflex }n tr\IeC {\'u}c B\IeC {\d \ocircumflex } m\IeC {\~a} h\IeC {\'o}a - B\IeC {\d \ocircumflex } gi\IeC {\h a}i m\IeC {\~a} \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c s\IeC {\h \uhorn } d\IeC {\d u}ng trong kh\IeC {\'o}a lu\IeC {\d \acircumflex }n.}}{39}{figure.caption.14}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Minh h\IeC {\d o}a ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p teacher forcing.}}{42}{figure.caption.15}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Minh h\IeC {\d o}a thu\IeC {\d \acircumflex }t to\IeC {\'a}n beam search.}}{45}{figure.caption.16}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention.}}{47}{figure.caption.17}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention To\IeC {\`a}n c\IeC {\d u}c.}}{50}{figure.caption.18}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }.}}{53}{figure.caption.19}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }.}}{55}{figure.caption.20}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Minh h\IeC {\d o}a k\IeC {\~\i } thu\IeC {\d \acircumflex }t thay th\IeC {\'\ecircumflex } t\IeC {\`\uhorn } hi\IeC {\'\ecircumflex }m.}}{58}{figure.caption.21}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces \IeC {\DJ }\IeC {\uhorn }\IeC {\`\ohorn }ng cong h\IeC {\d o}c c\IeC {\h u}a c\IeC {\'a}c m\IeC {\^o} h\IeC {\`\i }nh}}{63}{figure.caption.24}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces \IeC {\DJ }\IeC {\uhorn }\IeC {\`\ohorn }ng cong h\IeC {\d o}c c\IeC {\h u}a c\IeC {\'a}c m\IeC {\^o} h\IeC {\`\i }nh}}{64}{figure.caption.24}
 \addvspace {10\p@ }

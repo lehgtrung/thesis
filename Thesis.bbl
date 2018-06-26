@@ -167,6 +167,13 @@ T.~Mikolov, M.~Karafiát, L.~Burget, J.~Cernocký, and S.~Khudanpur,
   T.~Kobayashi, K.~Hirose, and S.~Nakamura, Eds.\hskip 1em plus 0.5em minus
   0.4em\relax ISCA, 2010, pp. 1045--1048.
 
+\bibitem{word2vec2013}
+T.~Mikolov, I.~Sutskever, K.~Chen, G.~Corrado, and J.~Dean, ``Distributed
+  representations of words and phrases and their compositionality,'' in
+  \emph{Proceedings of the 26th International Conference on Neural Information
+  Processing Systems - Volume 2}, ser. NIPS'13.\hskip 1em plus 0.5em minus
+  0.4em\relax USA: Curran Associates Inc., 2013, pp. 3111--3119.
+
 \bibitem{BLEUpaper}
 \BIBentryALTinterwordspacing
 K.~Papineni, S.~Roukos, T.~Ward, and W.-J. Zhu, ``Bleu: A method for automatic
@@ -185,6 +192,11 @@ R.~Pascanu, T.~Mikolov, and Y.~Bengio, ``On the difficulty of training
 A.~Paszke, S.~Gross, S.~Chintala, G.~Chanan, E.~Yang, Z.~DeVito, Z.~Lin,
   A.~Desmaison, L.~Antiga, and A.~Lerer, ``Automatic differentiation in
   pytorch,'' 2017.
+
+\bibitem{glove2014}
+J.~Pennington, R.~Socher, and C.~D. Manning, ``Glove: Global vectors for word
+  representation,'' in \emph{Empirical Methods in Natural Language Processing
+  (EMNLP)}, 2014, pp. 1532--1543.
 
 \bibitem{distributedrepHinton}
 D.~E. Rumelhart, G.~E. Hinton, and R.~J. Williams, ``Neurocomputing:
