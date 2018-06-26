@@ -118,7 +118,7 @@ Tuy biểu diễn phân tán có rất nhiều ưu điểm nhưng đi cùng vớ
 
 Từ word embedding được tạo ra bởi GS Bengio và cộng sự vào năm 2003 \cite{wordembeddingBengio2003} khi họ đã huấn luyện một mô hình ngôn ngữ nơ-ron đồng thời với các tham số của mô hình. Tuy nhiên công trình này vẫn chưa thực sự thành công, cho tới năm 2008, Collobert và Weston \cite{wordembeddingCollobert2008} đã đề xuất một kiến trúc mạng nơ-ron sâu tổng quát
 
-\section{Mạng nơ-ron hồi quy (Recurrent neural network)}
+\section{Mạng nơ-ron hồi quy (Recurrent neural network)} \label{rnnsection}
 
 Trong tự nhiên, dữ liệu không phải lúc nào cũng được sinh ra một cách ngẫu nhiên. Trong một số trường hợp, chúng được sinh ra theo một thứ tự. Xét trong dữ liệu văn bản, ví dụ ta cần điền vào chỗ trống cho câu sau \textit{"Paris là thủ đô của nước \_\_"}. Dễ biết được rằng chỉ có duy nhất một từ phù hợp cho chỗ trống này, đó là \textit{"Pháp"}. Điều này có nghĩa là mỗi từ trong một câu không được tạo ra ngẫu nhiên mà nó được tạo ra dựa trên một liên hệ với những từ đứng trước nó. Các loại dữ liệu khác như những khung hình trong một bộ phim hoặc các đoạn âm thanh trong một bản nhạc cũng có tính chất tương tự. Những loại dữ liệu mang thứ tự này được gọi chung là dữ liệu chuỗi (sequential data).
 
@@ -415,6 +415,7 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\begin{equation} \label{cellStateLSTM}
 		s_t = s_{t-1} + g_t \odot i_t
 	\end{equation}
+	ký hiệu $\odot$ nghĩa là phép nhân theo từng phần tử (element-wise multiplication).
 	\item[•] \textit{Cổng quên (forget gate)}: Cổng quên là một đề xuất của \cite{gers2000} so với bài báo LSTM gốc. Thay vì kiểm soát lượng thông tin để đưa vào trạng thái lưu giữ như cổng vào, cổng quên cung cấp khả năng tẩy đi một lượng thông tin trong trạng thái lưu giữ. Cụ thể, cổng quên với giá trị thuộc khoảng $(0,1)$ sẽ được nhân với $s_{t-1}$ trong công thức \ref{cellStateLSTM}. Tại mỗi bước thời gian, giá trị của cổng quên $f_t$ được tính như sau:
 	\begin{equation} \label{forgetGateLSTM}
 		f_t = \sigma \left(W_{fx}x_t + W_{fh}h_{t-1} + b_f \right)
@@ -441,6 +442,26 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 
 
 \subsection{Mạng nơ-ron hồi quy hai chiều}
+
+Trong một số trường hợp, tại một bước thời gian, để dự đoán kết quả của mạng nơ-ron hồi quy, ta không chỉ cần các thông tin ngữ cảnh từ quá khứ mà còn cần những thông tin ngữ cảnh từ tương lai. Ví dụ như trong bài toán gán nhãn từ loại (part-of-speech tagging): ta cần gán từ loại cho mỗi từ trong câu $w_i$, nếu sử dụng một RNN đơn thuần, mô hình sẽ chỉ sử dụng được những thông tin từ những từ phía trước $w_1,...,w_{i-1}$ để dự đoán nhãn của từ $w_i$, sẽ hiệu quả hơn nếu ta tận dụng được cả những từ phía sau $w_{i+1},...,w_{N}$ cho việc dự đoán. Việc này không thể thực hiện được chỉ với mạng nơ-ron hồi quy đơn thuần. 
+
+Công trình \cite{schuster1997} đề xuất mô hình mạng nơ-ron hồi quy hai chiều (Bidirectional recurrent neural network). Mô hình này rất giống mạng nơ-ron hồi quy được trình bày trong mục \cite{rnnsection} ngoại trừ việc tại mỗi bước thời gian $t$, mô hình này duy trì hai lớp ẩn (thay vì một như trong RNN thông thường -hình \ref{fig_birnn}): một lớp ẩn được truyền từ trái sang phải và một truyền từ phải sang trái. Hai lớp ẩn này tương đương với hai véc-tơ trạng thái ẩn, trạng thái ẩn tổng hợp tại mỗi bước thời gian là véc-tơ nối dài của hai trạng thái ẩn này:
+
+\begin{align}
+	\overleftarrow{h_t} &= \phi \left(W_{xh} x_{t} + W_{hh} h_{t-1} + b_h \right) \\ \label{birnn1} 
+    \overrightarrow{h_t} &= \phi \left(W_{xh} x_{t} + W_{hh} h_{t+1} + b_h \right) \\ \label{birnn2}
+    \hat{y}_t &= \softmax \left(W_{hy} \left[\overleftarrow{h_t}, \overrightarrow{h_t} \right] + b_y \right) \\ \label{birnn3}	 \nonumber
+\end{align}
+trong công thức trên, $\overleftarrow{h_t}, \overleftarrow{h_t}$ lần lượt là véc-tơ trạng thái ẩn truyền từ phải sang trái và từ trái sang phải.
+
+
+
+
+
+
+
+
+
 
 
 
