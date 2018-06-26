@@ -1,4 +1,4 @@
-\chapter{Kiến Thức Nền Tảng}
+\chapter{Kiến thức nền tảng}
 \ifpdf
     \graphicspath{{Chapter2/Chapter2Figs/PNG/}{Chapter2/Chapter2Figs/PDF/}{Chapter2/Chapter2Figs/}}
 \else
@@ -8,8 +8,6 @@
 \begin{quote}
 
 \textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm: mô hình ngôn ngữ, mạng nơ-ron hồi quy và Long short-term memory. Mô hình ngôn ngữ cho phép chúng ta dự đoán từ tiếp theo trong một chuỗi từ cho trước; trong dịch máy, nó giúp tạo ra những bản dịch lưu loát. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. RNN được dùng làm bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Sau đó, dựa trên những kiến thức về RNN, chúng tôi nói về khái niệm mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy với chức năng tạo ra các từ trong bộ giải mã. Long short-term memory (LSTM) là phiên bản cải tiến của RNN nhằm giải quyết vấn đề về phụ thuộc dài hạn. LSTM cũng là phiên bản RNN được dùng để xây dựng nên Bộ mã hóa - Bộ giải mã trong khóa luận này. Những thành phần nói trên cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc Bộ mã hóa - Bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
-
-%\textit{Trong chương này, chúng tôi sẽ trình bày những kiến thức nền tảng trên ba chủ đề bao gồm mạng nơ-ron hồi quy, Long short-term memory và mô hình ngôn ngữ nơ-ron. Mạng nơ-ron hồi quy (RNN) là xương sống của dịch máy nơ-ron. Nó được sử dụng để làm cả bộ mã hóa lẫn bộ giải mã. Ứng với mỗi vai trò, RNN sẽ có một thiết kế riêng. Long short-term memory là phiên bản cải tiến của RNN để giải quyết vấn đề về phụ thuộc dài hạn. Long short-term memory cũng là phiên bản RNN được dùng để xây dựng nên bộ mã hóa - bộ giải trong khóa luận này. Sau đó, dựa trên những kiến thức về mạng nơ-ron hồi quy, chúng tôi nói về khái niệm mô hình ngôn ngữ dựa trên mạng nơ-ron hồi quy với chức năng tạo ra từ trong bộ giải mã, là bước quan trọng trong dịch máy nơ-ron. Những thành phần này cung cấp kiến thức nền tảng để đi đến mô hình dịch máy nơ-ron theo kiến trúc bộ mã hóa - bộ giải mã mà chúng tôi sẽ trình bày trong chương 3}.
 
 \end{quote}
 
@@ -453,6 +451,8 @@ Công trình \cite{schuster1997} đề xuất mô hình mạng nơ-ron hồi quy
     \hat{y}_t &= \softmax \left(W_{hy} \left[\overleftarrow{h_t}, \overrightarrow{h_t} \right] + b_y \right) \\ \label{birnn3}	 \nonumber
 \end{align}
 trong công thức trên, $\overleftarrow{h_t}, \overleftarrow{h_t}$ lần lượt là véc-tơ trạng thái ẩn truyền từ phải sang trái và từ trái sang phải.
+
+
 
 
 
