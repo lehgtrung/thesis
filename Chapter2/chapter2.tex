@@ -116,7 +116,7 @@ Ví dụ trên đã làm rõ hơn về hai tính chất của biểu diễn phâ
 
 Tuy biểu diễn phân tán có rất nhiều ưu điểm nhưng đi cùng với nó là một nhược điểm lớn và đó cũng là thách thức khó khăn. Làm sao để có thể xây dựng được các véc-tơ từ như vậy? Không thể xây dựng nó bằng cách thủ công như tự định nghĩa các đặc trưng và gán các giá trị cho từng từ trong bộ từ vựng được bởi vì công sức làm việc đó là rất lớn khi kích thước bộ từ vựng lớn lên. Các đặc trưng tự định nghĩa cũng rất khó thể hiện chính xác hoàn toàn được những ngữ nghĩa của các từ theo mong đợi. Do đó, các thuật toán, mô hình học biểu diễn phân tán một cách tự động được ra đời. Các thuật toán, mô hình như thế được gọi chung là \textit{word embedding} (tạm dịch là \textit{phép nhúng từ}).
 
-Từ word embedding được tạo ra bởi GS Bengio và cộng sự vào năm 2003 \cite{wordembeddingBengio2003} khi họ đã huấn luyện một mô hình ngôn ngữ nơ-ron đồng thời học biểu diễn từ thông qua các tham số của mô hình. Tuy nhiên công trình này vẫn chưa thực sự thành công, cho tới năm 2008, Collobert và Weston \cite{wordembeddingCollobert2008} đã đề xuất một kiến trúc mạng nơ-ron sâu tổng quát. 
+Từ word embedding được tạo ra bởi GS Bengio và cộng sự vào năm 2003 \cite{wordembeddingBengio2003} khi họ đã huấn luyện một mô hình ngôn ngữ nơ-ron mà đồng thời học luôn biểu diễn từ thông qua các tham số của mô hình. Tuy nhiên công trình này vẫn chưa thực sự thành công, cho tới năm 2008, Collobert và Weston \cite{wordembeddingCollobert2008} đã đề xuất một kiến trúc mạng nơ-ron sâu tổng quát. 
 Hiện nay, có hai cách chính để học word embedding.
 \begin{itemize}
 	\item Học theo chiến lược học không giám sát: sử dụng các thuật toán học đặc biệt để học biểu diễn từ dựa trên một tập dữ liệu. Thường là những tập dữ liệu thu thập được từ các nguồn khác nhau về mà chưa có được xử lí, đánh nhãn để giải quyết cho một bài toán cụ thể nào. Các tập dữ liệu này thường là dùng để huấn luyện cho mô hình ngôn ngữ.
@@ -125,7 +125,7 @@ Hiện nay, có hai cách chính để học word embedding.
 
 Hiện nay học theo chiến lược học không giám sát đang có được những kết quả ấn tượng. Cách học này giúp word embedding học được thường tốt hơn do tập dữ liệu không cần nhãn, vì thế tập dữ liệu dành cho việc học word embedding là rất lớn (có thể lên tới 1 tỉ từ) do dễ thu thập. Hơn nữa, word embedding học được còn có khả năng tổng quát hóa tốt (biểu diễn từ học được tốt trong nhiều ngữ cảnh). Đại diện cho cách học này là gồm Word2Vec \cite{word2vec2013} (sử dụng một mạng nơ-ron và ý tưởng đơn giản để học) và GloVe \cite{glove2014} (sử dụng thống kê tần số của các từ để học). Đây là hai word embedding mà được mọi người tin tưởng và sử dụng rộng rãi để giải quyết các bài toán khác nhau.
 
-Học theo chiến lược có giám sát thì ít được biết đến hơn bởi vì word embedding học được theo cách này thì chỉ có hữu dụng với bài toán mà mô hình đang giải quyết. Nếu như mô hình đang giải quyết bài toán Dịch máy thì word embedding sẽ tâp trung vào biểu diễn các từ sao cho phù hợp nhất với bài toán Dịch máy và không thể mang word embedding này để giải quyết bài toán khác.
+Học theo chiến lược có giám sát thì ít phổ biến hơn bởi vì word embedding học được theo cách này thì chỉ có hữu dụng với bài toán mà mô hình đang giải quyết. Nếu như mô hình đang giải quyết bài toán Dịch máy thì word embedding sẽ tâp trung vào biểu diễn các từ sao cho phù hợp nhất với bài toán Dịch máy và không thể mang word embedding này để giải quyết bài toán khác.
 
 \section{Mạng nơ-ron hồi quy (Recurrent neural network)}
 
