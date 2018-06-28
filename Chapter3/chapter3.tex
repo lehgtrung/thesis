@@ -143,12 +143,12 @@ Attention sử dụng thêm một số đại lượng:
 	\begin{equation}
 	\bm{c}_t = \sum_{s}a_{ts}\bm{h}_s
 	\end{equation}
-	Véc-tơ $\bm{c}_t$ cho mô hình biết thông tin rằng với trạng thái ẩn hiện tại (chứa thông tin của quá trình dịch trước đó) thì ngữ cảnh hiện tại của bước thời gian $t$ là gì. Ngữ cảnh đó được thể hiện thông qua những thông tin của các trạng thái ẩn $\bm{h}_s$ của câu nguồn mà được lựa chọn một cách có chọn lọc (có trọng số). Trong quá trình dịch, bộ giải mã cần phải dự đoán từ tiếp theo của câu đích. Để dự đoán được chính xác, mô hình cần phải biết được ngữ cảnh hiện tại của câu như thế nào. Để đảm bảo ngữ cảnh mà mô hình nhận được chính xác, mô hình không thể chỉ dựa vào các trạng thái ẩn của bộ giải mã ở các bước thời gian trước đó. Do vậy, mô hình sử dụng thêm các trạng thái ẩn của các từ ở câu nguồn để thể hiện ngữ cảnh một cách chính xác hơn.
+	Véc-tơ $\bm{c}_t$ cho mô hình biết thông tin rằng với trạng thái ẩn hiện tại (chứa thông tin của quá trình dịch trước đó) thì ngữ cảnh hiện tại của bước thời gian $t$ là gì. Ngữ cảnh đó được thể hiện thông qua những thông tin của các trạng thái ẩn $\bm{h}_s$ của câu nguồn mà được lựa chọn một cách có chọn lọc (có trọng số). Trong quá trình dịch, bộ giải mã cần phải dự đoán từ tiếp theo của câu đích. Để dự đoán được chính xác, mô hình cần phải biết được ngữ cảnh hiện tại trong câu như thế nào hay mô hình cần những gì. Nhằm đảm bảo ngữ cảnh mà mô hình nhận được chính xác, mô hình không thể chỉ dựa vào các trạng thái ẩn của bộ giải mã ở các bước thời gian trước đó mà còn phải sử dụng thêm các trạng thái ẩn của bộ mã hóa.
 	\item $\bm{\tilde{h}}_t$: véc-tơ attention tại bước thời gian $t$, được tính như sau:
 	\begin{equation}
 	\boldsymbol{\tilde{h}}_t = \tanh(\bm{W}_c[\bm{c}_t;\bm{h}_t])
 	\end{equation}
-	Véc-tơ attention chứa thông tin gióng hàng và trạng thái ẩn của bước thời gian $t$ hiện tại. Nhờ đó, mô hình nắm giữ được nhiều thông tin hơn để có thể dự đoán tốt hơn.
+	Véc-tơ attention chứa thông tin gióng hàng cùng với trạng thái ẩn của bước thời gian $t$ hiện tại. Nhờ đó, mô hình nắm giữ được nhiều thông tin hơn để có thể dự đoán tốt hơn.
 \end{itemize}
 Bước dự đoán đầu ra không thay đổi ngoài trạng thái ẩn $\bm{h}_t$ được thay thế bởi véc-tơ attention $\bm{\tilde{h}}_t$. Véc-tơ này được đưa qua tầng softmax để cho ra phân bố xác suất dự đoán trên các từ:
 \begin{equation}
@@ -157,7 +157,7 @@ p(y_t | y_{<t}, \bm{x}) = \text{softmax}(\bm{W_s\tilde{h}})
 Hình \ref{fig_Attention} minh họa cơ chế Attention. Trước khi bộ giải mã thực hiện dự đoán từ tiếp theo, mô hình tính toán thêm một số đại lượng $\bm{a}_t$, $\bm{c}_t$. Một cách tổng quát, mục tiêu cuối cùng của cơ chế Attention là xoay quanh việc tìm véc-tơ ngữ cảnh $\bm{c_t}$ một cách hiệu quả.
 Tiếp theo, chúng tôi trình bày chi tiết hơn về hai phiên bản Toàn cục và Cục bộ. Hai phiên bản này chỉ khác nhau về cách suy ra véc-tơ ngữ cảnh $\bm{c_t}$, còn các bước còn lại giống nhau.
 \subsection{Attention Toàn cục}
-Ý tưởng của Attention toàn cục là nhìn vào toàn bộ các vị trí nguồn (các trạng thái ẩn của LSTM ở bộ mã hóa) khi thực hiện giải mã.
+Ý tưởng của Attention toàn cục là "nhìn" vào toàn bộ các vị trí nguồn (các trạng thái ẩn của LSTM ở bộ mã hóa) khi thực hiện giải mã.
 Khi đó trọng số gióng hàng $\bm{a}_t$ là một véc-tơ có kích thước thay đổi và bằng số trạng thái ẩn (số từ) ở câu nguồn: $\text{len}(\bm{a}_t) = S$.
 
 \begin{equation}

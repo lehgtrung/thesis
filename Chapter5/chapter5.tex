@@ -11,10 +11,10 @@
 Trong khóa luận này, chúng tôi nghiên cứu bài toán Dịch máy nơ-ron bằng mô hình Attention-LSTM. Mô hình Attention-LSTM học được cách dịch giữa hai ngôn ngữ (trong khóa luận này là Anh-Đức) như các mô hình với kiến trúc Bộ mã hóa - Bộ giải mã với bộ mã hóa và bộ giải mã là các LSTM. Tuy nhiên cơ chế Attention đem lại nhiều lợi thế mà những mô hình không sử dụng Attention không có được:
 \begin{itemize}
 	\item Các mô hình sử dụng Attention tận dụng được các trạng thái ẩn trên bộ mã hóa để hạn chế vấn đề "sự phụ thuộc dài" của các mô hình RNN. Trong quá trình dự đoán, bộ giải mã sử dụng các trạng thái ẩn của bộ mã hóa bằng cách "nhìn" vào các trạng thái ẩn cần thiết và sử dụng nó để suy ra ngữ cảnh hiện tại của câu, sau đó mô hình dự đoán từ tiếp theo dựa vào ngữ cảnh đó.
-	\item Cơ chế có cách dịch giống với ý tưởng về cách con người dịch hay nhìn sự vật, hiện tượng. Mọi người thường chỉ nhìn rồi tập trung vào những phần quan trọng mà cung cấp những thông tin cần thiết, phù hợp với mục đích quan sát của sự vật, hiện tượng.
+	\item Cơ chế có cách dịch khá giống với ý tưởng về cách con người dịch hay nhìn sự vật, hiện tượng. Mọi người thường chỉ "nhìn" vào một vùng nhất định rồi tập trung vào những phần quan trọng mà cung cấp những thông tin cần thiết, phù hợp với mục đích quan sát của sự vật, hiện tượng.
 	\item Có thể sử dụng kết quả của cơ chế Attention để phát triển thêm các phương pháp, kĩ thuật khác:
 	\begin{itemize}
-		\item Phương pháp Input feeding: giúp mô hình có thể biết được thông tin gióng hàng trong những thời điểm trước đó thông qua véc-tơ attention $\bm{\tilde{h}}_t$. Từ đó giúp mô hình có thể hạn chế vấn đề "đươc dịch quá nhiều" hoặc "được dịch quá ít", tránh được những câu dịch không thực tế như những câu dịch lặp lại một từ nhiều lần.
+		\item Phương pháp input feeding: giúp mô hình có thể biết được thông tin gióng hàng trong những thời điểm trước đó thông qua véc-tơ attention $\bm{\tilde{h}}_t$. Từ đó giúp mô hình có thể hạn chế vấn đề "đươc dịch quá nhiều" hoặc "được dịch quá ít", tránh được những câu dịch không thực tế như những câu dịch lặp lại một từ nhiều lần.
 		\item Kĩ thuật thay thế từ hiếm: giúp mô hình giải quyết được vấn đề hạn chế về kích thước của bộ từ vựng. Do bộ từ vựng không thể chứa hết tất cả các từ có thể có trong quá trình dịch, mô hình sẽ khó khăn nếu gặp những từ hiếm đó, vì vậy chất lượng dịch của mô hình bị giảm đáng kể. Đặc biệt là khi mô hình hay gặp những câu có chứa các từ hiếm như số, tên riêng, tên các địa danh, v.v... 
 	\end{itemize}
 \end{itemize}
@@ -31,7 +31,7 @@ Trong khóa luận, chúng tôi đạt được:
 \begin{itemize}
 	\item Tìm hiểu và cài đặt được mô hình Dịch máy với các LSTM.
 	\item Tìm hiểu và cài đặt được các mô hình sử dụng cơ chế Attention và các phiên bản Toàn cục, Cục bộ của nó.
-	\item Tìm hiểu và cài đặt được phương pháp Input feeding và kĩ thuật thay thế từ hiếm nhằm nâng cao chất lượng dịch của mô hình dựa trên kết quả của cơ chế Attention.
+	\item Tìm hiểu và cài đặt được phương pháp input feeding và kĩ thuật thay thế từ hiếm nhằm nâng cao chất lượng dịch của mô hình dựa trên kết quả của cơ chế Attention.
 	\item Có được sự hiểu biết sâu hơn về những thuận lợi, khó khăn của bài toán Dịch máy và những ưu, khuyết điểm của các mô hình Dịch máy hiện nay.
 \end{itemize}
 

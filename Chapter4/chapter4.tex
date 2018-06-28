@@ -31,20 +31,20 @@ Chúng tôi thực hiện đánh giá độ hiệu quả của cơ chế Attenti
 	\item Đảo ngược trật tự từ trong câu.
 	\item Dropout.
 \end{itemize}
-Chúng tôi gọi đó là mô hình cơ bản. Đối với mô hình sử dụng cơ chế Attention, chúng tôi thiết lập mô hình như mô hình căn bản cộng với sử dụng cơ chế Attention Toàn cục với hàm tính điểm là hàm \textit{general} và có sử dụng phương pháp input feeding, kĩ thuật thay thế từ hiếm.
+Chúng tôi gọi đó là mô hình cơ bản. Đối với mô hình sử dụng cơ chế Attention, chúng tôi thiết lập mô hình như mô hình căn bản cộng với sử dụng cơ chế Attention Toàn cục với hàm tính điểm là hàm \textit{general}.
 
-Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa hai mô hình. Giá trị perplexity càng thấp càng tốt và giá trị BLEU càng cao càng tốt. Với cơ chế Attention, chất lượng dịch của mô hình được cải thiện rất lớn. Điểm BLEU tăng từ 15.04 đến 22.87 (+7.83). Đây là cải thiện rất lớn trong Dịch máy nơ-ron khi Dịch máy Thống kê đang dần chạm tới giới hạn. Kết quả này chứng minh được rằng cơ chế Attention rất hiệu quả trong việc giải quyết các hạn chế của kiến trúc Bộ mã hóa - Bộ giải mã với LSTM đã được trình bày ở ban đầu và cũng rất phù hợp trong việc áp dụng vào cho bài toán Dịch máy.
+Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa hai mô hình. Giá trị perplexity càng thấp càng tốt và giá trị BLEU càng cao càng tốt. Với cơ chế Attention, chất lượng dịch của mô hình được cải thiện rất lớn. Điểm BLEU tăng từ 15.04 đến 19.99 (+4.95). Đây là cải thiện rất lớn trong Dịch máy nơ-ron khi Dịch máy Thống kê đang dần chạm tới giới hạn. Kết quả này chứng minh được rằng cơ chế Attention rất hiệu quả trong việc giải quyết các hạn chế của kiến trúc Bộ mã hóa - Bộ giải mã với LSTM đã được trình bày ở ban đầu và cũng rất phù hợp trong việc áp dụng vào cho bài toán Dịch máy.
 
 \begin{table}
 	\centering
 	\caption{So sánh giữa mô hình sử dụng cơ chế Attention và mô hình không sử dụng cơ chế Attention.}
-	\begin{tabular}{|l|l|c|} 
+	\begin{tabular}{|l|c|c|} 
 		\hline
-		\multicolumn{1}{|c|}{ \textbf{Mô hình} }         & \textbf{Perplexity}  & \textbf{BLEU}   \\ 
+		\multicolumn{1}{|c|}{ \textbf{Mô hình} } & \textbf{Perplexity}   & \textbf{BLEU}              \\ 
 		\hline
-		Cơ bản                                           & 8.03                 & 15.04           \\ 
+		Cơ bản                                   & 8.03                  & 15.04                      \\ 
 		\hline
-		Cơ bản + global (general) + input feed + unk rpl & \textbf{5.22 (-2.81)}         & \textbf{22.87 (+7.83)}   \\
+		Cơ bản + global (general)~               & \textbf{4.98(-3.05)}  & \textbf{19.99 (+4.95)}~ ~  \\
 		\hline
 	\end{tabular}
 	\label{tab_non-attn_vs_attn}
@@ -79,15 +79,15 @@ Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa hai mô hình. G
 	\label{tab_attn-vs-attn}
 \end{table}
 
-Từ bảng kết quả cho thấy mô hình Attention Toàn cục với general product mà có sử dụng phương pháp Input feeding (global general + input feed)) có chất lượng dịch tốt nhất với điểm BLEU là 20.41 (22.87 khi dùng kĩ thuật thay thế từ hiếm). Mô hình Attention Toàn cục với hàm tính điểm \textit{dot, general} cộng với phương pháp input feeding (global (dot, general) + input feed) có độ tăng điểm BLEU cao nhất khi dùng kĩ thuật thay thế từ hiếm. Kết quả này chứng minh được rằng mô hình global (general) có ý tưởng phù hợp cho cặp ngôn ngữ Anh - Đức và hoạt động hiệu quả như mong đợi trong thực tế.  Mô hình có độ đo Perplexity thấp nhất là mô hình global (general) với 4.98. Mặc dù Perplexity hơn mô hình (global (general) + input feed) là 5.43, nhưng (global (general) + input feed) có điểm BLEU tốt nhất là 20.41, hơn 0.42 điểm. Điều này cho thấy là mô hình global (general) có khả năng tổng quát hóa chưa tốt so với các mô hình khác.
+Từ bảng kết quả cho thấy mô hình Attention Toàn cục với general product mà có sử dụng phương pháp input feeding (global general + input feed)) có chất lượng dịch tốt nhất với điểm BLEU là 20.41 (22.87 khi dùng kĩ thuật thay thế từ hiếm). Mô hình Attention Toàn cục với hàm tính điểm \textit{dot, general} cộng với phương pháp input feeding (global (dot, general) + input feed) có độ tăng điểm BLEU cao nhất khi dùng kĩ thuật thay thế từ hiếm. Kết quả này chứng minh được rằng mô hình global (general) có ý tưởng phù hợp cho cặp ngôn ngữ Anh - Đức và hoạt động hiệu quả như mong đợi trong thực tế.  Mô hình có độ đo Perplexity thấp nhất là mô hình global (general) với 4.98. Mặc dù Perplexity hơn mô hình (global (general) + input feed) là 5.43, nhưng (global (general) + input feed) có điểm BLEU tốt nhất là 20.41, hơn 0.42 điểm. Điều này cho thấy là mô hình global (general) có khả năng tổng quát hóa chưa tốt so với các mô hình khác.
  
-Kết quả cho thấy rằng với 2 phương pháp Input feeding và thay thế từ hiếm mà chúng tôi đã trình bày ở phần trước đều góp phần tăng hiệu quả của mô hình lên rất đáng kể. Cụ thể, phương pháp Input feeding giúp mô hình global (dot) tăng điểm BLEU từ 18.62 lên 19.78 (+1.16), giúp mô hình global (general) tăng từ 19.99 lên 20.41 (+0.42). Kĩ thuật thay thế từ hiếm tăng trung bình hơn 2.0 BLEU (trừ mô hình global (dot) chỉ tăng 0.19). Các kết quả này chứng minh được rằng những ý tưởng, lý thuyết chúng tôi trình bày ở phần trước đều hoạt động tốt như mong đợi. Những phương pháp, kĩ thuật này vừa rõ ràng về mặt lý thuyết, vừa hiệu quả trong thực tế.
+Kết quả cho thấy rằng với 2 phương pháp input feeding và thay thế từ hiếm mà chúng tôi đã trình bày ở phần trước đều góp phần tăng hiệu quả của mô hình lên rất đáng kể. Cụ thể, phương pháp input feeding giúp mô hình global (dot) tăng điểm BLEU từ 18.62 lên 19.78 (+1.16), giúp mô hình global (general) tăng từ 19.99 lên 20.41 (+0.42). Kĩ thuật thay thế từ hiếm tăng trung bình hơn 2.0 BLEU (trừ mô hình global (dot) chỉ tăng 0.19). Các kết quả này chứng minh được rằng những ý tưởng, lý thuyết chúng tôi trình bày ở phần trước đều hoạt động tốt như mong đợi. Những phương pháp, kĩ thuật này vừa rõ ràng về mặt lý thuyết, vừa hiệu quả trong thực tế.
 
-Về phương pháp Input feeding, có một chút hạn chế của phương pháp này về chi phí tính toán. Input feeding làm kích thước đầu vào ở các bước thời gian của uni-LSTM của bộ giải mã tăng lên theo kích thước của véc-tơ attention. Hơn nữa, về mặt cài đặt, chúng ta không tận dụng được LSTM mà đã được hỗ trợ cài đặt bởi NVIDIA. Do vậy, tốc độ huấn luyện và trong kiểm thử của mô hình khi có sử dụng cơ chế Input feeding sẽ giảm đi đáng kể, bên cạnh đó kích thước của mô hình cũng tăng lên theo.
+Về phương pháp input feeding, có một chút hạn chế của phương pháp này về chi phí tính toán. Input feeding làm kích thước đầu vào ở các bước thời gian của uni-LSTM của bộ giải mã tăng lên theo kích thước của véc-tơ attention. Hơn nữa, về mặt cài đặt, chúng ta không tận dụng được LSTM mà đã được hỗ trợ cài đặt bởi NVIDIA. Do vậy, tốc độ huấn luyện và trong kiểm thử của mô hình khi có sử dụng phương pháp input feeding sẽ giảm đi đáng kể, bên cạnh đó kích thước của mô hình cũng tăng lên theo.
 
 Về kĩ thuật thay thế từ hiếm, từ kết quả cho thấy kĩ thuật này rất mạnh mẽ. Các mô hình Attention được sử dụng cùng với kĩ thuật này đều được tăng điểm BLEU hơn 2. Mô hình này chỉ có hạn chế là phải phụ thuộc vào kết quả của cơ chế Attention có tốt hay không. Kết quả cũng cho thấy rằng chất lượng mô hình Attention không tốt sẽ dẫn tới độ hiệu quả của kĩ thuật thay thế từ hiếm kém đi (mô hình global (dot)). Còn lại thì kĩ thuật này rất hiệu quả và tiện lợi. Thay thế từ hiếm không ảnh hưởng tới quá trình huấn luyện, do vậy mô hình không phải tốn chi phí tính toán cho kĩ thuật này trong quá trình huấn luyện và tốc độ huấn luyện không bị ảnh hưởng. 
 
-Nhìn chung, kết quả cho thấy kĩ thuật thay thế từ hiếm cải thiện kết quả tốt hơn phương pháp Input feeding, nhưng Input feeding giúp tạo ra một mô hình Attention đủ tốt để tạo điều kiện cho kĩ thuật thay thế từ hiếm phát huy sự hiệu quả của nó.
+Nhìn chung, kết quả cho thấy kĩ thuật thay thế từ hiếm cải thiện kết quả tốt hơn phương pháp input feeding, nhưng input feeding giúp tạo ra một mô hình Attention đủ tốt để tạo điều kiện cho kĩ thuật thay thế từ hiếm phát huy sự hiệu quả của nó.
 
 \subsection{Phân tích đường cong học}
 Phần này, chúng tôi tập trung vào so sánh các tất cả các mô hình đã thực hiện ở phương diện quá trình học bằng cách quan sát độ lỗi và độ đo Perplexity của các mô hình đó trên cả tập huấn luyện và tập validation (newstest\_2013) trong quá hình huấn luyện mô hình. Điều này giúp chúng tôi biết được mô hình nào sẽ hội tụ và tổng quát hóa tốt hơn.
@@ -99,10 +99,10 @@ Phần này, chúng tôi tập trung vào so sánh các tất cả các mô hìn
 	\label{fig_learning_curve}
 \end{figure}
 
-Từ đồ thị \ref{fig_learning_curve}, thấy được rằng mô hình global (general) + input feed hội tụ nhanh nhất (độ lỗi và perplexity trên tập huấn luyện thấp nhất qua từng epoch). Trong các epoch đầu, hầu hết các mô hình có tốc độ giảm perplexity nhanh như nhau trên tập huấn luyện (chênh lệch độ lỗi, perplexity giữa hai mô hình thay đổi nhỏ qua các epoch). Các mô hình Attention không sử dụng phương pháp input feeding ở epoch đầu có perplexity cao hơn so với các mô hình sử dụng input feeding, nhưng khi ở các epoch về sau thì tốc độ giảm perplexity giống nhau. Các mô hình Attention Cục bộ ở các epoch đầu đều có hành vi tương tự Attention Toàn cục, chỉ có khác nhau ở các epoch cuối cùng. Mô hình local-p general này ở các epoch cuối có tốc độ giảm perplexity chậm đi rõ rệt, điều này thấy được rõ khi nhìn vào tập validation. Mô hình global (general) là mô hình tốt nhất trên tập validation khi có độ lỗi và perplexity thấp nhất đồng thời có tốc độ giảm độ lỗi và perplexity nhanh nhất. Nhìn chung các mô hình Attention Toàn cục mà sử dụng hàm tính điểm dot thì có kết quả chưa tốt bằng các mô hình sử dụng hàm tính điểm general. Đối với mô hình không sử dụng Attention (non-attention) thì bị bỏ xa bởi các mô hình sử dụng Attention.
+Từ đồ thị \ref{fig_learning_curve}, thấy được rằng mô hình global (general) + input feed hội tụ nhanh nhất (độ lỗi và perplexity trên tập huấn luyện thấp nhất qua từng epoch). Trong các epoch đầu, hầu hết các mô hình có tốc độ giảm perplexity nhanh như nhau trên tập huấn luyện (chênh lệch độ lỗi, perplexity giữa hai mô hình thay đổi nhỏ qua các epoch). Các mô hình Attention không sử dụng phương pháp input feeding ở epoch đầu có perplexity cao hơn so với các mô hình sử dụng input feeding, nhưng khi ở các epoch về sau thì tốc độ giảm perplexity giống nhau. Các mô hình Attention Cục bộ ở các epoch đầu đều có hành vi tương tự Attention Toàn cục, chỉ có khác nhau ở các epoch cuối cùng. Mô hình global (general) là mô hình tốt nhất trên tập validation khi có độ lỗi và perplexity thấp nhất đồng thời có tốc độ giảm độ lỗi và perplexity nhanh nhất. Nhìn chung các mô hình Attention Toàn cục mà sử dụng hàm tính điểm dot thì có kết quả chưa tốt bằng các mô hình sử dụng hàm tính điểm general. Đối với mô hình không sử dụng Attention (non-attention) thì bị bỏ xa bởi các mô hình sử dụng Attention.
 
 \subsection{So sánh với kết quả của bài báo}
-Phần này chúng tôi thực hiện so sánh kết quả của chúng tôi với kết quả của bài báo \textit{Effective Approaches to Attention-based Neural Machine Translation} \cite{attentionThangLuong2015} để đánh giá rằng mô hình của chúng tôi hoạt động có thực sự đúng không.
+Phần này chúng tôi thực hiện so sánh kết quả của chúng tôi với kết quả của bài báo \textit{Effective Approaches to Attention-based Neural Machine Translation} \cite{attentionThangLuong2015} để đánh giá rằng mô hình của chúng tôi hoạt động có thực sự đúng với bài báo không.
 
 % \usepackage{multirow}
 \begin{table}
