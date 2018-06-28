@@ -35,10 +35,6 @@ Y.~Bengio, R.~Ducharme, P.~Vincent, and C.~Janvin, ``A neural probabilistic
   language model,'' \emph{J. Mach. Learn. Res.}, vol.~3, pp. 1137--1155, Mar.
   2003.
 
-\bibitem{wordembeddingBengio2003}
-------, ``A neural probabilistic language model,'' \emph{J. Mach. Learn. Res.},
-  vol.~3, pp. 1137--1155, Mar. 2003.
-
 \bibitem{cho}
 K.~Cho, B.~van Merrienboer, C.~Gulcehre, D.~Bahdanau, F.~Bougares, H.~Schwenk,
   and Y.~Bengio, ``Learning phrase representations using rnn encoder--decoder
@@ -144,9 +140,12 @@ H.~Larochelle and G.~E. Hinton, ``Learning to combine foveal glimpses with a
 
 \bibitem{attentionThangLuong2015}
 \BIBentryALTinterwordspacing
-M.~Luong, H.~Pham, and C.~D. Manning, ``Effective approaches to attention-based
-  neural machine translation,'' \emph{CoRR}, vol. abs/1508.04025, 2015.
-  [Online]. Available: \url{http://arxiv.org/abs/1508.04025}
+T.~Luong, H.~Pham, and C.~D. Manning, ``Effective approaches to attention-based
+  neural machine translation,'' in \emph{Proceedings of the 2015 Conference on
+  Empirical Methods in Natural Language Processing}.\hskip 1em plus 0.5em minus
+  0.4em\relax Lisbon, Portugal: Association for Computational Linguistics,
+  September 2015, pp. 1412--1421. [Online]. Available:
+  \url{http://aclweb.org/anthology/D15-1166}
 \BIBentrySTDinterwordspacing
 
 \bibitem{massetal2012}
