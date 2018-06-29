@@ -1,7 +1,8 @@
 \begin{thenomenclature} 
 
  \nomgroup{A}
-
+  \item [{$BPTT:$}]\begingroup Backpropagation Through Time - Thuật toán  lan truyền ngược qua thời gian \nomeqref {0}
+		\nompageref{xiii}
   \item [{$LSTM:$}]\begingroup Long short-term memory - Bộ nhớ ngắn hạn dài\nomeqref {0}
 		\nompageref{xiii}
   \item [{$RNN:$}]\begingroup Recurrent neural network - Mạng nơ-ron hồi qui\nomeqref {0}
