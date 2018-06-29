@@ -35,7 +35,7 @@ Công thức \ref{traditionalLM} theo giả định markov trở thành:
 
 Mặc dù giả định markov bậc $k$ rõ ràng là sai với $k$ bất kỳ (một câu có thể có phụ thuộc dài hạn với chiều dài bất kỳ như câu bắt đầu bằng từ \textit{what} và kết thúc bằng dấu \textit{?}), tuy nhiên nó vẫn tạo ra những mô hình ngôn ngữ mạnh mẽ với với các giá trị tương đối nhỏ của $k$ ($k=3$ hoặc $k=5$), và là phương pháp chủ yếu cho bài toán mô hình hóa ngôn ngữ trong hàng thập kỷ.
 
-Do mô hình ngôn ngữ là một mô hình học không giám sát, một cách thông thường để đánh giá một mô hình học không giám sát là áp dụng nó lên một bài toán học có giám sát rồi đánh giá thông qua kết quả của bài toán đó, ví dụ: đo lường sự cải thiện chất lượng dịch khi chuyển đổi từ mô hình ngôn ngữ A sang mô hình ngôn ngữ B trong một hệ thống dịch máy. Cách đánh giá này được gọi là đánh giá bên ngoài (extrinsic evaluation). Tuy nhiên, đánh giá bên ngoài rất tốn kém đối với những bài toán học có giám sát lớn và phức tạp. Vì vậy, một độ đo được thiết kế để đánh giá mô hình ngôn ngữ một cách nội tại (intrinsic evaluation) đó là "perplexity". Perplexity là một độ đo để đánh giá một mô hình xác suất tốt như thế nào khi dự đoán một mẫu chưa nhìn thấy (unseen sample). Cho trước một tập ngữ liệu $ W = w_1, w_2, ..., w_N$ ($N$ là một số rất lớn) và một mô hình ngôn ngữ \textit{LM}, perplexity của $W$ ứng với mô hình ngôn ngữ \textit{LM} là:
+Do mô hình ngôn ngữ là một mô hình học không giám sát, một cách thông thường để đánh giá một mô hình học không giám sát là áp dụng nó lên một bài toán học có giám sát rồi đánh giá thông qua kết quả của bài toán đó, ví dụ: đo lường sự cải thiện chất lượng dịch khi chuyển đổi từ mô hình ngôn ngữ A sang mô hình ngôn ngữ B trong một hệ thống dịch máy. Cách đánh giá này được gọi là đánh giá bên ngoài (extrinsic evaluation). Tuy nhiên, đánh giá bên ngoài rất tốn kém đối với những bài toán học có giám sát lớn và phức tạp. Vì vậy, một độ đo được thiết kế để đánh giá mô hình ngôn ngữ một cách nội tại (intrinsic evaluation) đó là perplexity. Perplexity là một độ đo để đánh giá một mô hình xác suất tốt như thế nào khi dự đoán một mẫu chưa nhìn thấy (unseen sample). Cho trước một tập ngữ liệu $ W = w_1, w_2, ..., w_N$ ($N$ là một số rất lớn) và một mô hình ngôn ngữ \textit{LM}, perplexity của $W$ ứng với mô hình ngôn ngữ \textit{LM} là:
 \begin{equation} \label{perplexity}
 \begin{split}
 Perplexity(W) &= LM \left(p(w_1,...,w_N) \right)^{-\frac{1}{N}} \\
@@ -71,23 +71,23 @@ Ngoài ra còn một vấn đề với mô hình \textit{n}-gram là \textbf{tí
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{wordembedding}
-	\caption[Minh họa cách biểu diễn từ bằng "word embedding"]{Minh họa cách biểu diễn từ bằng "word embedding": một từ $w_i$ được biểu diễn dưới dạng véc-tơ "one-hot", $w_i$ sau đó được biến đổi thành $x_i$ dựa trên một phép biến đổi tuyển tính với ma trận $P$ của phép biến đổi. $|V|$ là số lượng từ vựng, $D_e$ là số chiều của "word embedding" được xác định trước.}
+	\caption[Minh họa cách biểu diễn từ bằng word embedding]{Minh họa cách biểu diễn từ bằng word embedding: một từ $w_i$ được biểu diễn dưới dạng véc-tơ one-hot, $w_i$ sau đó được biến đổi thành $x_i$ dựa trên một phép biến đổi tuyển tính với ma trận $P$ của phép biến đổi. $|V|$ là số lượng từ vựng, $D_e$ là số chiều của word embedding được xác định trước.}
 	\label{fig_wordembedding}
 \end{figure}
 
-Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Nó giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số, nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ - đặc biệt hơn những tham số này sẽ được chia sẻ cho toàn bộ mô hình, điều này giúp tăng tính tổng quát hóa \cite{bengioLM2003}; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là "word embedding", điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ. Hình \ref{fig_wordembedding} mô tả cách tạo ra các véc-tơ "embedding". "Word embedding" sẽ được nhắc lại một lần nữa trong mục \ref{wordembeddingsection}: Biểu diễn từ trong mạng học sâu.
+Trong bài báo "A Neural Probabilistic Language Model" \cite{bengioLM2003}, giáo sư Yoshua Bengio và các cộng sự đã đề xuất một mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng. Nó giải quyết hai vấn đề mà mô hình \textit{n}-gram gặp phải: một là mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng là một mô hình tham số, nghĩa là đầu ra sẽ được tính dựa trên các tham số của mô hình sau khi được huấn luyện), điều này giúp giảm bộ nhớ lưu trữ - đặc biệt hơn những tham số này sẽ được chia sẻ cho toàn bộ mô hình, điều này giúp tăng tính tổng quát hóa \cite{bengioLM2003}; hai là nó sử dụng biểu diễn véc-tơ để biểu diễn các từ gọi là word embedding, điều này giúp mô hình có khả năng nắm bắt tính tương tự về ngữ nghĩa giữa các từ. Hình \ref{fig_wordembedding} mô tả cách tạo ra các véc-tơ embedding. Word embedding sẽ được nhắc lại một lần nữa trong mục \ref{wordembeddingsection}: Biểu diễn từ trong mạng học sâu.
 
-Tuy nhiên, mô hình này vẫn dựa trên giả định markov. Tại mỗi thời điểm, đầu vào của mạng là một nối dài của các véc-tơ "embedding" tại những thời điểm trước đó $i_t = \left[ x_{t-(n-1)},...,x_t \right]$ trong đó $x_i$ là véc-tơ "embedding" của từ $w_i$, $n$ là bậc của giả định markov (hình \ref{fig_fnnlm} mô tả cách hoạt động của mô hình). Đây là một khuyết điểm lớn của mô hình khi nó chỉ nắm bắt được thông tin trong một vùng $n - 1$ từ trước đó. Do những khuyết điểm này, một mô hình ngôn ngữ dựa trên \textit{mạng nơ-ron hồi quy} được đề xuất trong \cite{mikolovLM}. Mô hình này kế thừa những ưu điểm của mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng và có khả năng nắm bắt được thông tin trên một vùng có chiều dài bất kỳ. Mô hình này sẽ được nói đến trong phần kiến thức cơ bản về mạng nơ-ron hồi quy và được giải thích chi tiết trong chương 3 trong mục bộ giải mã. 
+Tuy nhiên, mô hình này vẫn dựa trên giả định markov. Tại mỗi thời điểm, đầu vào của mạng là một nối dài của các véc-tơ embedding tại những thời điểm trước đó $i_t = \left[ x_{t-(n-1)},...,x_t \right]$ trong đó $x_i$ là véc-tơ embedding của từ $w_i$, $n$ là bậc của giả định markov (hình \ref{fig_fnnlm} mô tả cách hoạt động của mô hình). Đây là một khuyết điểm lớn của mô hình khi nó chỉ nắm bắt được thông tin trong một vùng $n - 1$ từ trước đó. Do những khuyết điểm này, một mô hình ngôn ngữ dựa trên \textit{mạng nơ-ron hồi quy} được đề xuất trong \cite{mikolovLM}. Mô hình này kế thừa những ưu điểm của mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng và có khả năng nắm bắt được thông tin trên một vùng có chiều dài bất kỳ. Mô hình này sẽ được nói đến trong phần kiến thức cơ bản về mạng nơ-ron hồi quy và được giải thích chi tiết trong chương 3 trong mục bộ giải mã. 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{fnnlm}
-	\caption[Minh họa mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng]{Minh họa mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng: mô hình nhận đầu vào là các véc-tơ ngữ cảnh $w_{t-(n-1)},...,w_t$ dưới dạng "one-hot", sau đó những véc-tơ này được biểu diễn lại dưới dạng các véc-tơ "embedding" $x_{t-(n-1)},...,x_t$. Những véc-tơ "embedding" được nối dài tạo thành véc-tơ đầu vào $i_t$, $i_t$ lần lượt được đưa qua tầng ẩn $\tanh$ và sau đó là $\softmax$. Tại đây mô hình dự đoán đầu ra: là một véc-tơ "one-hot" dựa trên véc-tơ đầu ra ở tầng $\softmax$.}
+	\caption[Minh họa mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng]{Minh họa mô hình ngôn ngữ dựa trên mạng nơ-ron truyền thẳng: mô hình nhận đầu vào là các véc-tơ ngữ cảnh $w_{t-(n-1)},...,w_t$ dưới dạng one-hot, sau đó những véc-tơ này được biểu diễn lại dưới dạng các véc-tơ embedding $x_{t-(n-1)},...,x_t$. Những véc-tơ embedding được nối dài tạo thành véc-tơ đầu vào $i_t$, $i_t$ lần lượt được đưa qua tầng ẩn $\tanh$ và sau đó là $\softmax$. Tại đây mô hình dự đoán đầu ra: là một véc-tơ one-hot dựa trên véc-tơ đầu ra ở tầng $\softmax$.}
 	\label{fig_fnnlm}
 \end{figure}
 
 \section{Biểu diễn từ trong mạng học sâu} \label{wordembeddingsection}
-Trong phần mô hình ngôn ngữ, chúng tôi có nhắc đến "word embedding", trong mục này, chúng tôi sẽ nói thêm về nó. Để máy tính có thể hiểu được và xử lí được những thông tin đến từ thế giới thực, những thông tin đó phải được biểu diễn dưới dạng các con số. Trong các lĩnh vực như thị giác máy tính, xử lý tiếng nói, ... dữ liệu có thể được biểu diễn một cách dễ dàng thông qua dạng ban đầu của chúng vì hầu như các loại dữ liệu này là các số thực (điểm ảnh, histogram của âm thanh). Lĩnh vực xử lí ngôn ngữ tự nhiên gặp khó khăn trong việc biểu diễn các từ ngữ trên máy tính. Ví dụ: những từ như "tôi", "bạn", "học", ... được viết dưới dạng ngôn ngữ tự nhiên mà máy tính không thể nào hiểu được. Làm thế nào để biểu diễn ngôn ngữ tự nhiên trong máy tính là một trong những bài toán rất quan trọng trong lĩnh vực xử lí ngôn ngữ tự nhiên mà cần phải được giải quyết. Biểu diễn dạng con số của các từ trong máy tính được gọi là \textit{biểu diễn từ} (word representation).
+Trong phần mô hình ngôn ngữ, chúng tôi có nhắc đến word embedding, trong mục này, chúng tôi sẽ nói thêm về nó. Để máy tính có thể hiểu được và xử lí được những thông tin đến từ thế giới thực, những thông tin đó phải được biểu diễn dưới dạng các con số. Trong các lĩnh vực như thị giác máy tính, xử lý tiếng nói, ... dữ liệu có thể được biểu diễn một cách dễ dàng thông qua dạng ban đầu của chúng vì hầu như các loại dữ liệu này là các số thực (điểm ảnh, histogram của âm thanh). Lĩnh vực xử lí ngôn ngữ tự nhiên gặp khó khăn trong việc biểu diễn các từ ngữ trên máy tính. Ví dụ: những từ như "tôi", "bạn", "học", ... được viết dưới dạng ngôn ngữ tự nhiên mà máy tính không thể nào hiểu được. Làm thế nào để biểu diễn ngôn ngữ tự nhiên trong máy tính là một trong những bài toán rất quan trọng trong lĩnh vực xử lí ngôn ngữ tự nhiên mà cần phải được giải quyết. Biểu diễn dạng con số của các từ trong máy tính được gọi là \textit{biểu diễn từ} (word representation).
 
 Phương pháp đơn giản nhất để biểu diễn các từ là đánh số thứ tự cho các từ đó. Để làm được việc này, đầu tiên, ta cần phải có một bộ từ vựng mà được sử dụng để giải quyết một bài toán nào đó. Bộ từ vựng này sẽ được giữ một kích thước cố định trong suốt quá trình giải quyết bài toán (ví dụ như kích thước bộ từ vựng $V = 50000$ từ). Sau đó, ta thực hiện đánh số thứ tự cho tất cả các từ trong bộ từ vựng đó như: "anh" = 0, "ăn" = 1, ..., "yêu" = 49999. Khi ta đọc một câu ở ngôn ngữ tự nhiên vào máy tính, các từ trong câu sẽ được biểu diễn bằng các chỉ số đã được gán. Ví dụ:
 %// TODO: vẽ hình
@@ -148,7 +148,7 @@ Trong đó:
 	\item[•] $h_{t} \in \mathbb{R}^{D_h}$ là trạng thái ẩn tại bước thời gian hiện tại có chiều dài $D_h$.
 	\item[•] $x_t \in \mathbb{R}^{D_x}$ là véc-tơ đầu vào hiện tại có chiều dài $D_x$.
 	\item[•] $h_{t-1} \in \mathbb{R}^{D_h}$ là trạng thái ẩn tại bước thời gian trước đó.
-	\item[•] $W_{xh} \in \mathbb{R}^{D_x \times D_h}, W_{hh} \in \mathbb{R}^{D_h \times D_h}$ và $b_h \in \mathbb{R}^{D_h}$ lần lượt là hai ma trận trọng số và véc-tơ "bias".
+	\item[•] $W_{xh} \in \mathbb{R}^{D_x \times D_h}, W_{hh} \in \mathbb{R}^{D_h \times D_h}$ và $b_h \in \mathbb{R}^{D_h}$ lần lượt là hai ma trận trọng số và véc-tơ bias.
 \end{itemize}
 
 Ma trận $W_{xh}$ là làm nhiệm vụ kết nối giữa đầu vào và trạng thái ẩn, $W_{hh}$ kết nối trạng thái ẩn với chính nó trong các bước thời gian liền kề. Véc-tơ $b_h$ dùng để điều chỉnh giá trị của $h_t$. Tại thời điểm bắt đầu, trạng thái ẩn $h_0$ có thể được khởi tạo bằng 0 hoặc là một véc-tơ chứa tri thức có sẵn như trường hợp của bộ giải mã như chúng tôi đã đề cập trong chương 1.
@@ -164,7 +164,7 @@ Trong đó:
 \begin{itemize}
 	\item[•] $\softmax$ là một hàm kích hoạt với $\softmax(v) = \frac{e^{v_j}}{\sum_{k=1}^{K}e^{v_k}}$, $j = 1,...,K$. $K$ là độ dài của véc-tơ $v$.
 	\item[•] $h_{t} \in \mathbb{R}^{D_h}$ là trạng thái ẩn tại bước thời gian hiện tại.
-	\item[•] $W_{hy} \in \mathbb{R}^{L \times D_h}$ và $b_y \in \mathbb{R}^L$ lần lượt là hai ma trận trọng số và véc-tơ "bias". $L$ là số lượng lớp cần phân biệt ở đầu ra.
+	\item[•] $W_{hy} \in \mathbb{R}^{L \times D_h}$ và $b_y \in \mathbb{R}^L$ lần lượt là hai ma trận trọng số và véc-tơ bias. $L$ là số lượng lớp cần phân biệt ở đầu ra.
 \end{itemize}
 
 Trong công thức trên, hàm $\softmax$ đóng vai trò là một hàm chuẩn hóa để $\hat{y}_t$ thể hiện một phân phối xác suất trên các lớp ở đầu ra. Ma trận $W_{hy}$ kết nối đầu ra với trạng thái ẩn, $b_y$ dùng để điều chỉnh giá trị của kết quả tính toán trước khi đưa qua hàm $\softmax$.
@@ -178,7 +178,7 @@ Trong công thức trên, hàm $\softmax$ đóng vai trò là một hàm chuẩn
 
 Để ý rằng các ma trận trọng số $W_{xh}$, $W_{hh}$, $W_{hy}$ và các véc-tơ bias $b_h$, $b_y$ là các tham số học của mô hình và chúng là duy nhất. Có nghĩa là khi những tham số này được học, bất kỳ một đầu vào nào cũng đều sử dụng chung một bộ tham số. Điều này chính là sự chia sẻ tham số (parameters sharing) trong mạng nơ-ron hồi quy. Chia sẻ tham số khiến cho mô hình học dễ dàng hơn, nó giúp cho RNN có thể xử lý chuỗi đầu vào với độ dài bất kỳ mà không làm tăng độ phức tạp của mô hình. Quan trọng hơn, nó giúp ích cho việc tổng quát hóa. Đây chính là điểm đặc biệt của RNN so với mạng nơ-ron truyền thẳng (feedforward neural network).
 
-Với một số lượng hữu hạn các bước thời gian, mô hình RNN trên hình \ref{fig_rnn_loop} có thể được dàn trải ra (unrolled). Dạng dàn trải này được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với mỗi bước thời gian là một mạng nơ-ron một tầng ẩn và các tham số học được chia sẻ giữa các mạng nơ-ron đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là "Backpropagation through time" (BPTT) \cite{werbos1990}. Thực chất đây là chỉ thuật toán “Backpropagation” khi áp dụng cho RNN dưới dạng dàn trải để tính "gradient" cho các tham số ở từng bước thời gian. Hầu hết cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này vì tính đơn giản và hiệu quả của nó.
+Với một số lượng hữu hạn các bước thời gian, mô hình RNN trên hình \ref{fig_rnn_loop} có thể được dàn trải ra (unrolled). Dạng dàn trải này được miêu tả trực quan như trên hình \ref{fig_rnn_unrolled}. Với cách thể hiện này, RNN có thể được hiểu như là một mạng nơ-ron sâu với mỗi bước thời gian là một mạng nơ-ron một tầng ẩn và các tham số học được chia sẻ giữa các mạng nơ-ron đó. Dạng dàn trải cũng thể hiện rằng RNN có thể được huấn luyện qua nhiều bước thời gian bằng thuật toán lan truyền ngược (backpropagation). Thuật toán này được gọi là Backpropagation through time (BPTT) \cite{werbos1990}. Thực chất đây là chỉ thuật toán “Backpropagation” khi áp dụng cho RNN dưới dạng dàn trải để tính gradient cho các tham số ở từng bước thời gian. Hầu hết cả các mạng nơ-ron hồi quy phổ biến ngày nay đều áp dụng thuật toán này vì tính đơn giản và hiệu quả của nó.
 
 \subsection{Huấn luyện mạng nơ-ron hồi quy}
 
@@ -192,7 +192,7 @@ Xét một chuỗi đầu vào $x={x_1,x_2,...,x_n}$ với đầu ra tương ứ
 \begin{equation} \label{rnnForwardProp3}
 	\hat{y}_t = \softmax (s_t) 
 \end{equation}
-Ta cần định nghĩa hàm độ lỗi giữa đầu ra dự đoán $\hat{y}_t$ và đầu ra thật sự $y_t$. Với $L$ là số lượng lớp của $y$, lúc này có thể thấy $\hat{y}_t$ là một véc-tơ phân phối xác suất có độ dài $L$. Để so sánh với $\hat{y}_t$, $y_t$ được chuẩn hóa thành một véc-tơ dạng "one hot" có nghĩa là một véc-tơ với độ dài $V$ có giá trị bằng 0 trừ vị trí ứng với lớp của $y_t$ có giá trị 1. Như vậy để so sánh hai phân phối xác suất $y$ và $\hat{y}$ ta sử dụng hàm độ lỗi \textit{negative log-likelihood} hay còn gọi là \textit{cross entropy}, gọi $L_t$ là độ lỗi tại một bước thời gian $t$, ta có:
+Ta cần định nghĩa hàm độ lỗi giữa đầu ra dự đoán $\hat{y}_t$ và đầu ra thật sự $y_t$. Với $L$ là số lượng lớp của $y$, lúc này có thể thấy $\hat{y}_t$ là một véc-tơ phân phối xác suất có độ dài $L$. Để so sánh với $\hat{y}_t$, $y_t$ được chuẩn hóa thành một véc-tơ dạng one hot có nghĩa là một véc-tơ với độ dài $V$ có giá trị bằng 0 trừ vị trí ứng với lớp của $y_t$ có giá trị 1. Như vậy để so sánh hai phân phối xác suất $y$ và $\hat{y}$ ta sử dụng hàm độ lỗi \textit{negative log-likelihood} hay còn gọi là \textit{cross entropy}, gọi $L_t$ là độ lỗi tại một bước thời gian $t$, ta có:
 \begin{equation} \label{errorOfAnExample}
 	L_t = -y_t^{T} \log(\hat{y}_t)
 \end{equation}
@@ -211,17 +211,17 @@ Với $L$ là độ lỗi tổng hợp tại của tất cả các bước thờ
 \end{equation}
 
 % TODO: tai sao su dung mini batch
-Mục tiêu của việc học là cực tiểu hóa độ lỗi tổng hợp $L$. Thuật toán "backpropagation" với \textit{gradient descent} sẽ được áp dụng để huấn luyện RNN. Trên thực tế, người ta sẽ sử dụng một phiên bản của "gradient descent" là "mini-batch gradient descent" cho việc huấn luyện. Tập dữ liệu ban đầu sẽ được chia thành nhiều "mini-batch", mỗi "mini-batch" là một tập con với số lượng khoảng vài chục đến vài trăm mẫu thuộc tập dữ liệu ban đầu. Với mỗi lần duyệt (iteration), việc tính toán gradient để cập nhật các tham số học của mô hình được thực hiện lần lượt trên tất cả các mini-batch này.
+Mục tiêu của việc học là cực tiểu hóa độ lỗi tổng hợp $L$. Thuật toán backpropagation với \textit{gradient descent} sẽ được áp dụng để huấn luyện RNN. Trên thực tế, người ta sẽ sử dụng một phiên bản của gradient descent là mini-batch gradient descent cho việc huấn luyện. Tập dữ liệu ban đầu sẽ được chia thành nhiều mini-batch, mỗi mini-batch là một tập con với số lượng khoảng vài chục đến vài trăm mẫu thuộc tập dữ liệu ban đầu. Với mỗi lần duyệt (iteration), việc tính toán gradient để cập nhật các tham số học của mô hình được thực hiện lần lượt trên tất cả các mini-batch này.
 
-Ta cần tìm bộ tham số $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$ sao cho cực tiểu hóa hàm độ lỗi $L$. Theo thuật toán "gradient descent", bộ tham số được cập nhật theo công thức:
+Ta cần tìm bộ tham số $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$ sao cho cực tiểu hóa hàm độ lỗi $L$. Theo thuật toán gradient descent, bộ tham số được cập nhật theo công thức:
 \begin{equation} \label{gradientDescentWithTheta}
 	\theta \leftarrow \theta - \eta \nabla_{\theta} L
 \end{equation}
 
 % TODO: Bo sung cho nay
-Ở đây, $\nabla_{\theta} L$ là "gradient" của hàm độ lỗi ứng với tham số $\theta$. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ sẽ thay đổi nhiều bao nhiêu theo giá trị gradient tính được. Trong phần dưới đây, chúng tôi sẽ trình bày việc tính toán "gradient" của hàm độ lỗi theo bộ tham số học $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$.
+Ở đây, $\nabla_{\theta} L$ là gradient của hàm độ lỗi ứng với tham số $\theta$. $\eta$ được gọi là hệ số học (learning rate) là một siêu tham số quyết định rằng $\theta$ sẽ thay đổi nhiều bao nhiêu theo giá trị gradient tính được. Trong phần dưới đây, chúng tôi sẽ trình bày việc tính toán gradient của hàm độ lỗi theo bộ tham số học $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$.
 
-Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = \softmax(s_t)$, sử dụng "chain rule" trong tính đạo hàm ta được:
+Với $s_t = W_{hy} h_t + b_y$ và $\hat{y}_t = \softmax(s_t)$, sử dụng chain rule trong tính đạo hàm ta được:
 %\nabla_{\theta} L_t = \frac{\partial h_t}{\partial \theta} \frac{\partial s_t}{\partial h_t} \frac{\partial \hat{y}_t}{\partial s_t} \frac{\partial L_t}{\partial \hat{y}_t} = \frac{\partial h_t}{\partial \theta}  \frac{\partial s_t}{\partial h_t} \frac{\partial L_t}{\partial s_t}
 	
 \begin{equation} \label{gradientCalculating1}
@@ -238,7 +238,7 @@ Ta cũng dễ dàng tính được:
 	\frac{\partial s_t}{\partial h_t} = W_{hy}^T
 \end{equation}
 
-Đến đây, ta chỉ cần tìm $\frac{\partial h_t}{\partial \theta}$ với $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$. Ta có thể chia các tham số thành hai nhóm. Nhóm đầu tiên là các tham số liên quan đến quá trình tính toán đầu ra, bao gồm $\theta^{(1)} \in \{W_{hy}, b_y\}$. Những tham số này không tham gia vào hàm hồi quy $h_t$ cho nên "gradient" ứng với chúng được tính một cách dễ dàng:
+Đến đây, ta chỉ cần tìm $\frac{\partial h_t}{\partial \theta}$ với $\theta \in \left\{W_{hy},W_{hh},W_{xh},b_y,b_h \right \}$. Ta có thể chia các tham số thành hai nhóm. Nhóm đầu tiên là các tham số liên quan đến quá trình tính toán đầu ra, bao gồm $\theta^{(1)} \in \{W_{hy}, b_y\}$. Những tham số này không tham gia vào hàm hồi quy $h_t$ cho nên gradient ứng với chúng được tính một cách dễ dàng:
 
 \begin{equation} \label{gradientCalculating4}
 	\nabla_{W_{hy}}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial W_{hy}}  =  (\hat{y}_t - y) h_t^T
@@ -247,9 +247,9 @@ Ta cũng dễ dàng tính được:
 	\nabla_{b_{y}}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial b_{y}}  =  \hat{y}_t - y
 \end{equation}
 
-Nhóm thứ hai gồm những tham số tham gia vào quá trình hồi quy, bao gồm $\theta^{(2)} \in \{W_{hh},W_{xh},b_h \}$. Để tính được "gradient" ứng với $\theta^{(2)}$, ta cần tính được $\frac{\partial h_t}{\partial \theta^{(2)} }$
+Nhóm thứ hai gồm những tham số tham gia vào quá trình hồi quy, bao gồm $\theta^{(2)} \in \{W_{hh},W_{xh},b_h \}$. Để tính được gradient ứng với $\theta^{(2)}$, ta cần tính được $\frac{\partial h_t}{\partial \theta^{(2)} }$
 
-Vì $h_t$ là một hàm hồi quy được xây dựng dựa trên $\theta^{(2)}$ và $h_{t-1}$ nên "gradient" cuả $h_t$ tương ứng với $\theta^{(2)}$ được tính dựa trên quy tắc "total derivative". Quy tắc này nói rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^M$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
+Vì $h_t$ là một hàm hồi quy được xây dựng dựa trên $\theta^{(2)}$ và $h_{t-1}$ nên gradient cuả $h_t$ tương ứng với $\theta^{(2)}$ được tính dựa trên quy tắc "total derivative". Quy tắc này nói rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^M$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
 \begin{equation} \label{gradientWRTSt6}
 	\frac{\partial{f}}{\partial{r}} = \frac{\partial f}{\partial x}\frac{\partial x }{\partial r} + \frac{\partial f }{\partial y }\frac{\partial y }{\partial r }
 \end{equation}
