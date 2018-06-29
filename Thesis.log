@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  29 JUN 2018 23:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  29 JUN 2018 23:45
 entering extended mode
 **./Thesis.tex
 (Thesis.tex
@@ -1878,14 +1878,14 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <13> not available
 
 
 ]
-<Chapter3/Chapter3Figs/Encoder-Decoder_2.png, id=851, 793.96625pt x 241.90375pt
->
-File: Chapter3/Chapter3Figs/Encoder-Decoder_2.png Graphic file (type png)
-<use Chapter3/Chapter3Figs/Encoder-Decoder_2.png>
-Package pdftex.def Info: Chapter3/Chapter3Figs/Encoder-Decoder_2.png  used on i
-nput line 28.
+<Chapter3/Chapter3Figs/Encoder-Decoder-bi.png, id=851, 793.96625pt x 241.90375p
+t>
+File: Chapter3/Chapter3Figs/Encoder-Decoder-bi.png Graphic file (type png)
+<use Chapter3/Chapter3Figs/Encoder-Decoder-bi.png>
+Package pdftex.def Info: Chapter3/Chapter3Figs/Encoder-Decoder-bi.png  used on 
+input line 28.
 (pdftex.def)             Requested size: 441.01773pt x 134.37259pt.
- [43] [44 <./Chapter3/Chapter3Figs/Encoder-Decoder_2.png>] [45] [46]
+ [43] [44 <./Chapter3/Chapter3Figs/Encoder-Decoder-bi.png>] [45] [46]
 <Chapter3/Chapter3Figs/Teacher-forcing.png, id=874, 532.99126pt x 241.90375pt>
 File: Chapter3/Chapter3Figs/Teacher-forcing.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/Teacher-forcing.png>
@@ -1901,37 +1901,38 @@ Package pdftex.def Info: Chapter3/Chapter3Figs/beam-search.png  used on input l
 ine 97.
 (pdftex.def)             Requested size: 396.91325pt x 248.31392pt.
  [49] [50 <./Chapter3/Chapter3Figs/beam-search.png>] [51]
-<Chapter3/Chapter3Figs/Attention-3.png, id=903, 671.50874pt x 495.8525pt>
-File: Chapter3/Chapter3Figs/Attention-3.png Graphic file (type png)
-<use Chapter3/Chapter3Figs/Attention-3.png>
-Package pdftex.def Info: Chapter3/Chapter3Figs/Attention-3.png  used on input l
-ine 114.
+<Chapter3/Chapter3Figs/Attention-3-bi.png, id=903, 671.50874pt x 495.8525pt>
+File: Chapter3/Chapter3Figs/Attention-3-bi.png Graphic file (type png)
+<use Chapter3/Chapter3Figs/Attention-3-bi.png>
+Package pdftex.def Info: Chapter3/Chapter3Figs/Attention-3-bi.png  used on inpu
+t line 114.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [52 <./Chapter3/Chapter3Figs/Attention-3.png>] [53] [54]
-<Chapter3/Chapter3Figs/Global-Attention_2.png, id=926, 671.50874pt x 495.8525pt
->
-File: Chapter3/Chapter3Figs/Global-Attention_2.png Graphic file (type png)
-<use Chapter3/Chapter3Figs/Global-Attention_2.png>
-Package pdftex.def Info: Chapter3/Chapter3Figs/Global-Attention_2.png  used on 
-input line 169.
+ [52 <./Chapter3/Chapter3Figs/Attention-3-bi.png>] [53] [54]
+<Chapter3/Chapter3Figs/Global-Attention_2-bi.png, id=926, 671.50874pt x 495.852
+5pt>
+File: Chapter3/Chapter3Figs/Global-Attention_2-bi.png Graphic file (type png)
+<use Chapter3/Chapter3Figs/Global-Attention_2-bi.png>
+Package pdftex.def Info: Chapter3/Chapter3Figs/Global-Attention_2-bi.png  used 
+on input line 169.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [55 <./Chapter3/Chapter3Figs/Global-Attention_2.png>] [56]
-<Chapter3/Chapter3Figs/Local-Attention_2.png, id=943, 671.50874pt x 495.8525pt>
-
-File: Chapter3/Chapter3Figs/Local-Attention_2.png Graphic file (type png)
-<use Chapter3/Chapter3Figs/Local-Attention_2.png>
-Package pdftex.def Info: Chapter3/Chapter3Figs/Local-Attention_2.png  used on i
-nput line 200.
+ [55 <./Chapter3/Chapter3Figs/Global-Attention_2-bi.png>]
+[56]
+<Chapter3/Chapter3Figs/Local-Attention_2-bi.png, id=943, 671.50874pt x 495.8525
+pt>
+File: Chapter3/Chapter3Figs/Local-Attention_2-bi.png Graphic file (type png)
+<use Chapter3/Chapter3Figs/Local-Attention_2-bi.png>
+Package pdftex.def Info: Chapter3/Chapter3Figs/Local-Attention_2-bi.png  used o
+n input line 200.
 (pdftex.def)             Requested size: 352.81552pt x 260.52318pt.
- [57]
-[58 <./Chapter3/Chapter3Figs/Local-Attention_2.png>] [59]
-<Chapter3/Chapter3Figs/Input-feeding_2.png, id=963, 671.50874pt x 385.44pt>
-File: Chapter3/Chapter3Figs/Input-feeding_2.png Graphic file (type png)
-<use Chapter3/Chapter3Figs/Input-feeding_2.png>
-Package pdftex.def Info: Chapter3/Chapter3Figs/Input-feeding_2.png  used on inp
-ut line 237.
+ [57] [58 <./Chapter3/Chapter3Figs/Local-Attention_2-bi.png>] [59]
+<Chapter3/Chapter3Figs/Input-feeding_2-bi.png, id=963, 671.50874pt x 385.44pt>
+File: Chapter3/Chapter3Figs/Input-feeding_2-bi.png Graphic file (type png)
+<use Chapter3/Chapter3Figs/Input-feeding_2-bi.png>
+Package pdftex.def Info: Chapter3/Chapter3Figs/Input-feeding_2-bi.png  used on 
+input line 237.
 (pdftex.def)             Requested size: 352.81552pt x 202.51195pt.
- [60] [61 <./Chapter3/Chapter3Figs/Input-feeding_2.png>] [62]
+ [60]
+[61 <./Chapter3/Chapter3Figs/Input-feeding_2-bi.png>] [62]
 <Chapter3/Chapter3Figs/unk-rpl-example.png, id=984, 282.05376pt x 181.67876pt>
 File: Chapter3/Chapter3Figs/unk-rpl-example.png Graphic file (type png)
 <use Chapter3/Chapter3Figs/unk-rpl-example.png>
@@ -2057,7 +2058,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 197.
  ) 
 Here is how much of TeX's memory you used:
  20089 strings out of 493305
- 296027 string characters out of 3138850
+ 296092 string characters out of 3138850
  435811 words of memory out of 3000000
  22818 multiletter control sequences out of 15000+200000
  100724 words of font info for 181 fonts, out of 3000000 for 9000
@@ -2079,7 +2080,7 @@ utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb><C:/Program Files/Mi
 KTeX 2.9/fonts/type1/vntex/urwvn/utmri8v.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/vntex/vnr/vntt12.pfb>
-Output written on Thesis.pdf (98 pages, 1871224 bytes).
+Output written on Thesis.pdf (98 pages, 1869697 bytes).
 PDF statistics:
  1271 PDF objects out of 1440 (max. 8388607)
  275 named destinations out of 1000 (max. 500000)

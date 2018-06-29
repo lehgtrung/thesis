@@ -25,7 +25,7 @@ Kiến trúc Bộ mã hóa - Bộ giải mã như tên gọi, gồm có hai bộ
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1.0\textwidth]{Encoder-Decoder_2}
+	\includegraphics[width=1.0\textwidth]{Encoder-Decoder-bi}
 	\caption[Minh họa kiến trúc Bộ mã hóa - Bộ giải mã được sử dụng trong khóa luận.]{Minh họa kiến trúc Bộ mã hóa - Bộ giải mã được sử dụng trong khóa luận. Kiến trúc có hai bộ phận. Trong đó, bộ mã hóa là một bi-LSTM có nhiệm vụ nhận câu nguồn làm đầu vào và xuất ra một véc-tơ có kích thước cố định chứa thông tin cần thiết để dịch của toàn bộ câu nguồn. Bộ giải mã là một uni-LSTM có đầu vào là véc-tơ có kích thước cố định của bộ mã hóa và đầu ra là câu đích.}
 	\label{fig_Encoder-Decoder}
 \end{figure}
@@ -111,7 +111,7 @@ Trước khi đi vào cách hoạt động của cơ chế Attention, chúng tô
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{Attention-3}
+	\includegraphics[width=0.8\textwidth]{Attention-3-bi}
 	\caption[Minh họa cơ chế Attention.]{Minh họa cơ chế Attention. Một tầng Attention được đặt ở trước bước dự đoán đầu ra của bộ giải mã. Bộ giải mã có thêm một số bước tính toán trước khi dự đoán từ tiếp theo ở câu đích. Bộ giải mã tính trọng số gióng hàng $\bm{a}_t$ cho một số trạng thái ẩn ở bộ mã hóa được lựa chọn. Sau đó tính véc-tơ ngữ cảnh $\bm{c}_t$ và nối véc-tơ này với trạng thái ẩn hiện tại của bộ giải mã thành véc-tơ attention $\bm{\tilde{h}}_t$. Cuối cùng mô hình dự đoán từ tiếp theo dựa trên véc-tơ attention vừa tính được.}
 	\label{fig_Attention}
 \end{figure}
@@ -166,7 +166,7 @@ Khi đó trọng số gióng hàng $\bm{a}_t$ là một véc-tơ có kích thư�
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{Global-Attention_2.png}
+	\includegraphics[width=0.8\textwidth]{Global-Attention_2-bi.png}
 	\caption[Minh họa cơ chế Attention Toàn cục.]{Minh họa cơ chế Attention Toàn cục. Tại bước thời gian $t$, bộ giải mã nhìn vào toàn bộ trạng thái ẩn ở các vị trí nguồn. Trọng số gióng hàng và véc-tơ ngữ cảnh được tính dựa trên những trạng thái ẩn được "nhìn" bởi bộ giải mã. Sau đó véc-tơ ngữ cảnh sẽ được nối với trạng thái ẩn ở bộ giải mã ở bước thời gian hiện tại để tạo thành véc-tơ attention. Sau đó mô hình sẽ dự đoán từ tiếp theo dựa trên véc-tơ attention này.}
 	\label{fig_Global_Attention}
 \end{figure}
@@ -197,7 +197,7 @@ Hình \ref{fig_Local_Attention} minh họa cơ chế Attention Cục bộ cho th
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{Local-Attention_2.png}
+	\includegraphics[width=0.8\textwidth]{Local-Attention_2-bi.png}
 	\caption[Minh họa cơ chế Attention Cục bộ.]{Minh họa cơ chế Attention Cục bộ. Tại bước thời gian $t$, bộ giải mã "nhìn" vào một số trạng thái ẩn ở các vị trí nguồn nằm trong phạm vi của cửa sổ có kích thước $2D + 1$. Trọng số gióng hàng và véc-tơ ngữ cảnh được tính dựa trên những trạng thái ẩn được bộ giải mã đặt sự chú ý.}
 	\label{fig_Local_Attention}
 \end{figure}
@@ -234,7 +234,7 @@ x^{'}_t = [x_t, \bm{\tilde{h}}_t]
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{Input-feeding_2.png}
+	\includegraphics[width=0.8\textwidth]{Input-feeding_2-bi.png}
 	\caption[Minh họa cơ chế Attention Cục bộ.]{Minh họa phương pháp Input feeding. Tại bước thời gian $t$, bộ giải mã nhận đầu vào gồm véc-tơ attention ở bước thời gian trước đó $t-1$ và từ hiện tại $x_t$.}
 	\label{fig_Input_feeding}
 \end{figure}
