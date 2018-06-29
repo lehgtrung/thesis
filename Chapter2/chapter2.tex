@@ -1,4 +1,4 @@
-\chapter{Kiến Thức Nền Tảng}
+\chapter{Kiến thức nền tảng}
 \ifpdf
     \graphicspath{{Chapter2/Chapter2Figs/PNG/}{Chapter2/Chapter2Figs/PDF/}{Chapter2/Chapter2Figs/}}
 \else
@@ -40,13 +40,15 @@ Mặc dù giả định markov bậc $k$ rõ ràng là sai với $k$ bất kỳ 
 Do mô hình ngôn ngữ là một mô hình học không giám sát, một cách thông thường để đánh giá một mô hình học không giám sát là áp dụng nó lên một bài toán học có giám sát rồi đánh giá thông qua kết quả của bài toán đó, ví dụ: đo lường sự cải thiện chất lượng dịch khi chuyển đổi từ mô hình ngôn ngữ A sang mô hình ngôn ngữ B trong một hệ thống dịch máy. Cách đánh giá này được gọi là đánh giá bên ngoài (extrinsic evaluation). Tuy nhiên, đánh giá bên ngoài rất tốn kém đối với những bài toán học có giám sát lớn và phức tạp. Vì vậy, một độ đo được thiết kế để đánh giá mô hình ngôn ngữ một cách nội tại (intrinsic evaluation) đó là "perplexity". Perplexity là một độ đo để đánh giá một mô hình xác suất tốt như thế nào khi dự đoán một mẫu chưa nhìn thấy (unseen sample). Cho trước một tập ngữ liệu $ W = w_1, w_2, ..., w_N$ ($N$ là một số rất lớn) và một mô hình ngôn ngữ \textit{LM}, perplexity của $W$ ứng với mô hình ngôn ngữ \textit{LM} là:
 \begin{equation} \label{perplexity}
 \begin{split}
-Perplexity(W) &= \sqrt[N]{\frac{1}{LM(p(w_{1:N}))}} \\
-			  &= \sqrt[N]{\prod_{i=1}^{N}  \frac{1}{LM(p(w_i|w_{1:i-1}))}} \\
-			  &= 2^{-\frac{1}{N} \sum_{i=1}^{N} \log_2 LM(p(w_i|w_{1:i-1}))}
+Perplexity(W) &= LM \left(p(w_1,...,w_N) \right)^{-\frac{1}{N}} \\
+&= \sqrt[N]{\frac{1}{LM(p(w_1,...,w_N))}} \\
+&= \sqrt[N]{\prod_{i=1}^{N}  \frac{1}{LM(p(w_i|w_1,...,w_{i-1}))}} \\
 \end{split}
 \end{equation}
+%&= 2^{-\frac{1}{N} \sum_{i=1}^{N} \log_2 LM(p(w_i|w_1,...,w_{i-1}))}
 
-Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗi trong tập ngữ liệu (phản ánh đúng ngôn ngữ thật sự) sẽ dẫn đến một giá trị nhỏ của perplexity và ngược lại. Perplexity là một độ đo tốt và thuận tiện để đánh giá các mô hình ngôn ngữ với nhau, nhưng việc perplexity được cải thiện khi ta thay đổi mô hình ngôn ngữ không đảm bảo rằng đánh giá bên ngoài cũng được cải thiện. Tuy vậy, perplexity vẫn thường được sử dụng như là một cách kiểm tra nhanh một mô hình ngôn ngữ. Nhưng để có thể đánh giá một cách chính xác trước khi kết luận về hiệu suất của một mô hình ngôn ngữ, ta luôn luôn phải kiểm tra lại mô hình ngôn ngữ này bằng cách đánh giá ngoài dựa trên một ứng dụng cụ thể.
+Một mô hình ngôn ngữ tốt sẽ gán xác suất lớn cho những chuỗi trong tập ngữ liệu (phản ánh đúng ngôn ngữ thật sự) sẽ dẫn đến một giá trị nhỏ của perplexity và ngược lại. Trong công thức \ref{perplexity}, có thể nhìn thấy nếu xác suất của một chuỗi càng lớn thì perplexity càng nhỏ. Do đó, cực tiểu hóa perplexity cũng tương đương với việc cực đại hóa xác suất của chuỗi. Perplexity là một độ đo tốt và thuận tiện để đánh giá các mô hình ngôn ngữ với nhau, nhưng việc perplexity được cải thiện khi ta thay đổi mô hình ngôn ngữ không đảm bảo rằng đánh giá bên ngoài cũng được cải thiện. Tuy vậy, perplexity vẫn thường được sử dụng như là một cách kiểm tra nhanh một mô hình ngôn ngữ. 
+%Nhưng để có thể đánh giá một cách chính xác trước khi kết luận về hiệu suất của một mô hình ngôn ngữ, ta luôn luôn phải kiểm tra lại mô hình ngôn ngữ này bằng cách đánh giá ngoài dựa trên một ứng dụng cụ thể.
 
 Cách tiếp cận truyền thống cho bài toán mô hình hóa ngôn ngữ là sử dụng mô hình ngôn ngữ \textit{n}-gram. Sở dĩ nó có tên như vậy là vì nó sử dụng giả định markov bậc \textit{n} - 1 để ước lượng xác suất $p \left(w_{i+1}=m|w_1,..,w_i \right) \approx p \left(w_{i+1}=m|w_{i-(n-1)},...,w_i \right)$. Theo mô hình ngôn ngữ \textit{n}-gram, xác suất để từ $m$ theo sau chuỗi các từ $w_1,...,w_{i}$ là:
 

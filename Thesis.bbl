@@ -138,6 +138,11 @@ H.~Larochelle and G.~E. Hinton, ``Learning to combine foveal glimpses with a
   \url{http://papers.nips.cc/paper/4089-learning-to-combine-foveal-glimpses-with-a-third-order-boltzmann-machine.pdf}
 \BIBentrySTDinterwordspacing
 
+\bibitem{AnhVietpaper}
+M.-T. Luong and C.~D. Manning, ``Stanford neural machine translation systems
+  for spoken language domain,'' in \emph{International Workshop on Spoken
+  Language Translation}, Da Nang, Vietnam, 2015.
+
 \bibitem{attentionThangLuong2015}
 \BIBentryALTinterwordspacing
 T.~Luong, H.~Pham, and C.~D. Manning, ``Effective approaches to attention-based
