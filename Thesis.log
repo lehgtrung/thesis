@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  29 JUN 2018 23:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.12)  29 JUN 2018 23:29
 entering extended mode
 **./Thesis.tex
 (Thesis.tex
@@ -1741,13 +1741,13 @@ ntro2nmt.png> <./Chapter1/Chapter1Figs/encoder-decoder.png>] [9])
  (Chapter2/chapter2.tex
 Ch\uhorn \ohorn ng 2.
 LaTeX Font Info:    Font shape `T5/ptm/bx/n' in size <19> not available
-(Font)              Font shape `T5/ptm/b/n' tried instead on input line 16.
+(Font)              Font shape `T5/ptm/b/n' tried instead on input line 14.
 [11
 
 
 
 ] [12] [13]
-Overfull \hbox (43.19421pt too wide) in paragraph at lines 65--66
+Overfull \hbox (43.19421pt too wide) in paragraph at lines 63--64
 \T5/ptm/m/n/13 tøng xu§t hi»n trong tªp ngú li»u, tùc $\OT1/ztmcm/m/n/13 # [] =
  0$ \T5/ptm/m/n/13 th¼ x¡c su§t ÷îc l÷ñng $\OML/ztmcm/m/it/13 p\OT1/ztmcm/m/n/1
 3 (\OML/ztmcm/m/it/13 w[]\OMS/ztmcm/m/n/13 j\OML/ztmcm/m/it/13 w[]; :::; w[]\OT
@@ -1759,20 +1759,20 @@ Overfull \hbox (43.19421pt too wide) in paragraph at lines 65--66
 File: Chapter2/Chapter2Figs/wordembedding.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/wordembedding.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/wordembedding.png  used on input
- line 75.
+ line 73.
 (pdftex.def)             Requested size: 220.50887pt x 172.54597pt.
-LaTeX Font Info:    Calculating math sizes for size <11.5> on input line 76.
+LaTeX Font Info:    Calculating math sizes for size <11.5> on input line 74.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11.5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 76.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8.51006> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 76.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.90007> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 76.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
  [15 <./Chapter2/Chapter2Figs/wordembedding.png>]
 <Chapter2/Chapter2Figs/fnnlm.png, id=615, 614.295pt x 390.45876pt>
 File: Chapter2/Chapter2Figs/fnnlm.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/fnnlm.png>
-Package pdftex.def Info: Chapter2/Chapter2Figs/fnnlm.png  used on input line 86
+Package pdftex.def Info: Chapter2/Chapter2Figs/fnnlm.png  used on input line 84
 .
 (pdftex.def)             Requested size: 352.81552pt x 224.25584pt.
  [16] [17 <./Chapter2/Chapter2Figs/fnnlm.png>]
@@ -1781,7 +1781,7 @@ Package pdftex.def Info: Chapter2/Chapter2Figs/fnnlm.png  used on input line 86
 File: Chapter2/Chapter2Figs/onehot-representation.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/onehot-representation.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/onehot-representation.png  used 
-on input line 100.
+on input line 98.
 (pdftex.def)             Requested size: 352.81552pt x 270.42108pt.
  [18 <./Chapter2/Chapter2Figs/onehot-representation.png>]
 [19]
@@ -1791,14 +1791,14 @@ File: Chapter2/Chapter2Figs/distributed-representation_1.png Graphic file (type
  png)
 <use Chapter2/Chapter2Figs/distributed-representation_1.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/distributed-representation_1.png
-  used on input line 113.
+  used on input line 111.
 (pdftex.def)             Requested size: 441.01773pt x 142.16766pt.
  [20 <./Chapter2/Chapter2Figs/distributed-representation_1.png>] [21]
 <Chapter2/Chapter2Figs/Embedding_layer.png, id=658, 460.72125pt x 300.12125pt>
 File: Chapter2/Chapter2Figs/Embedding_layer.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/Embedding_layer.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/Embedding_layer.png  used on inp
-ut line 135.
+ut line 133.
 (pdftex.def)             Requested size: 396.91325pt x 258.55261pt.
 
 [22] [23 <./Chapter2/Chapter2Figs/Embedding_layer.png>]
@@ -1806,16 +1806,16 @@ ut line 135.
 File: Chapter2/Chapter2Figs/rnn_loop.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/rnn_loop.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/rnn_loop.png  used on input line
- 157.
+ 154.
 (pdftex.def)             Requested size: 110.25443pt x 183.97223pt.
 LaTeX Font Info:    Font shape `T5/ptm/bx/n' in size <11.5> not available
-(Font)              Font shape `T5/ptm/b/n' tried instead on input line 158.
+(Font)              Font shape `T5/ptm/b/n' tried instead on input line 155.
  [24] [25 <./Chapter2/Chapter2Figs/rnn_loop.png>]
 <Chapter2/Chapter2Figs/rnn_unrolled.png, id=690, 605.26125pt x 283.0575pt>
 File: Chapter2/Chapter2Figs/rnn_unrolled.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/rnn_unrolled.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/rnn_unrolled.png  used on input 
-line 194.
+line 191.
 (pdftex.def)             Requested size: 374.86775pt x 175.31242pt.
  [26 <./Chapter2/Chapter2Figs/rnn_unrolled.png>]
 [27] [28] [29] [30] [31]
@@ -1823,48 +1823,48 @@ line 194.
 File: Chapter2/Chapter2Figs/infomorphing.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/infomorphing.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/infomorphing.png  used on input 
-line 351.
+line 348.
 (pdftex.def)             Requested size: 374.86775pt x 135.01086pt.
  [32 <./Chapter2/Chapter2Figs/infomorphing.png>]
 <Chapter2/Chapter2Figs/BPTT.png, id=762, 814.04124pt x 310.15875pt>
 File: Chapter2/Chapter2Figs/BPTT.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/BPTT.png>
-Package pdftex.def Info: Chapter2/Chapter2Figs/BPTT.png  used on input line 364
+Package pdftex.def Info: Chapter2/Chapter2Figs/BPTT.png  used on input line 361
 .
 (pdftex.def)             Requested size: 352.81552pt x 134.42577pt.
 
 [33 <./Chapter2/Chapter2Figs/BPTT.png>]
 
-LaTeX Warning: Citation `pascanu2012' on page 34 undefined on input line 404.
+LaTeX Warning: Citation `pascanu2012' on page 34 undefined on input line 401.
 
 [34]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 408.
+put line 405.
 <Chapter2/Chapter2Figs/LSTMcell.png, id=787, 520.94624pt x 414.54875pt>
 File: Chapter2/Chapter2Figs/LSTMcell.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/LSTMcell.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/LSTMcell.png  used on input line
- 433.
+ 430.
 (pdftex.def)             Requested size: 308.71106pt x 245.6633pt.
  [35] [36 <./Chapter2/Chapter2Figs/LSTMcell.png>] [37] [38]
 <Chapter2/Chapter2Figs/infoconst.png, id=824, 785.93625pt x 323.2075pt>
 File: Chapter2/Chapter2Figs/infoconst.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/infoconst.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/infoconst.png  used on input lin
-e 480.
+e 477.
 (pdftex.def)             Requested size: 374.86775pt x 154.16135pt.
  [39 <./Chapter2/Chapter2Figs/infoconst.png>]
 
-LaTeX Warning: Citation `schuster1997' on page 40 undefined on input line 496.
+LaTeX Warning: Citation `schuster1997' on page 40 undefined on input line 493.
 
 
-LaTeX Warning: Citation `rnnsection' on page 40 undefined on input line 496.
+LaTeX Warning: Citation `rnnsection' on page 40 undefined on input line 493.
 
 <Chapter2/Chapter2Figs/birnn.png, id=830, 624.3325pt x 347.2975pt>
 File: Chapter2/Chapter2Figs/birnn.png Graphic file (type png)
 <use Chapter2/Chapter2Figs/birnn.png>
 Package pdftex.def Info: Chapter2/Chapter2Figs/birnn.png  used on input line 50
-7.
+4.
 (pdftex.def)             Requested size: 374.86775pt x 208.53378pt.
 [40]) [41 <./Chapter2/Chapter2Figs/birnn.png>]
 \openout2 = `Chapter3/chapter3.aux'.
@@ -1943,6 +1943,9 @@ ut line 260.
 
  (Chapter4/chapter4.tex
 Ch\uhorn \ohorn ng 4.
+
+LaTeX Warning: Reference `chap_2' on page 65 undefined on input line 13.
+
 [65
 
 
@@ -1953,7 +1956,7 @@ Overfull \hbox (17.09111pt too wide) in paragraph at lines 62--80
  []
 
 [68]
-<Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png, id=1022, 1184.425pt x 1
+<Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png, id=1021, 1184.425pt x 1
 167.36125pt>
 File: Chapter4/Chapter4Figs/train_valid_xent_ppl_scaled.png Graphic file (type 
 png)
@@ -1967,7 +1970,7 @@ Overfull \hbox (11.79816pt too wide) in paragraph at lines 111--133
  []
 
 [71]
-<Chapter4/Chapter4Figs/en-de_attn-weights_31.png, id=1040, 338.76563pt x 176.91
+<Chapter4/Chapter4Figs/en-de_attn-weights_31.png, id=1039, 338.76563pt x 176.91
 093pt>
 File: Chapter4/Chapter4Figs/en-de_attn-weights_31.png Graphic file (type png)
 <use Chapter4/Chapter4Figs/en-de_attn-weights_31.png>
@@ -1975,14 +1978,14 @@ Package pdftex.def Info: Chapter4/Chapter4Figs/en-de_attn-weights_31.png  used
 on input line 146.
 (pdftex.def)             Requested size: 396.91325pt x 207.28458pt.
  [72] [73 <./Chapter4/Chapter4Figs/en-de_attn-weights_31.png>] [74]
-<Chapter4/Chapter4Figs/en-vi_attn-weights_25.png, id=1058, 562.35094pt x 316.93
+<Chapter4/Chapter4Figs/en-vi_attn-weights_25.png, id=1057, 562.35094pt x 316.93
 407pt>
 File: Chapter4/Chapter4Figs/en-vi_attn-weights_25.png Graphic file (type png)
 <use Chapter4/Chapter4Figs/en-vi_attn-weights_25.png>
 Package pdftex.def Info: Chapter4/Chapter4Figs/en-vi_attn-weights_25.png  used 
 on input line 196.
 (pdftex.def)             Requested size: 441.01773pt x 248.55199pt.
-<Chapter4/Chapter4Figs/en-vi_attn-weights_68.png, id=1059, 409.53pt x 258.21469
+<Chapter4/Chapter4Figs/en-vi_attn-weights_68.png, id=1058, 409.53pt x 258.21469
 pt>
 File: Chapter4/Chapter4Figs/en-vi_attn-weights_68.png Graphic file (type png)
 <use Chapter4/Chapter4Figs/en-vi_attn-weights_68.png>
@@ -2055,7 +2058,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 197.
 Here is how much of TeX's memory you used:
  20089 strings out of 493305
  296027 string characters out of 3138850
- 435871 words of memory out of 3000000
+ 435811 words of memory out of 3000000
  22818 multiletter control sequences out of 15000+200000
  100724 words of font info for 181 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2076,9 +2079,9 @@ utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb><C:/Program Files/Mi
 KTeX 2.9/fonts/type1/vntex/urwvn/utmri8v.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/vntex/vnr/vntt12.pfb>
-Output written on Thesis.pdf (98 pages, 1871440 bytes).
+Output written on Thesis.pdf (98 pages, 1871224 bytes).
 PDF statistics:
- 1272 PDF objects out of 1440 (max. 8388607)
+ 1271 PDF objects out of 1440 (max. 8388607)
  275 named destinations out of 1000 (max. 500000)
  568 words of extra memory for PDF output out of 10000 (max. 10000000)
 
