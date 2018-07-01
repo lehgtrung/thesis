@@ -204,13 +204,13 @@ Hình \ref{fig_Local_Attention} minh họa cơ chế Attention Cục bộ cho th
 
 Mô hình Attention Cục bộ có hai biến thể:
 \begin{itemize}
-	\item Gióng hàng đều (monotonic alignment - local-m): vị trí được gióng hàng được phát sinh một cách đơn giản bằng cách cho $p_t = t$ tại mỗi bước thời gian $t$. Ta giả định rằng các từ ở câu nguồn và các từ ở câu đích được gióng hàng đều nhau theo từng từ.
-	\item Gióng hàng dự đoán (predictive alignment - local-p): giả định rằng tất cả từ ở câu nguồn và câu đích đều được gióng hàng đều nhau là không thực tế vì giữa hai ngôn ngữ có ngữ pháp riêng và trật tự từ khác nhau. Do vậy, mô hình cần phát sinh vị trí gióng hàng $p_t$ một cách tự nhiên hơn cho phù hợp đặc điểm của ngôn ngữ. Biến thể gióng hàng đều này sẽ phát sinh vị trí $p_t$ tại mỗi bước thời gian $t$ như sau:
+	\item Gióng hàng đều (monotonic alignment - local-m): vị trí được gióng hàng được phát sinh một cách đơn giản bằng cách cho $p_t = t$ tại mỗi bước thời gian $t$. Mô hình giả định rằng các từ ở câu nguồn và các từ ở câu đích được gióng hàng đều nhau theo từng từ.
+	\item Gióng hàng dự đoán (predictive alignment - local-p): giả định rằng tất cả từ ở câu nguồn và câu đích đều được gióng hàng đều nhau là không thực tế vì giữa hai ngôn ngữ có ngữ pháp riêng và trật tự từ khác nhau. Do vậy, mô hình cần phát sinh vị trí gióng hàng $p_t$ một cách tự nhiên hơn cho phù hợp đặc điểm của ngôn ngữ. Biến thể gióng hàng dự đoán này sẽ phát sinh vị trí $p_t$ tại mỗi bước thời gian $t$ như sau:
 	\begin{equation}
 	p_t = S \cdot \text{sigmoid} (\bm{v}^T_p \tanh(\bm{W}_p \bm{h}_t))
 	\end{equation}
 	Trong đó, $\bm{v}_p$ và $\bm{W}_p$ là hai tham số mới của mô hình dùng cho việc dự đoán vị trí $p_t$. Mô hình cần học hai tham số này để có thể dự đoán vị trí $p_t$ được chính xác. Miền giá trị của $p_t \in [0, S]$. Lúc này, vị trí $p_t$ dựa vào trạng thái ẩn hiên tại của bộ giải mã.
-	Để "ưu tiên" tập trung vùng lân cận của các vị trí gióng hàng $p_t$, mô hình thêm vào các trọng số gióng hàng $\bm{a}_t$ của những từ lân cận đó một lượng có giá trị bằng giá trị của phân phối chuẩn (Gauss) mà đã được đơn giản hóa (không chuẩn hóa) với giá trị kì vọng $p_t$ và độ lệch chuẩn $\sigma = \frac{D}{2}$. Việc sử dụng thêm phân phối chuẩn để khuyến khích mô hình đặt tập trung lên vị trí $p_t$ và phân chia dần cho các vị trí lân cận. Nếu không có việc sử dụng phân phối chuẩn này, mô hình có thể sẽ tập trung hoàn toàn lên các từ lân cận xung quanh $p_t$ mà không phải là vị trí $p_t$. Điều này không phù hợp với ý tưởng ban đầu của việc phát sinh vị trí $p_t$ do vị trí này thể hiện ý nghĩa rằng bộ giải mã khi muốn dự đoán từ tiếp theo thì nên tập trung vào những từ gần vị trí $p_t$.:
+	Để "ưu tiên" tập trung vùng lân cận của các vị trí gióng hàng $p_t$, mô hình thêm vào các trọng số gióng hàng $\bm{a}_t$ của những từ lân cận đó một lượng có giá trị bằng giá trị của phân phối chuẩn (Gauss) mà đã được đơn giản hóa (không chuẩn hóa) với giá trị kì vọng $p_t$ và độ lệch chuẩn $\sigma = \frac{D}{2}$. Việc sử dụng thêm phân phối chuẩn để khuyến khích mô hình đặt tập trung lên vị trí $p_t$ và phân chia dần cho các vị trí lân cận. Nếu không có việc sử dụng phân phối chuẩn này, mô hình có thể sẽ tập trung hoàn toàn lên các từ lân cận xung quanh $p_t$ mà không phải là vị trí $p_t$. Điều này không phù hợp với ý tưởng ban đầu của việc phát sinh vị trí $p_t$ do vị trí này thể hiện ý nghĩa rằng bộ giải mã khi muốn dự đoán từ tiếp theo thì nên tập trung vào những từ gần vị trí $p_t$. Hay có thể nói là phân phối Gauss này "ép" mô hình học được cách ước lượng vị trí $p_t$ thật chính xác sao cho $p_t$ chính là vị trí cần được tập trung:
 	\begin{equation}
 	\bm{a}_t = \text{align}(\bm{h}_t, \bm{h}_s)\exp\left(-\frac{(s-p_t)^2}{2\sigma^2}\right)
 	\end{equation}
@@ -234,7 +234,7 @@ x^{'}_t = [x_t, \bm{\tilde{h}}_t]
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{Input-feeding_2-bi.png}
+	\includegraphics[width=0.8\textwidth]{Input-feeding_3-bi.png}
 	\caption[Minh họa cơ chế Attention Cục bộ.]{Minh họa phương pháp Input feeding. Tại bước thời gian $t$, bộ giải mã nhận đầu vào gồm véc-tơ attention ở bước thời gian trước đó $t-1$ và từ hiện tại $x_t$.}
 	\label{fig_Input_feeding}
 \end{figure}

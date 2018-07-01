@@ -208,6 +208,10 @@ D.~E. Rumelhart, G.~E. Hinton, and R.~J. Williams, ``Neurocomputing:
   plus 0.5em minus 0.4em\relax Cambridge, MA, USA: MIT Press, 1988, ch.
   Learning Representations by Back-propagating Errors, pp. 696--699.
 
+\bibitem{schuster1997}
+M.~Schuster and K.~Paliwal, ``Bidirectional recurrent neural networks,''
+  \emph{Trans. Sig. Proc.}, vol.~45, no.~11, pp. 2673--2681, Nov. 1997.
+
 \bibitem{Seq2Seq2014}
 \BIBentryALTinterwordspacing
 I.~Sutskever, O.~Vinyals, and Q.~V. Le, ``Sequence to sequence learning with

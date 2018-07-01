@@ -15,7 +15,6 @@ Database file #1: References/my_bib.bib
 A bad cross reference---entry "mikolovLM"
 refers to entry "conf/interspeech/2010", which doesn't exist
 Warning--I didn't find a database entry for "pascanu2012"
-Warning--I didn't find a database entry for "schuster1997"
 Warning--I didn't find a database entry for "rnnsection"
 Warning--I didn't find a database entry for "conf/interspeech/2010"
 -- IEEEtranS.bst version 1.12 (2007/01/11) by Michael Shell.
