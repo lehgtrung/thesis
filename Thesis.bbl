@@ -51,12 +51,9 @@ R.~Collobert and J.~Weston, ``A unified architecture for natural language
   2008, pp. 160--167.
 
 \bibitem{attentionhistory2011}
-\BIBentryALTinterwordspacing
 M.~Denil, L.~Bazzani, H.~Larochelle, and N.~de~Freitas, ``Learning where to
   attend with deep architectures for image tracking,'' \emph{CoRR}, vol.
-  abs/1109.3737, 2011. [Online]. Available:
-  \url{http://arxiv.org/abs/1109.3737}
-\BIBentrySTDinterwordspacing
+  abs/1109.3737, 2011.
 
 \bibitem{VocabReference1ReadingTeacher}
 J.~E.~K. Edward B.~Fry. (2006) The reading teacher's book of lists, 5th
@@ -96,14 +93,15 @@ H.~Jaeger, M.~Lukoševičius, D.~Popovici, and U.~Siewert, ``Optimization and
   Networks and Liquid State Machines.
 
 \bibitem{JeanUnkRepl}
-\BIBentryALTinterwordspacing
 S.~Jean, K.~Cho, R.~Memisevic, and Y.~Bengio, ``On using very large target
   vocabulary for neural machine translation,'' \emph{CoRR}, vol. abs/1412.2007,
-  2014. [Online]. Available: \url{http://arxiv.org/abs/1412.2007}
-\BIBentrySTDinterwordspacing
+  2014.
 
 \bibitem{VocabReference2LexicalFacts}
-Johnson. (2013) Vocabulary size lexical facts.
+\BIBentryALTinterwordspacing
+Johnson. (2013) Vocabulary size lexical facts. [Online]. Available:
+  \url{https://www.economist.com/johnson/2013/05/29/lexical-facts}
+\BIBentrySTDinterwordspacing
 
 \bibitem{jurafsky2000}
 D.~Jurafsky and J.~H. Martin, \emph{Speech and Language Processing: An
@@ -119,24 +117,17 @@ N.~Kalchbrenner and P.~Blunsom, ``Recurrent continuous translation models,'' in
   1700--1709.
 
 \bibitem{smtKoehn2003}
-\BIBentryALTinterwordspacing
 P.~Koehn, F.~J. Och, and D.~Marcu, ``Statistical phrase-based translation,'' in
   \emph{Proceedings of the 2003 Conference of the North American Chapter of the
   Association for Computational Linguistics on Human Language Technology -
-  Volume 1}, ser. NAACL '03.\hskip 1em plus 0.5em minus 0.4em\relax
-  Stroudsburg, PA, USA: Association for Computational Linguistics, 2003, pp.
-  48--54. [Online]. Available: \url{https://doi.org/10.3115/1073445.1073462}
-\BIBentrySTDinterwordspacing
+  Volume 1}, ser. NAACL '03, 2003, pp. 48--54.
 
 \bibitem{attentionhistory2010}
-\BIBentryALTinterwordspacing
 H.~Larochelle and G.~E. Hinton, ``Learning to combine foveal glimpses with a
   third-order boltzmann machine,'' in \emph{Advances in Neural Information
   Processing Systems 23}, J.~D. Lafferty, C.~K.~I. Williams, J.~Shawe-Taylor,
   R.~S. Zemel, and A.~Culotta, Eds.\hskip 1em plus 0.5em minus 0.4em\relax
-  Curran Associates, Inc., 2010, pp. 1243--1251. [Online]. Available:
-  \url{http://papers.nips.cc/paper/4089-learning-to-combine-foveal-glimpses-with-a-third-order-boltzmann-machine.pdf}
-\BIBentrySTDinterwordspacing
+  Curran Associates, Inc., 2010, pp. 1243--1251.
 
 \bibitem{AnhVietpaper}
 M.-T. Luong and C.~D. Manning, ``Stanford neural machine translation systems
@@ -144,14 +135,11 @@ M.-T. Luong and C.~D. Manning, ``Stanford neural machine translation systems
   Language Translation}, Da Nang, Vietnam, 2015.
 
 \bibitem{attentionThangLuong2015}
-\BIBentryALTinterwordspacing
 T.~Luong, H.~Pham, and C.~D. Manning, ``Effective approaches to attention-based
   neural machine translation,'' in \emph{Proceedings of the 2015 Conference on
   Empirical Methods in Natural Language Processing}.\hskip 1em plus 0.5em minus
   0.4em\relax Lisbon, Portugal: Association for Computational Linguistics,
-  September 2015, pp. 1412--1421. [Online]. Available:
-  \url{http://aclweb.org/anthology/D15-1166}
-\BIBentrySTDinterwordspacing
+  September 2015, pp. 1412--1421.
 
 \bibitem{massetal2012}
 A.~Maas, Q.~V. Le, T.~M. O’Neil, O.~Vinyals, P.~Nguyen, and A.~Y. Ng,
@@ -179,14 +167,11 @@ T.~Mikolov, I.~Sutskever, K.~Chen, G.~Corrado, and J.~Dean, ``Distributed
   0.4em\relax USA: Curran Associates Inc., 2013, pp. 3111--3119.
 
 \bibitem{BLEUpaper}
-\BIBentryALTinterwordspacing
 K.~Papineni, S.~Roukos, T.~Ward, and W.-J. Zhu, ``Bleu: A method for automatic
   evaluation of machine translation,'' in \emph{Proceedings of the 40th Annual
   Meeting on Association for Computational Linguistics}, ser. ACL '02.\hskip
   1em plus 0.5em minus 0.4em\relax Stroudsburg, PA, USA: Association for
-  Computational Linguistics, 2002, pp. 311--318. [Online]. Available:
-  \url{https://doi.org/10.3115/1073083.1073135}
-\BIBentrySTDinterwordspacing
+  Computational Linguistics, 2002, pp. 311--318.
 
 \bibitem{pascanu2011}
 R.~Pascanu, T.~Mikolov, and Y.~Bengio, ``On the difficulty of training
@@ -213,22 +198,16 @@ M.~Schuster and K.~Paliwal, ``Bidirectional recurrent neural networks,''
   \emph{Trans. Sig. Proc.}, vol.~45, no.~11, pp. 2673--2681, Nov. 1997.
 
 \bibitem{Seq2Seq2014}
-\BIBentryALTinterwordspacing
 I.~Sutskever, O.~Vinyals, and Q.~V. Le, ``Sequence to sequence learning with
-  neural networks,'' \emph{CoRR}, vol. abs/1409.3215, 2014. [Online].
-  Available: \url{http://arxiv.org/abs/1409.3215}
-\BIBentrySTDinterwordspacing
+  neural networks,'' \emph{CoRR}, vol. abs/1409.3215, 2014.
 
 \bibitem{werbos1990}
 P.~J. Werbos, ``Backpropagation through time: what it does and how to do it,''
   \emph{Proceedings of the IEEE}, vol.~78, no.~10, pp. 1550--1560, Oct 1990.
 
 \bibitem{showattendandtellXu2015}
-\BIBentryALTinterwordspacing
 K.~Xu, J.~Ba, R.~Kiros, K.~Cho, A.~C. Courville, R.~Salakhutdinov, R.~S. Zemel,
   and Y.~Bengio, ``Show, attend and tell: Neural image caption generation with
-  visual attention,'' \emph{CoRR}, vol. abs/1502.03044, 2015. [Online].
-  Available: \url{http://arxiv.org/abs/1502.03044}
-\BIBentrySTDinterwordspacing
+  visual attention,'' \emph{CoRR}, vol. abs/1502.03044, 2015.
 
 \end{thebibliography}

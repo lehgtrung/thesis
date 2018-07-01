@@ -30,7 +30,7 @@
 \backcite {pascanu2011}{{35}{2.3.2}{figure.caption.19}}
 \backcite {pascanu2011}{{35}{2.3.2}{figure.caption.19}}
 \backcite {pascanu2011}{{36}{2.3.2}{equation.2.3.47}}
-\backcite {pascanu2012}{{37}{2.3.2}{equation.2.3.47}}
+\backcite {pascanu2011}{{37}{2.3.2}{equation.2.3.47}}
 \backcite {martens2011}{{37}{2.3.2}{algorithm.2.1}}
 \backcite {jaeger2007}{{37}{2.3.2}{algorithm.2.1}}
 \backcite {hochreiter1997}{{37}{2.3.2}{algorithm.2.1}}
@@ -39,7 +39,6 @@
 \backcite {gers2000}{{39}{2.4}{figure.caption.21}}
 \backcite {gers2000}{{40}{2.4}{equation.2.4.50}}
 \backcite {schuster1997}{{42}{2.4.1}{subsection.2.4.1}}
-\backcite {rnnsection}{{42}{2.4.1}{subsection.2.4.1}}
 \backcite {attentionThangLuong2015}{{44}{3}{chapter.3}}
 \backcite {Seq2Seq2014}{{45}{3.1}{section.3.1}}
 \backcite {attentionhistory2010}{{54}{3.2.1}{subsection.3.2.1}}
