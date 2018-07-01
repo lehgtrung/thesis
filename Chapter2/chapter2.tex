@@ -295,7 +295,7 @@ Ta cũng dễ dàng tính được:
 
 Nhóm thứ hai gồm những tham số tham gia vào quá trình hồi quy, bao gồm $\theta^{(2)} \in \{W_{hh},W_{xh},b_h \}$. Để tính được gradient ứng với $\theta^{(2)}$, ta cần tính được $\frac{\partial h_t}{\partial \theta^{(2)} }$
 
-Vì $h_t$ là một hàm hồi quy được xây dựng dựa trên $\theta^{(2)}$ và $h_{t-1}$ nên gradient cuả $h_t$ tương ứng với $\theta^{(2)}$ được tính dựa trên quy tắc "total derivative". Quy tắc này nói rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^M$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
+Vì $h_t$ là một hàm hồi quy được xây dựng dựa trên $\theta^{(2)}$ và $h_{t-1}$ nên gradient cuả $h_t$ tương ứng với $\theta^{(2)}$ được tính dựa trên quy tắc \textit{total derivative}. Quy tắc này nói rằng nếu $f(x,y)$ với $x, y \in \mathbb{R}^M$, giả sử $x,y$ là những hàm số của $r$ sao cho $x = x(r); y = y(r)$ thì ta có:
 \begin{equation} \label{gradientWRTSt6}
 	\frac{\partial{f}}{\partial{r}} = \frac{\partial f}{\partial x}\frac{\partial x }{\partial r} + \frac{\partial f }{\partial y }\frac{\partial y }{\partial r }
 \end{equation}
@@ -324,7 +324,7 @@ Với cách khai triển như vậy, ta có công thức tổng quát cho $\frac
 \end{equation}
 trong đó $\frac{\partial^{\dagger} h_r}{\partial \theta^{(2)}}$ là đạo hàm "lập tức", có nghĩa là khi lấy đạo hàm $h_r$ theo $\theta^{(2)}$, $h_{r-1}$ được coi là hằng số.
 
-Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gradient" ứng với từng tham số là:
+Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có gradient ứng với từng tham số là:
 \begin{equation} \label{gradientWRTSt12}
 	\nabla_{W_{hh}}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \frac{\partial h_t}{\partial W_{hh}}  =  (\hat{y}_t - y) W_{hy}^T \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial W_{hh}}
 \end{equation}
@@ -335,7 +335,7 @@ Lần lượt thay thế $\theta^{(2)}$ bằng $W_{hh}, W_{xh}, b_h$ ta có "gra
 	\nabla_{b_h}L_t = \frac{\partial L_t}{\partial s_t} \frac{\partial s_t}{\partial h_t} \frac{\partial h_t}{\partial b_h}  =  (\hat{y}_t - y) W_{hy}^T \sum_{r=0}^{t} \frac{\partial h_{t}}{\partial h_r} \frac{\partial h_r}{\partial b_h}
 \end{equation}
 
-Để tính $\frac{\partial h_t}{\partial h_r}$ ta áp dụng "chain rule" từ bước thời gian thứ $t$ đến $r$
+Để tính $\frac{\partial h_t}{\partial h_r}$ ta áp dụng chain rule từ bước thời gian thứ $t$ đến $r$
 \begin{equation} \label{gradientWRTSt15}
 	\frac{\partial h_t}{\partial h_r} = \prod_{i=r}^{t} \frac{\partial h_{i}}{\partial h_{i-1}}
 \end{equation}
@@ -352,7 +352,7 @@ với $h_{i+1},h_i \in \mathbb{R}^n$ nên $\frac{\partial h_{i}}{\partial h_{i-1
 \end{split} 
 \end{equation}
 
-Như vậy, ta có "gradient" của các tham số qua tất cả các bước thời gian sẽ là:
+Như vậy, ta có gradient của các tham số qua tất cả các bước thời gian sẽ là:
 
 \begin{align}
 	\nabla_{b_{y}}L &= \sum_{t} \hat{y}_t - y \\ \label{updateParams2} 
@@ -388,7 +388,7 @@ Thứ hai, sự biến mất và sự bùng nổ gradient: theo thuật toán BP
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{BPTT}
-	\caption[Minh họa thuật toán "Back propagation through time"]{Tại mỗi bước thời gian $t$, đội lỗi không chỉ được lan truyền qua các tầng ở bước thời gian hiện tại mà còn phải lan truyền thông tin độ lỗi qua tất cả thời điểm trước đó. Chính sự lan truyền qua thời gian này gây ra hiện tượng bùng nổ hoặc biến mất gradient.}
+	\caption[Minh họa thuật toán Back propagation through time]{Tại mỗi bước thời gian $t$, đội lỗi không chỉ được lan truyền qua các tầng ở bước thời gian hiện tại mà còn phải lan truyền thông tin độ lỗi qua tất cả thời điểm trước đó. Chính sự lan truyền qua thời gian này gây ra hiện tượng bùng nổ hoặc biến mất gradient.}
 	\label{fig_BTT}
 \end{figure}
 
@@ -411,9 +411,9 @@ Với $W_{hh}$ là một ma trận vuông, nó có thể được phân tích th
 	W_{hh} = \Sigma \diag \left(\lambda \right) \Sigma^{-1} 
 \end{equation}
 
-Với $\Sigma, \lambda$ lần lượt là ma trận véc-tơ riêng và véc-tơ trị riêng của ma trận $W_{hh}$. Ta biết rằng lũy thừa của $W_{hh}$ cũng chính là lũy thừa của véc-tơ trị riêng của nó $\lambda$. Khi số mũ của phép lũy thừa lớn, những véc-tơ riêng ứng với trị riêng $\lambda_i < 1$ sẽ giảm theo hàm mũ, những véc-tơ riêng ứng với trị riêng $\lambda_i > 1$ sẽ tăng theo hàm mũ. Nói cách khác, \textit{điều kiện đủ} để xảy ra "gradient" biến mất là trị riêng lớn nhất của ma trận kết nối hồi quy $\lambda_{max}$ có giá trị nhỏ hơn 1. Để xảy ra "gradient" bùng nổ, \textit{điều kiện cần} là $\lambda_{max} > 1$.
+Với $\Sigma, \lambda$ lần lượt là ma trận véc-tơ riêng và véc-tơ trị riêng của ma trận $W_{hh}$. Ta biết rằng lũy thừa của $W_{hh}$ cũng chính là lũy thừa của véc-tơ trị riêng của nó $\lambda$. Khi số mũ của phép lũy thừa lớn, những véc-tơ riêng ứng với trị riêng $\lambda_i < 1$ sẽ giảm theo hàm mũ, những véc-tơ riêng ứng với trị riêng $\lambda_i > 1$ sẽ tăng theo hàm mũ. Nói cách khác, \textit{điều kiện đủ} để xảy ra gradient biến mất là trị riêng lớn nhất của ma trận kết nối hồi quy $\lambda_{max}$ có giá trị nhỏ hơn 1. Để xảy ra gradient bùng nổ, \textit{điều kiện cần} là $\lambda_{max} > 1$.
 
-Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất kỳ, với $\phi'$ bị chặn trên bởi $\gamma \in \mathbb{R}$ và do đó $||diag(\phi'(h_k))|| \leq \gamma$. Với $\lambda_{max} < \frac{1}{\gamma}$, hiện tượng "gradient" biến mất sẽ xảy ra. Theo công thức \ref{gradientWRTSt16}:
+Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất kỳ, với $\phi'$ bị chặn trên bởi $\gamma \in \mathbb{R}$ và do đó $||diag(\phi'(h_k))|| \leq \gamma$. Với $\lambda_{max} < \frac{1}{\gamma}$, hiện tượng gradient biến mất sẽ xảy ra. Theo công thức \ref{gradientWRTSt16}:
 \begin{equation} \label{gradientVanish5}
 	\forall i, \norm{\frac{\partial h_{i+1}}{\partial h_{i}}} \leq \norm{ W^T_{hh} } \norm{ diag(\phi'(h_k)) } < \frac{1}{\gamma} \gamma < 1 
 \end{equation}
@@ -423,11 +423,11 @@ Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất k�
 	\lim_{t - r \to \infty} \frac{\partial h_{t}}{\partial h_r} = \prod_{i=r}^{t} W_{hh}^T \diag \left(\phi'(h_i) \right) \leq \beta^{t - r} = 0
 \end{equation}
 
-Bằng cách đảo ngược chứng minh này ta được \textit{điều kiện cần} để xảy ra "gradient" bùng nổ là trị riêng lớn nhất $\lambda_{max}$ lớn hơn $\frac{1}{\gamma}$.
+Bằng cách đảo ngược chứng minh này ta được \textit{điều kiện cần} để xảy ra gradient bùng nổ là trị riêng lớn nhất $\lambda_{max}$ lớn hơn $\frac{1}{\gamma}$.
 
 Chứng minh trên cho thấy rằng, khi $t-r$ lớn, tức là khoảng cách giữa từ đang xét và một từ trong quá khứ là lớn thì $\nabla_{\theta_r} L_t$ sẽ hoặc rất bé nếu $\lambda_{max} < \frac{1}{\gamma}$ hoặc có khả năng trở nên rất lớn nếu $\lambda_{max} > \frac{1}{\gamma}$. Trong thực tế, với $\phi$ là hàm \textbf{tanh} ta có $\gamma = 1$ trong khi với $\phi$ là hàm sigmoid, ta có $\gamma = 1/4$. Nếu ta khởi tạo tham số $\theta$ nhỏ hoặc dùng hàm kích hoạt có $\gamma$ nhỏ như hàm \textbf{sigmoid} thì sự biến mất gradient sẽ dễ rất dễ xảy ra; nó khiến cho mô hình chỉ học được những phụ thuộc cục bộ. Ngược lại, nếu $\theta$ được khởi tạo với giá trị lớn, gradient tại các bước thời gian ở xa sẽ bùng nổ và kết quả là mô hình không thể học được \cite{pascanu2011}.
 
-Một kỹ thuật để đối phó với sự bùng nổ gradient được đề là chuẩn hóa gradient về một giá trị nếu nó vượt quá một ngưỡng nào đó. Kỹ thuật này gọi là "gradient norm clipping" \cite{pascanu2012}. Cụ thể, ta đặt một ngưỡng là chặn trên cho gradient, tại mỗi bước thời gian $t$ trong lúc "backpropagation", nếu độ lớn của gradient lớn hơn ngưỡng này ta sẽ chuẩn hóa trở về một giá trị nhỏ hơn. Giải pháp này được áp dụng trong thực tế để ngăn chặn các giá trị \textbf{NaN} (Not a Number) trong gradient và cho phép quá trình huấn luyện tiếp tục. "Gradient clipping" được trình bày trong thuật toán \ref{alg_GDClipping}.
+Một kỹ thuật để đối phó với sự bùng nổ gradient được đề là chuẩn hóa gradient về một giá trị nếu nó vượt quá một ngưỡng nào đó. Kỹ thuật này gọi là \textit{gradient norm clipping} \cite{pascanu2012}. Cụ thể, ta đặt một ngưỡng là chặn trên cho gradient, tại mỗi bước thời gian $t$ trong lúc backpropagation, nếu độ lớn của gradient lớn hơn ngưỡng này ta sẽ chuẩn hóa trở về một giá trị nhỏ hơn. Giải pháp này được áp dụng trong thực tế để ngăn chặn các giá trị \textbf{NaN} (Not a Number) trong gradient và cho phép quá trình huấn luyện tiếp tục. Gradient norm clipping được trình bày trong thuật toán \ref{alg_GDClipping}.
 
 \begin{algorithm}
 	\newalgname{Thuật toán}
@@ -450,7 +450,7 @@ Một kỹ thuật để đối phó với sự bùng nổ gradient được đ�
 	\end{algorithmic}
 \end{algorithm}
 
-Mặt khác, vấn đề biến mất gradient là khó giải quyết hơn. Đã có nhiều cách tiếp cận được đề xuất để giải quyêt vấn đề này như "Hessian Free Optimization" \cite{martens2011}, "Echo State Network" \cite{jaeger2007}, Long short-term memory \cite{hochreiter1997} và một số phương pháp khác được liệt kê trong \cite{bengio2013}. Trong số những phương pháp đó, "Long short-term memory" (LSTM) là phương pháp thường được sử dụng nhất. LSTM là phiên bản nâng cấp của RNN với các chê chế để giải quyết hiệu quả vấn đề biến mất gradient, hơn thế nữa, với các cơ chế của mình, LSTM còn có thể giải quyết vấn đề bùng nổ gradient và giúp mạng nơ-ron hồi quy học tốt hơn. Nó cũng chính là phiên bản mạng nơ-ron hồi quy mà chúng tôi sử dụng trong khóa luận này. Trong phần tiếp theo, chúng tôi sẽ trình bày về LSTM và giải thích vì sao LSTM hiệu quả không chỉ trong việc giải quyết vấn đề biến mất gradient mà còn cho cả vấn đề bùng nổ gradient và mất mát thông tin.
+Mặt khác, vấn đề biến mất gradient là khó giải quyết hơn. Đã có nhiều cách tiếp cận được đề xuất để giải quyêt vấn đề này như \textit{Hessian Free Optimization} \cite{martens2011}, \textit{Echo State Network} \cite{jaeger2007}, \textit{Long short-term memory} \cite{hochreiter1997} và một số phương pháp khác được liệt kê trong \cite{bengio2013}. Trong số những phương pháp đó, Long short-term memory (LSTM) là phương pháp thường được sử dụng nhất. LSTM là phiên bản nâng cấp của RNN với các chê chế để giải quyết hiệu quả vấn đề biến mất gradient, hơn thế nữa, với các cơ chế của mình, LSTM còn có thể giải quyết vấn đề bùng nổ gradient và giúp mạng nơ-ron hồi quy học tốt hơn. Nó cũng chính là phiên bản mạng nơ-ron hồi quy mà chúng tôi sử dụng trong khóa luận này. Trong phần tiếp theo, chúng tôi sẽ trình bày về LSTM và giải thích vì sao LSTM hiệu quả không chỉ trong việc giải quyết vấn đề biến mất gradient mà còn cho cả vấn đề bùng nổ gradient và mất mát thông tin.
 
 \section{Long short-term memory (LSTM)}
 
@@ -461,11 +461,11 @@ Mặt khác, vấn đề biến mất gradient là khó giải quyết hơn. Đ�
 	\label{fig_lstmCell}
 \end{figure}
 
-Hochreiter và Schmidhuber \cite{hochreiter1997} đã giới thiệu mô hình \textit{Long short-term memory} (LSTM) chủ yếu ở để khắc phục vấn đề biến mất gradient trong RNN. Nhớ lại rằng trong RNN, chính việc mô hình hóa phụ thuộc thời gian dựa vào ma trận trọng số $W_{hh}$ đã gây ra hiện tượng gradient biến mất. Giả sử gọi $S_t$ là trạng thái liên kết hồi quy (trong RNN, nó chính là trạng thái ẩn). Ý tưởng của LSTM là thay vì tính toán $S_t$ từ $S_{t-1}$ với một phép nhân ma trận theo sau là hàm kích hoạt phi tuyến, LSTM trực tiếp tính toán một $\Delta S_t$ sau đó nó được cộng với $S_{t-1}$ để tạo ra $S_t$. Thoạt nhìn, sự khác biệt này có thể không đáng kể khi mà chúng ta đều đạt được $S_t$ trong cả hai cách. Tuy nhiên, với cách làm này, các "gradient" của LSTM tính toán $\Delta S_t$ sẽ không bị biến mất.
+Hochreiter và Schmidhuber \cite{hochreiter1997} đã giới thiệu mô hình \textit{Long short-term memory} (LSTM) chủ yếu ở để khắc phục vấn đề biến mất gradient trong RNN. Nhớ lại rằng trong RNN, chính việc mô hình hóa phụ thuộc thời gian dựa vào ma trận trọng số $W_{hh}$ đã gây ra hiện tượng gradient biến mất. Giả sử gọi $S_t$ là trạng thái liên kết hồi quy (trong RNN, nó chính là trạng thái ẩn). Ý tưởng của LSTM là thay vì tính toán $S_t$ từ $S_{t-1}$ với một phép nhân ma trận theo sau là hàm kích hoạt phi tuyến, LSTM trực tiếp tính toán một $\Delta S_t$ sau đó nó được cộng với $S_{t-1}$ để tạo ra $S_t$. Thoạt nhìn, sự khác biệt này có thể không đáng kể khi mà chúng ta đều đạt được $S_t$ trong cả hai cách. Tuy nhiên, với cách làm này, các gradient của LSTM tính toán $\Delta S_t$ sẽ không bị biến mất.
 
 Thuật ngữ "Long short-term memory" xuất phát từ nhận định sau. Mạng RNN đơn giản có "long term memory" (bộ nhớ dài hạn) dưới dạng các ma trận trọng số. Những ma trận trọng số này thay đổi một cách chậm rãi trong quá trình học nhằm mã hóa kiến thức về dữ liệu. RNN cũng có "short-term memory" (bộ nhớ ngắn hạn) dưới dạng các kích hoạt tạm thời, được truyền từ mỗi bước thời gian sang các bước thời gian sau đó. "Long short-term memory" tạm dịch là "bộ nhớ ngắn hạn dài" cho phép mở rộng bộ nhớ ngắn hạn bằng cách thêm vào một loại lưu trữ trung gian gọi là trạng thái lưu giữ (cell state). Trạng thái lưu giữ này có khả năng lưu giữ các thông tin cần thiết một cách lâu dài dưới dạng một bộ nhớ ngắn hạn. Để làm được điều này, LSTM sử dụng một cơ chế gọi là "cổng", các "cổng" giúp được huấn luyện để chọn lọc thông tin nào là cần thiết để tác động lên trạng thái lưu trữ. Với cách làm này, trạng thái lưu trữ sẽ lưu được nhiều thông tin hơn, vì chỉ những thông tin quan trọng mới tồn tại trong nó.
 
-Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưng mỗi "RNN cell" (ký hiệu "A" trong hình \ref{fig_rnn_unrolled}) được thay thế bằng một "memory cell" (hình \ref{fig_lstmCell}). Giống như "RNN cell", "memory cell" nhận một đầu vào bên ngoài và phát sinh một đầu ra cũng như là truyền đi một trạng thái ẩn sang "memory cell" ở bước thời gian kế tiếp. Tuy nhiên, trong "memory cell" còn có thêm một trạng thái lưu giữ cũng được truyền đi như một trạng thái ẩn. Cấu tạo chi tiết của LSTM sẽ được trình bày trong phần dưới đây, cấu tạo này dựa trên phiên bản LSTM của \cite{gers2000}.
+Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưng mỗi RNN cell (ký hiệu "A" trong hình \ref{fig_rnn_unrolled}) được thay thế bằng một \textit{memory cell} (hình \ref{fig_lstmCell}). Giống như RNN cell, memory cell nhận một đầu vào bên ngoài và phát sinh một đầu ra cũng như là truyền đi một trạng thái ẩn sang memory cell ở bước thời gian kế tiếp. Tuy nhiên, trong memory cell còn có thêm một trạng thái lưu giữ cũng được truyền đi như một trạng thái ẩn. Cấu tạo chi tiết của LSTM sẽ được trình bày trong phần dưới đây, cấu tạo này dựa trên phiên bản LSTM của \cite{gers2000}.
 
 \begin{itemize}
 	\item[•] \textit{Nút đầu vào (input node)}: Đơn vị này được ký hiệu là $g$, là một mạng nơ-ron một tầng ẩn. Nút đầu vào có nhiệm vụ mô hình hóa đầu vào tại mỗi bước thời gian. Nó nhận tham số là đầu vào tại bước thời gian hiện tại $x_t$ và trạng thái ẩn tại thời điểm trước đó $h_{t-1}$. Cụ thể, tại mỗi bước thời gian nút đầu vào có công thức:
@@ -476,7 +476,7 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\begin{equation} \label{inputGateLSTM}
 		i_t = \sigma \left(W_{ix}x_t + W_{ih}h_{t-1} + b_i \right)
 	\end{equation}
-	\item[•] \textit{Trạng thái lưu giữ (cell state)}: Trái tim của LSTM chính là trạng thái lưu trữ, là một mạng nơ-ron với hàm kích hoạt tuyến tính. Khá giống với trạng thái ẩn trong RNN, trạng thái lưu trữ $s_t$ cũng có một kết nối hồi quy với trạng thái lưu trữ trước đó $s_{t-1}$. Tuy nhiên, trọng số kết nối hồi quy luôn có giá trị cố định là 1. Bởi vì kết nối hồi quy này qua nhiều bước đều có trọng số không đổi nên khi tính toán, "gradient" của độ lỗi không bị bùng nổ hay biến mất. Tại mỗi bước thời gian, trạng thái lưu trữ được tính như sau:
+	\item[•] \textit{Trạng thái lưu giữ (cell state)}: Trái tim của LSTM chính là trạng thái lưu trữ, là một mạng nơ-ron với hàm kích hoạt tuyến tính. Khá giống với trạng thái ẩn trong RNN, trạng thái lưu trữ $s_t$ cũng có một kết nối hồi quy với trạng thái lưu trữ trước đó $s_{t-1}$. Tuy nhiên, trọng số kết nối hồi quy luôn có giá trị cố định là 1. Bởi vì kết nối hồi quy này qua nhiều bước đều có trọng số không đổi nên khi tính toán, gradient của độ lỗi không bị bùng nổ hay biến mất. Tại mỗi bước thời gian, trạng thái lưu trữ được tính như sau:
 	\begin{equation} \label{cellStateLSTM}
 		s_t = s_{t-1} + g_t \odot i_t
 	\end{equation}
@@ -489,17 +489,17 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\begin{equation} \label{cellStateWithForgetGateLSTM}
 		s_t = s_{t-1} \odot f_t + g_t \odot i_t
 	\end{equation}
-	\item[•] \textit{Cổng ra (output gate)}: Giá trị đầu ra $v_t$ của "memory cell" tại mỗi bước thời gian chính là tích giá trị của trạng thái lưu trữ $s_t$ với giá trị của cổng ra $o_t$. Trong một số phiên bản của LSTM, hàm kích hoạt $\phi$ có thể là hàm \textbf{tanh} hoặc \textbf{sigmoid} hoặc không sử dụng hàm kích hoạt nào. Tại mỗi bước thời gian, giá trị của cổng ra $o_t$ được tính như sau:
+	\item[•] \textit{Cổng ra (output gate)}: Giá trị đầu ra $v_t$ của memory cell tại mỗi bước thời gian chính là tích giá trị của trạng thái lưu trữ $s_t$ với giá trị của cổng ra $o_t$. Trong một số phiên bản của LSTM, hàm kích hoạt $\phi$ có thể là hàm \textbf{tanh} hoặc \textbf{sigmoid} hoặc không sử dụng hàm kích hoạt nào. Tại mỗi bước thời gian, giá trị của cổng ra $o_t$ được tính như sau:
 	\begin{equation} \label{outputGateLSTM}
 		o_t = \sigma \left(W_{ox}x_t + W_{oh}h_{t-1} + b_o \right)
 	\end{equation}
-	Đầu ra của "memory cell" cũng chính là trạng thái ẩn $h_t$ có giá trị:
+	Đầu ra của memory cell cũng chính là trạng thái ẩn $h_t$ có giá trị:
 	\begin{equation} \label{outputNodeLSTM}
 		h_t = \phi(s_t) \odot o_t 
 	\end{equation}
 \end{itemize}
 
-Như đã phân tích, đối với RNN, trạng thái ẩn được tạo ra một cách trực tiếp từ trạng thái ẩn trước đó thông qua phép biến đổi phi tuyến. Điều này làm cho "gradient" bị biến mất trong quá trình lan truyền ngược từ trạng thái ẩn này sang trại thái ẩn khác. Trong khi đó, với LSTM, trạng thái ẩn được tính một cách gián tiếp thông qua trạng thái lưu giữ mà những trạng thái lưu trữ này được kết nối với nhau qua một phép biến đổi tuyến tính. Điều này giúp cho "gradient" không bị thay đổi trong quá trình lan truyền ngược. Do đó giảm khả năng LSTM gặp phải vấn đề "gradient" bị biến mất hay bùng nổ. Ngoài ra, với cơ chế cổng, LSTM có khả năng chọn lọc những thông tin cần thiết, loại bỏ các thông tin thừa trong trạng thái ẩn, điều này giúp tăng khả năng lưu trữ thông tin so với RNN. Ta thấy rằng nếu muốn lấy thông tin từ một thời điểm nào đó, LSTM có thể học để đóng các cổng đầu vào và cổng quên, cho nên thông có thể truyền từ một thời điểm đi rất xa mà ít bị mất mát (hình \ref{fig_infoconst} thể hiện khả năng bảo vệ thông tin của LSTM). Khả năng bảo quản thông tin tốt và nắm bắt các phụ thuộc dài hạn chính là lý do vì sao LSTM được chọn để làm bộ mã hóa và bộ giải mã trong khóa luận này.
+Như đã phân tích, đối với RNN, trạng thái ẩn được tạo ra một cách trực tiếp từ trạng thái ẩn trước đó thông qua phép biến đổi phi tuyến. Điều này làm cho gradient bị biến mất trong quá trình lan truyền ngược từ trạng thái ẩn này sang trại thái ẩn khác. Trong khi đó, với LSTM, trạng thái ẩn được tính một cách gián tiếp thông qua trạng thái lưu giữ mà những trạng thái lưu trữ này được kết nối với nhau qua một phép biến đổi tuyến tính. Điều này giúp cho gradient không bị thay đổi trong quá trình lan truyền ngược. Do đó giảm khả năng LSTM gặp phải vấn đề gradient bị biến mất hay bùng nổ. Ngoài ra, với cơ chế cổng, LSTM có khả năng chọn lọc những thông tin cần thiết, loại bỏ các thông tin thừa trong trạng thái ẩn, điều này giúp tăng khả năng lưu trữ thông tin so với RNN. Ta thấy rằng nếu muốn lấy thông tin từ một thời điểm nào đó, LSTM có thể học để đóng các cổng đầu vào và cổng quên, cho nên thông có thể truyền từ một thời điểm đi rất xa mà ít bị mất mát (hình \ref{fig_infoconst} thể hiện khả năng bảo vệ thông tin của LSTM). Khả năng bảo quản thông tin tốt và nắm bắt các phụ thuộc dài hạn chính là lý do vì sao LSTM được chọn để làm bộ mã hóa và bộ giải mã trong khóa luận này.
 
 \begin{figure}
 	\centering
@@ -531,7 +531,7 @@ trong công thức trên, $\overleftarrow{h_t}, \overleftarrow{h_t}$ lần lư�
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\textwidth]{birnn}
-	\caption[Minh họa một bi-LSTM được dùng làm bộ mã hóa]{Minh họa một bi-LSTM được dùng làm bộ mã hóa. Trại thái ẩn cuối cùng (véc-tơ cao nhất trong hình) là sự kết hợp theo chiều dọc của hai véc-tơ trại thái ẩn cuối cùng ở hai chiều từ trái sang phải và từ phải sang trái. Nếu thay "LSTM" trong hình bằng "RNN", ta sẽ có một bi-RNN.}
+	\caption[Minh họa một bi-LSTM được dùng làm bộ mã hóa]{Minh họa một bi-LSTM được dùng làm bộ mã hóa. Trại thái ẩn cuối cùng (véc-tơ cao nhất trong hình) là sự kết hợp theo chiều dọc của hai véc-tơ trại thái ẩn cuối cùng ở hai chiều từ trái sang phải và từ phải sang trái. Nếu thay LSTM trong hình bằng RNN, ta sẽ có một bi-RNN.}
 	\label{fig_birnn}
 \end{figure}
 
