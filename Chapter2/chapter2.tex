@@ -157,8 +157,11 @@ Xét một ví dụ về word embedding, trong đó ta quy định bậc của g
 	\item[3.] \textbf{four groups} are playing in the field.
 \end{itemize}
 
-Với những lập luận trên, ta thấy rằng hai từ \textbf{ten}
-và \textbf{four} sẽ có biểu diễn gần giống nhau vì chúng đều dự đoán từ \textbf{teams}. Hơn thế nữa, ta cũng sẽ có các véc-tơ từ tương ứng với \textbf{teams} $u_{teams}$ và \textbf{nhóm} $u_{groups}$ trong ma trận $U$ cũng sẽ gần giống nhau. Bởi vì nếu không xác suất của \textbf{teams} khi biết \textbf{four} $p(teams|four) \propto u_{teams}h_{four}$ và xác suất của \textbf{groups} khi biết \textbf{four} $p(groups|four) \propto u_{groups}h_{four}$ sẽ khác nhau mặc dù chúng có cùng xác suất trong tập ngữ liệu (câu thứ 2 và 3 trong tập dữ liệu gồm 3 câu phía trên).
+Với những phân tích trước đó, ta thấy rằng hai từ \textbf{ten} và \textbf{four} sẽ có biểu diễn gần giống nhau vì chúng đều dự đoán từ \textbf{teams}. Hơn thế nữa, ta cũng sẽ có các véc-tơ từ tương ứng với \textbf{teams} $u_{teams}$ và \textbf{groups} $u_{groups}$ trong ma trận $U$ cũng sẽ gần giống nhau. Bởi vì nếu không xác suất của \textbf{teams} khi biết \textbf{four} $p(teams|four) \propto u_{teams}h_{four}$ và xác suất của \textbf{groups} khi biết \textbf{four} $p(groups|four) \propto u_{groups}h_{four}$ sẽ khác nhau mặc dù chúng có cùng xác suất trong tập ngữ liệu (câu thứ 2 và 3 trong tập dữ liệu gồm 3 câu phía trên).
+
+Giả sử ta sử dụng tập ngữ liệu gồm 3 câu này để huấn luyện một mô hình ngôn ngữ. Xét một bi-gram chưa từng xuất hiện trong tập ngữ liệu là \textbf{ten groups}. Ta biết rằng, mô hình ngôn ngữ gán cho \textbf{ten} một véc-tơ $h_{ten}$ gần với véc-tơ của \textbf{four} $h_{four}$. Sau đó từ véc-tơ ngữ cảnh của $h_{ten}$, mô hình sẽ phải gán cho xác suất $p(group|ten)$ một giá trị lớn, vì $h_{ten} \approx h_{four}$ mà $h_{four}$ và $u_{group}$ đã được gióng hàng tốt với nhau. Ta thấy được rằng mặc dù bi-gram \textbf{ten groups} chưa từng xuất hiện trong tập ngữ vựng, nhưng mô hình vẫn gán cho nó một xác suất hợp lý. 
+
+Có thể tóm gọn lại nguyên lý của word embedding là với những từ trong cùng một ngữ cảnh (ngữ cảnh là những từ xung quanh nó) sẽ có véc-tơ embedding giống nhau, và những ngữ cảnh giống nhau cũng sẽ có các véc-tơ tương tự nhau trong không gian ngữ cảnh. Nguyên lý này rất đẹp và có ý nghĩa đối với những bài toán cần dùng đến tính chất ngữ nghĩa của các từ và câu, như trong bài toán dịch máy.
 
 
 \section{Mạng nơ-ron hồi quy (Recurrent neural network)} \label{rnnsection}
