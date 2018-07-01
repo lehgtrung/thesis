@@ -29,7 +29,7 @@ Trong công thức trên, mỗi thành phần $p(w_i|w_1,w_2,...,w_{i-1})$ là x
 \end{equation}
 
 Công thức \ref{traditionalLM} theo giả định markov trở thành:
-\begin{equation} \label{traditionalLM}
+\begin{equation} \label{traditionalLM2}
 	p(w_{1:n}) = \prod_{t=1}^{n} \approx p(w_{i-k}|w_{i-k},..w_{i-1})
 \end{equation}
 
@@ -419,7 +419,7 @@ Trong trường hợp tổng quát với một hàm kích hoạt $\phi$ bất k�
 \end{equation}
 
 Đặt $\beta \in \mathbb{R}$ sao cho $\forall i, \norm{\frac{\partial h_{i+1}}{\partial h_{i}}} \leq \beta < 1$, như vậy ta có thể thấy được rằng:
-\begin{equation} \label{gradientVanish3}
+\begin{equation} \label{gradientVanish6}
 	\lim_{t - r \to \infty} \frac{\partial h_{t}}{\partial h_r} = \prod_{i=r}^{t} W_{hh}^T \diag \left(\phi'(h_i) \right) \leq \beta^{t - r} = 0
 \end{equation}
 
@@ -499,13 +499,13 @@ Về cấu tạo, một LSTM tương tự như một RNN một lớp ẩn, nhưn
 	\end{equation}
 \end{itemize}
 
-Như đã phân tích, đối với RNN, trạng thái ẩn được tạo ra một cách trực tiếp từ trạng thái ẩn trước đó thông qua phép biến đổi phi tuyến. Điều này làm cho "gradient" bị biến mất trong quá trình lan truyền ngược từ trạng thái ẩn này sang trại thái ẩn khác. Trong khi đó, với LSTM, trạng thái ẩn được tính một cách gián tiếp thông qua trạng thái lưu giữ mà những trạng thái lưu trữ này được kết nối với nhau qua một phép biến đổi tuyến tính. Điều này giúp cho "gradient" không bị thay đổi trong quá trình lan truyền ngược. Do đó giảm khả năng LSTM gặp phải vấn đề "gradient" bị biến mất hay bùng nổ. Ngoài ra, với cơ chế cổng, LSTM có khả năng chọn lọc những thông tin cần thiết, loại bỏ các thông tin thừa trong trạng thái ẩn, điều này giúp tăng khả năng lưu trữ thông tin so với RNN. Ta thấy rằng nếu muốn lấy thông tin từ một thời điểm nào đó, LSTM có thể học để đóng các cổng đầu vào và cổng quên, cho nên thông có thể truyền từ một thời điểm đi rất xa mà ít bị mất mát. Khả năng bảo quản thông tin tốt và nắm bắt các phụ thuộc dài hạn chính là lý do vì sao LSTM được chọn để làm bộ mã hóa và bộ giải mã trong khóa luận này.
+Như đã phân tích, đối với RNN, trạng thái ẩn được tạo ra một cách trực tiếp từ trạng thái ẩn trước đó thông qua phép biến đổi phi tuyến. Điều này làm cho "gradient" bị biến mất trong quá trình lan truyền ngược từ trạng thái ẩn này sang trại thái ẩn khác. Trong khi đó, với LSTM, trạng thái ẩn được tính một cách gián tiếp thông qua trạng thái lưu giữ mà những trạng thái lưu trữ này được kết nối với nhau qua một phép biến đổi tuyến tính. Điều này giúp cho "gradient" không bị thay đổi trong quá trình lan truyền ngược. Do đó giảm khả năng LSTM gặp phải vấn đề "gradient" bị biến mất hay bùng nổ. Ngoài ra, với cơ chế cổng, LSTM có khả năng chọn lọc những thông tin cần thiết, loại bỏ các thông tin thừa trong trạng thái ẩn, điều này giúp tăng khả năng lưu trữ thông tin so với RNN. Ta thấy rằng nếu muốn lấy thông tin từ một thời điểm nào đó, LSTM có thể học để đóng các cổng đầu vào và cổng quên, cho nên thông có thể truyền từ một thời điểm đi rất xa mà ít bị mất mát (hình \ref{fig_infoconst} thể hiện khả năng bảo vệ thông tin của LSTM). Khả năng bảo quản thông tin tốt và nắm bắt các phụ thuộc dài hạn chính là lý do vì sao LSTM được chọn để làm bộ mã hóa và bộ giải mã trong khóa luận này.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.85\textwidth]{infoconst}
 	\caption[Minh họa quá trình thông tin dài hạn trong LSTM được duy trì]{Minh họa quá trình thông tin dài hạn trong LSTM được duy trì. Hình vẽ này minh họa cách thông tin của đầu vào tại thời điểm thứ nhất được duy trì một cách toàn vẹn khi lan truyền qua các thời điểm tiếp theo; màu càng đậm tương ứng với lượng thông tin của đầu vào thứ nhất càng nhiều. Ở đây, mỗi nơ-ron ẩn có các cổng: cổng quên (bên trái), cổng vào (bên dưới) và cổng ra (bên trên) của các trạng thái ẩn; một cổng mở hoàn toàn được kí hiệu bởi “$\circ$”, và đóng hoàn toàn được kí hiệu bởi “$-$”. Để duy trì thông tin của đầu vào thứ nhất một cách toàn vẹn, tại tất cả các thời điểm, các cổng xóa được mở hoàn toàn để lấy toàn bộ thông tin của đầu vào thứ nhất; trong khi đó, từ thời điểm thứ hai, các cổng đầu vào đóng hoàn toàn để chặn thông tin của các đầu vào mới. Tại thời điểm nào mà trạng thái ẩn cần sử dụng tất cả thông tin của đầu vào thứ nhất, mô hình chỉ cần mở hoàn toàn cổng đầu ra để lấy toàn vẹn thông tin này.}
-	\label{fig_infomorphing}
+	\label{fig_infoconst}
 \end{figure}
 
 %\subsection{Huấn luyện mạng LSTM}
