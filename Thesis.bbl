@@ -141,6 +141,11 @@ T.~Luong, H.~Pham, and C.~D. Manning, ``Effective approaches to attention-based
   0.4em\relax Lisbon, Portugal: Association for Computational Linguistics,
   September 2015, pp. 1412--1421.
 
+\bibitem{rarewordhandling}
+T.~Luong, I.~Sutskever, Q.~V. Le, O.~Vinyals, and W.~Zaremba, ``Addressing the
+  rare word problem in neural machine translation,'' \emph{CoRR}, vol.
+  abs/1410.8206, 2014.
+
 \bibitem{massetal2012}
 A.~Maas, Q.~V. Le, T.~M. O’Neil, O.~Vinyals, P.~Nguyen, and A.~Y. Ng,
   ``Recurrent neural networks for noise reduction in robust asr,'' in
@@ -200,6 +205,14 @@ M.~Schuster and K.~Paliwal, ``Bidirectional recurrent neural networks,''
 \bibitem{Seq2Seq2014}
 I.~Sutskever, O.~Vinyals, and Q.~V. Le, ``Sequence to sequence learning with
   neural networks,'' \emph{CoRR}, vol. abs/1409.3215, 2014.
+
+\bibitem{transformer}
+\BIBentryALTinterwordspacing
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
+  L.~Kaiser, and I.~Polosukhin, ``Attention is all you need,'' \emph{CoRR},
+  vol. abs/1706.03762, 2017. [Online]. Available:
+  \url{http://arxiv.org/abs/1706.03762}
+\BIBentrySTDinterwordspacing
 
 \bibitem{werbos1990}
 P.~J. Werbos, ``Backpropagation through time: what it does and how to do it,''
