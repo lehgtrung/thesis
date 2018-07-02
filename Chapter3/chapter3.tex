@@ -229,7 +229,7 @@ Trong Dịch máy Thống kê, Koehn et al. 2003 \cite{smtKoehn2003} đã đề 
 
 Công trình \cite{attentionThangLuong2015} đề xuất một cơ chế góp phần giải quyết vấn đề ở trên: \textit{input feeding} (tạm dịch là "\textit{tăng cường thông tin cho đầu vào}"). Ý tưởng và cách thực hiện của input feeding rất đơn giản. Nhận thấy véc-tơ attention $\bm{\tilde{h}}_{t-1}$ lưu giữ thông tin gióng hàng của bước thời gian $t-1$ trước đó, mô hình thực hiện nối véc-tơ $\bm{\tilde{h}}_{t-1}$ với đầu vào $x_t$ của bước thời gian $t$ hiện tại. Bằng cách như vậy, mô hình có thể nắm được thông tin gióng hàng trước đó từ $\bm{\tilde{h}}_{t-1}$.
 \begin{equation}
-x^{'}_t = [x_t, \bm{\tilde{h}}_t]
+x^{'}_t = [x_t; \bm{\tilde{h}}_t]
 \end{equation}
 
 \begin{figure}

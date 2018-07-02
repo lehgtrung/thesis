@@ -8,10 +8,10 @@
 
 \section{Kết luận}
 
-Trong khóa luận này, chúng tôi nghiên cứu bài toán Dịch máy nơ-ron bằng mô hình Attention-LSTM. Mô hình Attention-LSTM học được cách dịch giữa hai ngôn ngữ (trong khóa luận này là Anh-Đức) như các mô hình với kiến trúc Bộ mã hóa - Bộ giải mã với bộ mã hóa và bộ giải mã là các LSTM. Tuy nhiên cơ chế Attention đem lại nhiều lợi thế mà những mô hình không sử dụng Attention không có được:
+Trong khóa luận này, chúng tôi tìm hiểu bài toán Dịch máy nơ-ron bằng mô hình LSTM-Attention dựa trên bài báo \textit{"Effective Approaches to Attention-based Neural Machine Translation"} \cite{attentionThangLuong2015}. Mô hình LSTM-Attention học được cách dịch giữa hai ngôn ngữ (trong khóa luận này là Anh-Đức và Anh-Việt). Cơ chế Attention đem lại nhiều lợi thế mà những mô hình không sử dụng Attention không có được:
 \begin{itemize}
-	\item Các mô hình sử dụng Attention tận dụng được các trạng thái ẩn trên bộ mã hóa để hạn chế vấn đề "sự phụ thuộc dài" của các mô hình RNN. Trong quá trình dự đoán, bộ giải mã sử dụng các trạng thái ẩn của bộ mã hóa bằng cách "nhìn" vào các trạng thái ẩn cần thiết và sử dụng nó để suy ra ngữ cảnh hiện tại của câu, sau đó mô hình dự đoán từ tiếp theo dựa vào ngữ cảnh đó.
-	\item Cơ chế có cách dịch khá giống với ý tưởng về cách con người dịch hay nhìn sự vật, hiện tượng. Mọi người thường chỉ "nhìn" vào một vùng nhất định rồi tập trung vào những phần quan trọng mà cung cấp những thông tin cần thiết, phù hợp với mục đích quan sát của sự vật, hiện tượng.
+	\item Các mô hình sử dụng Attention tận dụng được các trạng thái ẩn trên bộ mã hóa để hạn chế vấn đề "sự phụ thuộc dài" của các mô hình RNN. Trong quá trình dự đoán, bộ giải mã sử dụng các trạng thái ẩn của bộ mã hóa bằng cách "nhìn" vào các trạng thái ẩn cần thiết, sau đó tập trung vào những trạng thái ẩn quna trọng và sử dụng nó để suy ra ngữ cảnh hiện tại của câu, sau đó mô hình dự đoán từ tiếp theo dựa vào ngữ cảnh đó.
+	\item Cơ chế có cách dịch khá giống với ý tưởng về cách con người dịch hay nhìn sự vật, hiện tượng. Mọi người thường chỉ nhìn vào một vùng nhất định rồi tập trung vào những phần quan trọng mà cung cấp những thông tin cần thiết, phù hợp với mục đích quan sát của sự vật, hiện tượng.
 	\item Có thể sử dụng kết quả của cơ chế Attention để phát triển thêm các phương pháp, kĩ thuật khác:
 	\begin{itemize}
 		\item Phương pháp input feeding: giúp mô hình có thể biết được thông tin gióng hàng trong những thời điểm trước đó thông qua véc-tơ attention $\bm{\tilde{h}}_t$. Từ đó giúp mô hình có thể hạn chế vấn đề "đươc dịch quá nhiều" hoặc "được dịch quá ít", tránh được những câu dịch không thực tế như những câu dịch lặp lại một từ nhiều lần.
@@ -29,8 +29,7 @@ Cơ chế Attention đã mở ra một không gian rộng lớn để phát tri�
 
 Trong khóa luận, chúng tôi đạt được:
 \begin{itemize}
-	\item Tìm hiểu và cài đặt được mô hình Dịch máy với các LSTM.
-	\item Tìm hiểu và cài đặt được các mô hình sử dụng cơ chế Attention và các phiên bản Toàn cục, Cục bộ của nó.
+	\item Tìm hiểu và cài đặt được mô hình LSTM-Attention cho việc giải quyết bài toán Dịch máy dựa trên bài báo \cite{attentionThangLuong2015} với các phiên bản Attention Toàn cục và Cục bộ.
 	\item Tìm hiểu và cài đặt được phương pháp input feeding và kĩ thuật thay thế từ hiếm nhằm nâng cao chất lượng dịch của mô hình dựa trên kết quả của cơ chế Attention.
 	\item Có được sự hiểu biết sâu hơn về những thuận lợi, khó khăn của bài toán Dịch máy và những ưu, khuyết điểm của các mô hình Dịch máy hiện nay.
 \end{itemize}

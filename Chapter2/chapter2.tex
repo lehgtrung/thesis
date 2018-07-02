@@ -127,7 +127,7 @@ Ta thấy rằng phép nhân ma trận này không được thực hiện như p
 Word embedding không chỉ giải quyết vấn đề của véc-tơ one-hot, mà nó còn là một phương pháp mạnh mẽ cho bài toán mô hình hóa ngôn ngữ. Ở phần mô hình ngôn ngữ, chúng tôi có nhắc đến việc mô hình \textit{n}-gram xem những từ trong tập ngữ liệu là rời rạc. Nếu trong tập ngữ liệu không có từ "bath room" mà chỉ có "bed room" thì mô hình \textit{n}-gram sẽ gán xác suất $0$ cho "bath room", mặc dù hai \textit{n}-gram này có mối liên quan khá lớn với nhau. Điều này làm cho tính tổng quát hóa của mô hình \textit{n}-gram không cao. Khác với mô hình \textit{n}-gram, mô hình word embedding có khả năng tổng quát hóa cao với những \textit{n}-gram chưa nhìn thấy. Lấy ví dụ một mô hình ngôn ngữ bằng mạng nơ-ron truyền thẳng đơn giản gồm hai hàm thành phần $f$ và $g$. Hàm $f$ ánh xạ một chuỗi $k$ từ trước đó sang một véc-tơ liên tục. Véc-tơ liên tục $h$ được coi là véc-tơ ngữ cảnh với từ cần dự đoán.
 
 \begin{equation} \label{contextvectorfnnlm1}
-f: {0,1}^{|V| \times k} \rightarrow \mathbb{R}^{d}
+f: \{0,1\}^{|V| \times k} \rightarrow \mathbb{R}^{d}
 \end{equation}
 với $d$ là kích thước của word embedding mà ta chọn.
 
@@ -538,9 +538,9 @@ Công trình \cite{schuster1997} đề xuất mô hình mạng nơ-ron hồi quy
 \begin{align}
 	\overleftarrow{h_t} &= \phi \left(W_{xh} x_{t} + W_{hh} h_{t-1} + b_h \right) \\ \label{birnn1} 
     \overrightarrow{h_t} &= \phi \left(W_{xh} x_{t} + W_{hh} h_{t+1} + b_h \right) \\ \label{birnn2}
-    \hat{y}_t &= \zeta \left(W_{hy} \left[\overleftarrow{h_t}, \overrightarrow{h_t} \right] + b_y \right) \\ \label{birnn3}	 \nonumber
+    \hat{y}_t &= \zeta \left(W_{hy} \left[\overleftarrow{h_t}; \overrightarrow{h_t} \right] + b_y \right) \\ \label{birnn3}	 \nonumber
 \end{align}
-trong công thức trên, $\overleftarrow{h_t}, \overleftarrow{h_t}$ lần lượt là véc-tơ trạng thái ẩn truyền từ phải sang trái và từ trái sang phải. $\zeta$ là một hàm đầu như (như hàm $\softmax$).
+trong công thức trên, $\overleftarrow{h_t}, \overrightarrow{h_t}$ lần lượt là véc-tơ trạng thái ẩn truyền từ phải sang trái và từ trái sang phải. $\zeta$ là một hàm đầu như (như hàm $\softmax$).
 
 \begin{figure}
 	\centering
