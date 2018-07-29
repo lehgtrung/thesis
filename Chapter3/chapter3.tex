@@ -48,7 +48,8 @@ Phần này chúng tôi trình bày quá trình huấn luyện của mô hình D
 \begin{itemize}
 	\item Bộ mã hóa: nhận đầu vào là một câu nguồn, sau đó bi-LSTM trong bộ mã hóa thực hiện xử lí câu nguồn này. Trạng thái ẩn cuối cùng của bi-LSTM được sử dụng để làm véc-tơ có kích thước cố định.
 	\item Bộ giải mã: nhận đầu vào là véc-tơ có kích thước cố định lấy ở bộ mã hóa, sau đó uni-LSTM trong bộ giải mã thực hiện dự đoán những từ trong câu đích cho đến khi dự đoán ra kí tự kết thúc câu \textit{</s>} hoặc vượt quá độ dài câu đích đã được qui định.
-	\item Các từ đã được dự đoán ở bộ giải mã được so sánh với từ đúng cho trước trong bộ dữ liệu huấn luyện thông qua độ lỗi. Dựa vào độ lỗi, mô hình thực hiện cập nhật các tham số của mô hình.
+	\item Các từ đã được dự đoán ở bộ giải mã được đánh giá bằng cách so sánh với từ đúng cho trước trong bộ dữ liệu huấn luyện thông qua độ lỗi. Dựa vào độ lỗi, mô hình thực hiện cập nhật các tham số của mô hình. Độ lỗi được sử dụng là \textit{Cross Entropy}. Công thức tính độ lỗi tại bước thời gian $t$ trong một câu đích:
+	$$ L_t = - y_t \log{p(\hat{y}_t | y_{<t}, \bm{x})} $$
 \end{itemize}
 
 Sau khi mô hình đã được huấn luyện, để có thể phát sinh câu đích khi nhận một câu nguồn, mô hình thực hiện quá trình suy diễn. Quá trình suy diễn này giống như quá trình huấn luyện, chỉ khác là không có bước tính độ lỗi và lan truyền ngược để cập nhật các tham số. Mô hình nhận đầu vào là câu nguồn, sau đó thực hiện dự đoán các từ ở câu đích.

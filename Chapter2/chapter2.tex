@@ -52,7 +52,7 @@ Cách tiếp cận truyền thống cho bài toán mô hình hóa ngôn ngữ l�
 \begin{equation} \label{ngramLM}
 p \left(w_{i+1}=m|w_{i-(n-1):i} \right) = \frac{\# \left(w_{i-(n-1)},...,w_{i+1} \right)}{\# \left(w_{i-(n-1)},...,w_i \right)}
 \end{equation}
-trong đó $\#(w_{i:j})$ là số lần xuất hiện của chuỗi $w_i,...,w_j$ trong tập ngữ liệu. Các mô hình \textit{n}-gram thông thường sử dụng $n = 2$ và $n = 1$ được gọi lần lượt là mô hình \textit{trigram} và mô hình \textit{bigram}. Trong trường hợp mô hình không sử dụng ngữ cảnh để ước lược lượng xác
+trong đó $\#(w_{i:j})$ là số lần xuất hiện của chuỗi $w_i,...,w_j$ trong tập ngữ liệu. Các mô hình \textit{n}-gram thông thường sử dụng $n = 3$ và $n = 2$ được gọi lần lượt là mô hình \textit{trigram} và mô hình \textit{bigram}. Trong trường hợp mô hình không sử dụng ngữ cảnh để ước lược lượng xác
 suất của một từ ($n = 0$), thì mô hình này được gọi là mô hình \textit{unigram}.
 
 Mô hình ngôn ngữ \textit{n}-gram là một mô hình phi tham số, nó có một ưu điểm là tốc độ tính toán rất nhanh (do các xác suất của các \textit{n}-gram đã được tính toán trước và lưu trữ lại) và dễ dàng mở rộng cho nhiều lĩnh vực (ta chỉ cần tập ngữ liệu thuộc lĩnh vực ấy). Mặc dù có một vài mô hình ngôn ngữ có kết quả tốt hơn so với mô hình \textit{n}-gram, tuy nhiên các mô hình đó thường kèm theo độ phức tạp tính toán lớn và kết quả cải thiện không đáng kể. Do đó, mô hình \textit{n}-gram vẫn được sử dụng phổ biến cho đến ngày nay.
@@ -540,7 +540,7 @@ Công trình \cite{schuster1997} đề xuất mô hình mạng nơ-ron hồi quy
 \overrightarrow{h_t} &= \phi \left(W_{xh} x_{t} + W_{hh} h_{t+1} + b_h \right) \\ \label{birnn2}
 \hat{y}_t &= \zeta \left(W_{hy} \left[\overleftarrow{h_t}; \overrightarrow{h_t} \right] + b_y \right) \\ \label{birnn3}	 \nonumber
 \end{align}
-trong công thức trên, $\overleftarrow{h_t}, \overrightarrow{h_t}$ lần lượt là véc-tơ trạng thái ẩn truyền từ phải sang trái và từ trái sang phải. $\zeta$ là một hàm đầu như (như hàm $\softmax$).
+trong công thức trên, $\overleftarrow{h_t}, \overrightarrow{h_t}$ lần lượt là véc-tơ trạng thái ẩn truyền từ phải sang trái và từ trái sang phải. $\zeta$ là một hàm đầu ra (như hàm $\softmax$).
 
 \begin{figure}
 	\centering
@@ -549,16 +549,11 @@ trong công thức trên, $\overleftarrow{h_t}, \overrightarrow{h_t}$ lần lư�
 	\label{fig_birnn}
 \end{figure}
 
-Ở bước lan truyền tiến, lớp ẩn thứ nhất được kích hoạt để truyền từ trái sang phải, trong quá trình đó, những trạng thái ẩn $\overrightarrow{h_t}$ được lưu trữ lại. Sau đó, lớp ẩn thứ hai được kích hoạt để truyền từ phải sang trái và những trạng thái ẩn $\overleftarrow{h_t}$ cũng được lưu trữ lại. Cuối cùng, thực hiện lan truyền tiến ở các bước đầu ra, sử dụng trạng thái ẩn là véc-tơ nối dài của các cả hai trạng thái ẩn $\overrightarrow{h_t}$ và $\overleftarrow{h_t}$. Tương tự như vậy, ở bước lan truyền ngược, gradient ở các đầu ra được tính trước và các gradient ở đầu ra được lưu trữ lại. Sau đó, lần lượt lực hiện lan truyền ngược theo chiều từ trái sang phải và từ phải sang trái với các giá trị gradient ở đầu ra đã được lưu lại.
+Ở bước lan truyền tiến, lớp ẩn thứ nhất được kích hoạt để truyền từ trái sang phải, trong quá trình đó, những trạng thái ẩn $\overrightarrow{h_t}$ được lưu trữ lại. Sau đó, lớp ẩn thứ hai được kích hoạt để truyền từ phải sang trái và những trạng thái ẩn $\overleftarrow{h_t}$ cũng được lưu trữ lại. Cuối cùng, thực hiện lan truyền tiến ở các bước đầu ra, sử dụng trạng thái ẩn là véc-tơ nối dài của các cả hai trạng thái ẩn $\overrightarrow{h_t}$ và $\overleftarrow{h_t}$. Tương tự như vậy, ở bước lan truyền ngược, gradient ở các đầu ra được tính trước và các gradient ở đầu ra được lưu trữ lại. Sau đó, lần lượt thực hiện lan truyền ngược theo chiều từ trái sang phải và từ phải sang trái với các giá trị gradient ở đầu ra đã được lưu lại.
 
 Mặc dù RNN hai chiều giúp tăng cường thông tin cho trạng thái ẩn ở cả hai chiều của câu, tuy nhiên nó có hai nhược điểm, một là: quá trình lan truyền tiến và lan truyền ngược ở hai chiều phải thực hiện tuần tự nhau, việc này làm chập quá trình học. Hai là: RNN hai chiều chỉ thích hợp cho những bài toán thực hiện trên dữ liệu đầy đủ, ví dụ bài tóan phân tích ý kiến (sentiment analysis), gán nhãn từ loại (part-of-speech tagging),... Đối với những bài toán mà dữ liệu chưa hoàn chỉnh, ví dụ như dự đoán từ tiếp theo trong chuỗi, việc sử dụng RNN hai chiều là bất khả thi (vì ta cần một chiều ngược lại trong bước dự đoán, cái mà chưa xảy ra).
 
 Mô hình hai chiều cũng có thể dễ dàng áp dụng lên LSTM (thay vì RNN) với các thiết lập tương tự. Để dễ dàng trong việc gọi tên các mô hình một chiều và hai chiều. Từ đoạn này trở đi, chúng tôi ký hiệu RNN hay LSTM một chiều lần lượt là \textit{uni-RNN} và \textit{uni-LSTM}, tiền tố \textit{uni} đại diện cho \textit{unidirectional} có nghĩa là \textit{một chiều}. Tương tự như vậy RNN hay LSTM hai chiều lần lượt được ký hiệu là \textit{bi-RNN} và \textit{bi-LSTM}, tiền tố \textit{bi} đại diện cho \textit{bidirectional} có nghĩa là \textit{hai chiều}. Hình \ref{fig_birnn} mô tả một bi-LSTM trong quá trình đọc một câu nguồn.
-
-
-
-
-
 
 
 
