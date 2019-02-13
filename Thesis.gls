@@ -1,8 +1,0 @@
-\glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
-
-%\begin{theglossary}\glossaryheader
-\glsgroupheading{glssymbols}\relax \glsresetentrylist %
-\glossaryentryfield{acr_concat}{\glsnamefont{$[a;b]\hspace {0.2in}$}}{Phép nối 2 véc-tơ a và b}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{49}}}%
-
-%\end{theglossary}\glossarypostamble
