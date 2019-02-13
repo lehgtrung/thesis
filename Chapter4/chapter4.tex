@@ -1,4 +1,4 @@
-\chapter{Các Kết Quả Thí Nghiệm}
+\chapter{Các kết quả thực nghiệm}
 \ifpdf
     \graphicspath{{Chapter4/Chapter4Figs/PNG/}{Chapter4/Chapter4Figs/PDF/}{Chapter4/Chapter4Figs/}}
 \else
@@ -6,102 +6,207 @@
 \fi
 \label{chap_4}
 \begin{quote}
-\textit{Trong chương này, chúng tôi trình bày các kết quả thí nghiệm để đánh giá các đề xuất đã được nói ở chương trước. Bộ dữ liệu được dùng để tiến hành các thí nghiệm là bộ MNIST (bộ ảnh chữ số viết tay gồm các chữ số từ 0 đến 9). Các kết quả thí nghiệm cho thấy khi huấn luyện ``Sparse Rectified Auto-Encoders'' (SRAEs) với chuẩn L1 sẽ gặp phải vấn đề nơ-ron ``ngủ'', và chiến lược ``ngủ - đánh thức'' trong thuật toán ``Sleep-Wake Stochastic Gradient Descent'' (SW-SGD) của chúng tôi có thể giúp khắc phục vấn đề này. Các kết quả thí nghiệm cũng cho thấy cách ràng buộc trọng số đề xuất của chúng tôi cho kết quả tốt nhất trong số các cách ràng buộc trọng số có thể áp dụng cho SRAEs. Cuối cùng, thí nghiệm cũng cho thấy SRAEs với hai đề xuất trên của chúng tôi (SW-SGD và cách ràng buộc trọng số) có thể học được những đặc trưng cho kết quả phân lớp tốt khi so sánh với các loại ``Auto-Encoders'' khác.}
+\textit{Trong chương này, chúng tôi trình bày các kết quả thực nghiệm để đánh giá các mô hình, phương pháp và kĩ thuật được tìm hiểu mà đã trình bày ở chương trước. Bộ dữ liệu được dùng để tiến hành các thực nghiệm là bộ WMT' 13 và 14 English-German (bộ dữ liệu tiếng Anh - tiếng Đức của cuộc thi Dịch máy WMT năm 2013 và 2014). Các kết quả thực nghiệm cho thấy khi huấn luyện mô hình mà không sử dụng cơ chế Attention thì kết quả đạt được rất thấp. Các mô hình Attention Toàn cục, Attention Cục bộ, phương pháp Input feeding và kĩ thuật thay thế từ hiếm cho kết quả được cải thiện một cách vượt trội. Chúng tôi đánh giá các mô hình trên các phương diện: độ lỗi, độ đo perlexity, độ đo BLEU, đường cong học và chất lượng gióng hàng.}
 \end{quote}
-\section{Các thiết lập thí nghiệm}
-Chúng tôi tiến hành các thí nghiệm trên bộ dữ liệu MNIST \cite{MNIST}; bộ dữ liệu này gồm các ảnh xám (có kích thước $28 \times 28$) của mười chữ số viết tay từ 0 đến 9. Ở hình \ref{fig_MNIST} là một số ảnh mẫu của bộ dữ liệu này. Dữ liệu được tiến hành tiền xử lý bằng cách lấy mỗi giá trị điểm ảnh chia cho $255$ để đưa về đoạn $[0, 1]$. Chúng tôi sử dụng cách phân chia thường được sử dụng cho bộ dữ liệu này: $50000$ ảnh dùng để huấn luyện, $10000$ ảnh dùng để chọn các siêu tham số (validation), và $10000$ ảnh dùng để kiểm tra (test).
+\section{Kết quả thực nghiệm trên tập dữ liệu Anh-Đức}
+\subsection{Các thiết lập thực nghiệm}
+Chúng tôi tiến hành các thực nghiệm trên bộ dữ liệu WMT' 14 English-German được cung cấp trên trang chủ của Nhóm Xử lý Ngôn ngữ Tự nhiên Đại học Stanford \cite{StanfordNMT}. Bộ dữ liệu này gồm các cặp câu được viết dưới dạng ngôn ngữ tự nhiên ở 2 ngôn ngữ là tiếng Anh và tiếng Đức. Tất cả mô hình sẽ được huấn luyện trên tập dữ liệu mà có khoảng 4.5 triệu cặp câu (trong đó có khoảng 116 triệu từ tiếng Anh và khoảng 110 triệu từ tiếng Đức). Chúng tôi thực hiện thiết lập thực nghiệm giống với các thiết lập của bài báo của Luong, 2015 \cite{attentionThangLuong2015}. Để đánh giá chất lượng dịch của các mô hình đã được huấn luyện, chúng tôi sử dụng tập dữ liệu kiểm thử \textit{newstest\_2014.en} và \textit{newstest\_2014.de} của cuộc thi WMT'14 và độ đo được sử dụng để đánh giá là BLEU (BiLingual Evaluation Understudy) \cite{BLEUpaper} cùng với Perplexity. Độ đo BLEU so sánh độ giống nhau của các cụm từ (n-gram) giữa hai câu dự đoán và câu đúng, do vậy giá trị BLEU càng cao thì câu dịch được từ mô hình càng giống với câu đúng cho trước. Độ đo Perplexity được chúng tôi đề cập trong phần Mô hình ngôn ngữ ở chương \ref{chap_2}. Dữ liệu validation được sử dụng là tập dữ liệu kiểm thử \textit{newstest\_2013.en} và \textit{newstest\_2013.de} của cuộc thi WMT'13.
 
-\begin{figure}
-	\centering
-	\includegraphics{MNIST}
-	\caption{Một số ảnh mẫu của bộ dữ liệu MNIST}
-	\label{fig_MNIST}
-\end{figure}
+Dữ liệu được tiến hành tiền xử lý bằng cách thực hiện tách từ đối với mỗi câu. Bộ từ vựng cho mỗi ngôn ngữ được sử dụng cho các mô hình là bộ từ vựng có 50000 từ xuất hiện nhiều nhất (có tần số lớn nhất) trong dữ liệu huấn luyện của mỗi ngôn ngữ đó. Những từ nào không nằm trong bộ từ vựng sẽ được gán cho kí hiệu \textit{<unk>} (từ hiếm).
 
-Chúng tôi sử dụng ngôn ngữ lập trình Theano \cite{bergstra+al:2010-scipy} bởi vì ngôn ngữ này cho phép dễ dàng cài đặt các thuật toán và dễ dàng sử dụng GPU (Graphical Processing Units) để tính toán song song. Loại GPU mà chúng tôi sử dụng là NVIDIA GTX 560.
+Trong quá trình huấn luyện, chúng tôi lọc bỏ những cặp câu mà một trong hai câu thuộc cặp đó có chiều dài hơn 50 từ. Chúng tôi thực hiện sắp xếp tất cả câu theo chiều dài của câu giảm dần (những câu nào có chiều dài lớn nhất thì đứng đầu), sau đó lấy ngẫu nhiên các mini-batch từ những câu đã được sắp xếp. Với việc sắp xếp như vậy, tốc độ huấn luyện của mô hình được cải thiện do được tối ưu về chi phí tính toán và còn giúp mô hình học được tốt hơn.
 
-Sau khi tiến hành xong bước học đặc trưng không giám sát, chúng tôi đánh giá các đặc trưng học được bằng cách sử dụng chúng để huấn luyện mô hình phân lớp ``Softmax Regression'' và đo độ lỗi phân lớp. Một cách cụ thể, cho tập huấn luyện $\{(x^{(1)}, y^{(1)}), \ldots, (x^{(N)}, y^{(N)})\}$ với $x^{(i)} \in \mathbb{R}^{D_x}$ là véc-tơ điểm ảnh và $y^{(i)} \in \{0, \ldots, 9\}$ là nhãn lớp. Sau khi ``Auto-Encoder'' đã được huấn luyện trên tập không có nhãn $\{x^{(1)}, \ldots, x^{(N)}\}$, ta lần lượt đưa từng véc-tơ $x^{(i)}$ vào ``Auto-Encoder'' và thu được ở tầng ẩn véc-tơ đặc trưng tương ứng $h^{(i)}$; bằng cách này, ta có được tập huấn luyện mới $\{(h^{(1)}, y^{(1)}), \ldots, (h^{(N)}, y^{(N)})\}$. Kế đến, tập huấn luyện mới này được sử dụng để huấn luyện ``Softmax Regression''. Để dự đoán nhãn lớp cho một véc-tơ đầu vào mới $x_{test}$, đầu tiên ta sử dụng ``Auto-Encoder'' đã được huấn luyện để tính véc-tơ đặc trưng tương ứng $h_{test}$; sau đó đưa $h_{test}$ này vào ``Softmax Regression'' đã được huấn luyện để tính giá trị nhãn lớp dự đoán.
+Chúng tôi sử dụng các mô hình LSTM với mỗi LSTM có 4 tầng. Mỗi tầng LSTM có kích thước trạng thái ẩn là 1000 (đối với bộ mã hóa sử dụng bi-LSTM nên mỗi chiều của bi-LSTM sẽ có kích thước trạng thái ẩn là 500) và số chiều của word embedding là 1000. Các tham số của mô hình được khởi tạo ngẫu nhiên với phân phối đều trong đoạn $[-0,1; 0,1]$. Thuật toán để cực tiểu hóa hàm chi phí là Stochastic Gradient Descent (SGD) với kích thước của một mini-batch là 128 mẫu huấn luyện. Cách lập lịch cho hệ số học: huấn luyện 12 epochs; hệ số học ban đầu là 1.0; sau 8 epochs, hệ số học sẽ giảm đi 1 nửa sau mỗi epoch tiếp theo (epoch thứ 9 có hệ số học là 0.5, thứ 10 là 0.25, ...). Gradient của các tham số sẽ được chuẩn hóa nếu norm của chúng vượt quá 5.0. Mô hình còn sử dụng cơ chế Dropout với xác suất tắt các nơ-ron $p = 0.2$. Mỗi câu ở ngôn ngữ nguồn khi được đưa vào mô hình thì sẽ được đảo ngược trật tự. Đối với các mô hình Attention Cục bộ, kích thước cửa sổ $D = 10$. Trong khóa luận này, chúng tôi chỉ thực hiện thực nghiệm trên mô hình Attention Toàn cục với biến thể gióng hàng dự đoán (local-p), còn gióng hàng đều thì do chất lượng mô hình học được không tốt nên chúng tôi không tiếp tục thực nghiệm nữa.
 
-Trong cả hai giai đoạn học không giám sát và có giám sát, chúng tôi sử dụng thuật toán để để cực tiểu hóa hàm chi phí là Stochastic Gradient Descent (SGD) với kích thước của ``mini-batch'' là $100$ mẫu huấn luyện. Chiến lược ``dừng sớm'' (early stopping) được sử dụng để quyết định số vòng lặp (epoch) của SGD cũng như là để chống vấn đề quá khớp (trong giai đoạn học không giám sát, chúng tôi dừng quá trình tối ưu hóa dựa vào giá trị của hàm chi phí trên tập ``validation''; còn trong giai đoạn học có giám sát, chúng tôi dựa vào độ lỗi phân lớp trên tập ``validation''). Trong tất cả các thí nghiệm dưới đây, chúng tôi dùng SRAEs với $1000$ nơ-ron ẩn, tham số ``thỏa hiệp'' giữa độ lỗi tái tạo và độ thưa $\lambda$ bằng $0.25$, hệ số học khi học không giám sát bằng $0.05$, và hệ số học khi học có giám sát bằng $1$ (số lượng nơ-ron ẩn được chọn theo \cite{rifai2011HCAEs}, các siêu tham số còn lại được chọn dựa vào thực nghiệm).
-\section{SGD và SW-SGD}
-Để thấy được vấn đề gặp phải khi huấn luyện SRAEs với ràng buộc thưa bằng chuẩn L1 cũng như là tác dụng của chiến lược ``ngủ - đánh thức'' của chúng tôi, trong phần này chúng tôi so sánh việc huấn luyện SRAEs bằng thuật toán ``Stochastic Gradient Descent'' (SGD) và phiên bản điều chỉnh của chúng tôi, ``Sleep-Wake Stochastic Gradient Descent'' (SW-SGD). Trong thí nghiệm này, cách ràng buộc trọng số đề xuất của chúng tôi được sử dụng ($W^{(d)} = (W^{(e)})^T$, và các dòng của $W^{(e)}$ và các cột của $W^{(d)}$ được chuẩn hóa).
+Chúng tôi sử dụng ngôn ngữ lập trình Python và framework PyTorch dành cho Học sâu \cite{pytorchworkshop}. PyTorch hỗ trợ việc cài đặt các thuật toán Học sâu một cách thân thiện, tự nhiên giống như ngôn ngữ lâp trình Python và còn hỗ trợ xử lí tính toán song song trên GPU (Graphical Processing Units) rất mạnh mẽ. GPU mà chúng tôi sử dụng để thực hiện các thực nghiệm là NVIDIA GeForce GTX 1080 Ti. Để có thể huấn luyện một mô hình, cần đến 3-5 ngày.
 
-Hình \ref{fig_SGDvsSWSGD} thể hiện số lượng nơ-ron ``ngủ'' của SRAEs trong khi thực hiện quá trình tối ưu hóa hàm chi phí với SGD và SW-SGD. Vấn đề gặp phải khi huấn luyện SRAEs với chuẩn L1 là trong quá trình tối ưu hóa, chuẩn L1 có thể đẩy các véc-tơ trọng số đi vào các nơ-ron ẩn vào trạng thái ``ngủ'' (nghĩa là, nơ-ron ẩn tương ứng luôn cho giá trị đầu ra bằng 0 với tất cả các mẫu huấn luyện) và sau đó, chúng sẽ không bao giờ còn được cập nhật nữa. Như có thể thấy từ hình \ref{fig_SGDvsSWSGD}, khi sử dụng SGD, số lượng nơ-ron ``ngủ'' tăng dần trong quá trình tối ưu hóa, đặc biệt là trong những vòng lặp đầu tiên, khi mà quá trình tối ưu hóa vẫn còn chưa ổn định. Vấn đề nơ-ron ``ngủ'' này của chuẩn L1 có thể được khắc phục một cách đơn giản bằng chiến lược ``ngủ - đánh thức'' của chúng tôi; quá trình tối ưu hóa của SW-SGD kết thúc mà không có nơ-ron ``ngủ'' nào cả.
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\textwidth]{SGD_vs_SW-SGD}
-	\caption[So sánh giữa SGD với SW-SGD]{Số lượng nơ-ron ``ngủ'' của SRAEs trong khi thực hiện quá trình tối ưu hóa với SGD và với SW-SGD. Quá trình tối ưu hóa của SGD kết thúc với 228 nơ-ron ``ngủ'' trong tổng số 1000 nơ-ron; trong khi đó, SW-SGD kết thúc mà không có nơ-ron nào ``ngủ''. (Hai quá trình tối ưu hóa của SGD và SW-SGD kết thúc sau các số lượng vòng lặp khác nhau là do chiến lược ``dừng sớm''.)}
-	\label{fig_SGDvsSWSGD}
-\end{figure}
+Để đánh giá độ hiệu quả của cơ chế Attention, chúng tôi tiến huấn luyện một mô hình cơ bản (Baseline) mà không sử dụng cơ chế Attention (chỉ dùng kiến trúc Bộ mã hóa - Bộ giải mã với các LSTM). Các mô hình có sử dụng cơ chế Attention sẽ được so sánh với mô hình cơ bản này. Chi tiết của mô hình cơ bản này sẽ được trình bày trong phần tiếp theo.
 
-Ở hình \ref{fig_filters} là một số bộ lọc (một bộ lọc tương ứng với véc-tơ trọng số đi vào một nơ-ron ẩn) học được bởi SGD và SW-SGD. Như ta có thể thấy, với SGD, có 5 nơ-ron ``ngủ''; các bộ lọc của chúng nhìn vô nghĩa. Với SW-SGD, không có nơ-ron nào ``ngủ''; tất cả các bộ lọc đều nhìn có nghĩa, mỗi bộ lọc dò tìm một đường nét nào đó của chữ số.
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{some_filters}
-	\caption[So sánh giữa các bộ lọc học được bởi SGD với SW-SGD]{Ở hình (a) là một số bộ lọc (một bộ lọc tương ứng với véc-tơ trọng số đi vào một nơ-ron ẩn) học được bởi SGD; ta có thể thấy có 5 bộ lọc nhìn vô nghĩa tương ứng với 5 nơ-ron ``ngủ''. Còn ở hình (b) là các bộ lọc học được bởi SW-SGD; tất cả các bộ lọc đều nhìn có nghĩa, mỗi bộ lọc dò tìm một đường nét nào đó của chữ số.}
-	\label{fig_filters}
-\end{figure}
+\subsection{Không sử dụng Attention và có sử dụng Attention}
+Chúng tôi thực hiện đánh giá độ hiệu quả của cơ chế Attention bằng cách so sánh với mô hình không sử dụng cơ chế Attention và các mô hình có sử dụng cơ chế Attention.
 
-Nhờ sử dụng hết tất cả các nơ-ron ẩn, SW-SGD tìm được giá trị cực tiểu của hàm chi phí của SRAEs trên tập huấn luyện tốt hơn so với SGD; và các đặc trưng học được của SW-SGD cũng cho kết quả phân lớp (với ``Softmax Regression'') trên tập kiểm tra tốt hơn so với SGD (bảng \ref{table_SGDvsSW-SGD}).
+Đối với mô hình không sử dụng cơ chế Attention, chúng tôi sử dụng: 
+\begin{itemize}
+	\item Kiến trúc Bộ mã hóa - Bộ giải mã với bộ mã hóa là bi-LSTM và bộ giải mã là uni-LSTM.
+	\item Đảo ngược trật tự từ trong câu.
+	\item Dropout.
+\end{itemize}
+Chúng tôi gọi đó là mô hình cơ bản. Đối với mô hình sử dụng cơ chế Attention, chúng tôi thiết lập mô hình như mô hình căn bản cộng với sử dụng cơ chế Attention Toàn cục với hàm tính điểm là hàm \textit{general}.
+
+Bảng \ref{tab_non-attn_vs_attn} cho thấy kết quả giữa hai mô hình. Giá trị perplexity càng thấp càng tốt và giá trị BLEU càng cao càng tốt. Với cơ chế Attention, chất lượng dịch của mô hình được cải thiện rất lớn. Điểm BLEU tăng từ 15.04 đến 19.99 (+4.95). Đây là cải thiện rất lớn trong Dịch máy nơ-ron khi Dịch máy Thống kê đang dần chạm tới giới hạn. Kết quả này chứng minh được rằng cơ chế Attention rất hiệu quả trong việc giải quyết các hạn chế của kiến trúc Bộ mã hóa - Bộ giải mã với LSTM đã được trình bày ở ban đầu và cũng rất phù hợp trong việc áp dụng vào cho bài toán Dịch máy.
 
 \begin{table}
 	\centering
-	\caption[So sánh giữa SGD với SW-SGD]{Giá trị hàm chi phí của SRAEs trên tập huấn luyện và độ lỗi phân lớp (với ``Softmax Regression'') trên tập kiểm tra khi huấn luyện SRAEs với SGD và với SW-SGD.}
-	\label{table_SGDvsSW-SGD}
-	\begin{tabular}{|c|c|c|} \hline
-	 & SGD & SW-SGD\\ \hline
-	Giá trị hàm chi phí của SRAEs trên tập huấn luyện & 9.84 & \textbf{9.48}\\ \hline 
-	Độ lỗi phân lớp trên tập kiểm tra (\%) & 1.70 & \textbf{1.62}\\ \hline
+	\caption{So sánh giữa mô hình sử dụng cơ chế Attention và mô hình không sử dụng cơ chế Attention.}
+	\begin{tabular}{|l|c|c|} 
+		\hline
+		\multicolumn{1}{|c|}{ \textbf{Mô hình} } & \textbf{Perplexity}   & \textbf{BLEU}              \\ 
+		\hline
+		Cơ bản                                   & 8.03                  & 15.04                      \\ 
+		\hline
+		Cơ bản + global (general)~               & \textbf{4.98(-3.05)}  & \textbf{19.99 (+4.95)}~ ~  \\
+		\hline
 	\end{tabular}
+	\label{tab_non-attn_vs_attn}
 \end{table}
 
-\section{Cách ràng buộc trọng số đề xuất của chúng tôi và các cách ràng buộc trọng số khác}
-Trong thí nghiệm thứ hai này, cách ràng buộc trọng số đề xuất cho SRAEs của chúng tôi được so sánh với các cách ràng buộc trọng số khác mà có thể áp dụng cho SRAEs. Cụ thể ở đây, chúng tôi so sánh với các cách ràng buộc trọng số sau:
-\begin{itemize}
-	\item \textbf{$W^{(d)}$ được chuẩn hóa:} các véc-tơ cột của $W^{(d)}$ được ràng buộc là chuẩn hóa (có độ dài bằng 1); mỗi véc-tơ cột của $W^{(d)}$ tương ứng với véc-tơ trọng số đi ra ở mỗi nơ-ron ẩn.
-	\item \textbf{$W^{(e)}$ và $W^{(d)}$ được chuẩn hóa:} các véc-tơ dòng của $W^{(e)}$ và các véc-tơ cột của $W^{(d)}$ được ràng buộc là chuẩn hóa (có độ dài bằng 1); mỗi véc-tơ dòng của $W^{(e)}$ và mỗi véc-tơ cột của $W^{(d)}$ lần lượt tương ứng với véc-tơ trọng số đi vào và véc-tơ trọng số đi ra ở mỗi nơ-ron ẩn.
-	\item \textbf{$W^{(d)} = (W^{(e)})^T$:} $W^{(e)}$ và $W^{(d)}$ được ràng buộc là chuyển vị của nhau.
-\end{itemize}
-Cách ràng buộc trọng số của chúng tôi là kết hợp của hai ràng buộc: $W^{(e)}$ và $W^{(d)}$ được chuẩn hóa, và $W^{(d)} = (W^{(e)})^T$. Trong thí nghiệm này, chúng tôi dùng SW-SGD để huấn luyện SRAEs.
+\subsection{Giữa các mô hình Attention với nhau}
+Để đánh giá độ hiệu quả của các mô hình Attention với nhau, chúng tôi thực hiện huấn luyện các mô hình Attention và đánh giá chúng trên độ đo Perplexity và BLEU. Kết quả của các mô hình Attention được thể hiện trong bảng \ref{tab_attn-vs-attn}. 
 
-Như có thể thấy ở bảng \ref{table_OurWConstraintVSOtherWConstraints}, trong số các cách ràng buộc trọng số, cách ràng buộc của chúng tôi giúp SRAEs học được những đặc trưng cho kết quả phân lớp (với ``Softmax Regression'') tốt nhất trên tập kiểm tra. Ngoài ra, bảng \ref{table_OurWConstraintVSOtherWConstraints} cũng so sánh thời gian huấn luyện SRAEs trên một vòng lặp (ứng với một lần duyệt qua toàn bộ các mẫu huấn luyện) với các cách ràng buộc trọng số khác nhau này (do chiến lược ``dừng sớm'', quá trình huấn luyện SRAEs với các cách ràng buộc khác nhau có thể kết thúc sau các số lượng vòng lặp khác nhau; do đó, để chính xác, ta nên so sánh theo thời gian huấn luyện xét trên một vòng lặp hơn là tổng thời gian huấn luyện). Các cách ràng buộc trọng số được sắp xếp theo thứ tự thời gian huấn luyện (trên một vòng lặp) tăng dần là: $W^{(d)} = (W^{(e)})^T$ (2 giây), $W^{(d)}$ được chuẩn hóa (3 giây), cách ràng buộc trọng số của chúng tôi (4 giây), $W^{(e)}$ và $W^{(d)}$ được chuẩn hóa (5 giây). Thứ tự này là hợp lý:
-\begin{itemize}
-	\item Ràng buộc $W^{(d)} = (W^{(e)})^T$ có thời gian huấn luyện nhanh nhất vì SRAEs không phải thực hiện bước chuẩn hóa.
-	\item Ràng buộc $W^{(d)}$ được chuẩn hóa có thời gian huấn luyện lâu hơn vì bộ giải mã của SRAEs phải thực hiện bước chuẩn hóa khi lan truyền tiến; và do đó, khi lan truyền ngược, việc tính toán các đạo hàm riêng theo các tham số của bộ giải mã cũng sẽ tốn thời gian hơn bình thường.
-	\item Ở cách ràng buộc trọng số của chúng tôi, khi lan truyền tiến, mặc dù cần phải thực hiện bước chuẩn hóa ở cả bộ mã hóa và bộ giải mã, nhưng nhờ vào ràng buộc $W^{(d)} = (W^{(e)})^T$, ta chỉ cần phải thực hiện bước chuẩn hóa cho bộ trọng số của bộ mã hóa, rồi sau đó dùng lại bộ trọng số đã được chuẩn hóa này cho bộ giải mã. Thời gian huấn luyện của cách ràng buộc này lâu hơn cách ràng buộc $W^{(d)}$ được chuẩn hóa ở trên vì khi lan truyền ngược, ngoài việc tính toán các đạo hàm riêng theo các tham số của bộ giải mã đã được chuẩn hóa, ta cũng cần phải tính toán các đạo hàm riêng theo các tham số của bộ mã hóa đã được chuẩn hóa (khi bộ mã hóa hay bộ giải mã phải thực hiện bước chuẩn hóa khi lan truyền tiến thì việc tính toán các đạo hàm riêng theo các tham số của chúng khi lan truyền ngược sẽ lâu hơn so với khi không thực hiện bước chuẩn hóa).
-	\item Ràng buộc $W^{(e)}$ và $W^{(d)}$ được chuẩn hóa có thời gian huấn luyện lâu nhất vì khi lan truyền tiến, ta phải thực hiện bước chuẩn hóa riêng cho bộ mã hóa và bộ giải mã; và khi lan truyền ngược, ta phải tính toán các đạo hàm riêng theo các tham số của bộ giải mã và bộ mã hóa đã được chuẩn hóa.
-\end{itemize}
-Mặc dù thời gian huấn luyện (trên một vòng lặp) của cách ràng buộc trọng số của chúng tôi là khá cao khi so sánh với cách ràng buộc trọng số khác, nhưng nhìn chung nó vẫn nhanh (nhờ vào việc sử dụng GPU để tính toán song song). Tổng thời gian huấn luyện là khoảng 2.5 giờ.
+% \usepackage{multirow}
+
+
 \begin{table}
 	\centering
-	\caption[So sánh giữa cách ràng buộc trọng số của chúng tôi với các cách ràng buộc trọng số khác]{So sánh giữa cách ràng buộc trọng số cho SRAEs của chúng tôi với các cách ràng buộc trọng số khác mà có thể áp dụng cho SRAEs. Cách ràng buộc trọng số của chúng tôi giúp SRAEs học được những đặc trưng mà cho kết quả phân lớp (với ``Softmax Regression'') tốt nhất trên tập kiểm tra. Ngoài ra, thời gian huấn luyện trên một vòng lặp của SRAEs với các cách ràng buộc trọng số khác nhau cũng được trình bày ở cột cuối cùng của bảng.}
-	\label{table_OurWConstraintVSOtherWConstraints}
-	\begin{tabular}{|c|c|c|} \hline
-	\textbf{Cách ràng buộc trọng số} & \textbf{\pbox{20cm}{Độ lỗi phân lớp \\trên tập kiểm tra (\%)}} & \textbf{\pbox{20cm}{Thời gian huấn luyện \\của một vòng lặp (giây)}}\\ \hline\hline
-	$W^{(d)}$ được chuẩn hóa & 3.28 & 3\\ \hline
-	$W^{(e)}$ \& $W^{(d)}$ được chuẩn hóa & 2.51 & 5\\ \hline
-	$W^{(d)} = (W^{(e)})^T$ & 2.04 & 2\\ \hline
-	Cách ràng buộc của chúng tôi & \textbf{1.62} & 4\\ \hline
+	\caption{So sánh kết quả giữa các mô hình Attention với nhau.}
+	\begin{tabular}{|l|c|c|c|} 
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{ \textbf{Mô hình} }} & \multirow{2}{*}{\textbf{Perplexity } } & \multicolumn{2}{c|}{\textbf{BLEU } }       \\ 
+		\cline{3-4}
+		\multicolumn{1}{|c|}{}                                    &                                        & Trước unk rpl   & Sau unk rpl              \\ 
+		\hline
+		Cơ bản + global (dot)                                     & 6.1                                    & 18.62           & 18.81 (+0.19)            \\ 
+		\hline
+		Cơ bản + global (general)                                 & \textbf{4.98}                                   & 19.99           & 22.33 (+2.24)            \\ 
+		\hline
+		Cơ bản + global (dot) + input feed                        & 5.43                                   & 19.78           & 22.24 (+2.46)            \\ 
+		\hline
+		Cơ bản + global (general) + input feed                    & 5.22                                   & \textbf{20.41}  & \textbf{22.87 (+2.46)}   \\ 
+		\hline
+		Cơ bản + local-p (general) + input feed                   & 5.89                                   & 19.43           & 19.97 (+0.54)            \\
+		\hline
 	\end{tabular}
+	\label{tab_attn-vs-attn}
 \end{table}
-\section{SRAEs và các loại ``Auto-Encoders'' khác}
-Cuối cùng, chúng tôi cũng so sánh SRAEs (sử dụng cách ràng buộc trọng số của chúng tôi và dùng SW-SGD để huấn luyện) với các loại ``Auto-Encoders'' khác, bao gồm:
-\begin{itemize}
-	\item \textbf{``Denoising Auto-Encoders'' (DAEs)} \cite{vincent2008extracting}: DAEs muốn học được các đặc trưng ``bền vững'' bằng cách làm nhiễu véc-tơ đầu vào rồi sau đó cố gắng tái tạo lại véc-tơ đầu vào ban đầu từ véc-tơ đã bị làm nhiễu này (véc-tơ đầu vào đã bị làm nhiễu $\rightarrow$ véc-tơ đặc trưng $\rightarrow$ cố gắng tái tạo lại véc-tơ đầu vào không bị nhiễu).
-	\item \textbf{``Contractive Auto-Encoders'' (CAEs)} \cite{rifai2011contractive}: DAEs muốn học được các đặc trưng thỏa hai tính chất: (i) có thể tái tạo tốt véc-tơ đầu vào ban đầu, và (ii) bất biến đối với sự thay đổi nhỏ của véc-tơ đầu vào (bằng cách phạt chuẩn Frobenius của ma trận Jacobian của véc-tơ đặc trưng đối với véc-tơ đầu vào).
-	\item \textbf{``Higher Order Contractive Auto-Encoders'' (HCAEs)} \cite{rifai2011HCAEs}: HCAEs là mở rộng của CAEs; bên cạnh độ lỗi tái tạo và chuẩn Frobenius của ma trận Jacobian, HCAEs còn phạt thêm chuẩn Frobenius của ma trận Hessian.
-\end{itemize}
 
-Bảng \ref{table_SRAEsVSOtherAEs} so sánh các đặc trưng học được (theo độ lỗi phân lớp trên tập kiểm tra) của SRAEs với các loại ``Auto-Encoders'' trên. Với DAEs, CAEs, HCAEs, \cite{rifai2011HCAEs} dùng 1000 nơ-ron ẩn, hàm kích hoạt sigmoid ở cả tầng ẩn và tầng đầu ra, độ lỗi tái tạo ``cross-entropy'', và ràng buộc $W^{(e)}$ và $W^{(d)}$ là chuyển vị của nhau. Như có thể thấy, các đặc trưng học được bởi SRAEs cho kết quả phân lớp (với ``Softmax Regression'') trên tập kiểm tra tốt hơn DAEs và CAEs, nhưng không tốt bằng HCAEs. Tuy nhiên, để ý là HCAEs phức tạp hơn nhiều so với SRAEs của chúng tôi với rất nhiều siêu tham số cần phải lựa chọn.
+Từ bảng kết quả cho thấy mô hình Attention Toàn cục với hàm tính điểm general mà có sử dụng phương pháp input feeding (global general + input feed)) có chất lượng dịch tốt nhất với điểm BLEU là 20.41 (22.87 khi dùng kĩ thuật thay thế từ hiếm). Mô hình Attention Toàn cục với hàm tính điểm \textit{dot, general} cộng với phương pháp input feeding (global (dot, general) + input feed) có độ tăng điểm BLEU cao nhất khi dùng kĩ thuật thay thế từ hiếm. Kết quả này chứng minh được rằng mô hình global (general) hoạt động hiệu quả như mong đợi trong thực tế.  Mô hình có độ đo Perplexity thấp nhất là mô hình global (general) với 4.98. Mặc dù Perplexity hơn mô hình (global (general) + input feed) là 5.43, nhưng (global (general) + input feed) có điểm BLEU tốt nhất là 20.41, hơn 0.42 điểm. Điều này cho thấy là mô hình global (general) có khả năng tổng quát hóa chưa tốt so với các mô hình khác.
+ 
+Kết quả cho thấy rằng với 2 phương pháp input feeding và thay thế từ hiếm mà chúng tôi đã trình bày ở phần trước đều góp phần tăng hiệu quả của mô hình lên rất đáng kể. Cụ thể, phương pháp input feeding giúp mô hình global (dot) tăng điểm BLEU từ 18.62 lên 19.78 (+1.16), giúp mô hình global (general) tăng từ 19.99 lên 20.41 (+0.42). Kĩ thuật thay thế từ hiếm giúp điểm BLEU tăng trung bình hơn 2.0 (trừ mô hình global (dot) chỉ tăng 0.19 và local-p (general) chỉ tăng 0.54). Các kết quả này chứng minh được rằng những ý tưởng, lý thuyết chúng tôi trình bày ở phần trước đều hoạt động tốt như mong đợi. Những phương pháp, kĩ thuật này vừa rõ ràng về mặt lý thuyết, vừa hiệu quả trong thực tế.
+
+Về phương pháp input feeding, có một chút hạn chế của phương pháp này về chi phí tính toán. Input feeding làm kích thước đầu vào ở các bước thời gian của uni-LSTM của bộ giải mã tăng lên theo kích thước của véc-tơ attention. Hơn nữa, về mặt cài đặt, chúng ta không tận dụng được LSTM mà đã được hỗ trợ cài đặt bởi NVIDIA. Do vậy, tốc độ huấn luyện và trong kiểm thử của mô hình khi có sử dụng phương pháp input feeding sẽ giảm đi đáng kể, bên cạnh đó kích thước của mô hình cũng tăng lên theo.
+
+Về kĩ thuật thay thế từ hiếm, từ kết quả cho thấy kĩ thuật này rất mạnh mẽ. Các mô hình Attention được sử dụng cùng với kĩ thuật này đều được tăng điểm BLEU hơn 2. Mô hình này chỉ có hạn chế là phải phụ thuộc vào kết quả của cơ chế Attention có tốt hay không. Kết quả cũng cho thấy rằng chất lượng mô hình Attention không tốt sẽ dẫn tới độ hiệu quả của kĩ thuật thay thế từ hiếm kém đi (mô hình global (dot) và local-p (general)). Còn lại thì kĩ thuật này rất hiệu quả và tiện lợi. Thay thế từ hiếm không ảnh hưởng tới quá trình huấn luyện, do vậy mô hình không phải tốn chi phí tính toán cho kĩ thuật này trong quá trình huấn luyện và tốc độ huấn luyện không bị ảnh hưởng. 
+
+Nhìn chung, kết quả cho thấy kĩ thuật thay thế từ hiếm cải thiện kết quả tốt hơn phương pháp input feeding, nhưng input feeding giúp tạo ra một mô hình Attention đủ tốt để tạo điều kiện cho kĩ thuật thay thế từ hiếm phát huy sự hiệu quả của nó.
+
+\subsection{Phân tích đường cong học}
+Phần này, chúng tôi tập trung vào so sánh các tất cả các mô hình đã thực hiện ở phương diện quá trình học bằng cách quan sát độ lỗi và độ đo Perplexity của các mô hình đó trên cả tập huấn luyện và tập validation (newstest\_2013) trong quá hình huấn luyện mô hình. Điều này giúp chúng tôi biết được mô hình nào sẽ hội tụ và tổng quát hóa tốt hơn.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\textwidth]{train_valid_xent_ppl_scaled_retrain.png}
+	\caption[Đường cong học của các mô hình]{Đường cong học của các mô hình phân tích trên độ lỗi, độ đo perplexity trên tập dữ liệu huấn luyện và validation.}
+	\label{fig_learning_curve}
+\end{figure}
+
+Từ đồ thị \ref{fig_learning_curve}, thấy được rằng mô hình global (general) + input feed hội tụ nhanh nhất (độ lỗi và perplexity trên tập huấn luyện thấp nhất qua từng epoch). Trong các epoch đầu, hầu hết các mô hình có tốc độ giảm perplexity nhanh như nhau trên tập huấn luyện (chênh lệch độ lỗi, perplexity giữa hai mô hình thay đổi nhỏ qua các epoch). Các mô hình Attention không sử dụng phương pháp input feeding ở epoch đầu có perplexity cao hơn so với các mô hình sử dụng input feeding, nhưng khi ở các epoch về sau thì tốc độ giảm perplexity giống nhau. Mô hình Attention Cục bộ ở các epoch đầu đều có hành vi tương tự Attention Toàn cục, các epoch về sau thì mô hình Attention Cục bộ có kết quả thấp nhất trong tất cả các mô hình Attention. Mô hình global (general) là mô hình tốt nhất trên tập validation khi có độ lỗi và perplexity thấp nhất đồng thời có tốc độ giảm độ lỗi và perplexity nhanh nhất. Nhìn chung các mô hình Attention Toàn cục mà sử dụng hàm tính điểm dot thì có kết quả chưa tốt bằng các mô hình sử dụng hàm tính điểm general. Đối với mô hình không sử dụng Attention (non-attention) thì bị bỏ xa bởi các mô hình sử dụng Attention.
+
+\subsection{So sánh với kết quả của bài báo}
+Phần này chúng tôi thực hiện so sánh kết quả của chúng tôi với kết quả của bài báo \textit{Effective Approaches to Attention-based Neural Machine Translation} \cite{attentionThangLuong2015} để đánh giá rằng mô hình của chúng tôi hoạt động có thực sự đúng với bài báo không.
+
+% \usepackage{multirow}
 \begin{table}
 	\centering
-	\caption[So sánh giữa SRAEs với các loại ``Auto-Encoders'' khác]{So sánh giữa SRAEs (sử dụng cách ràng buộc trọng số của chúng tôi và dùng SW-SGD để huấn luyện) với các loại ``Auto-Encoders'' khác, bao gồm: ``Denoising Auto-Encoders'' (DAEs), ``Contractive Auto-Encoders'' (CAEs), ``Higher Order Contractive Auto-Encoders'' (HCAEs).}
-	\label{table_SRAEsVSOtherAEs}
-	\begin{tabular}{|c|c|} \hline
-		\textbf{Thuật toán học đặc trưng} & \textbf{Độ lỗi phân lớp trên tập kiểm tra (\%)}\\ \hline\hline
-		DAEs \cite{rifai2011HCAEs} & 2.05\\ \hline
-		CAEs \cite{rifai2011HCAEs} & 1.82\\ \hline
-		SRAEs & 1.62\\ \hline
-		HCAEs \cite{rifai2011HCAEs} & \textbf{1.20}\\ \hline
+	\caption{So sánh kết quả của khóa luận và bài báo.}
+	\begin{tabular}{|l|c|c|c|c|} 
+		\hline
+		\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Mô hình} }} & \multicolumn{2}{c|}{\textbf{Perplexity }}    & \multicolumn{2}{c|}{\textbf{BLEU }}  \\ 
+		\cline{2-5}
+		\multicolumn{1}{|c|}{}                                   & \textbf{KL}           & \textbf{Bài báo}     & \textbf{KL}    & \textbf{Bài báo}    \\ 
+		\hline
+		Cơ bản                                                   & 8.03                  & 8.1                  & 15.08          & 14.0                \\ 
+		\hline
+		Cơ bản + global (dot) + input feed                       & \multirow{2}{*}{5.43} & \multirow{2}{*}{6.1} & 19.78          & 18.6                \\ 
+		\cline{1-1}\cline{4-5}
+		Cơ bản + global (dot) + input feed + unk rpl             &                       &                      & 22.24          & 20.5                \\ 
+		\hline
+		Cơ bản + global (general) + input feed                   & \multirow{2}{*}{\textbf{5.22}} & \multirow{2}{*}{6.1} & \textbf{20.41} & 17.3                \\ 
+		\cline{1-1}\cline{4-5}
+		Cơ bản + global (general) + input feed + unk rpl         &                       &                      & \textbf{22.87} & 19.1                \\ 
+		\hline
+		Cơ bản + local-p (general) + input feed                  & \multirow{2}{*}{5.89} & \multirow{2}{*}{\textbf{5.9}} & 19.43          & \textbf{19.0}       \\ 
+		\cline{1-1}\cline{4-5}
+		Cơ bản + local-p (general) + input feed + unk rpl        &                       &                      & 19.97          & \textbf{20.9}       \\
+		\hline
 	\end{tabular}
+	\label{tab_thesis-paper}
 \end{table}
+
+Từ bảng \ref{tab_thesis-paper} trên cho thấy mô hình của chúng tôi hoạt động tốt. Kết quả của chúng tôi có khác với bài báo rằng hầu hết mô hình của chúng tôi đều hơn kết quả của bài báo từ 1.0 đến gần 2.0 điểm BLEU. Đặc biệt riêng với mô hình Attention Toàn cục với hàm tính điểm general có kết quả có sự chênh lệch lớn.
+
+Lí do của sự khác biệt lớn giữa kết quả khóa luận và bài báo này, chúng tôi cho rằng đó là về sự khác nhau giữa 2 ngôn ngữ và công cụ - Matlab và PyTorch. Matlab là một ngôn ngữ lâu đời và tại thời điểm năm 2015 mà tác giả thực hiện bài báo này thì Matlab vẫn chưa có hỗ trợ nhiều cho Học sâu và chưa tối ưu cho lập trình song song trên GPU. Do vậy, hầu hết các bước tính toán quan trọng của mô hình đều là do tác giả tự cài đặt, bao gồm cả các bước thực hiện tính đạo hàm để lan truyền ngược. Trong khi đó, PyTorch là một công cụ được thiết kế dành riêng cho việc hỗ trợ cài đặt các mô hình Python dựa trên ngôn ngữ Python được Facebook cùng với các trường đại học, công ty v.v... hỗ trợ phát triển. Do vậy, ý tưởng của mô hình được cài đặt khá giống nhau trên mã nguồn Matlab và Python nhưng các phần lõi của mô hình được cài đặt lại khác nhau.
+
+Về sự hoạt động không hiệu quả của Attention Cục bộ, theo chúng tôi phân tích được, mô hình Attention Cục bộ local-p hoạt động không tốt như mong đợi là bởi vì khi phát sinh vị trí $p_t$ tại mỗi bước giải mã, mô hình chỉ có được thông tin từ trạng thái ẩn của bộ giải mã tại thời điểm $t$ hiện tại nên rất khó để có thể ước lượng vị trí gióng hàng chính xác. Khi chúng tôi quan sát các trọng số gióng hàng của mô hình trong quá trình các câu, chúng tôi thấy rằng vị trí $p_t$ luôn nằm ở các từ ở đầu câu (ở vị trí thứ 1, thứ 2 trong câu). Điều đó cho thấy rằng mô hình local-p không học được cách phát sinh vị trí $p_t$ chính xác, việc mô hình vẫn có thể dịch một cách tương đối chính xác khi vị trí $p_t$ có sự sai lệch như vậy là bởi vì các trạng thái ẩn ở bộ giải mã còn chứa thông tin của các từ lân cận.
+
+Đối với kết quả của kĩ thuật thay thế từ hiếm, do kĩ thuật thay thế từ hiếm của tác giả là sử dụng một mô hình gióng hàng riêng biệt với kết quả Attention theo bài báo của chính tác giả \cite{rarewordhandling} (chúng tôi sử dụng theo bài báo \cite{JeanUnkRepl}, sử dụng dựa trên kết quả gióng hàng của Attention) nên dù kết quả gióng hàng của Attention không tốt thì độ hiệu quả của kĩ thuật thay thế từ hiếm không bị ảnh hưởng.
+
+\subsection{Chất lượng gióng hàng của mô hình}
+Trong phần này chúng tôi trình bày về một trong những lợi ích quan trọng của các mô hình Attention là khả năng trực quan hóa những gì mô hình đã học được. Từ khi Học sâu ra đời, bên cạnh sự thành công rực rỡ trong việc giải quyết các bài toán phổ biến thì mạng Học sâu có hạn chế rất lớn về khả năng diễn dịch kết quả. Do khả năng tự học các đặc trưng, khi mạng Học sâu xuất ra các kết quả, mọi người hầu như không thể giải thích được lí do vì sao mô hình cho ra kết quả như vậy. Vì thế, mạng Học sâu không được sử dụng cho các lĩnh vực, ứng dụng mà cần sự rõ ràng khi đưa ra quyết định như trong lĩnh vực y tế, kinh tế, v.v... Hơn nữa còn gây cản trở việc nghiên cứu và phát triển các mô hình Học sâu do khó để kiểm nghiệm được rằng các ý tưởng, phương pháp sử dụng trên mạng Học sâu có hoạt động như mong muốn hay không. Do vậy, khả năng diễn dịch của cơ chế Attention vô cùng hữu ích cho những mạng Học sâu mà sử dụng cơ chế Attention.
+
+Giữa các từ ở câu nguồn và câu đích sẽ có trọng số gióng hàng (điểm attention) $\bm{a}_t$ tương ứng. Sử dụng những trọng số gióng hàng đó giúp mọi người có thể biết được rằng mô hình đã học được những gì và có hoạt động đúng như mong đợi hay không. Chúng tôi vẽ các ma trận trọng số giữa một số cặp câu mẫu đã được dịch bằng cơ chế Attention để cho thấy sự hiệu quả của cơ chế này.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{en-de_attn-weights_31.png}
+	\caption[Gióng hàng học được của mô hình của cặp câu Anh-Việt.]{Gióng hàng học được của mô hình của cặp câu Anh-Việt. Màu càng đậm thể hiện trọng số càng cao.}
+	\label{fig_en-de_attn-weights_31}
+\end{figure}
+
+Ta thấy rằng mô hình học được trọng số gióng hàng khá chính xác đối với những từ phổ biến như "know", "business". Tuy nhiên từ "Sie" trong tiếng Đức có nghĩa là "they" thì lại gióng hàng không chính xác khi từ "Sie" này có trọng số gióng hàng với dấu "." cao nhất. Trong các kết quả mà chúng tôi quan sát, chúng tôi thấy rằng các từ đứng đầu câu như "Sie" (they), "Ein" (một), "Eine" (một) và một số từ khác trong tiếng Đức lại hay được gióng hàng với từ thứ 2 trong câu tiếng Anh (thường là động từ) hoặc là dấu ".". Hiện tại, chúng tôi vẫn chưa tìm ra lí do vì sao lại có hiện tượng như vậy, mặc dù câu dịch vẫn chính xác so với câu đúng cho trước.
+
+\section{Kết quả thực nghiệm trên tập dữ liệu Anh-Việt}
+\subsection{Các thiết lập thực nghiệm}
+Bên cạnh đánh giá chất lượng các mô hình trên tập dữ liệu Anh-Đức như theo trong bài báo chính mà chúng tôi tìm hiểu, chúng tôi còn thực hiện thực nghiệm trên tập dữ liệu Anh-Việt để có thể dễ dàng đánh giá trực quan hơn về cơ chế Attention trong việc học cách gióng hàng giữa hai ngôn ngữ.
+
+Chúng tôi thực hiện thưc nghiệm dựa trên bài báo "Stanford Neural Machine Translation Systems for Spoken Language Domains" \cite{AnhVietpaper} được công bố tại workshop IWSLT' 15 của nhóm tác giả của Đại học Stanford (Minh-Thang Luong, Christopher D. Manning). Tập dữ liệu chúng tôi sử dụng là tập dữ liệu của IWSLT' 15 được cung cấp trên trang chủ của nhóm Xử lý Ngôn ngữ Tự nhiên Đại học Stanford. Bộ dữ liệu này gồm các cặp câu được viết dưới dạng ngôn ngữ tự nhiên ở hai ngôn ngữ tiếng Anh và tiếng Việt. Tập dữ liệu này có khoảng 133 ngàn cặp câu. Những câu này được thu thập từ các buổi nói chuyện trên TEDTalk bằng tiếng Anh và đã được ghi phụ đề tiếng Việt. Chúng tôi đánh giá chất lượng của mô hình huấn luyện được trên tập dữ liệu kiểm thử \textit{tst\_2013.en} và \textit{tst\_2013.vi} được cung cấp trong IWSLT' 15.
+
+Dữ liệu được tiến hành tiền xử lý bằng cách tách từ đối với mỗi câu. Bộ từ vựng dành cho tiếng Anh có 17,192 từ và bộ từ vựng dành cho tiếng Việt có 7,710 từ. Khi trong câu có một từ nào không thuộc bộ từ vựng thì sẽ được gán kí hiệu \textit{<unk>} (từ hiếm). Cũng giống như đối với dữ liệu Anh-Đức. Chúng tôi đánh giá mô hình trên độ đo Perplexity và độ đo BLEU.
+
+Trong quá trình huấn luyện, chúng tôi không thực hiện thêm bước tiền xử lí nào đối với các câu đầu vào ngoài việc thực hiện bước đảo thứ tự các câu trong tập dữ liệu giống như trong tập dữ liệu Anh-Đức.
+
+Chúng tôi sử dụng các mô hình LSTM với mỗi LSTM có 2 tầng. Mỗi tầng LSTM có kích thước trạng thái ẩn là 500 (đối với bộ mã hóa sử dụng bi-LSTM nên mỗi chiều của bi-LSTM sẽ có kích thước trạng thái ẩn là 500). Số chiều của word embedding là 500. Các thiết lập còn lại giống như trong tập dữ liệu Anh-Đức. Lí do chúng tôi giảm kích thước của mô hình đi một nửa so với các mô hình trong tập Anh-Đức là bởi vì tập dữ liệu Anh-Việt rất nhỏ, chỉ khoảng 133 ngàn cặp câu, do đó mô hình có kích thước lớn sẽ dễ dẫn đến tình trạng quá khớp (overfitting).
+
+\subsection{Kết quả trên các độ đo}
+
+Mô hình mà chúng tôi sử dụng để đánh giá là mô hình có dùng cơ chế Attention Toàn cục với hàm tính điểm general, phương pháp input feeding và kĩ thuật thay thế từ hiếm. Bảng \ref{tab_en-vi_results} cho thấy kết quả của chúng tôi so với kết quả của bài báo. Do trong bài báo \cite{AnhVietpaper} không đề cập đến là sử dụng mô hình nào nên chúng tôi sử dụng mô hình tốt nhất của chúng tôi dựa theo kết quả của tập Anh-Đức để thực hiện so sánh. Lí do của sự chênh lệch của mô hình chúng tôi và bài báo giống như đã trình bày ở phần trước.
+
+Trong trường hợp này, kĩ thuật thay thế từ hiếm không thực sự giúp ích nhiều trong việc cải thiện chất lượng dịch. Lí do bởi vì có nhiều từ tiếng Anh tương đương với một từ có nhiều chữ trong tiếng Việt như "success" - "thành công", "city - thành phố", v.v... Để có thể tận dụng tốt hơn kĩ thuật thay thế từ hiếm, chúng tôi cần phải thực hiện bài toán tách từ cho tiếng Việt chính xác hơn như tách từ "thành công" trong câu thành "thành\_công" rồi đưa vào mô hình.
+
+% \usepackage{multirow}
+
+
+\begin{table}
+	\centering
+	\caption{Kết quả thực nghiệm trên tập dữ liệu kiểm thử Anh-Việt tst2013 và so sánh với kết quả của bài báo.}
+	\begin{tabular}{|l|c|c|} 
+		\hline
+		\multicolumn{1}{|c|}{ \textbf{Mô hình} }          & \textbf{Perplexity}   & \textbf{BLEU}                               \\ 
+		\hline
+		Bài báo                                           &                       & 23.3                                        \\ 
+		\hline
+		Cơ bản + global (general) + input feed~           & \multirow{2}{*}{8.55} & 27.89(+4.59)                                \\ 
+		\cline{1-1}\cline{3-3}
+		Cơ bản + global (general) + input feed~ + unk rpl &                       & \multicolumn{1}{l|}{\textbf{28.30(+0.41)}}  \\
+		\hline
+	\end{tabular}
+	\label{tab_en-vi_results}
+\end{table}
+
+\subsection{Chất lượng gióng hàng của mô hình}
+Giống như trên tập dữ liệu Anh-Đức, chúng tôi trực quan hóa kết quả gióng hàng để có thể đánh giá chất lượng gióng hàng dễ dàng hơn.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\textwidth]{en-vi_attn-weights_25.png}
+	\caption[Gióng hàng học được của mô hình của cặp câu Anh-Việt.]{Gióng hàng học được của mô hình của cặp câu Anh-Việt. Màu càng đậm thể hiện trọng số càng cao.}
+	\label{fig_en-vi_attn-weights_25}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\textwidth]{en-vi_attn-weights_68.png}
+	\caption[Gióng hàng học được của mô hình của cặp câu Anh-Việt.]{Gióng hàng học được của mô hình của cặp câu Anh-Việt. Màu càng đậm thể hiện trọng số càng cao.}
+	\label{fig_en-vi_attn-weights_68}
+\end{figure}
+
+Trong hai ví dụ trên, hình \ref{fig_en-vi_attn-weights_25} và \ref{fig_en-vi_attn-weights_68}, cho thấy mô hình học được gióng hàng giữa cặp câu Anh-Việt khá là tốt. Câu tiếng Việt được dịch khá trôi chảy với văn phong giống văn phong của người Việt khi nói chuyện. Tuy chỉ có ở ví dụ hình \ref{fig_en-vi_attn-weights_68}, từ "he" được dịch ra là từ "ông", chính xác hơn phải là "anh ấy" hay "ông ấy". Những từ tiếng Anh được dịch tương ứng với một từ có hai chữ bên tiếng Việt đều được gióng hàng chính xác với trọng số cao. Ví dụ như từ "family" dịch sang từ "gia đình" được gióng hàng với trọng số cao: $\approx 0.95$. Có một số từ gióng hàng chưa thật sự thích hợp như từ "rằng" được gióng hàng với từ "I" với trọng số cao hơn từ "that". Đối với những từ không liên quan còn lại thì được gán trọng số gióng hàng rất nhỏ $\approx 0$. Trong các kết quả của tập Anh-Việt, chúng tôi quan sát rằng mô hình không bị gióng hàng sai đối với các từ đứng đầu câu như trong tiếng Đức.

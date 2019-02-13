@@ -1,4 +1,5 @@
 \addvspace {10\p@ }
+<<<<<<< HEAD
 \contentsline {figure}{\numberline {1.1}{\ignorespaces L\IeC {\d i}ch s\IeC {\h \uhorn } t\IeC {\'o}m t\IeC {\'\abreve }t c\IeC {\h u}a d\IeC {\d i}ch m\IeC {\'a}y}}{3}{figure.caption.2}
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Ba ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p d\IeC {\d i}ch m\IeC {\'a}y d\IeC {\d \uhorn }a tr\IeC {\^e}n lu\IeC {\d \acircumflex }t}}{4}{figure.caption.3}
 \contentsline {figure}{\numberline {1.3}{\ignorespaces V\IeC {\'\i } d\IeC {\d u} v\IeC {\`\ecircumflex } t\IeC {\d \acircumflex }p c\IeC {\'a}c c\IeC {\^a}u song song trong hai ng\IeC {\^o}n ng\IeC {\~\uhorn }}}{7}{figure.caption.4}
@@ -9,3 +10,39 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces M\IeC {\^o} h\IeC {\`\i }nh RNN v\IeC {\'\ohorn }i k\IeC {\'\ecircumflex }t n\IeC {\'\ocircumflex }i v\IeC {\`o}ng}}{13}{figure.caption.8}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces M\IeC {\^o} h\IeC {\`\i }nh RNN d\IeC {\d a}ng d\IeC {\`a}n tr\IeC {\h a}i}}{14}{figure.caption.9}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces M\IeC {\d \ocircumflex }t "LSTM cell"}}{21}{figure.caption.10}
+=======
+\contentsline {figure}{\numberline {1.1}{\ignorespaces L\IeC {\d i}ch s\IeC {\h \uhorn } t\IeC {\'o}m t\IeC {\'\abreve }t c\IeC {\h u}a d\IeC {\d i}ch m\IeC {\'a}y}}{3}{figure.caption.6}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Ba ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p d\IeC {\d i}ch m\IeC {\'a}y d\IeC {\d \uhorn }a tr\IeC {\^e}n lu\IeC {\d \acircumflex }t}}{4}{figure.caption.7}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces V\IeC {\'\i } d\IeC {\d u} v\IeC {\`\ecircumflex } t\IeC {\d \acircumflex }p c\IeC {\'a}c c\IeC {\^a}u song song trong hai ng\IeC {\^o}n ng\IeC {\~\uhorn }}}{7}{figure.caption.8}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces V\IeC {\'\i } d\IeC {\d u} v\IeC {\`\ecircumflex } Ki\IeC {\'\ecircumflex }n tr\IeC {\'u}c \textit {B\IeC {\d \ocircumflex } m\IeC {\~a} h\IeC {\'o}a - B\IeC {\d \ocircumflex } gi\IeC {\h a}i m\IeC {\~a}} trong d\IeC {\d i}ch m\IeC {\'a}y n\IeC {\ohorn }-ron}}{8}{figure.caption.9}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Ki\IeC {\'\ecircumflex }n tr\IeC {\'u}c B\IeC {\d \ocircumflex } m\IeC {\~a} h\IeC {\'o}a - B\IeC {\d \ocircumflex } gi\IeC {\h a}i m\IeC {\~a} \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c x\IeC {\^a}y d\IeC {\d \uhorn }ng tr\IeC {\^e}n m\IeC {\d a}ng n\IeC {\ohorn }-ron h\IeC {\`\ocircumflex }i quy}}{8}{figure.caption.10}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\'a}ch bi\IeC {\h \ecircumflex }u di\IeC {\~\ecircumflex }n t\IeC {\`\uhorn } b\IeC {\`\abreve }ng word embedding}}{15}{figure.caption.11}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Minh h\IeC {\d o}a m\IeC {\^o} h\IeC {\`\i }nh ng\IeC {\^o}n ng\IeC {\~\uhorn } d\IeC {\d \uhorn }a tr\IeC {\^e}n m\IeC {\d a}ng n\IeC {\ohorn }-ron truy\IeC {\`\ecircumflex }n th\IeC {\h \abreve }ng}}{17}{figure.caption.12}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Minh h\IeC {\d o}a bi\IeC {\h \ecircumflex }u di\IeC {\~\ecircumflex }n b\IeC {\`\abreve }ng m\IeC {\~a} h\IeC {\'o}a one-hot.}}{18}{figure.caption.13}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Minh h\IeC {\d o}a bi\IeC {\h \ecircumflex }u di\IeC {\~\ecircumflex }n ph\IeC {\^a}n t\IeC {\'a}n}}{20}{figure.caption.14}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Minh h\IeC {\d o}a qu\IeC {\'a} tr\IeC {\`\i }nh bi\IeC {\'\ecircumflex }n \IeC {\dj }\IeC {\h \ocircumflex }i c\IeC {\h u}a ph\IeC {\'e}p nh\IeC {\^a}n ma tr\IeC {\d \acircumflex }n}}{22}{figure.caption.15}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Minh h\IeC {\d o}a t\IeC {\`\acircumflex }ng Embedding.}}{25}{figure.caption.16}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces M\IeC {\^o} h\IeC {\`\i }nh RNN v\IeC {\'\ohorn }i k\IeC {\'\ecircumflex }t n\IeC {\'\ocircumflex }i v\IeC {\`o}ng}}{27}{figure.caption.17}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces M\IeC {\^o} h\IeC {\`\i }nh RNN d\IeC {\d a}ng d\IeC {\`a}n tr\IeC {\h a}i}}{28}{figure.caption.18}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Minh h\IeC {\d o}a qu\IeC {\'a} tr\IeC {\`\i }nh th\IeC {\^o}ng tin d\IeC {\`a}i h\IeC {\d a}n trong RNN b\IeC {\d i} suy gi\IeC {\h a}m}}{34}{figure.caption.19}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Minh h\IeC {\d o}a thu\IeC {\d \acircumflex }t to\IeC {\'a}n Back propagation through time}}{35}{figure.caption.20}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces M\IeC {\d \ocircumflex }t LSTM cell}}{38}{figure.caption.21}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Minh h\IeC {\d o}a qu\IeC {\'a} tr\IeC {\`\i }nh th\IeC {\^o}ng tin d\IeC {\`a}i h\IeC {\d a}n trong LSTM \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c duy tr\IeC {\`\i }}}{41}{figure.caption.22}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Minh h\IeC {\d o}a m\IeC {\d \ocircumflex }t bi-LSTM \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c d\IeC {\`u}ng l\IeC {\`a}m b\IeC {\d \ocircumflex } m\IeC {\~a} h\IeC {\'o}a}}{43}{figure.caption.23}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Minh h\IeC {\d o}a ki\IeC {\'\ecircumflex }n tr\IeC {\'u}c B\IeC {\d \ocircumflex } m\IeC {\~a} h\IeC {\'o}a - B\IeC {\d \ocircumflex } gi\IeC {\h a}i m\IeC {\~a} \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c s\IeC {\h \uhorn } d\IeC {\d u}ng trong kh\IeC {\'o}a lu\IeC {\d \acircumflex }n.}}{46}{figure.caption.24}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Minh h\IeC {\d o}a ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p teacher forcing.}}{49}{figure.caption.25}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Minh h\IeC {\d o}a thu\IeC {\d \acircumflex }t to\IeC {\'a}n beam search.}}{52}{figure.caption.26}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention.}}{55}{figure.caption.27}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention To\IeC {\`a}n c\IeC {\d u}c.}}{58}{figure.caption.28}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }.}}{61}{figure.caption.29}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Minh h\IeC {\d o}a c\IeC {\ohorn } ch\IeC {\'\ecircumflex } Attention C\IeC {\d u}c b\IeC {\d \ocircumflex }.}}{64}{figure.caption.30}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Minh h\IeC {\d o}a k\IeC {\~\i } thu\IeC {\d \acircumflex }t thay th\IeC {\'\ecircumflex } t\IeC {\`\uhorn } hi\IeC {\'\ecircumflex }m.}}{67}{figure.caption.31}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces \IeC {\DJ }\IeC {\uhorn }\IeC {\`\ohorn }ng cong h\IeC {\d o}c c\IeC {\h u}a c\IeC {\'a}c m\IeC {\^o} h\IeC {\`\i }nh}}{74}{figure.caption.34}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Gi\IeC {\'o}ng h\IeC {\`a}ng h\IeC {\d o}c \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c c\IeC {\h u}a m\IeC {\^o} h\IeC {\`\i }nh c\IeC {\h u}a c\IeC {\d \abreve }p c\IeC {\^a}u Anh-Vi\IeC {\d \ecircumflex }t.}}{76}{figure.caption.36}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Gi\IeC {\'o}ng h\IeC {\`a}ng h\IeC {\d o}c \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c c\IeC {\h u}a m\IeC {\^o} h\IeC {\`\i }nh c\IeC {\h u}a c\IeC {\d \abreve }p c\IeC {\^a}u Anh-Vi\IeC {\d \ecircumflex }t.}}{79}{figure.caption.38}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Gi\IeC {\'o}ng h\IeC {\`a}ng h\IeC {\d o}c \IeC {\dj }\IeC {\uhorn }\IeC {\d \ohorn }c c\IeC {\h u}a m\IeC {\^o} h\IeC {\`\i }nh c\IeC {\h u}a c\IeC {\d \abreve }p c\IeC {\^a}u Anh-Vi\IeC {\d \ecircumflex }t.}}{80}{figure.caption.39}
+\addvspace {10\p@ }
+>>>>>>> attention

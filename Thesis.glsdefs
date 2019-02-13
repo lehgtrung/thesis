@@ -1,0 +1,180 @@
+\ifglsentryexists{acr_norm}{}%
+{%
+\gls@defglossaryentry{acr_norm}%
+{%
+name={$\left \| \right \|$},%
+sort={$\left \| \right \|$},%
+type={main},%
+first={$\left \delimiter "026B30D \right \delimiter "026B30D $},%
+firstplural={$\left \delimiter "026B30D \right \delimiter "026B30D $s},%
+text={$\left \delimiter "026B30D \right \delimiter "026B30D $},%
+plural={$\left \delimiter "026B30D \right \delimiter "026B30D $s},%
+description={Phép tính norm},%
+descriptionplural={Phép tính norm},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{acr_concate}{}%
+{%
+\gls@defglossaryentry{acr_concate}%
+{%
+name={$\odot \hspace {0.2in}$},%
+sort={$\odot \hspace {0.2in}$},%
+type={main},%
+first={$\odot \protect \hspace {0.2in}$},%
+firstplural={$\odot \protect \hspace {0.2in}$s},%
+text={$\odot \protect \hspace {0.2in}$},%
+plural={$\odot \protect \hspace {0.2in}$s},%
+description={Phép nối 2 vector đặc trưng},%
+descriptionplural={Phép nối 2 vector đặc trưng},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{acr_early_fusion}{}%
+{%
+\gls@defglossaryentry{acr_early_fusion}%
+{%
+name={$A-B\hspace {0.2in}$},%
+sort={$A-B\hspace {0.2in}$},%
+type={main},%
+first={$A-B\protect \hspace {0.2in}$},%
+firstplural={$A-B\protect \hspace {0.2in}$s},%
+text={$A-B\protect \hspace {0.2in}$},%
+plural={$A-B\protect \hspace {0.2in}$s},%
+description={Phép kết hợp trước 2 vector đặc trưng A và B (early fusion)},%
+descriptionplural={Phép kết hợp trước 2 vector đặc trưng A và B (early fusion)},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{acr_late_fusion}{}%
+{%
+\gls@defglossaryentry{acr_late_fusion}%
+{%
+name={$A/B\hspace {0.2in}$},%
+sort={$A/B\hspace {0.2in}$},%
+type={main},%
+first={$A/B\protect \hspace {0.2in}$},%
+firstplural={$A/B\protect \hspace {0.2in}$s},%
+text={$A/B\protect \hspace {0.2in}$},%
+plural={$A/B\protect \hspace {0.2in}$s},%
+description={Phép kết hợp trễ 2 vector đặc trưng A và B (late fusion)},%
+descriptionplural={Phép kết hợp trễ 2 vector đặc trưng A và B (late fusion)},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{acr_st}{}%
+{%
+\gls@defglossaryentry{acr_st}%
+{%
+name={$s.t.\hspace {0.1in}$},%
+sort={$s.t.\hspace {0.1in}$},%
+type={main},%
+first={$s.t.\protect \hspace {0.1in}$},%
+firstplural={$s.t.\protect \hspace {0.1in}$s},%
+text={$s.t.\protect \hspace {0.1in}$},%
+plural={$s.t.\protect \hspace {0.1in}$s},%
+description={thỏa điều kiện (subject to)},%
+descriptionplural={thỏa điều kiện (subject to)},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{acr_hist}{}%
+{%
+\gls@defglossaryentry{acr_hist}%
+{%
+name={$hist\hspace {0.1in}$},%
+sort={$hist\hspace {0.1in}$},%
+type={main},%
+first={$hist\protect \hspace {0.1in}$},%
+firstplural={$hist\protect \hspace {0.1in}$s},%
+text={$hist\protect \hspace {0.1in}$},%
+plural={$hist\protect \hspace {0.1in}$s},%
+description={Lược đồ phân bố (histogram)},%
+descriptionplural={Lược đồ phân bố (histogram)},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
